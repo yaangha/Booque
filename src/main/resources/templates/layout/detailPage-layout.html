@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Template</title>
+	
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+		crossorigin="anonymous" />
+		
+	<style>
+		* {
+			font-family: 'NanumBarunGothic';		
+		}
+	</style>
+</head>
+<body>
+
+	<!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
+	<div class="w-75 container">
+		<div class="row my-5"> 
+			<div class="col"> <!-- 도서 이미지 -->
+				<img src="images/eximg.jpeg" style="width: 470px"/>
+			</div>
+			
+			<div class="col border-top border-bottom border-4 border-dark"> <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
+				<div class="row">
+					<div class="col-10 h2 my-4">[국내도서] 노르웨이의 숲</div>
+					<div class="col-2 my-2">
+						<img src="images/heart.png" style="width: 50px" />
+					</div>
+				</div>
+				<div>무라카미 하루키<span style="color: gray;"> 저자</span></div>
+				<div>민음사</div>
+				<div class="my-2"style="font-weight: bold;">
+					<span style="font-size: large;">13,500</span>
+					<span>원</span>
+				</div>
+				<div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
+					<button type="button" class="w-50 btn btn-outline-dark">장바구니</button> <!-- 장바구니 페이지 이동 -->
+					<button type="button" class="w-50 btn btn-dark">공유하기</button> <!-- url 복사 등 -->
+				</div>
+				<button type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
+			</div>
+		</div>
+
+	<nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">
+		<ul class="nav nav-pills">
+			<li class="nav-item">
+				<a class="nav-link" href="#bookInfo">도서정보</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#bookReview">리뷰/한줄평</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#bookPayInfo">배송/반품/교환</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">구매하기</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#scrollspyHeading3">장바구니</a></li>
+						<li><a class="dropdown-item" href="#scrollspyHeading4">결제하기</a></li>
+					</ul>
+			</li>
+		</ul>
+	</nav>
+	<div data-bs-spy="scroll" data-bs-target="#navbar-example2"
+		data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
+		class="scrollspy-example p-3 rounded-2" tabindex="0">
+		<h4 id="bookInfo">노르웨이의 숲</h4>
+		<p class="border-bottom">무라카미 하루키를 만나기 위해 가장 먼저 읽어야 할 책! 하루키 월드의 빛나는 다이아몬드 무라카미 하루키를 만나기 위해
+				가장 먼저 읽어야 할 책! 페이지를 처음 펼치는 오늘의 젊음들에게, 그리고 오랜 기억 속에 책의 한 구절을 간직하고 있는
+				어제의 젊음들에게, 한결같은 울림으로 예민하고 섬세한 청춘의 감성을 전하며 영원한 필독서로 사랑받고 있는 무라카미 하루키의
+				대표작 『노르웨이의 숲』. 1960년대 말 고도성장기 일본을 배경으로, 개인과 사회 사이의 금방이라도 무너질 듯한 관계와
+				손을 뻗으면 잡을 수 있을 것처럼 생생한 청춘의 순간을 그려 낸 이 소설은 36개국 이상의 국가에서 번역 소개되는 등
+				세계적인 ‘하루키 붐’을 일으키며 무라카미 하루키의 문학적 성과를 널리 알린 현대 일본 문학의 대표작이다. 한국어판 ⓒ
+				(주)민음사, 2013.</p>
+				
+		<!-- 개인 블로그 페이지로 이동 -->
+		<h4 id="bookReview">리뷰/한줄평</h4>
+		<div> <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
+			<div class="my-2">작성자 이름</div>
+			<p>무라카미 하루키의 '노르웨이의 숲'을 이북으로 구입하였다. 오래전에 읽었던 책인데, 새로운 표지와 번역으로
+				재출간 되었다고 해서 구입하게 되었다. 다시 읽어도 여러가지로 생각할 거리를 던져주는 책으로 밝은 분위기의 내용은
+				아니지만 독특한 개성을 가진 인물들이 등장해 읽는 재미가 있는 소설이다. 무라카미 하루키 특유의 미려한 표현이 읽는
+				재미를 더해준다.</p>
+			</div>
+		
+		<h4 id="bookPayInfo">배송/반품/교환</h4>
+		<p>...</p>
+	</div>
+
+	</div> <!-- 전체 블록 사이즈때문에 묶어놓은 것 end -->
+
+
+	<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous">
+</script>
+</body>
+</html>
