@@ -17,7 +17,7 @@ import site.book.project.service.BookService;
 public class BookDetailController {
 // 책 상세 페이지, 
 // book, bookcomment, post, 책 홍보(테이블을 만들어야 함)
-// 
+// ss
 	
 	private final BookService bookService;
 	

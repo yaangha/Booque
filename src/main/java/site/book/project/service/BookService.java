@@ -38,7 +38,7 @@ public class BookService {
 		}
 		return contentList;
 	}
-
+//dd
 	// 별점 소숫점 첫째 자리까지 완.
 	public Double scoreAvg(Integer bookId) {
 	    log.info("별점 계산 bookid={}", bookId);

@@ -15,7 +15,7 @@ public interface BookCommentRepository extends JpaRepository<BookComment, Intege
     List<BookComment> findByBookBookIdOrderByCreatedTimeDesc(Integer bookId);
 //    // 오래된 순
     List<BookComment> findByBookBookIdOrderByCreatedTime(Integer bookId);
-//    // 좋아요 순
+//    // 좋아요 순ss
     
 
     
