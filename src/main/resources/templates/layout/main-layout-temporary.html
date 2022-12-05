@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+
+<!-- 지혜 / 반응형 웹(설정 일부) -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- 지혜 / OpenGraph: 웹페이지가 SNS 또는 OpenGraph를 활용한 사이트로 공유될 때 사용되는 정보 -->
+<!-- 페북이나 카톡 링크 공유할 때 제목, 이미지, 페이지 링크가 간략하게 나타나는 경우 등등 -->
+<meta property="og:title" content="여기에 페이지나 사이트 제목" />
+<meta property="og:type" content="website" />
+<meta property="og:image"
+    content="여기에 사이트 로고나 이미지" />
+<meta property="og:url"
+    content="여기에 페이지 주소" />
+<meta property="og:site_name" content="여기에 사이트 제목? 예스이십사는 title이랑 똑같게 한 듯여" />
+
+<title>BOOQUE</title>
+<link rel='shortcut icon'
+    href='https://cdn.discordapp.com/attachments/1047044304859828280/1047794167432093716/KakaoTalk_20221201_150042749.jpg'     
+    type='image/x-icon' />
+    <!-- 여기에 사이트 로고! 탭에 사이트제목 옆에 띄울 거 -->
+    
+<!-- 지혜 / 각종 자바스크립트 파일들..... -->
+    
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jquery-3.4.1_min.js'></script>
+
+
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/swiper_min.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/Chart.bundle_min.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/utils.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jquery.mCustomScrollbar_min.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/common.js?v=916'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jquery.lazy.min.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jquery.cookie.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jquery.url.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/base64.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/babel.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/polyfill.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/Main.js?v=916'></script>
+<script type='text/javascript'
+    src='/inc/js/custom-1.8.21/ui/jquery-ui-1.8.21.custom.min.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jry_home_jdefault.js'></script>
+<script type='text/javascript'
+    src='http://tkfile.yes24.com/New/Js/jry_home_jdialog.js'></script>
+<script type='text/javascript' src='/inc/js/jry_default_new.js?v=916'></script>
+
+<!-- 지혜 / 각종 css 파일들...... -->
+
+<link rel='stylesheet' type='text/css'
+    href='http://tkfile.yes24.com/New/Css/reset.css' />
+<link rel='stylesheet' type='text/css'
+    href='http://tkfile.yes24.com/New/Css/swiper.css' />
+<link rel='stylesheet' type='text/css'
+    href='http://tkfile.yes24.com/New/Css/jquery.mCustomScrollbar.css' />
+<link rel='stylesheet' type='text/css'
+    href='http://tkfile.yes24.com/New/Css/common.css?v=13' />
+<link rel='stylesheet' type='text/css'
+    href='http://tkfile.yes24.com/New/Css/main2.css?v=2020012203' />
+
+<style type="text/css">
+.perform-top {
+    overflow: visible !important;
+}
+
+body {
+    font-family: 'NanumBarunGothic', '맑은 고딕', 'Malgun Gothic', sans-serif;
+}
+
+
+#booq-logo {
+    left: 60px;
+}
+
+
+</style>
+</head>
+
+
+
+<body>
+   
+    <div class="cp-top-wrap">
+
+
+    <!-- 지혜 / 상단 검은색 메뉴 바 -->
+
+        <div class="consice" id="consice">
+            <div class="consice-left">
+                <a href="http://www.yes24.com" target="_blank">여기에 메뉴 1</a>
+                <a
+                    href="http://www.yes24.com/Mall/Main/Music/003?CategoryNumber=003"
+                    target="_blank" class="ccl-etc3">여기에 메뉴 2</a> <a
+                    href="http://www.yes24.com/Mall/Main/Dvd/004?CategoryNumber=004"
+                    target="_blank" class="ccl-etc4">여기에 메뉴 3</a> <a
+                    href="https://yes24livehall.com" target="_blank"
+                    class="ccl-etc1">또 다른 메뉴</a> <a
+                    href="https://yes24stage.com" target="_blank"
+                    class="ccl-etc2">또 또 다른 메뉴</a>
+            </div>
+            <div class="consice-right">
+                <a href="#" id="consiceLogin">로그인</a> <a
+                    href="http://www.yes24.com/Member/FTMypageMain.aspx"
+                    target="_blank">마이페이지</a> <a
+                    href="http://www.yes24.com/Mall/Help/Main"
+                    target="_blank">고객센터</a>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+                                    $(document)
+                                            .ready(
+                                                    function() {
+
+                                                        if (('False')
+                                                                .toLowerCase() == 'false') {
+                                                            $('#consiceLogin')
+                                                                    .html("로그인");
+
+                                                            if (sTLPage == "1") {
+                                                                $(
+                                                                        '#consiceLogin')
+                                                                        .attr(
+                                                                                "href",
+                                                                                "/Pages/Login/LoginEnt.aspx?ReturnURL="
+                                                                                        + jsf_base_GetYesFormatUrl());
+                                                            } else {
+                                                                $(
+                                                                        '#consiceLogin')
+                                                                        .attr(
+                                                                                "href",
+                                                                                "https://www.yes24.com/Templates/FTLogin.aspx?ReturnURL="
+                                                                                        + jsf_base_GetYesFormatUrl());
+                                                            }
+                                                        } else {
+                                                            $('#consiceLogin')
+                                                                    .html(
+                                                                            "로그아웃");
+
+                                                            if (sTLPage == "1") {
+                                                                $(
+                                                                        '#consiceLogin')
+                                                                        .attr(
+                                                                                "href",
+                                                                                "/Pages/Login/LogoutEnt.aspx?ReturnURL=http://ticket.yes24.com");
+                                                            } else {
+                                                                $(
+                                                                        '#consiceLogin')
+                                                                        .attr(
+                                                                                "href",
+                                                                                "https://www.yes24.com/Templates/FTLogOut.aspx?ReturnURL=http://ticket.yes24.com");
+                                                            }
+                                                        }
+
+                                                    });
+
+                                    $(function() {
+                                        if ($.cookie("EXanadu") != null
+                                                || $.cookie("Benefit") == "2314") {
+                                            $(".consice").hide();
+                                            $(".perform-top").css("top", "0px");
+                                            $("#pf-gnb-wrap").css("top", "0px");
+
+                                            if (1 == 1) { //장르메인
+                                                $(".cp-top-wrap").next().css(
+                                                        "top", "100px");
+                                                $("section").first().css(
+                                                        "padding-top", "100px");
+                                            } else if (1 == 2) { //상세,경량화상세
+                                                $(".renew-wrap").css("top",
+                                                        "100px");
+                                            } else if (1 == 3) { //장르리스트
+                                                $(".list-sec").css(
+                                                        "padding-top", "100px");
+                                            } else { //그 외
+                                                $(".content-min-wrap").css(
+                                                        "padding-top", "100px");
+
+                                                if (1 == 4) { //검색
+                                                    $(".srch-scroll-slide")
+                                                            .css("padding-top",
+                                                                    "100px");
+                                                }
+                                            }
+                                        }
+                                    });
+                                </script>
+        <header class="perform-top" id="perform-top">
+
+
+
+            <!-- 지혜 / 왼쪽 사이드 메뉴 열리는 버튼(세 줄 이미지) -->
+
+            <div class="pf-left">
+                <a href="#" class="pf-ham"> <span class="pf-ham1"></span>
+                    <span class="pf-ham2"></span> <span class="pf-ham3"></span>
+                </a>
+                
+                
+                <!-- 지혜 / 사이트 로고 이미지 들어가는 곳. class=trans랑 fixed가 뭔 차이인지는 아직X -->
+                <!-- 일단 임시로 부끄부끄 로고 넣었는데, 위치랑 크기 조정 필요 -->
+                
+                <h1 id="booq-logo">
+                    <a href="/New/Main.aspx?Gcode=009_201"
+                        class="pf-logo"><img
+                        src="https://cdn.discordapp.com/attachments/1047044304859828280/1047794167432093716/KakaoTalk_20221201_150042749.jpg"
+                        alt="" class="trans" width="60"/><img
+                        src="https://cdn.discordapp.com/attachments/1047044304859828280/1047794167432093716/KakaoTalk_20221201_150042749.jpg"
+                        alt="" class="fixed" width="60"/></a>
+                </h1>
+            </div>
+            <div class="pf-center">
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=15456&Gcode=009_202_001">소설<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=15456">한국소설</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15462">외국소설</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15463">추리</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15464">로맨스</a>
+                    </div>
+
+                </h2>
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=15457&Gcode=009_202_002"
+                        class="current">에세이<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=15457">어쩌구</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15465">저쩌구</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15466">저저쩌구</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15467">저저저쩌구</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15468">저저저저쩌구</a>
+                    </div>
+
+                </h2>
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=15458&Gcode=009_202_003">시<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=15458">고전시가</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15469">외국시</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15470">현대시</a>
+                    </div>
+
+                </h2>
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=15459&Gcode=009_202_004">학습서적<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=15459">한국사</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15471">토익</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15473">수능</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15474">취업/기술</a>
+                    </div>
+
+                </h2>
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=15460&Gcode=009_202_005">인문교양<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=15460">철학</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15475">사회과학</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15476">자연과학</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=15477">예술</a>
+                    </div>
+
+                </h2>
+                <h2>
+                    <a
+                        href="/New/Genre/GenreMain.aspx?genre=999&Gcode=009_202_006">잡지<span></span></a>
+
+
+                    <div>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=1&genre=999">이런잡지</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=9991">저런잡지</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=9992">외국잡지</a>
+                        <a
+                            href="/New/Genre/GenreList.aspx?genretype=2&genre=9993">또다른잡지</a>
+                    </div>
+
+                </h2>
+            </div>
+            <div class="pf-right">
+                <div class="pf-right-menu">
+                    <a href="/MDShop" target="_blank">또메뉴</a> <a
+                        href="/New/Recommend/Area.aspx" target="_blank">지역</a>
+                    <a href="/Rank/All" target="_blank">랭킹</a> <a
+                        href="/New/Events/Main.aspx" target="_blank">이벤트</a>
+                </div>
+                <div class="pf-top-srch" autocomplete="off">
+                    <input type="text" id="searchWord" /> <input
+                        type="hidden" name="" id="searchType" value="" />
+                    <a href="#" onclick="jsf_mm_Search();"><img
+                        src="http://tkfile.yes24.com/imgNew/common/pf-srch.png"
+                        alt="" class="trans" /><img
+                        src="http://tkfile.yes24.com/imgNew/common/pf-srch-w.png"
+                        alt="" class="fixed" /></a>
+                </div>
+                
+                
+        <!-- 지혜 / 여기 회원 아이콘이랑 지구본 아이콘이 소스 어디에 위치해 있는지 모르겠음....일단 보류 -->
+                <a href="/MyPage?Gcode=009_204" class="my-ticket"><span>회원정보</span></a>
+                <a href="/English?Gcode=009_205" class="global"
+                    target="_blank"><span>블로그</span></a>
+            </div>
+            
+            
+            
+            <!-- 지혜 / 왼쪽 사이드 메뉴(햄버거 메뉴)-->
+
+
+            <div class="pf-gnb-wrap" id="pf-gnb-wrap">
+                <div class="pf-gnb-top">
+                    <a href="#" class="pf-ham"> <span
+                        class="pf-ham1"></span> <span class="pf-ham2"></span>
+                        <span class="pf-ham3"></span>
+                    </a>
+                </div>
+                <div class="pf-gnb-box">
+                    <div class="pf-gnb-scroll-wrap">
+                        <ul class="pf-gnb-list1">
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=15456&Gcode=009_202_001">소설</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=15456">한국소설</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15462">외국소설</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15463">추리</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15464">로맨스</a></li>
+                                </ul></li>
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=15457&Gcode=009_202_002">에세이</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=15457">어쩌구</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15465">저쩌구</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15466">저저쩌구</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15467">저저저쩌구</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15468">저저저저쩌구</a></li>
+                                </ul></li>
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=15458&Gcode=009_202_003">시</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=15458">고전시가</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15469">외국시</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15470">현대시</a></li>
+                                </ul></li>
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=15459&Gcode=009_202_004">학습서적</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=15459">한국사</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15471">토익</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15473">수능</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15474">취업/기술</a></li>
+                                </ul></li>
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=15460&Gcode=009_202_005">인문교양</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=15460">철학</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15475">사회과학</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15476">자연과학</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=15477">예술</a></li>
+                                </ul></li>
+                            <li><h2>
+                                    <a
+                                        href="/New/Genre/GenreMain.aspx?genre=999&Gcode=009_202_006">잡지</a>
+                                </h2>
+                                <span></span>
+                                <ul class="pf-gnb-2depth">
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=1&genre=999">이런잡지</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=9991">저런잡지</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=9992">외국잡지</a></li>
+                                    <li><a
+                                        href="/New/Genre/GenreList.aspx?genretype=2&genre=9993">또다른잡지</a></li>
+                                </ul></li>
+                        </ul>
+                        <!--pf-gnb-list1-->
+                        <div class="pf-gnb-list2">
+                            <a href="/New/Rank/Ranking.aspx "
+                                class="pf-gnb-btn1">랭킹</a><a
+                                href="/New/Recommend/Area.aspx"
+                                class="pf-gnb-btn2">지역별</a><a
+                                href="/New/Recommend/Theater.aspx"
+                                class="pf-gnb-btn3">공연장</a>
+                        </div>
+                        <!--pf-gnb-list2-->
+                        <ul class="pf-gnb-list3">
+                            <li><a
+                                href="/Pages/Notice/NoticeMain.aspx">공지사항</a></li>
+                            <li><a href="/Pages/Events/Main.aspx">이벤트</a></li>
+                            <li><a
+                                href="/Pages/Magazine/Magazine/MagazineMain.aspx">읽을거리</a></li>
+                            <li><a
+                                href="/Pages/UserGuide/BookingGuide.aspx">이용안내</a></li>
+                        </ul>
+                        <!--pf-gnb-list3-->
+                        <div class="pf-gnb-list4">
+                            <p class="pf-gnb-tit">
+                                <a href="/MyPage?Gcode=009_106_002"
+                                    id="leftMyTicket">MY페이지</a>
+                            </p>
+                            <ul>
+                                <li><a
+                                    href="/Pages/MyPage/MyOrder.aspx?Gcode=009_106_001"
+                                    id="leftMyOrder" class="pf-gnb-btn4">주문확인/취소</a></li>
+                            </ul>
+                            <p class="pf-gnb-tit">최근 본 상품</p>
+
+
+                            <div class="pf-gnb-list4-slide gnbslide2">
+                                <!--최근본상품 있을때-->
+                                <div class="be-list"
+                                    style="display: none;">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                </div>
+                                <!--최근본상품 없을때-->
+                                <div class="no-list"
+                                    style="display: block;">
+                                    최근 본 상품<br />정보가<br />없습니다.
+                                </div>
+                            </div>
+                        </div>
+                        <!--pf-gnb-list4-->
+                        <div class="pf-gnb-list5">
+                            <a href="/MDShop" target="_blank">MD#</a> <a
+                                href="/English" target="_blank">GLOBAL</a>
+                        </div>
+                        <!--pf-gnb-list5-->
+                    </div>
+                </div>
+                <a href="#" class="pf-gnb-close"></a>
+            </div>
+
+            <!--햄버거메뉴-->
+            
+            
+
+            <script type="text/javascript">
+                                                    var sTLPage = '0';
+
+                                                    $(document)
+                                                            .ready(
+                                                                    function() {
+
+                                                                        $(
+                                                                                "a.my-ticket, #leftMyTicket, #leftMyOrder")
+                                                                                .on(
+                                                                                        'click',
+                                                                                        function(
+                                                                                                e) {
+                                                                                            e
+                                                                                                    .preventDefault();
+
+                                                                                            if (('False')
+                                                                                                    .toLowerCase() == 'false') {
+                                                                                                alert("로그인을 먼저 해주세요.");
+
+                                                                                                if (sTLPage == "1") {
+                                                                                                    location.href = "/Pages/Login/LoginEnt.aspx?ReturnURL=http://ticket.yes24.com/Pages/MyPage/MyPageMain.aspx";
+                                                                                                } else {
+                                                                                                    location.href = "https://www.yes24.com/Templates/FTLogin.aspx?ReturnURL=http://ticket.yes24.com/Pages/MyPage/MyPageMain.aspx";
+                                                                                                }
+                                                                                            } else {
+                                                                                                $(
+                                                                                                        location)
+                                                                                                        .attr(
+                                                                                                                'href',
+                                                                                                                $(
+                                                                                                                        this)
+                                                                                                                        .attr(
+                                                                                                                                "href"));
+                                                                                            }
+
+                                                                                        });
+
+                                                                        //$(".pf-top-srch").hide(); // 도서 점검
+
+                                                                    });
+
+                                                    $(function() { // 가운데 메뉴 마우스 오버하면 2뎁스 나타나게 + 헤더 커지게 하는 소스
+                                                        $(".pf-center h2")
+                                                                .on(
+                                                                        'mouseenter',
+                                                                        function() {
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .find(
+                                                                                            "a")
+                                                                                    .removeClass(
+                                                                                            "on");
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .find(
+                                                                                            "div")
+                                                                                    .css(
+                                                                                            "display",
+                                                                                            "none");
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .css(
+                                                                                            "height",
+                                                                                            "auto");
+                                                                            $(
+                                                                                    this)
+                                                                                    .find(
+                                                                                            "a")
+                                                                                    .addClass(
+                                                                                            "on");
+                                                                            $(
+                                                                                    this)
+                                                                                    .find(
+                                                                                            "div")
+                                                                                    .css(
+                                                                                            "display",
+                                                                                            "block");
+                                                                            $(
+                                                                                    this)
+                                                                                    .css(
+                                                                                            "height",
+                                                                                            "60px");
+                                                                            $(
+                                                                                    ".perform-top")
+                                                                                    .animate(
+                                                                                            {
+                                                                                                height : "140px"
+                                                                                            },
+                                                                                            300);
+                                                                        });
+                                                        $(".perform-top")
+                                                                .on(
+                                                                        'mouseleave',
+                                                                        function() {
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .find(
+                                                                                            "a")
+                                                                                    .removeClass(
+                                                                                            "on");
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .find(
+                                                                                            "div")
+                                                                                    .css(
+                                                                                            "display",
+                                                                                            "none");
+                                                                            $(
+                                                                                    ".pf-center h2")
+                                                                                    .css(
+                                                                                            "height",
+                                                                                            "auto");
+                                                                            $(
+                                                                                    ".perform-top")
+                                                                                    .animate(
+                                                                                            {
+                                                                                                height : "100px"
+                                                                                            },
+                                                                                            300);
+                                                                        });
+                                                    });
+                                                </script>
+        </header>
+    </div>
+    
+    
+    <!-- 지혜 / 슬라이드로 이미지 사진 보여지는 곳 -->
+
+    <div class='m2-kv-hidden'>
+        <div class='m2-kv-wrap'>
+            <div class='m2-kv'>
+                <div class='swiper-container m2-kvs'>
+                    <div class='swiper-wrapper'>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/43815?Gcode=009_400'
+                                target='_self' title='뮤지컬 [드라큘라]'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202210/20221021/gmain_top_43815.jpg/dims/quality/70/'
+                                alt='뮤지컬 <드라큘라>' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <드라큘라>
+                                    </p>
+                                    <p class='m2-kvs-detail'>2022.11.15
+                                        ~ 2023.01.15 올림픽공원 내 우리금융아트홀</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/43451?Gcode=009_400'
+                                target='_self'
+                                title='뮤지컬 〈지저스 크라이스트 수퍼스타〉 50주년 기념 '><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202209/20220919/gmain_top_43451.jpg/dims/quality/70/'
+                                alt='뮤지컬 <지저스 크라이스트 수퍼스타>' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <지저스 크라이스트 수퍼스타>
+                                    </p>
+                                    <p class='m2-kvs-detail'>2022.11.10
+                                        ~ 2023.01.15 광림아트센터 BBCH홀</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/44155?Gcode=009_400'
+                                target='_self' title='뮤지컬 〈베토벤〉'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202211/20221116/gmain_top_44155.jpg/dims/quality/70/'
+                                alt='뮤지컬 <베토벤>' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <베토벤>
+                                    </p>
+                                    <p class='m2-kvs-detail'>2023.01.12
+                                        ~ 2023.03.26 예술의전당 오페라극장</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/43293?Gcode=009_400'
+                                target='_self'
+                                title='2022 푸에르자부르타 웨이라 인 서울 [2022 FUEZA BRU'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202208/20220830/gmain_top_43293.jpg/dims/quality/70/'
+                                alt='2022 푸에르자부르타 웨이라' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>2022
+                                        푸에르자부르타 웨이라</p>
+                                    <p class='m2-kvs-detail'>2022.09.29
+                                        ~ 2022.12.26 잠실종합운동장 FB씨어터</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/43616?Gcode=009_400'
+                                target='_self' title='뮤지컬 〈브로드웨이 42번가〉'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202210/20221007/gmain_top_43616.jpg/dims/quality/70/'
+                                alt='뮤지컬 <브로드웨이 42번가>' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <브로드웨이 42번가>
+                                    </p>
+                                    <p class='m2-kvs-detail'>2022.11.05
+                                        ~ 2023.01.15 예술의전당 CJ 토월극장</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a
+                                href='/New/Genre/GenreBridge.aspx?genre=15457&id=1094&Gcode=009_400'
+                                target='_self'
+                                title='뮤지컬 ＜캣츠＞오리지널 내한－서울（Musical CATS）'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202211/20221110/gmain_top_43998.jpg/dims/quality/70/'
+                                alt='뮤지컬 <캣츠> 오리지널 내한' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <캣츠> 오리지널 내한
+                                    </p>
+                                    <p class='m2-kvs-detail'>2022.12
+                                        ~ 2023.03 전국투어</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a
+                                href='/New/Genre/GenreBridge.aspx?genre=15457&id=1075&Gcode=009_400'
+                                target='_self' title='뮤지컬 [모딜리아니]'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202208/20220819/gmain_top_43127.jpg/dims/quality/70/'
+                                alt='뮤지컬 <모딜리아니>, <에곤 실레>' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>
+                                        뮤지컬
+                                        <모딜리아니>, <에곤 실레>
+                                    </p>
+                                    <p class='m2-kvs-detail'>2022.09.14
+                                        ~ 2022.12.04 예스24스테이지 2관</p>
+                                </div></a>
+                        </div>
+                        <div class='swiper-slide'>
+                            <a href='/Perf/42947?Gcode=009_400'
+                                target='_self' title='태양의서커스 〈뉴 알레그리아〉'><img
+                                src='http://tkfile.yes24.com/Upload2/Display/202207/20220720/gmain_top_42947.jpg/dims/quality/70/'
+                                alt='태양의서커스〈뉴 알레그리아〉' />
+                            <div class='m2-kvs-txt'>
+                                    <p class='m2-kvs-tit'>태양의서커스〈뉴
+                                        알레그리아〉</p>
+                                    <p class='m2-kvs-detail'>2022.10.20
+                                        ~ 2023.01.01 잠실종합운동장 내 빅탑</p>
+                                </div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='swiper-button-next m2-kvs'></div>
+        <div class='swiper-button-prev m2-kvs'></div>
+    </div>
+
+
+
+
+    <!-- 지혜 / 여기는 랭킹 보여주는 블럭 -->
+
+    <section class="m2-sec05">
+        <div class="ms5-wrap">
+            <div class="ms5-l">
+                <p class="ms5-l-tit">
+                    WEEKLY RANKING <a href='/Rank/Musical'><img
+                        src='http://tkfile.yes24.com/imgNew/genre/ms5-more.png'
+                        alt='' /></a>
+                </p>
+                <ul>
+                    <li class='on'><a
+                        href='/Pages/Perf/Detail/Detail.aspx?IdPerf=44090&Gcode=009_306'
+                        title='뮤지컬 〈루드윅 : 베토벤 더 피아노〉'><dl>
+                                <dt>
+                                    1위<span class='dash'>-</span>
+                                </dt>
+                                <dd>
+                                    <img
+                                        src='http://tkfile.yes24.com/upload2/perfblog/202211/20221114/20221114-44090.jpg/dims/quality/70/'
+                                        alt='' />
+                                </dd>
+                                <dd class='ms5-l-txt'>
+                                    <p class='ms5-l-txt1'>뮤지컬 〈루드윅 :
+                                        베토벤 더 피아노〉</p>
+                                    <p class='ms5-l-txt2'>
+                                        2022.12.20 ~ 2023.03.12</br>예스24스테이지
+                                        1관
+                                    </p>
+                                </dd>
+                            </dl></a></li>
+                    <li><a
+                        href='/Pages/Perf/Detail/Detail.aspx?IdPerf=42947&Gcode=009_306'
+                        title='태양의서커스 〈뉴 알레그리아〉'><dl>
+                                <dt>
+                                    2위<span class='dash'>-</span>
+                                </dt>
+                                <dd>
+                                    <img
+                                        src='http://tkfile.yes24.com/upload2/perfblog/202207/20220719/20220719-42947.jpg/dims/quality/70/'
+                                        alt='' />
+                                </dd>
+                                <dd class='ms5-l-txt'>
+                                    <p class='ms5-l-txt1'>태양의서커스 〈뉴
+                                        알레그리아〉</p>
+                                    <p class='ms5-l-txt2'>
+                                        2022.10.20 ~ 2023.01.01</br>잠실종합운동장 내
+                                        빅탑
+                                    </p>
+                                </dd>
+                            </dl></a></li>
+                    <li><a
+                        href='/Pages/Perf/Detail/Detail.aspx?IdPerf=43451&Gcode=009_306'
+                        title='뮤지컬 〈지저스 크라이스트 수퍼스타〉 50주년 기념 한국 공연'><dl>
+                                <dt>
+                                    3위<span class='dash'>-</span>
+                                </dt>
+                                <dd>
+                                    <img
+                                        src='http://tkfile.yes24.com/upload2/perfblog/202211/20221128/20221128-43451.jpg/dims/quality/70/'
+                                        alt='' />
+                                </dd>
+                                <dd class='ms5-l-txt'>
+                                    <p class='ms5-l-txt1'>뮤지컬 〈지저스
+                                        크라이스트 수퍼스타〉 50주년 기념 한국 공연</p>
+                                    <p class='ms5-l-txt2'>
+                                        2022.11.10 ~ 2023.01.15</br>광림아트센터
+                                        BBCH홀
+                                    </p>
+                                </dd>
+                            </dl></a></li>
+                    <li><a
+                        href='/Pages/Perf/Detail/Detail.aspx?IdPerf=43127&Gcode=009_306'
+                        title='뮤지컬 [모딜리아니]'><dl>
+                                <dt>
+                                    4위<span class='dash'>-</span>
+                                </dt>
+                                <dd>
+                                    <img
+                                        src='http://tkfile.yes24.com/upload2/perfblog/202211/20221128/20221128-43127.jpg/dims/quality/70/'
+                                        alt='' />
+                                </dd>
+                                <dd class='ms5-l-txt'>
+                                    <p class='ms5-l-txt1'>뮤지컬
+                                        [모딜리아니]</p>
+                                    <p class='ms5-l-txt2'>
+                                        2022.09.14 ~ 2022.12.04</br>예스24스테이지
+                                        2관
+                                    </p>
+                                </dd>
+                            </dl></a></li>
+                    <li><a
+                        href='/Pages/Perf/Detail/Detail.aspx?IdPerf=43126&Gcode=009_306'
+                        title='뮤지컬 [에곤 실레]'><dl>
+                                <dt>
+                                    5위<span class='up'>1</span>
+                                </dt>
+                                <dd>
+                                    <img
+                                        src='http://tkfile.yes24.com/upload2/perfblog/202211/20221128/20221128-43126.jpg/dims/quality/70/'
+                                        alt='' />
+                                </dd>
+                                <dd class='ms5-l-txt'>
+                                    <p class='ms5-l-txt1'>뮤지컬 [에곤
+                                        실레]</p>
+                                    <p class='ms5-l-txt2'>
+                                        2022.09.14 ~ 2022.12.04</br>예스24스테이지
+                                        2관
+                                    </p>
+                                </dd>
+                            </dl></a></li>
+                </ul>
+            </div>
+    
+    
+
+
+<!-- 지혜 / 우측 하단 버튼: 화면 위로 돌아가기 버튼 -->
+
+   
+    <a href="#" class="return-top"><img
+        src="http://tkfile.yes24.com/imgNew/common/return-top.png"
+        alt="" /></a>
+
+
+</body>
+</html>
