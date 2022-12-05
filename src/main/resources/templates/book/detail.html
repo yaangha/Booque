@@ -52,7 +52,6 @@
                     <span style="font-size: large;"  th:text="${ book.prices * 0.05 }"></span>
                     <span>포인트</span>
                 </div>
-
                 
                 <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
                     <button type="button" class="w-50 btn btn-outline-dark">장바구니</button> <!-- 장바구니 페이지 이동 -->
@@ -89,7 +88,6 @@
         data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
         class="scrollspy-example p-3 rounded-2" tabindex="0">
 
-
         <div data-bs-spy="scroll" data-bs-target="#navbar-example2"
         data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
         class="scrollspy-example p-3 rounded-2" tabindex="0">
@@ -125,13 +123,6 @@
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
         
-        
-        
-        
-
-        
-        
-        
         <div class="row">
             <div id="bookReview" class="h4 col">한줄평</div>
             
@@ -144,7 +135,6 @@
                 </ul>
             </div>
         </div>
-        
         
         <!-- 한줄평 보기 --> 
         <div class="my-2">
@@ -169,11 +159,17 @@
             </div>
         </div>
         
+        <!-- 작가의 다른 책 -->
+        <div>
+            <span></span>
+        </div>
+        
         <!-- 배송/반품/교환 관련 정보 부분 -->
-        <h4 id="bookPayInfo">배송/반품/교환</h4>
-        <p>...</p>
+        <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
+    
+        <th:block th:replace="fragments/bookDetailFooter :: bookDetailFooter"></th:block>
     </div>
-
+    
     </div> <!-- 전체 블록 사이즈때문에 묶어놓은 것 end -->
 
     <script
