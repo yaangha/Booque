@@ -16,4 +16,8 @@ public class PostService {
 
 	private final PostRepository postRepository;
 	
+	public List<Post> findBybookId(Integer bookId) {
+	    
+	    return postRepository.findByBookBookId(bookId);
+	}
 }

@@ -38,16 +38,25 @@ public class BookService {
 		}
 		return contentList;
 	}
-	// post에 작성된 score 평점(db에 저장할 필요없이 그냥 사용하기)
+//dd
+	// 별점 소숫점 첫째 자리까지 완.
 	public Double scoreAvg(Integer bookId) {
+	    log.info("별점 계산 bookid={}", bookId);
 		List<Post> list =postRepository.findByBookBookId(bookId);
 		Integer sum=0;
 		
 		for(Post p : list) {
 			sum+=p.getMyScore();
+			log.info("합계{}",sum);
 		}
 		
 		double avg = sum/(double)list.size(); 
+		
+		log.info("평균 별점{}",avg);
+		
+		avg = (Math.round(avg*10))/10.0;
+		
+		log.info("평균 별점{}",avg);
 		return avg;
 	}
 	
