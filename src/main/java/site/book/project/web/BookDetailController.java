@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
+import site.book.project.domain.Post;
 import site.book.project.service.BookService;
+import site.book.project.service.PostService;
 
 @Controller
 @Slf4j
@@ -20,6 +22,7 @@ public class BookDetailController {
 // ss
 	
 	private final BookService bookService;
+	private final PostService postService;
 	
 	@GetMapping("/detail")
 	public String detail(Integer id, Model model) {
@@ -35,6 +38,13 @@ public class BookDetailController {
 		model.addAttribute("score", score);
 		// comment 넘기기
 		// post 넘기기(post글 필요)
+// choi 책 한권에 대한 post 정보 받기
+		
+		List<Post> postList = postService.findBybookId(id);
+		model.addAttribute("postList", postList );
+		
+		
+		
 		
 		return "/book/detail";
 		

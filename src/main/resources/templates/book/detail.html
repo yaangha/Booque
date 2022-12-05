@@ -148,13 +148,21 @@
         </div>
         
         <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
-        <div> 
-            <div class="my-2">작성자 이름</div>
-            <p class="border-bottom">무라카미 하루키의 '노르웨이의 숲'을 이북으로 구입하였다. 오래전에 읽었던 책인데, 새로운 표지와 번역으로
-                재출간 되었다고 해서 구입하게 되었다. 다시 읽어도 여러가지로 생각할 거리를 던져주는 책으로 밝은 분위기의 내용은
-                아니지만 독특한 개성을 가진 인물들이 등장해 읽는 재미가 있는 소설이다. 무라카미 하루키 특유의 미려한 표현이 읽는
-                재미를 더해준다.</p>
+        
+        <!--/* th:each를 통해서 불러오기   */-->
+        <div  th:each="post : ${ postList }">
+            <div class="my-2" th:text="${ post.user.name }" > </div>
+            <div  th:text="${ post.myScore }"></div>
+            <div th:text="${ post.title }"></div>
+            <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
+        
+        
+        
+        
+
+        
+        
         
         <div class="row">
             <div id="bookReview" class="h4 col">한줄평</div>
