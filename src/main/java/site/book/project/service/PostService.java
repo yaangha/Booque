@@ -2,6 +2,7 @@ package site.book.project.service;
 
 import java.util.List;
 
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     
+    
     // Post 리스트 전체
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -28,6 +30,8 @@ public class PostService {
     
     public Post create(PostCreateDto dto) {
         log.info("create(dto = {})",dto);
+        
+        
         
         Post entity = postRepository.save(dto.toEntity());
         return entity;

@@ -24,8 +24,11 @@ public class PostController {
     private final PostService postService;
     
     @GetMapping("/main")
-    public void main() {
+    public void main(Model model) {
         log.info("main()");
+        
+        Post post = postService.read(1);
+        model.addAttribute("post", post);
     }
     
     

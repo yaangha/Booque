@@ -9,4 +9,6 @@ import site.book.project.domain.Post;
 public interface PostRepository extends JpaRepository<Post, Integer>{
 
     List<Post> findByOrderByPostIdDesc();
+    
+    
 }
