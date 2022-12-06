@@ -41,11 +41,10 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, length = 2000)
     private String postContent;
     
-    @Column(nullable = false)
+    // TODO: 제거 가능할 것 같음. 다시 생각!
     private String postWriter;
     
     @Column(nullable = false)
     private Integer myScore;
-    
     
 }

@@ -60,6 +60,12 @@ public class BookService {
 		return avg;
 	}
 	
-	
+	// (하은) 작가의 다른 책 정보 read
+    public List<Book> readAuthor(String author) {
+        log.info("author={}", author);
+        List<Book> authorOtherBook = bookRepository.findAllByAuthor(author);
+
+        return authorOtherBook;
+    }	
 	
 }
