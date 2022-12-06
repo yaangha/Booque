@@ -20,6 +20,242 @@
 </head>
 <body>
 
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#staticBackdropSignin">로그인</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdropSignin"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        id="staticBackdropLabel"
+                        style="font-weight: bold;">로그인</h1>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="my-4">
+                            <h6>아이디</h6>
+                            <input type="text" id="signinUsername"
+                                name="signinUsername"
+                                class="form-control"
+                                placeholder="로그인 아이디" required autofocus>
+                        </div>
+                        <div class="my-4">
+                            <h6>비밀번호</h6>
+                            <input type="Password" id="signinPassword"
+                                name="signinPassword"
+                                class="form-control"
+                                placeholder="로그인 비밀번호" required />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">취소</button>
+                            <button type="button"
+                                class="btn btn-primary">확인</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#staticBackdropSignup">회원가입</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdropSignup"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        id="staticBackdropLabel"
+                        style="font-weight: bold">회원가입</h1>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="my-4">
+                            <h6>아이디</h6>
+                            <input type="text" id="username"
+                                name="username" class="form-control"
+                                placeholder="로그인 아이디" required autofocus>
+                        </div>
+                        <div class="my-2 d-none" id="ok">
+                            <!-- d = display. 화면에 보여주지 않겠다. -->
+                            <p class="text-success">사용할 수 있는 아이디</p>
+                        </div>
+                        <div class="my-2 d-none" id="nok">
+                            <!-- d = display. 화면에 보여주지 않겠다. -->
+                            <p class="text-danger">사용할 수 없는 아이디</p>
+                        </div>
+                        <div class="my-4">
+                            <h6>비밀번호</h6>
+                            <input type="password" id="password"
+                                name="password" class="form-control"
+                                placeholder="로그인 비밀번호" required />
+                        </div>
+                        <div class="my-4">
+                            <h6>이메일</h6>
+                            <input type="email" id="email" name="email"
+                                class="form-control" placeholder="이메일"
+                                required />
+                        </div>
+                        <div class="my-4">
+                            <h6>닉네임</h6>
+                            <input type="text" id="nickname"
+                                name="nickname" class="form-control"
+                                placeholder="닉네임" required />
+                        </div>
+                        <div class="my-4">
+                            <h6>주소</h6>
+                            <input type="text" id="adress" name="adress"
+                                class="form-control" placeholder="닉네임"
+                                required />
+                        </div>
+                        <div class="my-4">
+                            <h6>핸드폰 인증</h6>
+                            <!-- API 가능? -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">취소</button>
+                            <button type="button"
+                                class="btn btn-primary"
+                                data-bs-target="#staticBackdropConfirm">확인</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Test -->
+    <a class="btn btn-primary" data-bs-toggle="modal"
+        href="#exampleModalToggle" role="button">회원가입 2</a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel" tabindex="-1"
+        data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        id="exampleModalToggleLabel"
+                        style="font-weight: bold">회원가입</h1>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="my-4">
+                            <h6>아이디</h6>
+                            <input type="text" id="signupUsername"
+                                name="signupUsername" class="form-control"
+                                placeholder="로그인 아이디" required autofocus>
+                        </div>
+                        <div class="my-2 d-none" id="ok">
+                            <!-- d = display. 화면에 보여주지 않겠다. -->
+                            <p class="text-success">사용할 수 있는 아이디</p>
+                        </div>
+                        <div class="my-2 d-none" id="nok">
+                            <!-- d = display. 화면에 보여주지 않겠다. -->
+                            <p class="text-danger">사용할 수 없는 아이디</p>
+                        </div>
+                        <div class="my-4">
+                            <h6>비밀번호</h6>
+                            <input type="password" id="signupPassword"
+                                name="signupPassword" class="form-control"
+                                placeholder="로그인 비밀번호" required />
+                        </div>
+                        <div class="my-4">
+                            <h6>이메일</h6>
+                            <input type="email" id="signupEmail" name="signupEmail"
+                                class="form-control" placeholder="이메일"
+                                required />
+                        </div>
+                        <div class="my-4">
+                            <h6>닉네임</h6>
+                            <input type="text" id="signupNickname"
+                                name="signupNickname" class="form-control"
+                                placeholder="닉네임" required />
+                        </div>
+                        <div class="my-4">
+                            <h6>주소</h6>
+                            <input type="text" id="signupAdress" name="signupAdress"
+                                class="form-control" placeholder="주소"
+                                required />
+                            <!-- API 예정 -->
+                        </div>
+                        <div class="my-4">
+                            <h6>핸드폰 인증</h6>
+                            <!-- API 가능? -->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">취소</button>
+                    <button class="btn btn-primary"
+                        data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
+        data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        id="exampleModalToggleLabel2">회원가입 확인</h1>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="checkSignupUsername"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModalToggle">이전</button>
+                    <button type="button" class="btn btn-primary">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
     <div class="w-50 container">
         <div class="row my-5"> 
@@ -139,16 +375,9 @@
         </div>
         
         <!-- 한줄평 보기 --> 
-        <div class="my-2">
-            <div class="my-2">나는야어린왕자</div>
-           <input class="form-control" type="text" value="오랜만에 너무 책을 재미있게 읽었습니다!!" aria-label="default input example" readonly>
-        </div>
-        <div class="my-2">
-            <div class="my-2">하루키무라카미</div>
-           <input class="form-control" type="text" value="역시 작가님.. 항상 너무 즐겁게 책을 읽고 있습니다!" aria-label="default input example" readonly>
-        </div>
-        
-        
+
+        <button ></button>
+        <img alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
         <!-- 한줄평 AJax -->
         <div id="bookComment"></div>
         
@@ -203,6 +432,20 @@
     <script th:inline="javascript"> //로그인 유저 정보 넣을 예정    </script>
     <script th:src="@{ /js/comment.js }"></script>   
 
+    
+    
+    <script>
+    const signupUsername = document.getElementById('signupUsername').value;
+    const signupEmail = document.getElementById('signupEmail').value;
+    const signupNickname = document.getElementById('signupNickname').value;
+    const signupAdress = document.getElementById('signupAdress').value;
+    
+    document.getElementById("checkSignupUsername").innertext = signupUsername;
+    document.getElementById("checkSignupEmail").innertext = signupEmail;
+    document.getElementById("checkSignupNickname").innertext = signupNickname;
+    document.getElementById("checkSignupAdress").innertext = signupAdress;
+    
+    </script>
     
 
 </body>
