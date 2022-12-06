@@ -39,4 +39,8 @@ public class PostService {
         
         return postRepository.findById(postId).get();
     }
+	public List<Post> findBybookId(Integer bookId) {
+	    
+	    return postRepository.findByBookBookId(bookId);
+	}
 }
