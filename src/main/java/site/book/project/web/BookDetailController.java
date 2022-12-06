@@ -46,7 +46,7 @@ public class BookDetailController {
 		
 		
 		
-		return "/book/detail";
+		return "book/detail";
 		
 	}
 	

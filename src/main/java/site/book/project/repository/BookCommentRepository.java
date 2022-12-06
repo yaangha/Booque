@@ -3,6 +3,8 @@ package site.book.project.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import site.book.project.domain.BookComment;
 
@@ -17,6 +19,11 @@ public interface BookCommentRepository extends JpaRepository<BookComment, Intege
     List<BookComment> findByBookBookIdOrderByCreatedTime(Integer bookId);
 //    // 좋아요 순ss
     
+    // bookId에 달린 모든 comment
+//    @Query("select * from BOOKCOMMENT c where c.book.book.id = :bookId")
+//    List<BookComment> selectAllComment(@Param(value = "bookId") Integer bookId);
+    
+
 
     
     
