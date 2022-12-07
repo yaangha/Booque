@@ -64,19 +64,19 @@ public class PostReplyController {
         log.info("deleteReply(replyId={})", replyId);
         
         Integer result = replyService.delete(replyId);
-        
         return ResponseEntity.ok(result);
     }
     
     // 댓글 수정
+
     @PutMapping("/{replyId}")
     public ResponseEntity<Integer> updateReply(
             @PathVariable Integer replyId,
             @RequestBody ReplyUpdateDto dto) {
         log.info("updateReply(replyId={}, dto={})", replyId, dto);
         dto.setReplyId(replyId); 
+
         Integer result = replyService.update(dto);
-        
         return ResponseEntity.ok(result);
     }
 }

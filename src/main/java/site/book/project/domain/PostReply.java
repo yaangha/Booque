@@ -35,9 +35,13 @@ public class PostReply extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     
+    @Column(nullable = false)
+    private String replyWriter;
+    
     @Column(nullable = false, length = 1000)
     private String replyContent;
     
+
     @Column(nullable = false)
     private String replyWriter;
     
@@ -45,4 +49,5 @@ public class PostReply extends BaseTimeEntity {
         this.replyContent = replyContent;
         return this;
     }
+
 }

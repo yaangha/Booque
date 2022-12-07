@@ -78,32 +78,30 @@
                     <!-- 블로그 메인 섹션 시작 -->
 
 
-                    <nav class="navbar navbar-expand-lg"
+                   <nav class="navbar navbar-expand-lg"
                         style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray;">
+                         
                         <div class="container-md"
-                            style="display: inline-block; margin: 5px;"
-                            align="right">
-                            <a href="/post/list" style="color: gray;">전체
-                                목록</a>
+                            style="display: inline-block; margin: 5px;" align="right">
+                            <a href="/post/list" style="color: gray; margin-right: 15px;">전체 목록</a>
+                            <a href="/post/create" style="color: gray; margin-right: 15px;">새 포스트 작성</a>
                         </div>
+                       
                         <div class="dropdown"
                             style="display: inline-block; margin-right: 25px;">
                             <button class="btn dropdown-toggle"
                                 style="width: 85px; height: 30px; border: 1px solid gray;"
-                                type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">Drop</button>
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Drop</button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                    href="#">날짜순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#">인기순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#">리스트형</a></li>
+                                <li><a class="dropdown-item" href="#">날짜순</a></li>
+                                <li><a class="dropdown-item" href="#">인기순</a></li>
+                                <li><a class="dropdown-item" href="#">리스트형</a></li>
                             </ul>
                         </div>
-
-                    </nav> <!-- 도서 카드 + 리뷰 시작 -->
-
+                  </div>
+                    </nav>  <!-- 도서 카드 + 리뷰 시작 -->
+                    
                     <div class="card" style="width: 880px;"
                         align="center">
                         <!-- 도서 카드 시작 -->
@@ -188,7 +186,7 @@
 
                                 <div class="container">
                                     <textarea class="summernote"  id="postContent"  type="text"
-                                        name="editordata"
+                                        name="postContent"
                                         placeholder="내용을 입력하새요!"></textarea>
                                 </div>
                  <div class="my-2">
@@ -207,11 +205,8 @@
                                     <input type="submit" class="form-control btn btn-success" value="작성 완료">
 
                                 </div>
-
                             </div>
                         </form>
-
-
                     </div>
             </tr>
         </table>

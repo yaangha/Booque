@@ -8,5 +8,5 @@ public class ReplyUpdateDto {
     private Integer replyId;
     private String replyContent;
     
-    
+
 }

@@ -65,6 +65,7 @@
                 + '<p> 작성시간: ' + r.createdTime + '</p>'
                 + '<p> 수정시간: ' + r.modifiedTime + '</p>'
                 + '</div>'
+
                 + '<div class="card-footer">'
                 + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
                 + '</div>'
@@ -89,7 +90,7 @@
     // 몇 번 댓글을 수정할 것인지 정보 전달
     function getReply(event) {
         const rid = event.target.getAttribute('data-rid');
-        
+
         axios
         .get('/api/reply/' + rid) 
         .then(response => { showReplyModal(response.data) })
@@ -136,14 +137,17 @@
         const replyId = modalReplyId.value;
         const replyContent = modalReplyContent.value;
         console.log(replyId)
+
         if (replyContent == '') {
             alert('댓글 내용은 반드시 입력');
             return;
         }
+
         const result = confirm('정말 수정하시겠습니까?');
         if (result) {
             const data = { replyContent: replyContent };
             axios
+
             .put('/api/reply/' + replyId, data) 
             .then(response => {
                 alert('#' + response.data + ' 댓글 수정 성공');

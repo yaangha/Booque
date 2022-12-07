@@ -12,6 +12,7 @@ import site.book.project.domain.PostReply;
 import site.book.project.dto.ReplyReadDto;
 import site.book.project.dto.ReplyRegisterDto;
 import site.book.project.dto.ReplyUpdateDto;
+
 import site.book.project.repository.PostRepository;
 import site.book.project.repository.ReplyRepository;
 import site.book.project.repository.UserRepository;
@@ -26,7 +27,9 @@ public class ReplyService {
     private final UserRepository userRepository;
     
     // 포스트에 해당하는 댓글 리스트 리턴
+
     @Transactional(readOnly = true)
+
     public List<ReplyReadDto> readReplies(Integer postId) {
         log.info("readReplies(postId={})", postId);
         
@@ -78,3 +81,4 @@ public class ReplyService {
         return entity.getReplyId();
     }
 }
+
