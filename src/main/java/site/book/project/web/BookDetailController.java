@@ -53,11 +53,5 @@ public class BookDetailController {
         return "book/detail";
     }
     
-    // 하은 장바구니 연결
-    @GetMapping("/cart")
-    public String cart() {
-        return "/book/cart";
-    }
-	
 	
 }
