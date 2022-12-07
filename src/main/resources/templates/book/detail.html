@@ -243,23 +243,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
     <div class="w-50 container">
         <div class="row my-5"> 
@@ -329,18 +312,51 @@
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2"
         data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
         class="scrollspy-example p-3 rounded-2" tabindex="0">
-
-        <div data-bs-spy="scroll" data-bs-target="#navbar-example2"
-        data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
-        class="scrollspy-example p-3 rounded-2" tabindex="0">
+        
         <h4 id="bookInfo" th:text="${ book.bookName }"></h4>
         <p th:text="${ book.bookIntro }"></p>
-
 
         <div>
             <img loading="lazy" th:src="${ book.bookIntroImage }">
         </div>
+        
+        
+    <!-- 현재 보여지는 책은 보이면 안됨 + 이미지 비율 수정하기 -->   
+    <!-- (하은) 작가의 다른 책 보여주기 -->    
+    <span class="h4" th:text="${ book.author }"></span><span> 작가의 다른 책</span>
 
+    <div id="carouselExampleInterval" class="p-2 carousel slide bg-light" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+            <div class="row">
+                <div class="col" th:each="book : ${ authorOtherBook }">
+                <div class="card my-2" style="width: 15rem; height:450px;">
+                    <div style="width:237px; height:330px;">
+                        <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" >
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <span class="h5" th:text="${ book.bookName }"></span><br/>
+                            <span th:text="${ book.author }"></span><br/>
+                            <span th:text="${ book.prices }"></span><span>원</span>
+                        </div>
+                    </div> <!-- card body end -->
+                </div> <!-- card end -->
+                </div> <!-- col end -->
+            </div> <!-- row end -->
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+        
+      
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
@@ -358,10 +374,30 @@
         </div>
         
         <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
+
+        <!-- (하은) 리뷰 페이지 넘기기 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" style="justify-content : center;">
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Previous"> 
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Next"> 
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         
           <!--/* th:each를 통해서 불러오기   */-->
           
  <!--/*       <div  th:each="post : ${ postList }">
+>>>>>>> branch 'detail' of https://github.com/yaangha/Booque.git
             <div class="my-2" th:text="${ post.user.name }" > </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
@@ -431,7 +467,7 @@
         <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
     
         <th:block th:replace="fragments/bookDetailFooter :: bookDetailFooter"></th:block>
-    </div>
+    </div> <!-- ???? -->
     
     </div> <!-- 전체 블록 사이즈때문에 묶어놓은 것 end -->
 
