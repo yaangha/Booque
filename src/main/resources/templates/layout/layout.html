@@ -114,6 +114,15 @@
     
 </div>
 
+
+
+<!--/* footer.html fragment(HTML 조각)를 삽입  */-->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- (src/main/resources/templates/)  fragments 폴더 아래의 footer.html 파일 안의 footer 부분으로 여기를 대체 -->
+
+
+
+
 <!-- Home에 사용되는 JavaScript -->
 <script th:src="@{ /js/home.js }"></script>
   
