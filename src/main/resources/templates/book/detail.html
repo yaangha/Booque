@@ -200,7 +200,26 @@
     <div class="row">
         <div id="bookReview" class="h4 col">리뷰</div>
         
-        <!-- 최신순, 선호도 등 정렬 드롭다운 -->
+        <!-- 리뷰 페이지 넘기기 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" style="justify-content : center;">
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Previous"> 
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Next"> 
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+            </nav>
+
+                <!-- 최신순, 선호도 등 정렬 드롭다운 -->
         <div class="dropdown col">
             <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">정렬</button>
             <ul class="dropdown-menu">
