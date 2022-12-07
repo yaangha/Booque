@@ -214,12 +214,13 @@
         <div id="replies"></div>
        
         <!-- 댓글 작성폼 & 리스트 폼 -->
-                    <section class="mt-3" style="width: 880px;">
+                    <section class="mb-5">
                         <div class="card bg-light">
-                            <div class="comment-count publisher-nav-color" style="margin-left: 30px;">
+                            <div class="comment-count mt-3 publisher-nav-color">
                             <strong><span>0</span> Reply</strong>
                             </div>
-                            <div class="card-body" style="margin-left: 20px;" >
+                            <div class="card-body">
+
                                 <!-- Comment form-->
                                      <!-- 프로필 정보 -->
                                      <div class="profile">
@@ -233,7 +234,7 @@
                                     <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
                                     <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button>
                                 </form>
-                               
+
                             </div>
                         </div>
                     </section>
@@ -244,12 +245,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">댓글 수정하기</h5>
                         <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="modalReplyWriter" />
+                        <input type="hidden" id="modalReplyId" readonly/>
+                        <input type="hidden" id="modalReplyWriter" readonly/>
                         <textarea id="modalReplyContent"
                             class="form-control"></textarea>
                     </div>
@@ -266,14 +268,13 @@
             </div>
         </div>
     </div>
+
             </div>
  		</tr>
 		</table>
 	</div>
 
-<div style="width: 1170px; height: 100px;">
-
-</div>
+<div style="width: 1170px; height: 100px;"></div>
 
 	<!-- Bootstrap이 사용하는 JavaScript 파일 포함 -->
 	<script
@@ -288,5 +289,10 @@ $('.summernote').summernote({
       lang: "ko-KR"
     });
 </script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
+    <script th:src="@{ /js/postReply.js }"></script>
 </body>
 </html>

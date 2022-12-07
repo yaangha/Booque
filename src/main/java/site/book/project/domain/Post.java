@@ -47,6 +47,9 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer myScore;
     
+    @Column(nullable = false)
+    private String postWriter;
+   
     public Post update(String title, String postContent) {
         this.title = title;
         this.postContent = postContent;

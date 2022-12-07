@@ -2,18 +2,17 @@ package site.book.project.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Post;
+import site.book.project.domain.PostReply;
 import site.book.project.dto.ReplyReadDto;
 import site.book.project.dto.ReplyRegisterDto;
 import site.book.project.dto.ReplyUpdateDto;
-import site.book.project.domain.Post;
-import site.book.project.domain.PostReply;
-import site.book.project.domain.User;
+
 import site.book.project.repository.PostRepository;
 import site.book.project.repository.ReplyRepository;
 import site.book.project.repository.UserRepository;
@@ -28,7 +27,9 @@ public class ReplyService {
     private final UserRepository userRepository;
     
     // 포스트에 해당하는 댓글 리스트 리턴
-    @Transactional
+
+    @Transactional(readOnly = true)
+
     public List<ReplyReadDto> readReplies(Integer postId) {
         log.info("readReplies(postId={})", postId);
         
@@ -57,19 +58,27 @@ public class ReplyService {
         return reply.getReplyId();
     }
 
+    @Transactional(readOnly = true)
     public ReplyReadDto readReply(Integer replyId) {
-        // TODO Auto-generated method stub
-        return null;
+        log.info("readReply(replyId={})", replyId);
+        PostReply entity = replyRepository.findById(replyId).get();
+        return ReplyReadDto.fromEntity(entity);
     }
 
-    public Integer delete(Integer replyWriter) {
-        // TODO Auto-generated method stub
-        return null;
+    @Transactional
+    public Integer delete(Integer replyId) {
+        log.info("delete(replyId={})", replyId);
+        replyRepository.deleteById(replyId);
+        return replyId;
     }
 
+    @Transactional
     public Integer update(ReplyUpdateDto dto) {
-        // TODO Auto-generated method stub
-        return null;
+        log.info("update(dto={})", dto);
+        PostReply entity = replyRepository.findById(dto.getReplyId()).get();
+        log.info(dto.getReplyContent());
+        entity.update(dto.getReplyContent());
+        return entity.getReplyId();
     }
-
 }
+

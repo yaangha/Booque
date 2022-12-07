@@ -54,30 +54,29 @@ public class PostReplyController {
         log.info("getReply(replyId={})", replyId);
         
         ReplyReadDto dto = replyService.readReply(replyId);
-        
+        log.info("dto={}", dto);
         return ResponseEntity.ok(dto);
     }
     
     // 댓글 삭제
-    @DeleteMapping("/{replyWriter}")
-    public ResponseEntity<Integer> deleteReply(@PathVariable Integer replyWriter) {
-        log.info("deleteReply(replyWriter={})", replyWriter);
+    @DeleteMapping("/{replyId}")
+    public ResponseEntity<Integer> deleteReply(@PathVariable Integer replyId) {
+        log.info("deleteReply(replyId={})", replyId);
         
-        Integer result = replyService.delete(replyWriter);
-        
+        Integer result = replyService.delete(replyId);
         return ResponseEntity.ok(result);
     }
     
     // 댓글 수정
-    @PutMapping("/{replyWriter}")
+
+    @PutMapping("/{replyId}")
     public ResponseEntity<Integer> updateReply(
-            @PathVariable String replyWriter,
+            @PathVariable Integer replyId,
             @RequestBody ReplyUpdateDto dto) {
-        log.info("updateReply(replyWriter={}, dto={})", replyWriter, dto);
-        
-        dto.setReplyWriter(replyWriter); 
+        log.info("updateReply(replyId={}, dto={})", replyId, dto);
+        dto.setReplyId(replyId); 
+
         Integer result = replyService.update(dto);
-        
         return ResponseEntity.ok(result);
     }
 }

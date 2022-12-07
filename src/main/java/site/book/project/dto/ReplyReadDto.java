@@ -24,7 +24,7 @@ public class ReplyReadDto {
     public static ReplyReadDto fromEntity(PostReply entity) {
         return ReplyReadDto.builder().replyId(entity.getReplyId())
                 .postId(entity.getPost().getPostId())
-               .replyWriter(entity.getReplyWriter())
+                .replyWriter(entity.getReplyWriter())
                 .replyContent(entity.getReplyContent())
                 .createdTime(entity.getCreatedTime())
                 .modifiedTime(entity.getModifiedTime())

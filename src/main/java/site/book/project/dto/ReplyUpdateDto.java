@@ -6,6 +6,7 @@ import lombok.Data;
 public class ReplyUpdateDto {
     
     private Integer replyId;
-    private String replyWriter;
     private String replyContent;
+    
+
 }

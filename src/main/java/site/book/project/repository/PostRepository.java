@@ -26,4 +26,6 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	// select * from posts where book_book_id = 1;
 	List<Post> findByBookBookId(Integer bookId);
 
+	List<Post> findByOrderByPostIdDesc();
+
 }
