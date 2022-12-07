@@ -30,7 +30,7 @@ public class BookDetailController {
 		Book book = bookService.read(id);
 		// POST dto 만들기(userid, postid, content, score, title) TODO
 		
-		// for문을 통해서 숫자를 그림으로 표현? 참고해서 고치기
+		// 평균별점 for문을 통해서 숫자를 그림으로 표현? 참고해서 고치기
 		double score = bookService.scoreAvg(id);
 		
 		// 책 정보 넘기기 

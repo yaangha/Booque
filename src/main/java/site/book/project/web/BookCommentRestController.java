@@ -23,11 +23,16 @@ import site.book.project.service.PostService;
 @RequiredArgsConstructor
 @RestController  // response.data
 public class BookCommentRestController {
+ 
+    // BookDetail 페이지에서 사용할 AJax  REST controller comment와 post 함께 사용함
+    
+    
+    
     
     private final BookCommentService bookCommentService;
     private final PostService postService;
     
-    
+  
     @PostMapping("/api/comment") // 한줄평 insert
     public ResponseEntity<Integer> registerComment(@RequestBody BookCommentRegisterDto dto){
         log.info("한줄평 dto ={}",dto);
@@ -48,7 +53,6 @@ public class BookCommentRestController {
         
     }
     
-    // 주소값 바꿔서 하기!! 삭제도 하기!
     @GetMapping("/api/comment/allOrderLike/{bookId}")
     public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
         log.info("라이크 순서대로 할거임!!!!! bookId= {}", bookId);

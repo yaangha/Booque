@@ -30,7 +30,10 @@
 		<li class="list-group-item border-0" style="color:gray;">></li>
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
+    <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
+    <div th:text="${ user.username }"></div>
 	
+    
 	<!-- 주문내역 -->
 	<table class="w-100 table" style="text-align: center;">
 		<thead class="table-light">
