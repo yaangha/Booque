@@ -1,17 +1,24 @@
 /**
- * 
+ *  좋아요 해야함. 댓글 수정, 삭제도 해야함.
+ *  최신순, 해야함.
  */
  
  window.addEventListener('DOMContentLoaded', () => {
     
+    
     readAllComment();
+
     //readAllComments();
     // 사용할 버튼, bookId, commentWriter, commentText, btnComment
     
     const btnComment = document.querySelector('#btnComment');
     btnComment.addEventListener('click', newComment);
 
-
+    const btnOrderLikes = document.querySelector('#btnOrderLikes');
+    btnOrderLikes.addEventListener('click', readAllOrderLikeComment);
+    
+    const btnOrderDesc = document.querySelector('#btnOrderDesc');
+    btnOrderDesc.addEventListener('click',readAllComment)
     
     // comment 작성 함수
     function newComment (){
@@ -30,7 +37,6 @@
             commentText: commentText
         }
         
-        // 한줄평 글 번호 필요?
         axios.post('/api/comment' , data)
             .then(response => {
                 console.log(response);
@@ -52,12 +58,24 @@
         document.querySelector('#commentText').value = '';
     }
     
-    // 책 번호로 comment 테이블에서 가져올 예정
+    // 책 번호별 comment 테이블에서 가져올 예정
+    // 최신순
     function readAllComment(){
         const bookId = document.querySelector('#id').value; // 책 번호
         
          axios
         .get('/api/comment/all/' + bookId) // Ajax GET 요청 보냄.
+        .then(response => { updateCommentList(response.data) }) // 어떤 데이터를 받아야함?
+        .catch(err => { console.log(err) });
+        
+    }
+    
+    // 호감순
+    function readAllOrderLikeComment(){
+        const bookId = document.querySelector('#id').value; // 책 번호
+        
+         axios
+        .get('/api/comment/allOrderLike/' + bookId) // Ajax GET 요청 보냄.
         .then(response => { updateCommentList(response.data) }) // 어떤 데이터를 받아야함?
         .catch(err => { console.log(err) });
         
@@ -79,7 +97,7 @@
                 + '<h5>' + r.writer + '</h5>'
                 + '</div>'
                 + '<div> 좋아요 <span>  </span>'
-                + '<img id="heart" alt="" src=" https://cdn-icons-png.flaticon.com/512/7476/7476962.png "> <span>  </span>'
+                + '<img id="likes" alt="" src=" https://cdn-icons-png.flaticon.com/512/7476/7476962.png "> <span>  </span>'
                 + r.likes+'</div>'
                 + '<div class="card-body">'
                 + '<p>' + r.commentText + '</p>'

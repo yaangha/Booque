@@ -23,6 +23,7 @@ public class BookCommentRestController {
     
     private final BookCommentService bookCommentService;
     
+    
     @PostMapping("/api/comment") // 한줄평 insert
     public ResponseEntity<Integer> registerComment(@RequestBody BookCommentRegisterDto dto){
         log.info("한줄평 dto ={}",dto);
@@ -44,15 +45,17 @@ public class BookCommentRestController {
     }
     
     // 주소값 바꿔서 하기!! 삭제도 하기!
-//    @GetMapping("/api/comment/all/{bookId}")
-//    public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
-//        log.info("comment여기가 바로! bookREST!!! bookId= {}", bookId);
-//        
-//        List<BookCommentReadDto> list = bookCommentService.readComment(bookId);
-//        
-//        return ResponseEntity.ok(list);
-//        
-//    }
+    @GetMapping("/api/comment/allOrderLike/{bookId}")
+    public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
+        log.info("라이크 순서대로 할거임!!!!! bookId= {}", bookId);
+        
+        List<BookCommentReadDto> list = bookCommentService.readLikeComment(bookId);
+        log.info("라이크 순서대로 리스트 {}", list);
+        
+        
+        return ResponseEntity.ok(list);
+        
+    }
     
     
     

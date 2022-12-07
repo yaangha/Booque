@@ -73,7 +73,10 @@ public class BookRepositoryTests {
 	    // bookCommentRepository 잘 되는지 
 	    Assertions.assertNotNull(bookCommentService);
 	    
-	    List<BookCommentReadDto> list = bookCommentService.readComment(2);
+	    
+	    
+	    
+	    List<BookCommentReadDto> list = bookCommentService.readLikeComment(2);
 	    
 	    Assertions.assertNotNull(list);
 	    
