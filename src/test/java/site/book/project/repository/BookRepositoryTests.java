@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.BookComment;
 import site.book.project.domain.Post;
 import site.book.project.dto.BookCommentReadDto;
@@ -34,6 +35,9 @@ public class BookRepositoryTests {
 	
 	@Autowired
 	private BookCommentService bookCommentService;
+	
+	@Autowired
+	private BookRepository bookRepository;
 	
 //	@Test
 //	public void test() {
@@ -73,20 +77,33 @@ public class BookRepositoryTests {
 	    // bookCommentRepository 잘 되는지 
 	    Assertions.assertNotNull(bookCommentService);
 	    
-	    List<BookCommentReadDto> list = bookCommentService.readComment(2);
+	    
+	    
+	    
+	    List<BookCommentReadDto> list = bookCommentService.readLikeComment(2);
 	    
 	    Assertions.assertNotNull(list);
 	    
 	    for(BookCommentReadDto c : list) {
-	        log.info("책2번에 대한 한줄 평 {}",c);
+	        log.info("책2번에 대한 한줄 평 {}", c);
 	        
 	    }
+	}
 	    
 //	    BookCommentRegisterDto dto = new BookCommentRegisterDto(1, "어린왕자는 나의 어린 시절을 대표", 1);
 //	    
 //	     Integer commentId = bookCommentService.create(dto);
 //	    
 //	    log.info("생성된 코멘트 아이디 {}" , commentId);
+	    
+	    @Test
+	    public void testFindAuthor() {
+	        Assertions.assertNotNull(bookRepository);
+	        List<Book> list = bookRepository.findAllByAuthor("김영하");
+	        
+	        for (Book b : list) {
+	            log.info("bookName", b.getBookName());
+	        }
 	    
 	}
 	
