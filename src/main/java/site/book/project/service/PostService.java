@@ -45,6 +45,7 @@ public class PostService {
         
         return postRepository.findById(postId).get();
     }
+
     
     public void delete(Integer postId) {
         log.info("delete(postId={})",postId);
@@ -87,4 +88,10 @@ public class PostService {
     }
    
   
+
+	public List<Post> findBybookId(Integer bookId) {
+	    
+	    return postRepository.findByBookBookId(bookId);
+	}
+
 }
