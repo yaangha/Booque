@@ -13,7 +13,7 @@
     // 댓글 작성 함수
     function registerNewReply() {
         // 포스트 글
-        const postId = document.querySelector('#id').value;
+        const postId = document.querySelector('#postId').value;
 
         // 댓글 작성자
         const replyWriter = document.querySelector('#replyWriter').value;
@@ -43,7 +43,7 @@
 
     // 댓글 목록 함수
     function readAllReplies(){
-        const postId = document.querySelector('#id').value;
+        const postId = document.querySelector('#postId').value;
         axios
         .get('/api/reply/all/' + postId)  
         .then(response => { updateReplyList(response.data) } )
@@ -74,7 +74,7 @@
                 + '</div>';
         }
         divReplies.innerHTML = str;
-
+        
         // [수정] 버튼에 이벤트 리스너를 등록
         const buttons = document.querySelectorAll('.btnModifies');
         buttons.forEach(btn => {

@@ -2,12 +2,13 @@ package site.book.project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
     
+    /*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
          // Spring Security는 GET 방식을 제외한 POST/PUT/DELETE 요청에서 
@@ -18,4 +19,5 @@ public class SecurityConfig {
         
         return http.build();
     }
+    */
 }

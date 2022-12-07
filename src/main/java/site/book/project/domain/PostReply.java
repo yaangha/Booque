@@ -41,10 +41,6 @@ public class PostReply extends BaseTimeEntity {
     @Column(nullable = false, length = 1000)
     private String replyContent;
     
-
-    @Column(nullable = false)
-    private String replyWriter;
-    
     public PostReply update(String replyContent) {
         this.replyContent = replyContent;
         return this;
