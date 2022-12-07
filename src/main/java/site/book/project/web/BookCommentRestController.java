@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Post;
 import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.service.BookCommentService;
+import site.book.project.service.PostService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,6 +25,7 @@ import site.book.project.service.BookCommentService;
 public class BookCommentRestController {
     
     private final BookCommentService bookCommentService;
+    private final PostService postService;
     
     
     @PostMapping("/api/comment") // 한줄평 insert
@@ -56,6 +60,29 @@ public class BookCommentRestController {
         return ResponseEntity.ok(list);
         
     }
+    
+    
+    
+    // postRest 사용할 예정
+    // 먼저 repositoy에서 query랑 문장 만들고 실행 되는지 확인  완.
+    // service로 옮겨서 실행 완성.되면
+    // ajax(post.js)만들고 컨트롤러(여기) get방식으로 받음 
+    // DTO를 만들어야 함... 
+    // TODO
+    @GetMapping("/api/post/all/{bookId}")
+    public ResponseEntity<List<PostReadDto>> readPostDesc(@PathVariable Integer bookId){
+        // bookid 받고 거기에 있는 post를 최신순으로
+        List<PostReadDto> list = postService.findDesc(bookId);
+        
+        log.info(" 포스트 최신 순{}",list);
+        
+        
+        return ResponseEntity.ok(list);
+    }
+    
+    
+    
+    
     
     
     

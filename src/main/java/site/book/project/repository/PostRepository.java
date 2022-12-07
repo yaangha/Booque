@@ -11,7 +11,27 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
     List<Post> findByOrderByPostIdDesc();
 
 	// bookid로 post글 꺼내서 책상세페이지에서 사용할 예정
-	// select * from posts where book_book_id = 1;
+	// select * from posts where book_book_id = 1; 예전꺼
 	List<Post> findByBookBookId(Integer bookId);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 책 상세 사용할 post 별점순, 최신순, 댓글순?
+	// 댓글의 경우 post별로 댓글의 개수를 찾아야함. 
+	// 별점 낮은순 desc(내림차순)
+	List<Post> findByBookBookIdOrderByCreatedTimeDesc(Integer bookId);  // 최근순
+	List<Post> findByBookBookIdOrderByMyScore(Integer bookId);   // 별점 낮은 순
+	List<Post> findByBookBookIdOrderByMyScoreDesc(Integer bookId); // 별점 높은 순
+	
+	
+	
+	
 
 }

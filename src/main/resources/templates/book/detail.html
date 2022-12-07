@@ -351,24 +351,26 @@
                 <ul class="dropdown-menu">
                     <li><button class="dropdown-item"  id="orderDesc" >최신 순</button></li>
                     <li><button class="dropdown-item"  id="orderReply" >댓글 순</button></li>
-                    <li><button class="dropdown-item"  id="orderStar" >별점 순</button></li>
+                    <li><button class="dropdown-item"  id="orderScoreDesc" >별점 높은순</button></li>
+                    <li><button class="dropdown-item"  id="orderScore" >별점 순</button></li>
                 </ul>
             </div>
         </div>
         
         <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
         
-        <!--/* th:each를 통해서 불러오기   */-->
-        <div  th:each="post : ${ postList }">
+          <!--/* th:each를 통해서 불러오기   */-->
+          
+ <!--/*       <div  th:each="post : ${ postList }">
             <div class="my-2" th:text="${ post.user.name }" > </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
+*/-->
         
-        
-        <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨 -->
-        
+        <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
+        <div id="postOrder"></div>
         
         
         
@@ -407,7 +409,7 @@
             </div>
             <div class="row">
                 <div class="col-10 my-2">
-                    <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example" autofocus>
+                    <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example" >
                 </div>
                 <div class="col-2 my-2">
                     <button type="button" class="btn btn-dark"  id="btnComment" style="float: right;">작성</button>
@@ -446,6 +448,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script th:inline="javascript"> //로그인 유저 정보 넣을 예정    </script>
     <script th:src="@{ /js/comment.js }"></script>   
+    
+    <!-- choi -->
+    <script th:src="@{ /js/bookDetailPost.js }"></script>   
 
     
     

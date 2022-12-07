@@ -20,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"user", "book"})
 @Entity(name = "POSTS")
 @SequenceGenerator(name = "POSTS_SEQ_GEN", sequenceName = "POSTS_SEQ", initialValue = 1, allocationSize = 1)
 public class Post extends BaseTimeEntity {
