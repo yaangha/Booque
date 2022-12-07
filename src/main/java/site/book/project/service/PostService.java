@@ -62,14 +62,17 @@ public class PostService {
 	    List<Post> list = postRepository.findByBookBookIdOrderByCreatedTimeDesc(bookId); 
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
+	// 별점 높은순
+	public List<PostReadDto> findScoreDesc(Integer bookId){
+	    List<Post> list = postRepository.findByBookBookIdOrderByMyScoreDesc(bookId);
+	    
+	    return list.stream().map(PostReadDto:: fromEntity).toList();
+	}
 	
 	// 별점 낮은순
-	public List<Post> findScore(Integer bookId){
-	    return postRepository.findByBookBookIdOrderByMyScore(bookId);
-	}
-	// 별점 높은순
-	public List<Post> findScoreDesc(Integer bookId){
-	    return postRepository.findByBookBookIdOrderByMyScoreDesc(bookId);
+	public List<PostReadDto> findScore(Integer bookId){
+	    List<Post> list = postRepository.findByBookBookIdOrderByMyScore(bookId);
+	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
 	

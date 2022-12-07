@@ -36,20 +36,7 @@ public class PostRepositoryTests {
        
        Assertions.assertNotNull(postRepository);
        Assertions.assertNotNull(postService);
-       List<Post> list = postService.findScore(1);
-       
-       
-       for(Post p : list) {
-           log.info("시간순 ={}" , p.getMyScore());
-           
-       }
-       List<Post> lists = postService.findScoreDesc(1);
-       
-       
-       for(Post p : lists) {
-           log.info("시간순 높은 순={}" , p.getMyScore());
-           
-       }
+
        
        
    }

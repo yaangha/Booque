@@ -80,8 +80,28 @@ public class BookCommentRestController {
         return ResponseEntity.ok(list);
     }
     
+    // 높은 별점순
+    @GetMapping("/api/post/scoreDesc/{bookId}")
+    public ResponseEntity<List<PostReadDto>> readPostScoreDesc(@PathVariable Integer bookId){
+        // bookid 받고 거기에 있는 post를 최신순으로
+        List<PostReadDto> list = postService.findScoreDesc(bookId);
+        
+        log.info(" 포스트 별점{}",list);
+        
+        return ResponseEntity.ok(list);
+    }
     
+    // 낮은 별점순
     
+    @GetMapping("/api/post/score/{bookId}")
+    public ResponseEntity<List<PostReadDto>> readPostScore(@PathVariable Integer bookId){
+        // bookid 받고 거기에 있는 post를 최신순으로
+        List<PostReadDto> list = postService.findScore(bookId);
+        
+        log.info(" 포스트 별점{}",list);
+        
+        return ResponseEntity.ok(list);
+    }
     
     
     

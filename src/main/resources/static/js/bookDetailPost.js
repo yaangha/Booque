@@ -17,9 +17,27 @@
     const orderScore = document.querySelector('#orderScore');
     orderScore.addEventListener('click', score);
     
+    const orderDesc = document.querySelector('#orderDesc');
+    orderDesc.addEventListener('click',readPostDesc)
+    
     
     function scoreDesc(){
         const bookId = document.querySelector('#id').value;
+        
+        axios
+        .get('/api/post/scoreDesc/'+bookId)
+        .then(respons => {updatePostList(respons.data)})
+        .catch(err => { console.log(err) });
+        
+    }
+    
+    function score(){
+        const bookId = document.querySelector('#id').value;
+        
+        axios
+        .get('/api/post/score/'+bookId)
+        .then(respons => {updatePostList(respons.data)})
+        .catch(err => { console.log(err) });
         
     }
 
