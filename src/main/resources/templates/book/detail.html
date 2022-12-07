@@ -16,7 +16,7 @@
         * {
             font-family: 'NanumBarunGothic';        
         }
-        
+
             #registerBtn{display:block; max-width:100px; text-align:center; padding:10px; border:1px solid #0d6efd; border-radius:5px; color:#0d6efd; margin-top:20px;}
             #registerBtn:hover{color:#fff; background:#0d6efd; transition:0.3s all;}
 
@@ -33,6 +33,11 @@
             .input-label{display:block; font-size:15px; font-weight:bold; margin-bottom:5px;}
             .clickBtn{padding:5px; border:1px solid #0d6efd; border-radius:5px; color:#0d6efd; background:#fff; cursor:pointer; margin:5px;}
             .clickBtn:hover{background:#0d6efd; color:#fff;}
+
+        #likes {
+            width: 15px;
+            height: 15px;
+        }
     </style>
 </head>
 <body>
@@ -117,9 +122,6 @@
         
 
 
-
-
-
     <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
     <div class="w-50 container">
         <div class="row my-5"> 
@@ -189,59 +191,128 @@
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2"
         data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
         class="scrollspy-example p-3 rounded-2" tabindex="0">
-
-        <div data-bs-spy="scroll" data-bs-target="#navbar-example2"
-        data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
-        class="scrollspy-example p-3 rounded-2" tabindex="0">
+        
         <h4 id="bookInfo" th:text="${ book.bookName }"></h4>
         <p th:text="${ book.bookIntro }"></p>
-
 
         <div>
             <img loading="lazy" th:src="${ book.bookIntroImage }">
         </div>
+        
+        
+    <!-- 현재 보여지는 책은 보이면 안됨 + 이미지 비율 수정하기 -->   
+    <!-- (하은) 작가의 다른 책 보여주기 -->    
+    <span class="h4" th:text="${ book.author }"></span><span> 작가의 다른 책</span>
 
+    <div id="carouselExampleInterval" class="p-2 carousel slide bg-light" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+            <div class="row">
+                <div class="col" th:each="book : ${ authorOtherBook }">
+                <div class="card my-2" style="width: 15rem; height:450px;">
+                    <div style="width:237px; height:330px;">
+                        <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" >
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <span class="h5" th:text="${ book.bookName }"></span><br/>
+                            <span th:text="${ book.author }"></span><br/>
+                            <span th:text="${ book.prices }"></span><span>원</span>
+                        </div>
+                    </div> <!-- card body end -->
+                </div> <!-- card end -->
+                </div> <!-- col end -->
+            </div> <!-- row end -->
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+        
+      
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
             
-            <!-- 최신순, 선호도 등 정렬 드롭다운 -->
+            <!-- 최신순, 선호도 등 -->
             <div class="dropdown col">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">정렬</button>
+                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">최신순</a></li>
-                    <li><a class="dropdown-item" href="#">선호도순</a></li>
+                    <li><button class="dropdown-item"  id="orderDesc" >최신 순</button></li>
+                    <li><button class="dropdown-item"  id="orderReply" >댓글 순 아직 안됨.</button></li>
+                    <li><button class="dropdown-item"  id="orderScoreDesc" >별점 높은순</button></li>
+                    <li><button class="dropdown-item"  id="orderScore" >별점낮은 순</button></li>
                 </ul>
             </div>
         </div>
         
         <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
+
+        <!-- (하은) 리뷰 페이지 넘기기 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" style="justify-content : center;">
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Previous"> 
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Next"> 
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         
-        <!--/* th:each를 통해서 불러오기   */-->
-        <div  th:each="post : ${ postList }">
+          <!--/* th:each를 통해서 불러오기   */-->
+          
+ <!--/*       <div  th:each="post : ${ postList }">
             <div class="my-2" th:text="${ post.user.name }" > </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
+*/-->
+        
+        <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
+        <div id="postOrder"></div>
+        
+        
+        
+        
+        <!-- Likes --> 
+
+        <img id="likes" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
+        <img id="likes" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/833/833472.png }">
+        
+        
+        <!--  comment  -->
+        
         
         <div class="row">
             <div id="bookReview" class="h4 col">한줄평</div>
             
-            <!-- 최신순, 선호도 등 정렬 드롭다운 -->
+            <!-- 정렬-> 최신순, 하트 순 -->
             <div class="dropdown col">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">정렬</button>
+                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;" >최신순</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">최신순</a></li>
-                    <li><a class="dropdown-item" href="#">선호도순</a></li>
+                    <!-- 최신순이 원래 기본 -->
+                    <li><button class="dropdown-item" id="btnOrderDesc" >최신 순</button> </li>
+                    <li><button class="dropdown-item" id="btnOrderLikes" >하트 순</button> </li>
+                    
                 </ul>
             </div>
         </div>
         
-        <!-- 한줄평 보기 --> 
-
-        <button ></button>
-        <img alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
         <!-- 한줄평 AJax -->
         <div id="bookComment"></div>
         
@@ -260,16 +331,13 @@
             </div>
         </div>
         
-        
-        
-        
-        
-        
-        
-        
+        <!--  comment  하트 증가는 못함 /-->
+
+
+
         
         <!-- 작가의 다른 책 -->
-        <div>
+        <div >
             <span></span>
         </div>
         
@@ -277,15 +345,14 @@
         <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
     
         <th:block th:replace="fragments/bookDetailFooter :: bookDetailFooter"></th:block>
-    </div>
+    </div> <!-- ???? -->
     
     </div> <!-- 전체 블록 사이즈때문에 묶어놓은 것 end -->
 
 
 
-
-
 <!--/* layout으로 묶을 경우 <th:block layout:fragment="script">로 묶어주기 */-->
+
 
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -295,6 +362,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script th:inline="javascript"> //로그인 유저 정보 넣을 예정    </script>
     <script th:src="@{ /js/comment.js }"></script>   
+    
+    <!-- choi -->
+    <script th:src="@{ /js/bookDetailPost.js }"></script>   
 
     
     

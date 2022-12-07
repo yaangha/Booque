@@ -66,6 +66,18 @@ public class BookCommentService {
     }
     
     
+    public List<BookCommentReadDto> readLikeComment(Integer bookId) {
+        log.info("readComment like 순으로!!! bookid ={}", bookId);
+        
+        //List<BookComment> list = bookCommentRepository.selectAllComment(bookId);
+        // 최근순
+        List<BookComment> list = bookCommentRepository.findByBookBookIdOrderByLikesDesc(bookId);
+        
+        
+        return list.stream().map(BookCommentReadDto:: fromEntity).toList();
+    }
+    
+    
     
     
     
