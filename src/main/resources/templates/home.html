@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+    <div layout:fragment="content">
+        <div>
+            
+        </div>
+    </div>
+    
+    <script layout:fragment="script" th:inline="javascript">
+    console.log('Thymeleaf 레이아웃 기능');
+    </script>
+
+</html>
