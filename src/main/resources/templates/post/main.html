@@ -62,30 +62,28 @@
                 <td class="col-10">
                     <!-- 블로그 메인 섹션 시작 -->
 
-                    <nav class="navbar navbar-expand-lg"
-                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray; font-size: 15px;">
+                   <nav class="navbar navbar-expand-lg"
+                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray;">
+                         
                         <div class="container-md"
-                            style="display: inline-block; margin: 10px;"
-                            align="right">
-                            <a href="/post/list" style="color: gray;">전체
-                                목록</a>
+                            style="display: inline-block; margin: 5px;" align="right">
+                            <a href="/post/list" style="color: gray; margin-right: 15px;">전체 목록</a>
+                            <a href="/post/create" style="color: gray; margin-right: 15px;">새 포스트 작성</a>
                         </div>
+                       
                         <div class="dropdown"
                             style="display: inline-block; margin-right: 25px;">
                             <button class="btn dropdown-toggle"
-                                style="width: 80px; height: 28px; font-size: 15px; border: 1px solid gray;"
-                                type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">Drop</button>
+                                style="width: 85px; height: 30px; border: 1px solid gray;"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Drop</button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                    href="#">날짜순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#">인기순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#"></a></li>
+                                <li><a class="dropdown-item" href="#">날짜순</a></li>
+                                <li><a class="dropdown-item" href="#">인기순</a></li>
+                                <li><a class="dropdown-item" href="#">리스트형</a></li>
                             </ul>
                         </div>
-
+                  </div>
                     </nav> <!-- 도서 카드 + 리뷰 시작 -->
                     <div class="card"
                         style="width: 880px; margin-top: 10px;"
@@ -162,7 +160,10 @@
                         <!-- 도서 카드 끝 -->
                     <div>
                            <label for="postContent" class="form-label"></label>
-                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;" th:value="${ post.postContent }" readonly></textarea>
+                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;">
+                            TODO
+                            <!-- TODO:  th:value="${ post.postContent }" readonly -->
+                            </textarea>
                         </div>
                        
                         <!-- 댓글창! -->
@@ -252,7 +253,9 @@
 
                         <div>
                            <label for="postContent" class="form-label"></label>
-                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;" th:value="${ post.postContent }" readonly></textarea>
+                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;" > TODO
+                            <!-- TODO: th:value="${ post.postContent }" readonly -->
+                            </textarea>
                         </div>
 
                         <!-- 댓글창! -->

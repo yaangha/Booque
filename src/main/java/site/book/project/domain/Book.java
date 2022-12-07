@@ -35,7 +35,7 @@ public class Book {
     @Column(nullable = false)
     private String publishedDate;
     
-    @Column(nullable = false)
+   
     private String bookImage;
     
     @Column(nullable = false)
@@ -49,4 +49,7 @@ public class Book {
     
     @Column(nullable = false)
     private String category;
+    
+    @Column(nullable = false)
+    private String bookIntroImage;
 }

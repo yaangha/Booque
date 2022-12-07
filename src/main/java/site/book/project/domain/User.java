@@ -47,6 +47,9 @@ public class User {
     @Column(unique = true, nullable = false)
     private String nickName;
     
+    @Column(length = 1000)
+    private String userImage;
+    
     @Builder.Default
     private Integer point = 0;
     

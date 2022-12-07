@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.dto.ReplyReadDto;
 import site.book.project.dto.ReplyRegisterDto;
+import site.book.project.dto.ReplyUpdateDto;
 import site.book.project.domain.Post;
 import site.book.project.domain.PostReply;
 import site.book.project.domain.User;
@@ -54,6 +55,21 @@ public class ReplyService {
         
         reply = replyRepository.save(reply);
         return reply.getReplyId();
+    }
+
+    public ReplyReadDto readReply(Integer replyId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Integer delete(Integer replyWriter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Integer update(ReplyUpdateDto dto) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

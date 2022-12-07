@@ -40,4 +40,5 @@ public class PostReply extends BaseTimeEntity {
     @Column(nullable = false, length = 1000)
     private String replyContent;
     
+    
 }
