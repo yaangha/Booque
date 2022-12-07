@@ -18,7 +18,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     
-    
+
     // Post 리스트 전체
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -40,4 +40,10 @@ public class PostService {
         
         return postRepository.findById(postId).get();
     }
+
+	public List<Post> findBybookId(Integer bookId) {
+	    
+	    return postRepository.findByBookBookId(bookId);
+	}
+
 }

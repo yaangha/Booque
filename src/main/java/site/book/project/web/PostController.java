@@ -26,7 +26,7 @@ public class PostController {
     @GetMapping("/main")
     public void main() {
         log.info("main()");
-        
+
     }
     
     

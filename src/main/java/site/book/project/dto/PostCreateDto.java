@@ -21,7 +21,6 @@ public class PostCreateDto {
     
     public Post toEntity() {
         
-        
         return Post.builder().title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }
