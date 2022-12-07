@@ -321,7 +321,7 @@
         </div>
         
         
-    <!-- 현재 보여지는 책은 보이면 안됨.. 수정하기 -->   
+    <!-- 현재 보여지는 책은 보이면 안됨 + 이미지 비율 수정하기 -->   
     <!-- (하은) 작가의 다른 책 보여주기 -->    
     <span class="h4" th:text="${ book.author }"></span><span> 작가의 다른 책</span>
 
@@ -330,8 +330,8 @@
             <div class="carousel-item active" data-bs-interval="10000">
             <div class="row">
                 <div class="col" th:each="book : ${ authorOtherBook }">
-                <div class="card my-2" style="width: 15rem; height:470px;">
-                    <div style="width:237px; height:324px;">
+                <div class="card my-2" style="width: 15rem; height:450px;">
+                    <div style="width:237px; height:330px;">
                         <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" >
                     </div>
                     <div class="card-body">
