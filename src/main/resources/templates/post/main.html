@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+</head>
+<body>
+
+    <div
+        style="background-color: #E6E6FA; color: white; width: 1170px; height: 100px;"
+        align="right">
+        <h1>포스트 + 리뷰 목록 페이지</h1>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+
+                <td class="col-2" style="vertical-align: top;">
+                    <!-- 프로필 시작 -->
+                    <div class="card"
+                        style="margin: 20px; margin-left: 25px; margin-right: 10px; margin-bottom: 20px; width: 250px; height: 420px;">
+                        <div
+                            style="width: 200px; height: 210px; margin-left: 20px; margin-top: 20px;"
+                            align="center">
+                            <a href=""> <img src="/images/루피.png"
+                                class="img-fluid rounded-start">
+                            </a>
+                        </div>
+                        <div class="card-body"
+                            style="width: 200px; margin-left: 20px; height: 40px; margin-bottom: 20px; font-size: 15px;">
+                            <p class="card-text" style="height: 20px;">닉네임</p>
+                            <p class="card-text" style="height: 20px;">소개</p>
+                        </div>
+                        <div align="center" style="font-size: 8px;">
+                            <p>오늘 3 Total 261</p>
+                        </div>
+                    </div>
+                    <div style="width: 250px; margin-left: 25px;"
+                        align="center">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2"
+                                type="search" placeholder="Search"
+                                aria-label="Search">
+                            <button class="btn btn-outline-success"
+                                type="submit">Search</button>
+                        </form>
+                    </div>
+
+                </td>
+                <!-- 프로필 끝 -->
+
+
+
+                <td class="col-10">
+                    <!-- 블로그 메인 섹션 시작 -->
+
+                    <nav class="navbar navbar-expand-lg"
+                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray; font-size: 15px;">
+                        <div class="container-md"
+                            style="display: inline-block; margin: 10px;"
+                            align="right">
+                            <a href="/post/list" style="color: gray;">전체
+                                목록</a>
+                        </div>
+                        <div class="dropdown"
+                            style="display: inline-block; margin-right: 25px;">
+                            <button class="btn dropdown-toggle"
+                                style="width: 80px; height: 28px; font-size: 15px; border: 1px solid gray;"
+                                type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Drop</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                    href="#">날짜순</a></li>
+                                <li><a class="dropdown-item"
+                                    href="#">인기순</a></li>
+                                <li><a class="dropdown-item"
+                                    href="#"></a></li>
+                            </ul>
+                        </div>
+
+                    </nav> <!-- 도서 카드 + 리뷰 시작 -->
+                    <div class="card"
+                        style="width: 880px; margin-top: 10px;"
+                        align="center">
+                        <!-- 도서 카드 시작 -->
+                        <div class="card"
+                            style="max-width: 840px; margin: 20px;">
+                            <table>
+                                <tr>
+                                    <td class="col-3">
+                                        <div
+                                            style="width-max: 100%; height: 200px; margin: 20px; border: 1px solid gray;"
+                                            align="center">
+                                            <a href=""> <img
+                                                src="..."
+                                                class="img-fluid rounded-start"
+                                                alt="...">
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="col-6">
+                                        <div class="card-body"
+                                            style="width-max: 100%; height: 200px; margin: 10px; font-size: 15px;"
+                                            align="left">
+
+                                            <p class="card-text"
+                                                style="height: 20px;">제목</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">작가</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">출판사</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">출판일</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">별점</p>
+
+                                        </div>
+                                    </td>
+
+
+                                    <td class="col-2"
+                                        style="font-size: 15px;"
+                                        align="left">
+                                        <div
+                                            style="width: 120px; height: 90px; margin: 20px;">
+                                            <button type="button"
+                                                class="btn btn-primary"
+                                                style="width: 120px; height: 35px; margin: 10px;">
+                                                카트 담기</button>
+
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                style="width: 120px; height: 35px; margin: 10px;">찜</button>
+                                        </div>
+                                        <div
+                                            style="width: 120px; height: 5px;"></div>
+                                        <div
+                                            style="width: 120px; height: 40px; margin: 30px;">
+                                            <a href=""> <img
+                                                src="..."
+                                                class="img-fluid rounded-start"
+                                                style="width: 40px; height: 40px; border: 1px solid red;"
+                                                align="right">
+                                            </a>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+
+
+                            </table>
+                        </div>
+                        <!-- 도서 카드 끝 -->
+
+
+
+                        <div>
+                            <textarea rows="6" style="width: 840px;"></textarea>
+                        </div>
+                        <div style="width: 840px; height: 40px;">
+                            댓글</div>
+                    </div>
+
+                    <div style="width: 840px; height: 50px;"></div> <!-- 도서 카드 + 리뷰 끝 -->
+
+
+                    <!-- 도서 카드 + 리뷰 시작 -->
+                    <div class="card" style="width: 880px;"
+                        align="center">
+                        <div class="card"
+                            style="max-width: 840px; margin: 20px;">
+                            <table>
+                                <tr>
+                                    <td class="col-3">
+                                        <div
+                                            style="width-max: 100%; height: 200px; margin: 20px; border: 1px solid gray;"
+                                            align="center">
+                                            <a href=""> <img
+                                                src="..."
+                                                class="img-fluid rounded-start"
+                                                alt="...">
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="col-6">
+                                        <div class="card-body"
+                                            style="width-max: 100%; height: 200px; margin: 10px; font-size: 15px;"
+                                            align="left">
+
+                                            <p class="card-text"
+                                                style="height: 20px;">제목</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">작가</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">출판사</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">출판일</p>
+                                            <p class="card-text my-3"
+                                                style="height: 20px;">별점</p>
+
+                                        </div>
+                                    </td>
+
+
+                                    <td class="col-2"
+                                        style="font-size: 15px;"
+                                        align="left">
+                                        <div
+                                            style="width: 120px; height: 90px; margin: 20px;">
+                                            <button type="button"
+                                                class="btn btn-primary"
+                                                style="width: 120px; height: 35px; margin: 10px;">
+                                                카트 담기</button>
+
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                style="width: 120px; height: 35px; margin: 10px;">찜</button>
+                                        </div>
+                                        <div
+                                            style="width: 120px; height: 5px;"></div>
+                                        <div
+                                            style="width: 120px; height: 40px; margin: 30px;">
+                                            <a href=""> <img
+                                                src="..."
+                                                class="img-fluid rounded-start"
+                                                style="width: 40px; height: 40px; border: 1px solid red;"
+                                                align="right">
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
+                        </div>
+                        <!-- 도서 카드 끝 -->
+
+
+
+                        <div>
+                            <textarea rows="6" style="width: 840px;"></textarea>
+                        </div>
+
+                        <div style="width: 840px; height: 40px;">
+                            댓글</div>
+                    </div>
+                    <!-- 도서 카드 + 리뷰 끝 -->
+
+
+
+
+
+
+                </td>
+                <!-- 블로그 메인 섹션 끝 -->
+
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bootstrap이 사용하는 JavaScript 파일 포함 -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -44,5 +44,7 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer myScore;
     
+    @Column(nullable = false)
+    private String postWriter;
     
 }

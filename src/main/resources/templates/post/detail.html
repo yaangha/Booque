@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+</head>
+<body>
+<!-- 댓글 리스트 -->
+        <div id="replies"></div>
+       
+        <!-- 댓글 작성폼 & 리스트 폼 -->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="comment-count mt-3 publisher-nav-color">
+                            <strong><span>0</span> Reply</strong>
+                            </div>
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                     <!-- 프로필 정보 -->
+                                     <div class="profile">
+                                       <!-- #########링크 수정하기######### -->
+                                                <a href=#><img src="/images/프로필.jfif"
+                                                       class="img-fluid rounded-start"
+                                                         style="width: 30px; height: 30px;" alt=""></a>
+                                                <input type="text" id="replyWriter" />
+                                     </div>
+                                <form class="mb-4">
+                                    <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
+                                    <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </section>
+            <!-- 댓글 수정 & 삭제 -->
+    <div class="modal fade" id="postRepModal" tabindex="-1"
+        aria-labelledby="replyModalLabel" aria-hidden="true">
+        <div class="postRepModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">댓글 수정하기</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="modalReplyId" readonly/>
+                        <input type="hidden" id="modalReplyWriter" readonly/>
+                        <textarea id="modalReplyContent"
+                            class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalBtnUpdate"
+                            class="btn btn-primary">수정</button>
+                        <button type="button" id="modalBtnDelete"
+                            class="btn btn-primary">삭제</button>
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">취소</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
+    <script th:src="@{ /js/postReply.js }"></script>
+</body>
+</html>
