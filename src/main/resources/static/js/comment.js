@@ -65,7 +65,7 @@
     
     
     
-  // 어떤 response.data??  
+  // bookCommentReadDto에 있는 정보가 response.data로 전해짐 필드랑 동일하게 써야함
     function updateCommentList(data){
         const divComment = document.querySelector('#bookComment');
         
@@ -78,6 +78,9 @@
                 + '<div class="card-header">'
                 + '<h5>' + r.writer + '</h5>'
                 + '</div>'
+                + '<div> 좋아요 <span>  </span>'
+                + '<img id="heart" alt="" src=" https://cdn-icons-png.flaticon.com/512/7476/7476962.png "> <span>  </span>'
+                + r.likes+'</div>'
                 + '<div class="card-body">'
                 + '<p>' + r.commentText + '</p>'
                 + '<p> 작성시간: ' + r.createdTime + '</p>'
