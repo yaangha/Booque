@@ -16,6 +16,10 @@
         * {
             font-family: 'NanumBarunGothic';        
         }
+        #heart {
+            width: 10px;
+            height: 10px;
+        }
     </style>
 </head>
 <body>
@@ -374,10 +378,16 @@
             </div>
         </div>
         
+        
+        
         <!-- 한줄평 보기 --> 
 
-        <button ></button>
-        <img alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
+        <img id="heart" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
+        
+        
+        
+        
+        
         <!-- 한줄평 AJax -->
         <div id="bookComment"></div>
         

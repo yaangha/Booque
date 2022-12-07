@@ -34,7 +34,7 @@ public class BookCommentRestController {
     }
     
     @GetMapping("/api/comment/all/{bookId}")
-    public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
+    public ResponseEntity<List<BookCommentReadDto>> readAllCommentDesc(@PathVariable Integer bookId) {
         log.info("comment여기가 바로! bookREST!!! bookId= {}", bookId);
         
         List<BookCommentReadDto> list = bookCommentService.readComment(bookId);
@@ -42,6 +42,17 @@ public class BookCommentRestController {
         return ResponseEntity.ok(list);
         
     }
+    
+    // 주소값 바꿔서 하기!! 삭제도 하기!
+//    @GetMapping("/api/comment/all/{bookId}")
+//    public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
+//        log.info("comment여기가 바로! bookREST!!! bookId= {}", bookId);
+//        
+//        List<BookCommentReadDto> list = bookCommentService.readComment(bookId);
+//        
+//        return ResponseEntity.ok(list);
+//        
+//    }
     
     
     
