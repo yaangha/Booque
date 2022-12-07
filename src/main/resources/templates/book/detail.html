@@ -211,7 +211,7 @@
                 <div class="col" th:each="book : ${ authorOtherBook }">
                 <div class="card my-2" style="width: 15rem; height:450px;">
                     <div style="width:237px; height:330px;">
-                        <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" >
+                        <a th:href="@{ /detail(id=${ book.bookId }) }"><img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" ></a>
                     </div>
                     <div class="card-body">
                         <div class="card-text">
@@ -333,13 +333,6 @@
         
         <!--  comment  하트 증가는 못함 /-->
 
-
-
-        
-        <!-- 작가의 다른 책 -->
-        <div >
-            <span></span>
-        </div>
         
         <!-- 배송/반품/교환 관련 정보 부분 -->
         <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
