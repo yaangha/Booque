@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Post;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.repository.PostRepository;
 
 @Slf4j
@@ -20,9 +21,8 @@ import site.book.project.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-    
 
-    // Post 리스트 전체
+    // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
     public List<Post> read(){
         log.info("read()");
@@ -45,7 +45,6 @@ public class PostService {
         
         return postRepository.findById(postId).get();
     }
-
 
     public void delete(Integer postId) {
         log.info("delete(postId={})",postId);
@@ -86,12 +85,30 @@ public class PostService {
         
         return list;
     }
-   
-  
+ 
+    // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
 
 	public List<Post> findBybookId(Integer bookId) {
-	    
+	    // 오래된 순
 	    return postRepository.findByBookBookId(bookId);
+	}
+
+	// 최신순
+	public List<PostReadDto> findDesc(Integer bookId){
+	    List<Post> list = postRepository.findByBookBookIdOrderByCreatedTimeDesc(bookId); 
+	    return list.stream().map(PostReadDto:: fromEntity).toList();
+	}
+	// 별점 높은순
+	public List<PostReadDto> findScoreDesc(Integer bookId){
+	    List<Post> list = postRepository.findByBookBookIdOrderByMyScoreDesc(bookId);
+	    
+	    return list.stream().map(PostReadDto:: fromEntity).toList();
+	}
+	
+	// 별점 낮은순
+	public List<PostReadDto> findScore(Integer bookId){
+	    List<Post> list = postRepository.findByBookBookIdOrderByMyScore(bookId);
+	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
 }
