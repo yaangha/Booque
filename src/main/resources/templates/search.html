@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout2 }">
+
+<head> 
+  
+</head>
+
+<body>
+    <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+<div layout:fragment="content" align ="center"> <!-- layout:fragment="content" : START -->
+    <hr/>
+    <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
+    
+        <div style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> <!-- 검색 상단바 START -->
+         <strong>
+          <a href="javascript:void(0)">인기도순</a>
+          <a href="javascript:void(0)">신상품순</a>
+          <a href="javascript:void(0)">최저가순</a>
+          <a href="javascript:void(0)">최고가순</a>
+          <a href="javascript:void(0)">별점순</a>
+          <a href="javascript:void(0)">리뷰순</a>
+          </strong>
+        </div> <!-- 검색 상단바 END -->
+        
+        <div><br/></div>
+        
+        <div class="card" style="border: 1px solid red; padding: 20px;"><!-- 도서카드(가로버전) START -->
+          <table width= "100%">
+            <tr th:each="book : ${ searchList }">
+               <td width= "20%" style="border: 1px solid blue;">
+                  <a th:href="@{ detail?id={ bookId } (bookId = ${ book.bookId })"><img th:src="${ book.bookImage }" class="img-fluid rounded-start"></a>
+               </td>
+               <td width= "63%">
+                  <table style="padding-left: 20px;">
+                    <tr><td><br/></td></tr>
+                    <tr>
+                      <td th:text= "${ book.bookName }"><span style="font-size: 18px;"><strong></strong></span></td>
+                    </tr>
+                    <tr>
+                      <td th:text="${ book.author }" width= "28%"></td>
+                      <td th:text="${ book.publisher }" width= "35%"></td>
+                      <td th:text="${ book.publishedDate }"></td>
+                    </tr>
+                    <tr>
+                     <td th:text="${ #numbers.formatInteger(book.prices, 0, 'COMMA') }"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
+                    </tr>
+                    <tr><td>판매지수</td></tr>
+                    <tr>
+                      <td><span><a href="">회원리뷰</a></span> &nbsp;&nbsp;★★★★☆ (8.0)</td>
+                    </tr>
+                    <tr> 
+                      <td>오늘 주문하면 내일 도착</td>
+                    </tr>
+                    <tr><td><br/></td></tr>
+                  </table>
+               </td>
+             <td width= "17%" style="border: 1px solid blue;">
+              <button>카트 담기</button>
+             </td>
+           </tr>
+         </table>
+        </div> <!-- 도서카드(가로버전) END -->
+        
+
+    </div> <!-- container-fluid : END -->
+    <hr/>
+</div> <!-- layout:fragment="content" : END -->
+
+<script layout:fragment="script" th:inline="javascript">
+    console.log('Thymeleaf 레이아웃 기능');
+    </script>
+</body>
+</html>
