@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"user","book"})
 @Entity(name= "CARTS")
 @SequenceGenerator(name = "CARTS_SEQ_GEN", sequenceName = "CARTS_SEQ", initialValue = 1, allocationSize = 1)
 public class Cart {
