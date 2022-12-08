@@ -31,12 +31,22 @@
 
 </head>
 
-<body class="w3-content" style="max-width:1200px">
+<body class="w3-content" style="max-width:2000px">
+
+<!-- 상단 메뉴 바(검은색) -->
+<header id="top-menu-full-screen" class="w3-bar w3-top w3-hide-small w3-hide-medium w3-black w3-xlarge">
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"  style="margin-left:50px;"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
+    BOOQUE 
+    </a>
+    <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignIn" style="font-size:medium; margin-top:25px; margin-right:50px;">회원가입</a>
+    <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignUp" style="font-size:medium; margin-top:25px; margin-right:20px;">로그인</a>
+</header>
 
 <!-- 사이드바 -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+<nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:300px; height:100%; display:none;" id="mySidebar">
   <div class="w3-container w3-display-container w3-padding-16">
-    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <i onclick="w3_close()" class="fa fa-remove w3-button w3-display-topright"></i>
     
     <!-- 로고 이미지 -->
     <a href="#" id="logo-side" style="margin-top: 5px;">
@@ -70,29 +80,28 @@
   <br/>
   
     <!-- 로그인하지 않은 상태 -->
-    <a href="#" class="w3-bar-item w3-button w3-medium">로그인</a>
-    <a href="#" class="w3-bar-item w3-button w3-medium">회원가입</a>
+    <a href="#" id="btnSignIn-side" class="w3-bar-item w3-button w3-medium">로그인</a>
+    <a href="#" id="btnSignUp-side" class="w3-bar-item w3-button w3-medium">회원가입</a>
     
     <br/>
     
     <!-- 로그인한 상태 -->
-    <a href="#" class="w3-bar-item w3-button w3-medium">마이페이지</a>
-    <a href="#" class="w3-bar-item w3-button w3-medium">로그아웃</a>
+    <a href="#" id="btnMyPage" class="w3-bar-item w3-button w3-medium">마이페이지</a>
+    <a href="#" id="btnSignOut" class="w3-bar-item w3-button w3-medium">로그아웃</a>
     
     
   </div>
-  
-  
-  
-</nav>
+</nav> <!-- 사이드바 end -->
 
-<!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+
+
+
+<!-- 작은 화면(좁은 너비)에서의 상단 메뉴 바(검은색) -->
+<header id="top-menu-small-screen" class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top"> BOOQUE </a>
+    <a href="#" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white;"> BOOQUE </a>
     <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignIn" style="font-size:medium; margin-top:25px; margin-right:10px;">회원가입</a>
     <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignUp" style="font-size:medium; margin-top:25px;">로그인</a>
-     
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -104,15 +113,16 @@
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
   
-  <!-- Top header -->
-  <header class="w3-container w3-xlarge" style="margin-top:30px;">
-    <p class="w3-left"><b>국내도서</b></p>
+  <header class="w3-container w3-xlarge" style="margin-top:120px;">
+    <p class="w3-left" id="title-menu"><b>국내도서</b></p>
     <p class="w3-right">
-      <!-- 장바구니 버튼 -->
-      <a href="#"><i class="fa fa-shopping-cart w3-margin-right" id="cart"></i></a>
+      <!-- 검색어 입력 창 -->
+        <input type="text" id="keyword" />
       <!-- 검색 버튼 -->
-      <a href="#"><i class="fa fa-search" id="btnSearch"></i></a>
-    </p>
+      <a href="#" style="color:black; margin-right:40px; margin-left:20px;"><i class="fa fa-search" id="btnSearch"></i></a>  
+      <!-- 장바구니 버튼 -->
+      <a href="#" style="color:black; margin-right:40px;"><i class="fa fa-shopping-cart w3-margin-right" id="btnCart"></i></a>
+       </p>
   </header>
   
   <!-- Main Contents 넣는 곳 -->
