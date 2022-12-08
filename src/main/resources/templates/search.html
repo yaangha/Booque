@@ -13,6 +13,35 @@
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
+    <!-- booqueSearch 시작 -->
+    <div class="my-2">
+        <form th:action="@{ /search/s }" method="get">
+            <div class="row">
+                <div class="col-4">
+                    <select name="type" class="form-control">
+                        <option value="all">통합검색</option>
+                        <option value="do">국내도서</option>
+                        <option value="fo">외국도서</option>
+                        <option value="au">저자</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control"
+                        name="keyword" placeholder="검색어" required
+                        autofocus />
+                </div>
+                <div class="col-2">
+                    <input type="submit" class="btn btn-light"
+                        value="검색" required autofocus />
+                </div>
+            </div>
+        </form>
+    </div><!-- booqueSearch 끝 -->
+    <!-- Full screen modal
+    <div class="modal-dialog modal-fullscreen-sm-down">
+    </div>
+     -->
+    
         <div style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> <!-- 검색 상단바 START -->
          <strong>
           <a href="javascript:void(0)">인기도순</a>
@@ -30,7 +59,7 @@
           <table width= "100%">
             <tr th:each="book : ${ searchList }">
                <td width= "20%" style="border: 1px solid blue;">
-                  <a th:href="@{ detail?id={ bookId } (bookId = ${ book.bookId })"><img th:src="${ book.bookImage }" class="img-fluid rounded-start"></a>
+                  <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}"><img th:src="${ book.bookImage }" class="img-fluid rounded-start"></a>
                </td>
                <td width= "63%">
                   <table style="padding-left: 20px;">
@@ -44,7 +73,7 @@
                       <td th:text="${ book.publishedDate }"></td>
                     </tr>
                     <tr>
-                     <td th:text="${ #numbers.formatInteger(book.prices, 0, 'COMMA') }"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
+                     <td th:text="${book.prices}"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
                     </tr>
                     <tr><td>판매지수</td></tr>
                     <tr>
