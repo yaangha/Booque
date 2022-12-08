@@ -38,7 +38,7 @@ public class BookService {
 		}
 		return contentList;
 	}
-
+//dd
 	// 별점 소숫점 첫째 자리까지 완.
 	public Double scoreAvg(Integer bookId) {
 	    log.info("별점 계산 bookid={}", bookId);
@@ -60,6 +60,12 @@ public class BookService {
 		return avg;
 	}
 	
-	
+    // (하은) 작가의 다른 책 정보 read
+    public List<Book> readAuthor(String author) {
+        log.info("author={}", author);
+        List<Book> authorOtherBook = bookRepository.findAllByAuthor(author);
+
+        return authorOtherBook;
+    }   
 	
 }

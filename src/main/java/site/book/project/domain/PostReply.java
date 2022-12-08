@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +35,15 @@ public class PostReply extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     
+    @Column(nullable = false)
+    private String replyWriter;
+    
     @Column(nullable = false, length = 1000)
     private String replyContent;
     
+    public PostReply update(String replyContent) {
+        this.replyContent = replyContent;
+        return this;
+    }
+
 }

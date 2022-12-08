@@ -9,8 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.BookComment;
 import site.book.project.domain.Post;
+import site.book.project.dto.BookCommentReadDto;
+import site.book.project.dto.BookCommentRegisterDto;
+import site.book.project.service.BookCommentService;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
 
@@ -28,6 +32,12 @@ public class BookRepositoryTests {
 	
 	@Autowired
 	private BookCommentRepository bookCommentRepository;
+	
+	@Autowired
+	private BookCommentService bookCommentService;
+	
+	@Autowired
+	private BookRepository bookRepository;
 	
 //	@Test
 //	public void test() {
@@ -52,23 +62,85 @@ public class BookRepositoryTests {
 	@Test
 	public void testComment() {
 	    // 최신순, 오래된순, 좋아요 순
-	    Assertions.assertNotNull(bookCommentRepository);
-	    List<BookComment> list =  bookCommentRepository.findByBookBookIdOrderByCreatedTimeDesc(1);
-	    for(BookComment b : list) {
-	        log.info("comment 1번 책= {}, 시간 {}",b, b.getCreatedTime() );
-	        
-	        
-	    }
-	    
+//	    Assertions.assertNotNull(bookCommentRepository);
+//	    List<BookComment> list =  bookCommentRepository.findByBookBookIdOrderByCreatedTimeDesc(1);
+//	    for(BookComment b : list) {
+//	        log.info("comment 1번 책= {}, 시간 {}",b, b.getCreatedTime() );
+//	    }
+//	    
 //	    List<BookComment> com =  bookCommentRepository.findAll();
-//	    
-//	    
 //	    for(BookComment b : com) {
 //	        log.info("comment = {}", b.getCommentContent());
 //	    }
 	    
 	    
+	    // bookCommentRepository 잘 되는지 
+	    Assertions.assertNotNull(bookCommentService);
+	    
+	    
+	    
+	    
+	    List<BookCommentReadDto> list = bookCommentService.readLikeComment(2);
+	    
+	    Assertions.assertNotNull(list);
+	    
+	    for(BookCommentReadDto c : list) {
+	        log.info("책2번에 대한 한줄 평 {}", c);
+	        
+	    }
 	}
+	    
+//	    BookCommentRegisterDto dto = new BookCommentRegisterDto(1, "어린왕자는 나의 어린 시절을 대표", 1);
+//	    
+//	     Integer commentId = bookCommentService.create(dto);
+//	    
+//	    log.info("생성된 코멘트 아이디 {}" , commentId);
+	    
+	    @Test
+	    public void testFindAuthor() {
+	        Assertions.assertNotNull(bookRepository);
+	        List<Book> list = bookRepository.findAllByAuthor("김영하");
+	        
+	        for (Book b : list) {
+	            log.info("bookName", b.getBookName());
+	        }
+	    
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
