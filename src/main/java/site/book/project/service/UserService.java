@@ -1,5 +1,6 @@
 package site.book.project.service;
 
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ import site.book.project.dto.UserRegisterDto;
 import site.book.project.repository.UserRepository;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserService {
     
     
@@ -40,4 +41,9 @@ public class UserService {
         return entity;
     }
 
+    public User read(Integer userId) {
+        return userRepository.findById(userId).get();
+    }
+    
 }
+
