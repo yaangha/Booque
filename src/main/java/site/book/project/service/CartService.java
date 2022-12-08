@@ -53,7 +53,8 @@ public class CartService {
                         book.getAuthor(), 
                         book.getPrices(), 
                         book.getBookImage(), 
-                        c.getCartBookCount());
+                        c.getCartBookCount()
+                        , c.getCartId());
             
             dtolist.add(dto);
         }

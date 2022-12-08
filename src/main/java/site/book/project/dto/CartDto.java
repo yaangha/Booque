@@ -25,6 +25,7 @@ public class CartDto {
     private String image;
     
     private Integer count;
+    private Integer countId;
 
     
 }
