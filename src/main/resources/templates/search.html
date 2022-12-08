@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout }">
+
+    <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+    <div layout:fragment="content">
+    
+    <!-- booqueSearch 시작 -->
+    <div class="my-2">
+        <form th:action="@{ /search/s }" method="get">
+            <div class="row">
+                <div class="col-4">
+                    <select name="type" class="form-control">
+                        <option value="all">통합검색</option>
+                        <option value="do">국내도서</option>
+                        <option value="fo">외국도서</option>
+                        <option value="au">저자</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" 
+                        name="keyword" placeholder="검색어" required
+                        autofocus />
+                </div>
+                <div class="col-2">
+                    <input type="submit" class="btn btn-light"
+                        value="검색" required autofocus />
+                </div>
+            </div>
+        </form>
+    </div><!-- booqueSearch 끝 ->
+    <!-- Full screen modal
+    <div class="modal-dialog modal-fullscreen-sm-down">
+    </div>
+     -->
+    
+    
+    
+        <div>
+            <h3>현재 싸움이 벌어지고 있는 리뷰</h3>
+        </div>
+    </div>
+    
+    <script layout:fragment="script" th:inline="javascript">
+    </script>
+
+</html>
