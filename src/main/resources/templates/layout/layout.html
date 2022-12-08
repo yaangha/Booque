@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
+    
+    
     <!-- 글씨 폰트 -->
     <style>
     .w3-sidebar a {
@@ -36,8 +38,14 @@
 
 <body class="w3-content" style="max-width:2000px">
 
+
+
+
+
+
+
 <!-- 상단 메뉴 바(검은색) -->
-<header id="top-menu-full-screen" class="w3-bar w3-top w3-hide-small w3-hide-medium w3-black w3-xlarge">
+<header id="top-menu-full-screen" class="w3-bar w3-top w3-hide-small w3-hide-medium w3-black w3-xlarge" style="z-index:4">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"  style="margin-left:50px;"><i class="fa fa-bars"></i></a>
     <a href="#" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
     BOOQUE 
@@ -47,7 +55,7 @@
 </header>
 
 <!-- 사이드바 -->
-<nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:0; width:250px; height:100%; display:none;" id="mySidebar">
+<nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:3; width:250px; height:100%; display:none;" id="mySidebar">
   <div class="w3-container w3-display-container w3-padding-16" style="margin-top: 90px; margin-left: 30px;">
     <i onclick="w3_close()" class="fa fa-remove w3-button w3-display-topright"></i>
     
@@ -138,14 +146,14 @@
 
 
 <!--/* footer.html fragment(HTML 조각)를 삽입  */-->
-    <div th:replace="fragments/footer :: footer"></div>
+<!-- (지혜) 좌우너비가 거슬려서 일단 안 보이게 해 둔 상태 -->
+    <!--  <div th:replace="fragments/footer :: footer"></div>-->
     <!-- (src/main/resources/templates/)  fragments 폴더 아래의 footer.html 파일 안의 footer 부분으로 여기를 대체 -->
 
 
 
-
-<!-- Home에 사용되는 JavaScript -->
-<script th:src="@{ /js/home.js }"></script>
+<!-- 상단바, 사이드바 등 모든 페이지에 공통으로 들어가는 자바스크립트 -->
+<script th:src="@{ /js/script.js }"></script>
   
 
 </body>
