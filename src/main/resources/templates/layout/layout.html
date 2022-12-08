@@ -3,6 +3,9 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     
 <head>
+
+
+<!-- 지혜 / 상단 검정바 고정, 좌측 사이드바는 유동적인 버전 -->
     
     <meta charset="utf-8" />
     
@@ -44,8 +47,8 @@
 </header>
 
 <!-- 사이드바 -->
-<nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:300px; height:100%; display:none;" id="mySidebar">
-  <div class="w3-container w3-display-container w3-padding-16">
+<nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:0; width:250px; height:100%; display:none;" id="mySidebar">
+  <div class="w3-container w3-display-container w3-padding-16" style="margin-top: 90px; margin-left: 30px;">
     <i onclick="w3_close()" class="fa fa-remove w3-button w3-display-topright"></i>
     
     <!-- 로고 이미지 -->
@@ -54,7 +57,7 @@
     </a>
     
   </div>
-  <div class="w3-large w3-text-grey" style="padding-top: 40px; font-weight:bold">
+  <div class="w3-large w3-text-grey" style="padding-top: 50px; margin-left: 30px; font-weight:bold">
   
   <a onclick="AccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn1">국내도서<i class = "fa fa-caret-down"></i> </a>
   <div id="Acc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
@@ -113,7 +116,7 @@
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
   
-  <header class="w3-container w3-xlarge" style="margin-top:120px;">
+  <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
     <p class="w3-left" id="title-menu"><b>국내도서</b></p>
     <p class="w3-right">
       <!-- 검색어 입력 창 -->
