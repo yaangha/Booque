@@ -39,5 +39,13 @@ public class UserService {
         
         return entity;
     }
+    
+    // TODO: 은정 코드로 수정 - (하은)
+    public User read(Integer id) {
+        
+        User user = userRepository.findById(id).get();
+        
+        return user;
+    }
 
 }

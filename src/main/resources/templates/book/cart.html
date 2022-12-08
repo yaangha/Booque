@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
+<html xmlns:th="http://www.thymeleaf.org/"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
 <head>
     <meta charset="UTF-8">
     <title>Book Cart</title>
@@ -106,22 +110,25 @@
 		<button type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
 	</div>
 
-	<span class="h4" th:text="${}"></span><span> 님이 찜한 상품은?</span>
+	<span class="h4" th:text="${ user.nickName }"></span><span> 님이 찜한 상품은?</span>
 
     <div id="carouselExampleInterval" class="p-2 carousel slide bg-light" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
             <div class="row">
-                <div class="col" th:each="">
-                <div class="card my-2" style="width: 15rem; height:450px;">
-                    <div style="width:237px; height:330px;">
-                        <a th:href="@{}"><img th:src="${}" class="card-img-top" alt="테스트" ></a>
+                <div class="col" th:each="bookWishDto : ${ wishBookInfo }">
+                <div class="card my-2" style="width: 15rem; height:30rem;">
+                    <div style="width:15rem;">
+                        <a th:href="@{ /detail(id=${ bookWishDto.getBookId }) }"><img th:src="${ bookWishDto.getBookImage }" class="card-img-top" alt="테스트" ></a>
                     </div>
                     <div class="card-body">
                         <div class="card-text">
-                            <span class="h5" th:text="${}"></span><br/>
-                            <span th:text="${}"></span><br/>
-                            <span th:text="${}"></span><span>원</span>
+                            <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span th:text="${ bookWishDto.getBookgroup }"></span><span> / </span><span th:text="${ bookWishDto.getCategory }"></span>
+                            </small></div>
+                            <span class="h5" th:text="${ bookWishDto.getBookName }"></span><br/>
+                            <span th:text="${ bookWishDto.getAuthor }"></span><br/>
+                            <span th:text="${ bookWishDto.getPrices }"></span><span>원</span>
                         </div>
                     </div> <!-- card body end -->
                 </div> <!-- card end -->
@@ -129,14 +136,6 @@
             </div> <!-- row end -->
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
  
 	</div> <!-- 메인 블록 end -->
@@ -148,4 +147,6 @@
     </script>
 
 </body>
+
+</div>
 </html>

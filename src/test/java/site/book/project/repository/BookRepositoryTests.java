@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.BookComment;
+import site.book.project.domain.BookWish;
 import site.book.project.domain.Post;
 import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
@@ -96,7 +97,7 @@ public class BookRepositoryTests {
 //	    
 //	    log.info("생성된 코멘트 아이디 {}" , commentId);
 	    
-	    @Test
+//	    @Test
 	    public void testFindAuthor() {
 	        Assertions.assertNotNull(bookRepository);
 	        List<Book> list = bookRepository.findAllByAuthor("김영하");
@@ -105,44 +106,6 @@ public class BookRepositoryTests {
 	            log.info("bookName", b.getBookName());
 	        }
 	    
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	    }
+	    
 }

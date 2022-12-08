@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org/"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
 
+    <div layout:fragment="content">
+    
 <head>
     <meta charset="UTF-8">
     <title>Book Detail</title>
@@ -226,6 +230,9 @@
                     </div>
                     <div class="card-body">
                         <div class="card-text">
+                            <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                            </small></div>
                             <span class="h5" th:text="${ book.bookName }"></span><br/>
                             <span th:text="${ book.author }"></span><br/>
                             <span th:text="${ book.prices }"></span><span>원</span>
@@ -236,14 +243,6 @@
             </div> <!-- row end -->
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
         
       
@@ -448,4 +447,5 @@
         </script>
 
 </body>
+</div>
 </html>
