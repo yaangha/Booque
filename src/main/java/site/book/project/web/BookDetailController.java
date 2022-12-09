@@ -53,5 +53,14 @@ public class BookDetailController {
         return "book/detail";
     }
     
+    @GetMapping("/post/create")
+    public String create(Integer id, Model model) {
+        log.info("책 상세(bookId={})",id);
+        
+        Book book = bookService.read(id);
+        model.addAttribute("book", book);
+        
+        return "post/create";
+    }
 	
 }

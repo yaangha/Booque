@@ -42,11 +42,6 @@ public class PostController {
     }
 
     
-    @GetMapping("/create")
-    public void create() {
-        log.info("create()");
-    }
-    
     @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto ={})", dto);
