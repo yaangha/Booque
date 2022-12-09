@@ -78,5 +78,32 @@ public class CartService {
         
         return count;
     }
+    
+    // (하은) 장바구니 유저 유무 확인
+    public Integer checkUser(Integer userId, Integer bookId) {
+        log.info("사용자 카트 사용유무(userId={}, bookId={})", userId, bookId);
+        
+        Cart cart = new Cart();
+        cart = cartRepository.findByUserIdAndBookBookId(userId, bookId);
+        
+        if (cart != null) { // 사용자가 있으면 0을 리턴
+            return 0;
+        } else { 
+            return 1; // 사용자가 없으면 1을 리턴
+        }
+    }
+    
+    // (하은) 한 유저가 해당 책을 이미 장바구니에 넣었을 때 수량 변경하기
+    public Integer updateCount(Integer userId, Integer bookId, Integer count) {
+        Cart cart = cartRepository.findByUserIdAndBookBookId(userId, bookId);
+        Integer afterCount = count + cart.getCartBookCount();
+        cart.update(afterCount);  
+        
+        cartRepository.save(cart);
+        
+        log.info("cartService(userId={}, bookId={}, count={})", userId, bookId, afterCount);
+        
+        return afterCount; // 바꾸기
+    }
         
 }

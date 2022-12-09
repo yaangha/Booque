@@ -480,35 +480,24 @@
 
         <script>
         // (하은) 장바구니 버튼 
-        // const myModal = document.getElementById('myModal')
-        //const myInput = document.getElementById('myInput')
-        
-        //myModal.addEventListener('shown.bs.modal', () => {myInput.focus()})
-        
+        const addCartInfo = document.querySelector('#addCartInfo');
+
         // 계속 쇼핑하기
-        //const addCartInfo = document.querySelector('#addCartInfo');
-//        addCartInfo.addEventListener('click', function ()) {
-  //          addCartInfo.action = '/cart/onlyAdd';
-    //        addCartInfo.method = 'post';
-      //      addCartInfo.submit();
-      //  }
+        const btnContinueShopping = document.querySelector('#btnContinueShopping');
+        btnContinueShopping.addEventListener('click', function () {
+            alert('해당 책이 장바구니에 추가되었습니다!');
+          addCartInfo.action = '/cart/onlyAdd';
+          addCartInfo.method = 'post';
+          addCartInfo.submit();
+        })
         
-        
-
         // 장바구니 가기
-
         const btnGoCart = document.querySelector('#btnGoCart');
-        
         btnGoCart.addEventListener('click', function () {        	
             addCartInfo.action = '/cart/add';
             addCartInfo.method = 'post';
             addCartInfo.submit();
         })
-        
-
-        
-        
-        
         </script>
 
 </body>
