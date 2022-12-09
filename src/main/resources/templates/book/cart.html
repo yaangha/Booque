@@ -66,6 +66,7 @@
     							<small class="text-primary">[[${ cart.prices*0.05 }]]</small> 
     						</div>
     			</td>
+                <div>
     			<td class="align-middle">
                     <input type='button' class="btnPlusMinus"  value='+'/>
                     <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
@@ -164,8 +165,10 @@
     	const buttons = document.querySelectorAll('.btnPlusMinus');
     	
     	buttons.forEach(btn => {
+    		
     		btn.addEventListener('click', e => {
     			const td = btn.closest('td');
+    			console.log(td)
     			const span = td.querySelector('span');
     			let number = span.innerText;
     			
@@ -181,7 +184,10 @@
     			}
     			span.innerText = number;
     			
-    			
+    			const div = btn.closest('div');
+    			const price = div.querySelector('#price');
+    			console.log(price)
+    			price.innerText = number;
    
     			
     		});
