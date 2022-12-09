@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
+    
+    
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -257,4 +263,7 @@ $('.summernote').summernote({
     });
 </script>
 </body>
+
+
+</div>
 </html>

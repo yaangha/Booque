@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -99,7 +102,6 @@
                                 <li><a class="dropdown-item" href="#">리스트형</a></li>
                             </ul>
                         </div>
-                  </div>
                     </nav>  <!-- 도서 카드 + 리뷰 시작 -->
                     
                     <div class="card" style="width: 880px;"
@@ -226,4 +228,6 @@ $('.summernote').summernote({
     });
 </script>
 </body>
+
+</div>
 </html>
