@@ -12,7 +12,7 @@ function AccFunc1() {
   }
 }
 
-// Click on the "Jeans" link on page load to open the accordion for demo purposes
+// 사이드바 하위메뉴 펼치기(구현 중)
 document.getElementById("myBtn1").click();
 
 

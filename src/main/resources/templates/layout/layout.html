@@ -5,7 +5,7 @@
 <head>
 
 
-<!-- 지혜 / 상단 검정바 고정, 좌측 사이드바는 상단바의 밑에서 열고닫을 수 있게 함 -->
+<!-- 지혜 / 상단 검정바는 고정, 좌측 사이드바는 상단바의 밑에서 열고닫을 수 있게 함 -->
     
     <meta charset="utf-8" />
     
@@ -125,7 +125,7 @@
   <div class="w3-hide-large" style="margin-top:83px"></div>
   
   <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
-    <p class="w3-left" id="title-menu"><b>국내도서</b></p>
+    <p class="w3-left" id="title-menu"><b> </b></p>
     <p class="w3-right">
       <!-- 검색어 입력 창 -->
         <input type="text" id="keyword" />
@@ -145,14 +145,13 @@
 
 
 
-<!--/* footer.html fragment(HTML 조각)를 삽입  */-->
-<!-- (지혜) 좌우너비가 거슬려서 일단 안 보이게 해 둔 상태 -->
-    <!--  <div th:replace="fragments/footer :: footer"></div>-->
+    <!--/* footer.html fragment(HTML 조각)를 삽입  */-->
+    <div th:replace="fragments/footer :: footer"></div>
     <!-- (src/main/resources/templates/)  fragments 폴더 아래의 footer.html 파일 안의 footer 부분으로 여기를 대체 -->
 
 
 
-<!-- 상단바, 사이드바 등 모든 페이지에 공통으로 들어가는 자바스크립트 -->
+<!-- 상단바, 사이드바 등 모든 페이지에 들어가는 공통 자바스크립트 -->
 <script th:src="@{ /js/script.js }"></script>
   
 
