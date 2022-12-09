@@ -1,6 +1,7 @@
 package site.book.project.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class OrderService {
 // 장바구니 내역에 있는걸 가져와서 결제 창에 보일 수 있도록
 // 결제확인(완료)이 되면 장바구니(CART)테이블 동일한 값(list로 받은 값) 삭제 TODO
 // 결제 취소시 다시 결제 테이블(ORDER) 삭제  TODO
-    
+// !!!!! 테스트용으론 orderDATE 넣어놈!!!!
     
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
@@ -53,6 +54,7 @@ public class OrderService {
             Order o = Order.builder().user(c.getUser())
                     .book(c.getBook())
                     .orderBookCount(c.getCartBookCount())
+                    .orderDate(LocalDateTime.now())
                     .orderNo(orderNo).build();
             
             orderRepository.save(o);

@@ -38,49 +38,53 @@
     <div th:text="${ user.username }"></div>
     
 	<!-- 주문내역 -->
-	<table class="w-100 table" style="text-align: center;"   th:each="cart : ${ cartList }">
+	<table class="w-100 table" style="text-align: center;">
 		<thead class="table-light">
-			<th colspan="2">도서 정보</th>
-			<th>수량</th>
-			<th>주문금액</th>
-			<th>배송비</th>
-			<th></th>
+            <tr>
+    			<th colspan="2">도서 정보</th>
+    			<th>수량</th>
+    			<th>주문금액</th>
+    			<th>배송비</th>
+    			<th></th>
+            </tr>
 		</thead>
 		<tbody style="height: 200px;">
-			<td class="align-middle">
-			<input type="checkbox" style="width: 30px;" />
-			<img th:src="${ cart.image }" style="width: 150px;"/></td>
-			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
-						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                        
-							<span th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
-						</small>
-						<div class="h5" th:text="${ cart.title }"></div>
-						<div th:text="${ cart.author }"></div>
-						<div> [[${ cart.prices }]]
-							<span>원</span>
-							<small class="px-1 border border-primary rounded text-primary">p</small>
-							<small class="text-primary">[[${ cart.prices*0.05 }]]</small> 
-						</div>
-			</td>
-			<td class="align-middle">
-                <input type='button' onclick='btnCount("plus")'  value='+'/>
-                <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
-                <!-- 뭐지?? -->
-                <input type='button' onclick='btnCount("minus")' value='-'/>
-
-			</td>
-			<td class="align-middle">
-				<div id="price">
-					[[${ cart.prices }]]<span>원</span>
-				</div>
-			</td>
-			<td class="align-middle">10,000원 이상<br/>
-				배송비 무료</td>
-			<td class="align-middle">
-				<button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>
-				<button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>
-			</td>
+            <tr th:each="cart : ${ cartList }">
+    			<td class="align-middle">
+    			<input type="checkbox" style="width: 30px;" />
+    			<img th:src="${ cart.image }" style="width: 150px;"/></td>
+    			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
+    						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                            
+    							<span th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
+    						</small>
+    						<div class="h5" th:text="${ cart.title }"></div>
+    						<div th:text="${ cart.author }"></div>
+    						<div> [[${ cart.prices }]]
+    							<span>원</span>
+    							<small class="px-1 border border-primary rounded text-primary">p</small>
+    							<small class="text-primary">[[${ cart.prices*0.05 }]]</small> 
+    						</div>
+    			</td>
+    			<td class="align-middle">
+                    <input type='button' class="btnPlusMinus"  value='+'/>
+                    <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
+                    <!-- 뭐지?? -->
+                    <input type='button' class="btnPlusMinus"  value='-'/>
+    
+    			</td>
+    			<td class="align-middle">
+    				<div id="price">
+    					[[${ cart.prices }]]<span>원</span>
+    				</div>
+    			</td>
+    			<td class="align-middle">10,000원 이상<br/>
+    				배송비 무료</td>
+    			<td class="align-middle">
+    				<button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>
+    				<button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>
+    			</td>
+            </tr>
 		</tbody>
 	</table>
 	
@@ -146,13 +150,51 @@
     </div>
 
 	</div> <!-- 메인 블록 end -->
-	
+	    
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous">
+    </script>
+    
     <!-- 수량 버튼 처리 변경할 예정. -->
     <script type="text/javascript">
     
+    window.addEventListener('DOMContentLoaded', function () {
+    	const buttons = document.querySelectorAll('.btnPlusMinus');
+    	
+    	buttons.forEach(btn => {
+    		btn.addEventListener('click', e => {
+    			const td = btn.closest('td');
+    			const span = td.querySelector('span');
+    			let number = span.innerText;
+    			
+    			const type = btn.value;
+    			if (type == '+') {
+    				number = parseInt(number) + 1;
+    			} else {
+    				number = parseInt(number) - 1;
+    				if(number == 0){
+	                   alert('수량은 0이하가 되지 못합니다.')
+	                   return;
+    	           }
+    			}
+    			span.innerText = number;
+    			
+    			
+   
+    			
+    		});
+    	});
+    });
+    
+    
+    /*
     function btnCount(type)  {
     	  // 결과를 표시할 element
-    	  const resultElement = document.getElementById('countS');
+    	  const resultElement = document.querySelector('#countS');
+    	  
+    	  resultElement.forEach(x => {});
     	  
     	  // 현재 화면에 표시된 값
     	  let number = resultElement.innerText;
@@ -176,15 +218,9 @@
     	  // 결과 출력
     	  resultElement.innerText = number;
     	}
+    */
+    </script>
     
-    </script>
-        
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous">
-    </script>
-
 </body>
 
 </div>
