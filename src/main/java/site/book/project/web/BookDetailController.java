@@ -55,11 +55,4 @@ public class BookDetailController {
         return "book/detail";
     }
     
-    // (하은) 장바구니 버튼 -> 계속 쇼핑하기
-    @PostMapping("/continueShopping")
-    public String continueShopping(Integer id) {
-        
-        return "redirect:/detail?id=" + id;
-    }
-    
 }
