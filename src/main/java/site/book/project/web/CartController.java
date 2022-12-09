@@ -37,9 +37,7 @@ public class CartController {
         
         // 생성된 CartDTO를 받고 
         
-        // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기
-        // List<BookWish> bookWishList = bookWishService.searchWishList(id);
-        
+        // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기        
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(id);
         
         model.addAttribute("wishBookInfo", wishBookInfo);
