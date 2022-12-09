@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public User registerUser(UserRegisterDto dto) {
+
         log.info("registerMember(dto = {})", dto);
         
         // 로그인 비밀번호를 암호화한 후 DB에 insert
@@ -40,4 +41,5 @@ public class UserService {
         return entity;
     }
 
+}
 }
