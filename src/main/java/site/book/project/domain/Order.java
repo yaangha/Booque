@@ -26,7 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"user", "book" })
 @Entity(name= "ORDERS")
 @SequenceGenerator(name = "ORDERS_SEQ_GEN", sequenceName = "ORDERS_SEQ", initialValue = 1, allocationSize = 1)
 public class Order {
