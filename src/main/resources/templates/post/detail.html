@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -285,4 +289,6 @@ $('.summernote').summernote({
     <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
     <script th:src="@{ /js/postReply.js }"></script>
 </body>
+
+</div>
 </html>
