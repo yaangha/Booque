@@ -37,4 +37,10 @@ public class Cart {
     @Column(nullable = false)
     private int cartBookCount;
     
+    // (하은) 유저당 중복되는 책 수량 증가시키기
+    public Cart update(Integer count) {
+        this.cartBookCount = count;
+        return this;
+    }
+    
 }
