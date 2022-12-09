@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org/"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
 
+    <div layout:fragment="content">
+    
 <head>
     <meta charset="UTF-8">
     <title>Book Detail</title>
@@ -142,18 +146,23 @@
             </div>
             
             <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
-            <div class="col border-top border-bottom border-4 border-dark"> 
+            <div class="col border-top border-bottom border-4 border-dark">
+    <form id="addCartInfo">
+                <div>
+                <input type="text" name="userId" value="2">    
+                님이 보고 계신 책은..</div> 
                 <div class="row">
                     <div class="col-10 h2 my-4" th:text="${ book.bookName }">
                     </div>
                     <div class="col-2 my-2">
                     
                     <!--/* 찜하기는 나중에 */-->
-                        <img src="#" style="width: 50px" />
+                        <!-- <img src="#" style="width: 50px" />  -->
                     </div>
                 </div>
                 
-                <input type="hidden" id="id"  th:value="${ book.bookId }">
+                <input type="hidden" id="id" name="id" th:value="${ book.bookId }"> 
+
                 <div th:text="${ book.author }"><span style="color: gray;"> 저자</span></div>
                 <div th:text="${ book.publisher }"></div>
                 <div>
@@ -167,15 +176,42 @@
                     <span style="font-size: large;"  th:text="${ book.prices * 0.05 }"></span>
                     <span>포인트</span>
                 </div>
-                
+                <div>
+                    <div>수량</div>
+                    <input name="count" class="w-50" type="number" min="1" />
+                </div>
+    </form>           
                 <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="w-50 btn btn-outline-dark">장바구니</button> <!-- 장바구니 페이지 이동 -->
+                    <!-- 
+                    <button type="button" class="w-50 btn btn-outline-dark">장바구니</button>  --> <!-- 장바구니 페이지 이동 -->
+                    
+                    <!-- (하은) 장바구니 페이지 갈지말지 -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="w-50 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">장바구니</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cart</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">장바구니로 이동하시겠습니까?</div>
+                                <div class="modal-footer">
+                                    <button id="btnContinueShopping" type="submit" class="btn btn-outline-dark" data-bs-dismiss="modal">계속 쇼핑하기</button>
+                                    <button id="btnGoCart" type="submit" class="btn btn-dark" data-bs-dismiss="modal">장바구니 가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" class="w-50 btn btn-dark">공유하기</button> <!-- url 복사 등 -->
                 </div>
                 <button type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
             </div>
         </div>
-    
+   
+
     <!-- nav바 메뉴 바로가기(버튼 누르면 해당 부분으로 스크롤) -->
     <nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">
         <ul class="nav nav-pills">
@@ -226,6 +262,9 @@
                     </div>
                     <div class="card-body">
                         <div class="card-text">
+                            <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                            </small></div>
                             <span class="h5" th:text="${ book.bookName }"></span><br/>
                             <span th:text="${ book.author }"></span><br/>
                             <span th:text="${ book.prices }"></span><span>원</span>
@@ -236,14 +275,6 @@
             </div> <!-- row end -->
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
         
       
@@ -447,5 +478,39 @@
             }
         </script>
 
+        <script>
+        // (하은) 장바구니 버튼 
+        // const myModal = document.getElementById('myModal')
+        //const myInput = document.getElementById('myInput')
+        
+        //myModal.addEventListener('shown.bs.modal', () => {myInput.focus()})
+        
+        // 계속 쇼핑하기
+        //const addCartInfo = document.querySelector('#addCartInfo');
+//        addCartInfo.addEventListener('click', function ()) {
+  //          addCartInfo.action = '/cart/onlyAdd';
+    //        addCartInfo.method = 'post';
+      //      addCartInfo.submit();
+      //  }
+        
+        
+
+        // 장바구니 가기
+
+        const btnGoCart = document.querySelector('#btnGoCart');
+        
+        btnGoCart.addEventListener('click', function () {        	
+            addCartInfo.action = '/cart/add';
+            addCartInfo.method = 'post';
+            addCartInfo.submit();
+        })
+        
+
+        
+        
+        
+        </script>
+
 </body>
+</div>
 </html>
