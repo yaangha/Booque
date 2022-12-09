@@ -56,18 +56,30 @@ public class CartRepositoryTests {
         
 //    }
     
+//    @Test
+//    public void testAddCart() {
+//        Assertions.assertNotNull(cartRepository);
+//        
+//        User user = userRepository.findById(1).get();
+//        Book book = bookRepository.findById(56).get();
+//        
+//        Cart cart = Cart.builder().cartBookCount(3).book(book).user(user).build();
+//        
+//        cartRepository.save(cart);
+//        
+//        log.info("add(책이름:{}, 수량:{})", cart.getBook().getBookName(), cart.getCartBookCount());
+        
+//    }
+    
     @Test
-    public void testAddCart() {
+    public void testUpdateCart() {
         Assertions.assertNotNull(cartRepository);
         
-        User user = userRepository.findById(1).get();
-        Book book = bookRepository.findById(56).get();
-        
-        Cart cart = Cart.builder().cartBookCount(3).book(book).user(user).build();
-        
+        Cart cart = cartRepository.findByUserIdAndBookBookId(3, 91);
+        cartService.updateCount(3, 91, 20);
         cartRepository.save(cart);
-        
-        log.info("add(책이름:{}, 수량:{})", cart.getBook().getBookName(), cart.getCartBookCount());
+
+        log.info("cart 변경 수량={}", cartService.updateCount(3, 91, 20));
         
     }
     

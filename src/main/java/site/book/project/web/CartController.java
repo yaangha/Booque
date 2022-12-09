@@ -58,21 +58,29 @@ public class CartController {
     public String addCart(CartAddDto dto) {
         log.info("사용자 번호={}", dto.getId());
         
-        cartService.addCart(dto.getUserId(), dto.getId(), dto.getCount());
+        if (cartService.checkUser(dto.getUserId(), dto.getId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(dto.getUserId(), dto.getId(), dto.getCount());
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(dto.getUserId(), dto.getId(), dto.getCount());
+            log.info("변경 수량={}", afterCount);
+        }
         
         return "redirect:/cart?id=" + dto.getUserId();
     }
 
-    // TEST!!! detail 페이지에서 cart로 넘어갈 때 사용
+    // 장바구니에 넣고 쇼핑 계속하기 버튼 눌렀을 때 사용
     @PostMapping("/cart/onlyAdd")
     public String onlyAddCart(CartAddDto dto) {
         log.info("사용자 번호={}", dto.getId());
         
-        cartService.addCart( dto.getUserId(), dto.getId(), dto.getCount());
+        if (cartService.checkUser(dto.getUserId(), dto.getId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(dto.getUserId(), dto.getId(), dto.getCount());
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(dto.getUserId(), dto.getId(), dto.getCount());
+            log.info("변경 수량={}", afterCount);
+        }
         
         return "redirect:/detail?id=" + dto.getId();
     }    
 
-    
-    
 }
