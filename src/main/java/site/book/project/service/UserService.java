@@ -22,15 +22,16 @@ public class UserService {
     public String checkUsername(String username) {
         log.info("checkUsername(username = {})", username);
         
-        Optional<User> result = userRepository.findByUsername(username); // Optional return.
-        if (result.isPresent()) { // isEmpty는 11버전부터, 우리가 설정한건 8버전. 일치하는 username이 있는 경우.
-                return "nok"; // 회원 가입에서 사용할 수 없는 아이디
-            } else { // 일치하는 username이 없는 경우.
-                return "ok"; // 회원 가입에서 사용할 수 있는 아이디
+        Optional<User> result = userRepository.findByUsername(username);
+        if (result.isPresent()) {
+                return "nok";
+            } else {
+                return "ok"; 
             }
     }
 
-    public User registerMember(UserRegisterDto dto) {
+    public User registerUser(UserRegisterDto dto) {
+
         log.info("registerMember(dto = {})", dto);
         
         // 로그인 비밀번호를 암호화한 후 DB에 insert
@@ -40,4 +41,5 @@ public class UserService {
         return entity;
     }
 
+}
 }

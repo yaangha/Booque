@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+​
+<head>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+</head>
+<body>
+    <div
+        style="background-color: #E6E6FA; color: white; width: 1170px; height: 100px;"
+        align="right">
+        <h1>포스트 목록 페이지</h1>
+    </div>
+
+    <div layout:fragment="content">
+        <div>
+            <table>
+                <tr>
+
+                    <td class="col-2" style="vertical-align: top;">
+                        <!-- 프로필 시작 -->
+                        <div class="card"
+                            style="margin: 20px; margin-left: 25px; margin-right: 10px; margin-bottom: 20px; width: 250px; height: 420px;">
+                            <div
+                                style="width: 200px; height: 210px; margin-left: 20px; margin-top: 20px;"
+                                align="center">
+                                <a href=""> <img
+                                    src="/images/루피.png"
+                                    class="img-fluid rounded-start">
+                                </a>
+                            </div>
+                            <div class="card-body"
+                                style="width: 200px; margin-left: 20px; height: 40px; margin-bottom: 20px; font-size: 15px;">
+                                <p class="card-text"
+                                    style="height: 20px;">닉네임</p>
+                                <p class="card-text"
+                                    style="height: 20px;">소개</p>
+                            </div>
+                            <div align="center" style="font-size: 8px;">
+                                <p>오늘 3 Total 261</p>
+                            </div>
+                        </div>
+                        <div style="width: 250px; margin-left: 25px;"
+                            align="center">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2"
+                                    type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success"
+                                    type="submit">Search</button>
+                            </form>
+                        </div>
+
+                    </td>
+                    <!-- 프로필 끝 -->
+
+
+                    <!-- 오른쪽 -->
+                    <td class="col-10" style="vertical-align: top;">
+                      <nav class="navbar navbar-expand-lg"
+                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray;">
+                         
+                        <div class="container-md"
+                            style="display: inline-block; margin: 5px;" align="right">
+                            <a href="/post/list" style="color: gray; margin-right: 15px;">전체 목록</a>
+                            <a href="/post/create" style="color: gray; margin-right: 15px;">새 포스트 작성</a>
+                        </div>
+                       
+                        <div class="dropdown"
+                            style="display: inline-block; margin-right: 25px;">
+                            <button class="btn dropdown-toggle"
+                                style="width: 85px; height: 30px; border: 1px solid gray;"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Drop</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">날짜순</a></li>
+                                <li><a class="dropdown-item" href="#">인기순</a></li>
+                                <li><a class="dropdown-item" href="#">리스트형</a></li>
+                            </ul>
+                        </div>
+                  </div>
+                    </nav> 
+
+
+                        <div class="card my-3" style="max-width: 840px;">
+                            <table class="table table-hover"
+                                style="width: 840px;">
+                                <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성자</th>
+                                        <th>수정시간</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="post : ${ list }">
+                                        <td th:text="${ post.postId }"></td>
+                                        <td><a
+                                            th:href="@{ /post/detail?postId={postId} (postId = ${ post.postId }) }"
+                                            th:text="${ post.title }"></a>
+                                            <!--/* 앵커태그 사이에 들어갈 제목은 th:text로 넣으면 됨 */-->
+                                            <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->
+                                        </td>
+                                        <td
+                                            th:text="${ post.postWriter }"></td>
+                                        <td
+                                            th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+</html>
