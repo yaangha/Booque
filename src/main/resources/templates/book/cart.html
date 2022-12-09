@@ -75,9 +75,11 @@
     
     			</td>
     			<td class="align-middle">
+                <div class="selectPrice">
     				<div id="price">
     					[[${ cart.prices }]]<span>원</span>
     				</div>
+                </div>
     			</td>
     			<td class="align-middle">10,000원 이상<br/>
     				배송비 무료</td>
@@ -167,9 +169,13 @@
     	buttons.forEach(btn => {
     		
     		btn.addEventListener('click', e => {
+    	const bu = document.querySelectorAll('.selectPrice');
     			const td = btn.closest('td');
     			console.log(td)
+    			
     			const span = td.querySelector('span');
+    			console.log(span)
+    			
     			let number = span.innerText;
     			
     			const type = btn.value;
@@ -184,10 +190,13 @@
     			}
     			span.innerText = number;
     			
-    			const div = btn.closest('div');
+    			const div = bu.closest('div');
+    			console.log(div)
     			const price = div.querySelector('#price');
-    			console.log(price)
     			price.innerText = number;
+    			console.log(price)
+    			
+    		
    
     			
     		});
