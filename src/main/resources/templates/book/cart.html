@@ -51,15 +51,15 @@
 		<tbody style="height: 200px;">
             <tr th:each="cart : ${ cartList }">
     			<td class="align-middle">
-    			<input type="checkbox" style="width: 30px;" />
+    			<input type="checkbox" style="width: 30px;"  name="cartId"  th:value="${ cart.cartId }"/>
     			<img th:src="${ cart.image }" style="width: 150px;"/></td>
     			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
     						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                            
     							<span th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
     						</small>
     						<div class="h5" th:text="${ cart.title }"></div>
     						<div th:text="${ cart.author }"></div>
+							<input name="cartId"  type="hidden" th:value="${ cart.cartId }" />
     						<div> [[${ cart.prices }]]
     							<span>원</span>
     							<small class="px-1 border border-primary rounded text-primary">p</small>

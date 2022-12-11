@@ -28,25 +28,28 @@ public class CartService {
         return cartRepository.findAll();
     }
     
+    // 선택한 책 삭제 (결제완료버튼에서도 사용할 예정)
+    public void deleteCart(List<Integer> cartId) {
+    	for(Integer i : cartId) {
+    		log.info("장바구니에 있는 데이터 삭제 될 정보 {}", i);
+    		cartRepository.deleteById(i);
+    	}
+    }
     
     
+    /**
+     * (은정)
+     * 저장되어 있는 data를 cartDto로 변환, 리턴
+     * @param userId 유저의 장바구니 table를 얻기 위해 
+     * @return 장바구니창에서 보여질 DTO를 리스트로 리턴
+     */
     public List<CartDto> cartDtoList(Integer userId) {
-        List<Cart> list =  cartRepository.findByUserId(userId);
+        List<Cart> list =  cartRepository.findByUserIdOrderByCartIdDesc(userId);
         
-        
-        // dto를 만듦.
-        // 어떤걸로? 사진, 제목, 카테고리,작가, 가격, 수량, 
-        // bookDto를 만들고
         List<CartDto> dtolist = new ArrayList<>(); 
         
-        
-        
-        // 하나씩 넣음.
-        // 리스트<책DTO>를 리턴함.
-        // 컨트롤러에서 
-        
         for(Cart c: list) {
-// dto에 cart에서 찾은 book을 넣는다
+        	// dto에 cart에서 찾은 book을 넣는다
             Book book = c.getBook();
             
             CartDto dto = new CartDto(book.getBookgroup(),
