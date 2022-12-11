@@ -83,4 +83,11 @@ public class CartController {
         return "redirect:/detail?id=" + dto.getId();
     }    
 
+    @PostMapping("/cart/delete")
+    public String delete(Integer cartId, Integer userId , String hi) {
+    	log.info("이게 맞나뇨,,, cartId {}, user Id {} ,test {}", cartId, userId,hi);
+    	
+    	return "redirect:/book/cart?id="+userId;
+    }
+    
 }

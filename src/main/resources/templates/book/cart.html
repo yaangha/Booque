@@ -35,7 +35,6 @@
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
-    <div th:text="${ user.username }"></div>
     
 	<!-- 주문내역 -->
 	<table class="w-100 table" style="text-align: center;">
@@ -51,15 +50,19 @@
 		<tbody style="height: 200px;">
             <tr th:each="cart : ${ cartList }">
     			<td class="align-middle">
-    			<input type="checkbox" style="width: 30px;"  name="cartId"  th:value="${ cart.cartId }"/>
+    		<form id="formCheck">
+    <div th:text="${ cart.cartId}" ></div>
+    			<input type="checkbox" id="ckBox" style="width: 30px;" />
+    			<input type="hidden" name="userId" th:value="${ user.id }" />
+    			<input type="hidden" name="cartId" th:value="${  cart.cartId }" />
+    		</form>
     			<img th:src="${ cart.image }" style="width: 150px;"/></td>
     			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
     						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-    							<span th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
+    							<span  th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
     						</small>
     						<div class="h5" th:text="${ cart.title }"></div>
     						<div th:text="${ cart.author }"></div>
-							<input name="cartId"  type="hidden" th:value="${ cart.cartId }" />
     						<div> [[${ cart.prices }]]
     							<span>원</span>
     							<small class="px-1 border border-primary rounded text-primary">p</small>
@@ -91,7 +94,7 @@
 		</tbody>
 	</table>
 	
-	<button type="button" class="btn btn-outline-dark btn-sm">선택상품 삭제</button>
+	<button type="button" id="btnDelete" class="btn btn-outline-dark btn-sm">선택상품 삭제</button>
 	<button type="button" class="btn btn-outline-dark btn-sm">선택상품 주문</button>
 	
 	<!-- 가격 정보 -->
@@ -160,8 +163,15 @@
     crossorigin="anonymous">
     </script>
     
-    <!-- 수량 버튼 처리 변경할 예정. -->
+    <!-- 수량 버튼 처리 -->
     <script type="text/javascript">
+    const ckBox = document.querySelector('#ckBox');
+    ckBox.addEventListener('click', function() {
+    	console.log('che//')
+    })
+    	
+
+    
     
     window.addEventListener('DOMContentLoaded', function () {
     	const buttons = document.querySelectorAll('.btnPlusMinus');
@@ -204,36 +214,7 @@
     });
     
     
-    /*
-    function btnCount(type)  {
-    	  // 결과를 표시할 element
-    	  const resultElement = document.querySelector('#countS');
-    	  
-    	  resultElement.forEach(x => {});
-    	  
-    	  // 현재 화면에 표시된 값
-    	  let number = resultElement.innerText;
-    	  // 더하기/빼기
-    	  if(type === 'plus') {
-    	    number = parseInt(number) + 1;
-    		console.log(number)
-    	    
-    	  }else if(type === 'minus')  {
-    		  
-    	    number = parseInt(number) - 1;
-    		console.log(number)
-    		
-    	       if(number == 0){
-    	    	   alert('수량은 0이하가 되지 못합니다.')
-    	    	   return;
-    	       }
-    	    
-    	  }
-    	  
-    	  // 결과 출력
-    	  resultElement.innerText = number;
-    	}
-    */
+  
     </script>
     
 </body>
