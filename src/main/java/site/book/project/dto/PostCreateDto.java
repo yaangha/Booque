@@ -14,6 +14,7 @@ import site.book.project.domain.User;
 @ToString
 public class PostCreateDto {
 
+    private Integer bookId;
     private String title;
     private String postContent;
     private String postWriter; 
@@ -22,6 +23,6 @@ public class PostCreateDto {
     public Post toEntity() {
         
         
-        return Post.builder().title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
+        return Post.builder().bookId(bookId).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }

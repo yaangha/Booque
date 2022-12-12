@@ -85,7 +85,9 @@ public class PostService {
         
         return list;
     }
- 
+
+
+    
     // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
 
 	public List<Post> findBybookId(Integer bookId) {

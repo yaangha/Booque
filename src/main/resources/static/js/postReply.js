@@ -90,7 +90,6 @@
     // 몇 번 댓글을 수정할 것인지 정보 전달
     function getReply(event) {
         const rid = event.target.getAttribute('data-rid');
-
         axios
         .get('/api/reply/' + rid) 
         .then(response => { showReplyModal(response.data) })

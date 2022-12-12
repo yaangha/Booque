@@ -11,9 +11,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
+import site.book.project.service.BookService;
 import site.book.project.service.PostService;
 
 @Slf4j
@@ -23,7 +25,7 @@ import site.book.project.service.PostService;
 public class PostController {
 
     private final PostService postService;
-    
+    private final BookService bookService;
     @GetMapping("/main")
     public void main() {
         log.info("main()");
@@ -54,10 +56,14 @@ public class PostController {
     }
     
     @GetMapping({ "/detail", "/modify" })
-    public void datail(Integer postId, Model model) {
-        log.info("detail(postId= {})", postId);
-       
+    public void detail(Integer postId, Integer bookId, Model model) {
+        log.info("detail(postId= {}, bookId={})", postId, bookId);
+        
         Post post = postService.read(postId);
+        Book book = bookService.read(bookId);
+      
+        
+        model.addAttribute("book", book);
         model.addAttribute("post", post);
     }
    
@@ -79,7 +85,7 @@ public class PostController {
         postService.update(dto);
        
         // 포스트 수정 성공 후에는 상세 페이지로 이동(redirect)
-        return "redirect:/post/detail?postId=" + dto.getPostId();
+        return "redirect:/post/detail?postId=" + dto.getPostId()+"&bookId="+ dto.getBookId();
     }
    
     @GetMapping("/search")
