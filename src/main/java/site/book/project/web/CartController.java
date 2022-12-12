@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -82,12 +83,19 @@ public class CartController {
         
         return "redirect:/detail?id=" + dto.getId();
     }    
-
-    @PostMapping("/cart/delete")
-    public String delete(Integer cartId, Integer userId , String hi) {
-    	log.info("이게 맞나뇨,,, cartId {}, user Id {} ,test {}", cartId, userId,hi);
-    	
-    	return "redirect:/book/cart?id="+userId;
+    
+    
+    
+    
+    @GetMapping("/cart/delete")
+    public String delete(@RequestParam List<Integer>  cartId) {
+        log.info("여기가~~~~~~~~~~~~~~~~~~~~ 실행되니?");
+        log.info("{}",cartId);
+    	for(Integer i : cartId){
+    	   log.info("정말,,? {}" , i);
+    	    
+    	}
+    	return "redirect:/";
     }
     
 }
