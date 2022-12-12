@@ -38,10 +38,6 @@ public class CartController {
         
         // 생성된 CartDTO를 받고
         
-        // (하은) detail 창의 bookid를 받아서 cart DB에 update
-        
-        
-        
         // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기        
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(id);
         
@@ -53,7 +49,7 @@ public class CartController {
         
     }
     
-    // detail 페이지에서 cart로 넘어갈 때 사용
+    // (하은) detail 페이지에서 cart로 넘어갈 때 사용
     @PostMapping("/cart/add")
     public String addCart(CartAddDto dto) {
         log.info("사용자 번호={}", dto.getId());
@@ -68,7 +64,7 @@ public class CartController {
         return "redirect:/cart?id=" + dto.getUserId();
     }
 
-    // 장바구니에 넣고 쇼핑 계속하기 버튼 눌렀을 때 사용
+    // (하은) 장바구니에 넣고 쇼핑 계속하기 버튼 눌렀을 때 사용
     @PostMapping("/cart/onlyAdd")
     public String onlyAddCart(CartAddDto dto) {
         log.info("사용자 번호={}", dto.getId());

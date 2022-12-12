@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
+import site.book.project.domain.User;
+import site.book.project.dto.OrderFromDetailDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.repository.CartRepository;
 import site.book.project.repository.OrderRepository;
+import site.book.project.repository.UserRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,7 +31,8 @@ public class OrderService {
     
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
-    
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
     
     public List<Order> readAll(){
         
@@ -62,13 +68,25 @@ public class OrderService {
             orderList.add(o);
         }
         
-        
-        
-        
-        
-        
         return orderList.size();
     }
-    
+
+    // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
+    public void createFromDetail(OrderFromDetailDto dto) {
+        // userId, bookId, total 
+        
+        Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
+        Integer orderNo = Integer.parseInt(date + dto.getUserId());
+        
+        User user = userRepository.findById(dto.getUserId()).get();
+        Book book = bookRepository.findById(dto.getId()).get();
+        
+        Order order = Order.builder().orderNo(orderNo).user(user).book(book)
+                .orderDate(LocalDateTime.now()).orderBookCount(dto.getCount()).total(total).build();
+        
+        orderRepository.save(order);
+        
+    }
     
 }
