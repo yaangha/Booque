@@ -27,6 +27,8 @@ public class CartDto {
     
     private Integer count;
     private Integer cartId;
+    
+    private Integer bookId;
 
     
 }

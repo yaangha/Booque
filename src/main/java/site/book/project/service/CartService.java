@@ -28,6 +28,10 @@ public class CartService {
         return cartRepository.findAll();
     }
     
+    //cartId를 갖고 userId
+    
+    
+    
     // 선택한 책 삭제 (결제완료버튼에서도 사용할 예정)
     public void deleteCart(List<Integer> cartId) {
     	for(Integer i : cartId) {
@@ -59,7 +63,8 @@ public class CartService {
                         book.getPrices(), 
                         book.getBookImage(), 
                         c.getCartBookCount()
-                        , c.getCartId());
+                        , c.getCartId()
+                        , book.getBookId());
             
             dtolist.add(dto);
         }

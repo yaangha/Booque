@@ -35,6 +35,7 @@
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
+    <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
     
 	<!-- 주문내역 -->
 	<table class="w-100 table" style="text-align: center;">
@@ -51,10 +52,7 @@
             <tr th:each="cart : ${ cartList }">
     			<td class="align-middle">
     		<form id="formCheck">
-                <div th:text="${ cart.cartId}" ></div>
     			<input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId" th:value="${ cart.cartId }" />
-    			<input type="hidden" name="userId" th:value="${ user.id }" />
-    			<input type="hidden" name="cartIdList" id="cartIdList"  />
     		</form>
             
     			<img th:src="${ cart.image }" style="width: 150px;"/></td>
@@ -75,7 +73,6 @@
     			<td class="align-middle">
                     <input type='button' class="btnPlusMinus"  value='+'/>
                     <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
-                    <!-- 뭐지?? -->
                     <input type='button' class="btnPlusMinus"  value='-'/>
     
     			</td>
@@ -95,6 +92,8 @@
             </tr>
 		</tbody>
 	</table>
+    
+    <div id="#cList"></div>
 	
 	<button type="button" id="btnDelete" class="btn btn-outline-dark btn-sm">선택상품 삭제</button>
 	<button type="button" class="btn btn-outline-dark btn-sm">선택상품 주문</button>
@@ -158,12 +157,15 @@
     </div>
 
 	</div> <!-- 메인 블록 end -->
-	    
+	
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous">
     </script>
+    
+    <script th:src="@{ /js/cartList.js }"></script>   
     
     <!-- 수량 버튼 처리 -->
     <script type="text/javascript">
@@ -172,46 +174,6 @@
     
     window.addEventListener('DOMContentLoaded', function () {
 
-    
-    
-    const btnDelete = document.querySelector('#btnDelete')
-    const formCheck = document.querySelector('#formCheck')
-    const list = document.querySelectorAll('#ckBox');
-    let ckList = [];
-    
-    btnDelete.addEventListener('click', function() {
-        for(let i=0; i<list.length; i++ ){
-            if(list[i].checked){
-            	let a = list[i].value;
-                ckList.push(a)
-            }
-            
-        }
-        console.log(ckList.toString())
-        console.log(ckList.length)
-        
-        const cartIdList = document.querySelector('#cartIdList');
-        cartIdList.innerText = ckList.toString();
-        console.log(cartIdList.innerText)
-        
-        const result = confirm('장바구니를 삭제?')
-        
-        if(result){
-        	formCheck.action='/cart/delete';
-        	formCheck.method='get';
-        	formCheck.submit();
-        	
-        }
-        
-        
-        
-        
-        
-    })
-    
-    
-    
-    
     
     	const buttons = document.querySelectorAll('.btnPlusMinus');
     	
