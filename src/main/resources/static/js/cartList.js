@@ -54,16 +54,15 @@
             +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"' +  c.cartId +' />' 
             +   ' </form>' 
             
-            +   ' <img src=" ' + th:src="${ cart.image }" +' style="width: 150px;"/></td>' 
+            +   ' <img src=" ' + c.image +' style="width: 150px;"/></td>' 
             +   ' <td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
-            +                 '   <span  th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>' 
+            +                 '   <span>'+c.group+'</span><span> / </span><span>'+c.category+'</span>' 
             +              '  </small>' 
-            +              '  <div class="h5" th:text="${ cart.title }"></div>' 
-            +             '   <div th:text="${ cart.author }"></div>' 
-            +              '  <div> [[${ cart.prices }]]' 
+            +              '  <div class="h5">'+c.title+'</div>' 
+            +             '   <div >'+c.author+'</div>' 
+            +              '  <div>'+c.prices 
             +                '    <span>원</span>' 
-                                
             +                 '   <small class="px-1 border border-primary rounded text-primary">p</small>' 
             +                  '  <small class="text-primary">[[${ cart.prices*0.05 }]]</small> ' 
             +               ' </div>' 
