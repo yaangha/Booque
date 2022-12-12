@@ -51,4 +51,35 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
            + " where lower(b.author) like lower ('%' || :keyword || '%') order by b.bookId desc"
     )
     List<Book> authorSearchByKeyword(@Param(value = "keyword") String keyword);
+    
+    // 최고가순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.prices desc"
+    )
+    List<Book> researchOrderByHighPrice(@Param(value = "keyword") String keyword);
+    
+    // 최저가순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.prices asc"
+            )
+    List<Book> researchOrderByLowPrice(@Param(value = "keyword") String keyword);
+    
+    // 출판날짜순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.publishedDate desc"
+            )
+    List<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword);
+    
 }

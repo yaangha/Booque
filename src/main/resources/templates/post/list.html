@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{ layout/layout2 }">
+    layout:decorate="~{ layout/layout }">
 <div layout:fragment="content" align ="center">
 <head>
 <meta charset="UTF-8">
@@ -70,14 +70,18 @@
                                 <thead>
                                    <tr>
                                        <th>번호</th>
+                                        <th>리뷰 도서</th>
                                         <th>제목</th>
-                                        <th>작성자</th>
                                         <th>수정시간</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="post : ${ list }">
-                                        <td th:text="${ post.postId }"></td>
+                                        <td th:text="${ post.postId }"></td> 
+                                        <td  style="border: 1px solid red;" width="18%">
+                                         <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                                          <img th:src="${ post.bookImage }" width="120" height="150" class="img-fluid rounded-start"></a>
+                                        </td>   
                                         <td><a
                                             th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId}) }"
                                             th:text="${ post.title }"></a>
@@ -85,10 +89,8 @@
                                             <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->
                                             
                                         </td>
-                                        <td
-                                            th:text="${ post.postWriter }"></td>
-                                        <td
-                                            th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
+                                                                            
+                                        <td th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
                                     </tr>
                                 </tbody>
                             </table>

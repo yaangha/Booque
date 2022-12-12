@@ -1,5 +1,6 @@
 package site.book.project.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
+import site.book.project.dto.PostListDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
 
@@ -26,6 +28,7 @@ public class PostController {
 
     private final PostService postService;
     private final BookService bookService;
+    
     @GetMapping("/main")
     public void main() {
         log.info("main()");
@@ -37,7 +40,20 @@ public class PostController {
     public String list(Model model) {
         log.info("list()");
         
-        List<Post> list = postService.read();
+        List<Post> postList = postService.read();
+        List<Book> bookList = bookService.read();
+        List<PostListDto> list = new ArrayList<>();
+        
+        for (Post p : postList) {
+            PostListDto dto = null;
+            for (Book b : bookList) {
+                if(b.getBookId() == p.getBookId()) {
+                 dto = PostListDto.builder().postId(p.getPostId()).bookId(p.getBookId()).title(p.getTitle()).bookImage(b.getBookImage()).modifiedTime(p.getModifiedTime()).build();
+                 list.add(dto);
+                }
+            }
+        }
+                
         model.addAttribute("list", list);
         
         return "/post/list";

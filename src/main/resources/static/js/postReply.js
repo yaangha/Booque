@@ -53,7 +53,7 @@
         const divReplies = document.querySelector('#replies');
         let str = '';
         for (let r of data){
-            str += '<div class="card my-2 mt-2>'
+            str += '<div style="margin-left: 50px;" class="card my-2 mt-2>'
                 + '<div class="card-header">'
                 + '<div class="d-flex mb-4">'
                 + '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>'
