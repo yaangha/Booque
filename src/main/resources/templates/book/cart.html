@@ -51,11 +51,10 @@
 		<tbody style="height: 200px;">
             <tr th:each="cart : ${ cartList }">
     			<td class="align-middle">
-    			<input type="checkbox" style="width: 30px;" />
+    			<input th:id="${ cart.title }" type="checkbox" style="width: 30px;" />
     			<img th:src="${ cart.image }" style="width: 150px;"/></td>
     			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
     						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                            
     							<span th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
     						</small>
     						<div class="h5" th:text="${ cart.title }"></div>
@@ -66,13 +65,11 @@
     							<small class="text-primary">[[${ cart.prices*0.05 }]]</small> 
     						</div>
     			</td>
-                <div>
     			<td class="align-middle">
                     <input type='button' class="btnPlusMinus"  value='+'/>
                     <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
                     <!-- 뭐지?? -->
                     <input type='button' class="btnPlusMinus"  value='-'/>
-    
     			</td>
     			<td class="align-middle">
     				<div id="price">
@@ -95,24 +92,28 @@
 	<!-- 가격 정보 -->
 	<table class="my-2 w-100 table" style="text-align: center;">
 		<thead class="table-light">
-			<th>총 주문금액</th>
-			<th>할인금액</th>
-			<th>배송비</th>
-			<th>총 결제금액</th>
+            <tr>
+    			<th>총 주문금액</th>
+    			<th>할인금액</th>
+    			<th>배송비</th>
+    			<th>총 결제금액</th>
+            </tr>
 		</thead>
 		<tbody style="height: 200px;">
-			<td class="align-middle">
-				122<span>원</span>
-			</td>
-			<td class="align-middle">
-				0<span>원</span>
-			</td>
-			<td class="align-middle">
-				0<span>원</span>
-			</td>
-			<td class="align-middle">
-				13,000<span>원</span>
-			</td>
+            <tr>
+    			<td class="align-middle">
+    				122<span>원</span>
+    			</td>
+    			<td class="align-middle">
+    				0<span>원</span>
+    			</td>
+    			<td class="align-middle">
+    				0<span>원</span>
+    			</td>
+    			<td class="align-middle">
+    				13,000<span>원</span>
+    			</td>
+            </tr>
 		</tbody>
 	</table>
 	
@@ -226,7 +227,7 @@
     	}
     */
     </script>
-    
+        
 </body>
 
 </div>

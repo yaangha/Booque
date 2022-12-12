@@ -25,7 +25,7 @@ public class OrderController {
     private final BookService bookService;
     
     @GetMapping("/order")
-    public String order() {  // db 전송 우째 할지 고민
+    public String order(Integer orderId, Model model) {
         // log.info("userId={}, bookId={}", userId, bookId);
         // Order order = orderService.readbyOrderId(orderId);
         
