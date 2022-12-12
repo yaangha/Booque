@@ -31,7 +31,7 @@ public class OrderRepositoryTest {
     @Autowired
     private CartRepository cartRepository;
     
-    @Test
+//    @Test
     public void test() {
 //        Assertions.assertNotNull(orderRepository);
         Assertions.assertNotNull(orderService);
@@ -61,16 +61,17 @@ public class OrderRepositoryTest {
 
         
         log.info("제발 ㅠㅠ 저장 되렴!!!!  {}", r);
-        
-        
-                
-        
-        
-        
-        
     }
-    
-    
-    
+        
+        // (하은) 해당 주문번호 관련 내역 읽어오기
+        @Test
+        public void testOrderNow() {
+            Assertions.assertNotNull(orderService);
+            
+            Order order = orderService.readbyOrderId(11);
+            
+            log.info(order.getBook().getBookId().toString());
+            
+    }
     
 }

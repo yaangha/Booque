@@ -503,7 +503,7 @@
         // 바로 구매하기 버튼 -> 해당 책 데이터만 order 테이블에 추가됨
         const btnOrderNow = document.querySelector('#btnOrderNow');
         btnOrderNow.addEventListener('click', function() {
-            addCartInfo.action = '/order/now';
+            addCartInfo.action = '/order';
             addCartInfo.method = 'post';
             addCartInfo.submit();
         })

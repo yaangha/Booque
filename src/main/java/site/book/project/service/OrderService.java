@@ -72,8 +72,7 @@ public class OrderService {
     }
 
     // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
-    public void createFromDetail(OrderFromDetailDto dto) {
-        // userId, bookId, total 
+    public Integer createFromDetail(OrderFromDetailDto dto) {
         
         Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
@@ -85,8 +84,18 @@ public class OrderService {
         Order order = Order.builder().orderNo(orderNo).user(user).book(book)
                 .orderDate(LocalDateTime.now()).orderBookCount(dto.getCount()).total(total).build();
         
-        orderRepository.save(order);
+        Order orderResult = orderRepository.save(order);
         
+        return orderResult.getOrderId();
     }
+    
+    // (하은) 바로 구매하는 책에 대한 order 테이블 데이터 불러오기
+    public Order readbyOrderId(Integer orderId) {
+        
+        Order order = orderRepository.findById(orderId).get();
+        
+        return order;
+    }
+    
     
 }
