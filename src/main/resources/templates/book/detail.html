@@ -39,10 +39,59 @@
             .clickBtn:hover{background:#0d6efd; color:#fff;}
             .btn-close{}
 
-        #likes {
-            width: 15px;
-            height: 15px;
+
+       /* 한줄평 좋아요 버튼 효과 */
+
+        .likes, .wish {
+            position: relative;
         }
+        
+        #likeFull {
+            position: absolute;
+            top: 3px;
+            left: 5px;
+            display: none;
+        }
+        
+        #likesCount {
+            position: absolute;
+            left: 70px;
+        }
+        
+        .likes:hover #likeFull {
+            display:inline;
+        }
+        
+        .likes:hover #likeEmpty {
+            display:none;
+        }
+        
+        
+        
+        /* 찜(위시리스트) 버튼 효과 */
+        
+        #wishFull {
+            position: absolute;
+            display: none;
+        }
+        
+        #wishText {
+            position: absolute;
+            left: 50px;
+        }
+        
+        .wish:hover #wishFull {
+            display: block;
+        }
+        
+        .wish:hover #wishEmpty {
+            display:none;
+        }
+        
+        
+        
+        
+        
     </style>
 </head>
 <body>
@@ -145,29 +194,51 @@
                 <img th:src="${ book.bookImage }" style="width:450px; height:650px"/>
             </div>
             
+            
             <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
             <div class="col border-top border-bottom border-4 border-dark">
+            <br/>
     <form id="addCartInfo">
+                
+                
+                
                 <div>
                 <input type="text" name="userId" value="2">    
-                님이 보고 계신 책은..</div> 
+                님이 보고 계신 책은..</div>
+                
+                
+                
+                <!--/* (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? */-->
+                
+                <!--/* 
+                <div>
+                <span th:text="${ nickName }" style="font-weight:bold; color:dodgerblue;"></span>
+                <span>님이 보고 계신 책은...</span>
+                </div>
+                 */-->
+                
+                
+                
                 <div class="row">
-                    <div class="col-10 h2 my-4" th:text="${ book.bookName }">
+                
+                    <div class="col h2 my-4" th:text="${ book.bookName }">
                     </div>
-                    <div class="col-2 my-2">
+                    
                     
                     <!--/* 찜하기는 나중에 */-->
-                        <!-- <img src="#" style="width: 50px" />  -->
-                    </div>
-                </div>
+                        <!--  <div class="col-2 my-2">
+                        <img src="#" style="width: 50px" />  --> 
+                        
                 
-                <input type="hidden" id="id" name="id" th:value="${ book.bookId }"> 
+                <input type="hidden" id="id" name="id" th:value="${ book.bookId }">
 
                 <div th:text="${ book.author }"><span style="color: gray;"> 저자</span></div>
                 <div th:text="${ book.publisher }"></div>
                 <div>
                     ★ ★ ★ ★ <span th:text="${ score }"></span>
                 </div>
+                
+                
                 <div class="my-2"style="font-weight: bold;">
                     <span style="font-size: large;"  th:text="${ book.prices }"></span>
                     <span>원</span>
@@ -208,6 +279,19 @@
                     <button type="button" class="w-50 btn btn-dark">공유하기</button> <!-- url 복사 등 -->
                 </div>
                 <button type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
+            
+            
+            
+            <!-- (지혜) 찜(위시리스트) 버튼 -->
+            <!-- 작은화면에서 마우스오버(hover)하면 밑의 컨텐츠가 위로 당겨지는 현상 수정 필요 -->
+        <div class="wish" style="margin-top:20px; margin-bottom:20px;">
+        <span id="btnWish">
+            <img id="wishEmpty" style="width:25px;" alt="" src=" /images/likeEmpty.png " />
+            <img id="wishFull" style="width:25px;" alt="" src=" /images/likeFull.png " />
+        </span>
+        <span id="wishText">위시리스트</span>
+        </div>   
+            
             </div>
         </div>
    
@@ -331,12 +415,6 @@
         
         
         
-        <!-- Likes --> 
-
-        <img id="likes" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/7476/7476962.png }">
-        <img id="likes" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/833/833472.png }">
-        
-        
         <!--  comment  -->
         
         
@@ -400,7 +478,9 @@
     
     <!-- choi -->
     <script th:src="@{ /js/bookDetailPost.js }"></script>   
-
+    
+    <!-- (지혜) 위시리스트 버튼(담기/취소) -->
+    <script th:src="@{ /js/wishList.js }"></script>
     
     
     <script>
@@ -499,6 +579,8 @@
             addCartInfo.submit();
         })
         </script>
+        
+        
 
 </body>
 </div>
