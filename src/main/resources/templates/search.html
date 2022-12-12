@@ -10,17 +10,16 @@
     
     
         <!-- 검색 상단바 START -->
-        <div style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
+        <div class="selectRearrange" style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
          <strong>
           <a href="javascript:void(0)">인기도순</a>
-          <a href="javascript:void(0)">신상품순</a>
-          <a href="javascript:void(0)">최저가순</a>
-          <a href="javascript:void(0)" onclick="rearrangementHighPrice();">최고가순</a>
+          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">신상품순</a>
+          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
+          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
           <a href="javascript:void(0)">별점순</a>
           <a href="javascript:void(0)">리뷰순</a>
           </strong>
         </div> <!-- 검색 상단바 END -->
-        
         <div><br/></div>
         
         <!-- 도서카드(가로버전) START -->
@@ -28,7 +27,7 @@
           <table width= "100%">
             <tr th:each="book : ${ searchList }">
                <td width= "20%" style="border: 1px solid blue;">
-                  <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}"><img th:src="${ book.bookImage }" class="img-fluid rounded-start"></a>
+                  <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}"><img th:src="${ book.bookImage }" width="150" height="180" class="img-fluid rounded-start"></a>
                </td>
                <td width= "63%">
                   <table style="padding-left: 20px;">
@@ -70,26 +69,6 @@
     
     <th:block layout:fragment="script" th:inline="javascript">
     
-    <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- 메인창 검색 스크립트 -->
-    <script>
-    const queryData = [[${ queryData }]];
-    const type = queryData[0].type;
-    const keyword = queryData[0].keyword;
-    var order = '';
-    function rearrangementHighPrice(){
-    	order = 'highPrice';
-    	axios.get('/search/ss?type='+ type + '&keyword=' + keyword + '&order='+ order)
-        .then(response => {
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }
-    
-    
-    </script>
         
     </th:block>
     
