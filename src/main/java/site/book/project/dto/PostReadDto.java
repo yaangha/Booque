@@ -27,7 +27,7 @@ public class PostReadDto {
     
     public static PostReadDto fromEntity(Post entity) {
         return PostReadDto.builder().bookId(entity.getBook().getBookId())
-                .writer(entity.getUser().getUsername())
+                .writer(entity.getPostWriter())
                 .content(entity.getPostContent())
                 .myScore(entity.getMyScore())
                 .createdTime(entity.getCreatedTime())
