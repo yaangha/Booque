@@ -37,62 +37,16 @@
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
     <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
     
-	<!-- 주문내역 -->
-<!--  	<table class="w-100 table" style="text-align: center;">
-		<thead class="table-light">
-            <tr>
-    			<th colspan="2">도서 정보</th>
-    			<th>수량</th>
-    			<th>주문금액</th>
-    			<th>배송비</th>
-    			<th></th>
-            </tr>
-		</thead>
-		<tbody style="height: 200px;">
-            <tr th:each="cart : ${ cartList }">
-    			<td class="align-middle">
-    		<form id="formCheck">
-    			<input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId" th:value="${ cart.cartId }" />
-    		</form>
-            
-    			<img th:src="${ cart.image }" style="width: 150px;"/></td>
-    			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 
-    						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-    							<span  th:text="${ cart.group }"></span><span> / </span><span th:text="${ cart.category }"></span>
-    						</small>
-    						<div class="h5" th:text="${ cart.title }"></div>
-    						<div th:text="${ cart.author }"></div>
-    						<div> [[${ cart.prices }]]
-    							<span>원</span>
-                                
-    							<small class="px-1 border border-primary rounded text-primary">p</small>
-    							<small class="text-primary">[[${ cart.prices*0.05 }]]</small> 
-    						</div>
-    			</td>
-                <div>
-    			<td class="align-middle">
-                    <input type='button' class="btnPlusMinus"  value='+'/>
-                    <span style="width: 50px" id="countS" > [[${ cart.count }]] </span>
-                    <input type='button' class="btnPlusMinus"  value='-'/>
-    
-    			</td>
-    			<td class="align-middle">
-                <div class="selectPrice">
-    				<div id="price">
-    					[[${ cart.prices }]]<span>원</span>
-    				</div>
-                </div>
-    			</td>
-    			<td class="align-middle">10,000원 이상<br/>
-    				배송비 무료</td>
-    			<td class="align-middle">
-    				<button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>
-    				<button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>
-    			</td>
-            </tr>
-		</tbody>
-	</table>
- -->
+
+
+
+ 
+
+
+
+
+
+
     
 
 	<!-- table AJax로 만듦 -->
@@ -176,58 +130,47 @@
     crossorigin="anonymous">
     </script>
     
-    <script th:src="@{ /js/cartList.js }"></script>   
-    
-    <!-- 수량 버튼 처리 -->
+    <script th:src="@{ /js/cartList.js }"></script>
+       
     <script type="text/javascript">
-    // 체크 박스가 몇개 있고 그중 몇개가 체크 되어 있는지
-    
-    
     window.addEventListener('DOMContentLoaded', function () {
-
-    
-    	const buttons = document.querySelectorAll('.btnPlusMinus');
     	
-    	buttons.forEach(btn => {
-    		
-    		btn.addEventListener('click', e => {
-    //	const bu = document.querySelectorAll('.selectPrice');
-    			const td = btn.closest('td');
-    			console.log(td)
-    			
-    			const span = td.querySelector('span');
-    			console.log(span)
-    			
-    			let number = span.innerText;
-    			
-    			const type = btn.value;
-    			if (type == '+') {
-    				number = parseInt(number) + 1;
-    			} else {
-    				number = parseInt(number) - 1;
-    				if(number == 0){
-	                   alert('수량은 0이하가 되지 못합니다.')
-	                   return;
-    	           }
-    			}
-    			span.innerText = number;
-    			
-    			const div = btn.closest('div');
-    		//	console.log(div)
-    			const price = div.querySelector('#price');
-    		//	price.innerText = number;
-    		//	console.log(price)
-    			// 가격이 첫번째만 바뀜 
-    		
-   
-    			
-    		});
-    	});
+    const buttons = document.querySelectorAll('.btnPlusMinus');
+    console.log('플러스 마이너스 버튼')
+    
+    buttons.forEach(btn => {
+        
+        btn.addEventListener('click', e => {
+            const td = btn.closest('td');
+            console.log(td)
+            
+            const span = td.querySelector('span');
+            console.log(span)
+            
+            let number = span.innerText;
+            
+            const type = btn.value;
+            if (type == '+') {
+                number = parseInt(number) + 1;
+            } else {
+                number = parseInt(number) - 1;
+                if(number == 0){
+                   alert('수량은 0이하가 되지 못합니다.')
+                   return;
+               }
+            }
+            span.innerText = number;
+            
+        
+
+            
+        });
     });
     
+    })    
     
-  
     </script>
+ 
     
 </body>
 
