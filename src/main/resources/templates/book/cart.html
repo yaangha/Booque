@@ -130,62 +130,47 @@
     crossorigin="anonymous">
     </script>
     
-    <script th:src="@{ /js/cartList.js }"></script>   
-    
-    <!-- 수량 버튼 처리 -->
+    <script th:src="@{ /js/cartList.js }"></script>
+       
     <script type="text/javascript">
-    // 체크 박스가 몇개 있고 그중 몇개가 체크 되어 있는지
+    window.addEventListener('DOMContentLoaded', function () {
+    	
+    const buttons = document.querySelectorAll('.btnPlusMinus');
+    console.log('플러스 마이너스 버튼')
     
-    
- //   window.addEventListener('DOMContentLoaded', function () {
-    	
-    	
-    	
+    buttons.forEach(btn => {
+        
+        btn.addEventListener('click', e => {
+            const td = btn.closest('td');
+            console.log(td)
+            
+            const span = td.querySelector('span');
+            console.log(span)
+            
+            let number = span.innerText;
+            
+            const type = btn.value;
+            if (type == '+') {
+                number = parseInt(number) + 1;
+            } else {
+                number = parseInt(number) - 1;
+                if(number == 0){
+                   alert('수량은 0이하가 되지 못합니다.')
+                   return;
+               }
+            }
+            span.innerText = number;
+            
+        
 
+            
+        });
+    });
     
-    	const buttons = document.querySelectorAll('.btnPlusMinus');
-    	
-    	buttons.forEach(btn => {
-    		
-    		btn.addEventListener('click', e => {
-    //	const bu = document.querySelectorAll('.selectPrice');
-    			const td = btn.closest('td');
-    			console.log(td)
-    			
-    			const span = td.querySelector('span');
-    			console.log(span)
-    			
-    			let number = span.innerText;
-    			
-    			const type = btn.value;
-    			if (type == '+') {
-    				number = parseInt(number) + 1;
-    			} else {
-    				number = parseInt(number) - 1;
-    				if(number == 0){
-	                   alert('수량은 0이하가 되지 못합니다.')
-	                   return;
-    	           }
-    			}
-    			span.innerText = number;
-    			
-    			const div = btn.closest('div');
-    		//	console.log(div)
-    			const price = div.querySelector('#price');
-    		//	price.innerText = number;
-    		//	console.log(price)
-    			// 가격이 첫번째만 바뀜 
-    		
-   
-    			
-    		});
-    	});
-//    });
-  
-    </script>
-    <script type="text/javascript">
+    })    
     
     </script>
+ 
     
 </body>
 

@@ -2,15 +2,15 @@
  * 
  */
  
- window.addEventListener('DOMContentLoaded', () => {
-    readCartDesc();
+  window.addEventListener('DOMContentLoaded', () => {
+   readCartDesc();
 
   
     
     
 
     
-    function readCartDesc(){
+   function readCartDesc(){
         const userid = document.querySelector('#userId').value;
         
         axios.get('api/cart/all/' + userid) 
@@ -107,14 +107,10 @@
     const list = document.querySelectorAll('#ckBox');
     let ckList = [];
     
-        console.log('삭제버튼을 눌렀을때 실행되는 함수')
-         console.log('버튼 누름');
-        console.log('버튼 누름  리스트 길이'+ list.length);
         
         for(let i=0; i<list.length; i++ ){
             if(list[i].checked){
                 let a = list[i].value;
-                console.log('체크된 카트 아이디'+a)
                 ckList.push(a);
             }
             
@@ -138,43 +134,7 @@
         
         }) 
         
-    btnPlus();
 
-    function btnPlus(){
-        console.log('플러스 마이너스 버튼')
-        const buttons = document.querySelectorAll('.btnPlusMinus');
-        
-        buttons.forEach(btn => {
-            
-            btn.addEventListener('click', e => {
-                const td = btn.closest('td');
-                console.log(td)
-                
-                const span = td.querySelector('span');
-                console.log(span)
-                
-                let number = span.innerText;
-                
-                const type = btn.value;
-                if (type == '+') {
-                    number = parseInt(number) + 1;
-                } else {
-                    number = parseInt(number) - 1;
-                    if(number == 0){
-                       alert('수량은 0이하가 되지 못합니다.')
-                       return;
-                   }
-                }
-                span.innerText = number;
-                
-            
-   
-                
-            });
-        });
-        
-        
-    }
     
     
 
@@ -192,7 +152,7 @@
     
     
     
-})
+ })
 
 
 
