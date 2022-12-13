@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 
@@ -49,11 +49,23 @@
     <a href="/" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
     BOOQUE 
     </a>
-    <!-- (하은) 사용자 이름 임의로 넣어놓은 것 - 추후 유저네임으로 수정 -->
-    <input id="userId" value="1" type="number" class="w3-bar-item w3-button w3-right" style="font-size:medium; margin-top:25px; margin-right:20px;" />
-    <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignIn" style="font-size:medium; margin-top:25px; margin-right:50px;">회원가입</a>
-    <a href="#" class="w3-bar-item w3-button w3-right" id="btnSignUp" style="font-size:medium; margin-top:25px; margin-right:20px;">로그인</a>
-</header>
+        <!-- 로그인 하지 않은 상태 -->
+        <th:block sec:authorize="isAnonymous()">
+            <!-- 익명 사용자인 경우에 보여줄 내용 -->
+            <li class="nav-item"><a class="nav-link"
+                th:href="@{ /user/signup }">회원가입</a></li>
+            <li class="nav-item"><a class="nav-link"
+                th:href="@{ /login }">로그인</a></li>
+        </th:block>
+        <!-- 로그인 한 상태 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <!-- 로그인(인증) 됐나요? -->
+            <li class="nav-item"><a class="nav-link"
+                th:href="@{ /logout }"> <span class="text-info"
+                    sec:authentication="name"></span>로그아웃
+            </a></li>
+        </th:block>
+    </header>
 
 <!-- 사이드바 -->
 

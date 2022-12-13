@@ -1,7 +1,12 @@
 package site.book.project.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,5 +60,16 @@ public class User {
     
     @Builder.Default
     private String grade = "0"; 
+    
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<UserRole> roles = new HashSet<>();
+    
+    public User addRole(UserRole role) {
+        roles.add(role);
+        
+        return this;
+    }
+    
     
 }
