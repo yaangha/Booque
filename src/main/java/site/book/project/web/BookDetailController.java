@@ -45,11 +45,11 @@ public class BookDetailController {
         // comment 넘기기
         // post 넘기기(post글 필요)
 
+        
         // choi 책 한권에 대한 post 정보 받기
-        
-        
         List<Post> postList = postService.findBybookId(id);
- 
+        
+       
         model.addAttribute("postList", postList );      
         
         return "book/detail";
