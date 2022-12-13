@@ -74,7 +74,7 @@
         
         for(let c of data){
         
-      str  +=  '<tr>'
+      str  += '<tr>'
             +  '<td class="align-middle">' 
             +   ' <form id="formCheck">' 
             +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"' +  c.cartId +' />' 
@@ -112,12 +112,13 @@
             +  '  <td class="align-middle">' 
             +      '  <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>' 
             +     '   <button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>' 
-            +  '  </td>' 
-        + '</tr>' ;
+            +  '  </td>'
+            + '</tr>'; 
         }
         
-       str += '</tbody>'
-        + '</table>';
+       str 
+            += '</tbody>'
+            + '</table>';
             
             
         
