@@ -42,6 +42,7 @@ public class UserController {
         log.info("signUp(dto = {}) POST", dto);
         
         userService.registerUser(dto);
+       
         
         return "redirect:/main"; // 회원가입 성공 후 이동(redirect)
     }

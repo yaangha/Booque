@@ -47,5 +47,12 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer myScore;
     
-    
+// bookId 삭제
+   
+    public Post update(String title, String postContent) {
+        this.title = title;
+        this.postContent = postContent;
+        
+        return this;
+    }
 }

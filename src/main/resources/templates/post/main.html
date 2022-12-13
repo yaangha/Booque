@@ -1,6 +1,12 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
+    
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -61,31 +67,32 @@
                 <td class="col-10">
                     <!-- 블로그 메인 섹션 시작 -->
 
-                    <nav class="navbar navbar-expand-lg"
-                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray; font-size: 15px;">
+                   <nav class="navbar navbar-expand-lg"
+                        style="width: 880px; margin-top: 20px; background-color: #FFFFE0; color: gray;">
+                         
                         <div class="container-md"
-                            style="display: inline-block; margin: 10px;"
-                            align="right">
-                            <a href="/post/list" style="color: gray;">전체
-                                목록</a>
+                            style="display: inline-block; margin: 5px;" align="right">
+                            <a href="/post/list" style="color: gray; margin-right: 15px;">전체 목록</a>
+                            <a href="/post/create" style="color: gray; margin-right: 15px;">새 포스트 작성</a>
                         </div>
+                       
                         <div class="dropdown"
                             style="display: inline-block; margin-right: 25px;">
                             <button class="btn dropdown-toggle"
-                                style="width: 80px; height: 28px; font-size: 15px; border: 1px solid gray;"
-                                type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">Drop</button>
+                                style="width: 85px; height: 30px; border: 1px solid gray;"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Drop</button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                    href="#">날짜순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#">인기순</a></li>
-                                <li><a class="dropdown-item"
-                                    href="#"></a></li>
+                                <li><a class="dropdown-item" href="#">날짜순</a></li>
+                                <li><a class="dropdown-item" href="#">인기순</a></li>
+                                <li><a class="dropdown-item" href="#">리스트형</a></li>
                             </ul>
                         </div>
 
-                    </nav> <!-- 도서 카드 + 리뷰 시작 -->
+                  </div>
+                    </nav> 
+                    <!-- 도서 카드 + 리뷰 시작 -->
+
                     <div class="card"
                         style="width: 880px; margin-top: 10px;"
                         align="center">
@@ -99,9 +106,8 @@
                                             style="width-max: 100%; height: 200px; margin: 20px; border: 1px solid gray;"
                                             align="center">
                                             <a href=""> <img
-                                                src="..."
-                                                class="img-fluid rounded-start"
-                                                alt="...">
+                                                src=""
+                                                class="img-fluid rounded-start">
                                             </a>
                                         </div>
                                     </td>
@@ -160,14 +166,20 @@
                             </table>
                         </div>
                         <!-- 도서 카드 끝 -->
-
-
-
-                        <div>
-                            <textarea rows="6" style="width: 840px;"></textarea>
+                    <div>
+                           <label for="postContent" class="form-label"></label>
+                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;">
+                            TODO
+                            <!-- TODO:  th:value="${ post.postContent }" readonly -->
+                            </textarea>
                         </div>
+                       
+                        <!-- 댓글창! -->
                         <div style="width: 840px; height: 40px;">
-                            댓글</div>
+                          댓글
+                        </div>
+                        <!-- 댓글창 end -->
+                       
                     </div>
 
                     <div style="width: 840px; height: 50px;"></div> <!-- 도서 카드 + 리뷰 끝 -->
@@ -247,13 +259,19 @@
                         <!-- 도서 카드 끝 -->
 
 
-
                         <div>
-                            <textarea rows="6" style="width: 840px;"></textarea>
+                           <label for="postContent" class="form-label"></label>
+                            <textarea id="postContent" class="form-control" rows="6" style="width: 840px;" > TODO
+                            <!-- TODO: th:value="${ post.postContent }" readonly -->
+                            </textarea>
                         </div>
 
+                        <!-- 댓글창! -->
                         <div style="width: 840px; height: 40px;">
-                            댓글</div>
+                          댓글
+                        </div>
+                        <!-- 댓글창 end -->
+                        
                     </div>
                     <!-- 도서 카드 + 리뷰 끝 -->
 
@@ -275,4 +293,6 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 </body>
+
+</div>
 </html>
