@@ -14,7 +14,9 @@
         const userid = document.querySelector('#userId').value;
         
         axios.get('api/cart/all/' + userid) 
-        .then(response => { updateCartList(response.data)})
+        .then(response => { updateCartList(response.data)
+        
+        })
         .catch(err => {console.log(err) });
         
         console.log('전체 페이지 읽기 ajax 함수')
@@ -116,8 +118,6 @@
             
         }
         ckList.push(userId)
-        console.log(ckList.toString())
-        console.log(ckList.length)
         
         
         const result = confirm('장바구니를 삭제?')
