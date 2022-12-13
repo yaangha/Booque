@@ -30,7 +30,8 @@
         const divCart = document.querySelector('#cList')
         let str = '';
         
-        str += '<table class="w-100 table" style="text-align: center;"> '
+        str += ' <form id="formCheck" mehtod="post">' 
+        +'<table class="w-100 table" style="text-align: center;"> '
         + '<thead class="table-light"> '
          +  '  <tr> '
           +      ' <th colspan="2">도서 정보</th> '
@@ -47,10 +48,7 @@
         
       str  += '<tr>'
             +  '<td class="align-middle">' 
-            +   ' <form id="formCheck">' 
             +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"  value="'+ c.cartId +'"/>' 
-            +   ' </form>' 
-            
             +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
             +   ' <td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
@@ -89,13 +87,60 @@
         
        str 
             += '</tbody>'
-            + '</table>';
+            + '</table>'
+            +   ' </form>' ;
             
-            
-        
         divCart.innerHTML = str;
         
+        const buttons = document.querySelectorAll('.btnPlusMinus');
+        console.log('플러스 마이너스 버튼')
         
+        buttons.forEach(btn => {
+            
+            btn.addEventListener('click', e => {
+                const td = btn.closest('td');
+                console.log(td)
+                
+                const span = td.querySelector('span');
+                console.log(span)
+                
+                let number = span.innerText;
+                
+                const type = btn.value;
+                if (type == '+') {
+                    number = parseInt(number) + 1;
+                } else {
+                    number = parseInt(number) - 1;
+                    if(number == 0){
+                       alert('수량은 0이하가 되지 못합니다.')
+                       return;
+                   }
+                }
+                span.innerText = number;
+            });
+        });
+        
+    
+        const form = document.querySelector('#formCheck')
+            // 결제창으로 넘어감.
+        const btnOrder = document.querySelector('#btnOrder')
+        btnOrder.addEventListener('click', function() {
+            form.action = '/order';
+            form.method = 'post';
+            form.submit();
+
+            console.log('누름')
+         
+            //form.submit()
+            
+            
+        });
+    
+    
+    
+    
+    
+    
     }
     
     
@@ -133,6 +178,12 @@
         }
         
         }) 
+        
+        
+        
+        
+        
+
         
 
     

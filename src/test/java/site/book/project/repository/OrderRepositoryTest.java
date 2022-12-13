@@ -33,24 +33,21 @@ public class OrderRepositoryTest {
     private CartRepository cartRepository;
     
 //    @Test
-    public void test() {
-        Assertions.assertNotNull(orderRepository);
-        Assertions.assertNotNull(orderService);
-        
-        // cart에 있는거 하나 읽어서 order table에 저장
-        Cart c = cartRepository.findById(4).get();
-        
-        log.info("카트 4번에 있는것 {}" ,c);
-        
-        List<Integer> oi = new ArrayList<>();
-        oi.add(1);
-        oi.add(2);
-        log.info("test");
-       Integer r = orderService.create(oi);
-       
-        orderService.orderBtn(oi);
-       
-    }
+//    public void test() {
+//        Assertions.assertNotNull(orderRepository);
+//        Assertions.assertNotNull(orderService);
+//        
+//        // cart에 있는거 하나 읽어서 order table에 저장
+//        Cart c = cartRepository.findById(4).get();
+//        
+//        log.info("카트 4번에 있는것 {}" ,c);
+//        
+//        List<Integer> oi = new ArrayList<>();
+//        oi.add(1);
+//        oi.add(2);
+//        log.info("test");
+//       Integer r = orderService.create(oi);
+//    }
         
         // (하은) 해당 주문번호 관련 내역 읽어오기
 //        @Test

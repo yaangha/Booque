@@ -41,13 +41,13 @@ public class OrderService {
     
     // 최신순
     public List<Order> readAllDesc(){
-        log.info("order 서비스~!");
         return orderRepository.findByOrderByOrderIdDesc();
     }
     
     // 결제 완료 버튼을 누르면 장바구니데이터는 사라지고(cart에서 delete를 만들면 됨! 여기서 필요 없음)
     // 결제 취소 버튼을 누르면 (creat()) 결제데이터 사라짐.
-    public void orderBtn(List<Integer> cartId) {
+    public void orderBtn(Integer[] cartId) {
+        
     	for(Integer i : cartId) {
     		log.info("장바구니에 있는 데이터 삭제");
     		cartRepository.deleteById(i);
@@ -67,7 +67,7 @@ public class OrderService {
      * @param cartId 결제할 책 정보를 가지고 있는 PK
      * @return 뭘 리턴해야 할지 모르겠음. 여러줄의 객체가 생성되는데..!
      */
-    public Integer create(List<Integer> cartId) { // user를 받을 필요는 없겠지?
+    public Integer create(Integer[] cartId) { // user를 받을 필요는 없겠지?
         // cart가 여러개 1,2,3, ... 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
         

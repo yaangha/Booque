@@ -24,12 +24,23 @@ public class OrderController {
     private final UserService userService;
     private final BookService bookService;
     
+
+//    @PostMapping("/order")
+//    public String order(Integer[] cartId, Model model) { 
+//
+//        orderService.create(cartId);
+//        // TODO 결제창에서 보여줄 데이터 DTO 만들어서 넘길 예정
+//        // model.addAttribute("주무", model);
+//        
+//         return "book/order";
+//    }
+    
     @GetMapping("/order")
-    public String order(Integer orderId, Model model) {
-        // log.info("userId={}, bookId={}", userId, bookId);
-        // Order order = orderService.readbyOrderId(orderId);
-        
-        // model.addAttribute("order", order);        
+    public String order() { 
+
+        // orderService.create(cartId);
+        // TODO 결제창에서 보여줄 데이터 DTO 만들어서 넘길 예정
+        // model.addAttribute("주무", model);
         
          return "book/order";
     }
