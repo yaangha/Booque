@@ -10,10 +10,16 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
+import site.book.project.domain.User;
+import site.book.project.dto.OrderFinalInfoDto;
+import site.book.project.dto.OrderFromDetailDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.repository.CartRepository;
 import site.book.project.repository.OrderRepository;
+import site.book.project.repository.UserRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,7 +32,8 @@ public class OrderService {
     
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
-    
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
     
     public List<Order> readAll(){
         return orderRepository.findAll();
@@ -48,13 +55,9 @@ public class OrderService {
     	
     }
     
-    
-    
-    
-    
     // 장바구니(cart)에서 받은 데이터로 
     /**
-     * 장바구니-> 결제창 
+     * 장바구니 -> 결제창 
      * 결제 버튼 누름과 동시에 실행될 메서드
      * 총 금액 필요 함?? TODO
      * @param cartId 결제할 책 정보를 가지고 있는 PK
@@ -65,12 +68,11 @@ public class OrderService {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
         
         List<Order> orderList = new ArrayList<>();
-        
+        Integer orderNo = 0;
         for(Integer i : cartId) {
             Cart c = cartRepository.findById(i).get();
             
-            Integer orderNo = Integer.parseInt(date+c.getUser().getId());
-            
+            orderNo = Integer.parseInt(date+c.getUser().getId());
             
             Order o = Order.builder().user(c.getUser())
                     .book(c.getBook())
@@ -82,14 +84,42 @@ public class OrderService {
             
             orderList.add(o);
         }
+        return orderNo; 
+    }
+
+    // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
+    public Integer createFromDetail(OrderFromDetailDto dto) {
         
-        return orderList.size(); 
+        Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
+        Integer orderNo = Integer.parseInt(date + dto.getUserId());
+        
+        User user = userRepository.findById(dto.getUserId()).get();
+        Book book = bookRepository.findById(dto.getId()).get();
+        
+        Order order = Order.builder().orderNo(orderNo).user(user).book(book)
+                .orderDate(LocalDateTime.now()).orderBookCount(dto.getCount()).total(total).build();
+        
+        Order orderResult = orderRepository.save(order);
+        
+        return orderResult.getOrderId();
     }
     
-    
-    
-    
-    
-    
+    // (하은) 바로 구매하는 책에 대한 order 테이블 데이터 불러오기
+    public Order readbyOrderId(Integer orderId) {
+        
+        Order order = orderRepository.findById(orderId).get();
+        
+        return order;
+    }
+
+    // (하은) orderResult로 넘어갈 때 최종 주문&배송정보 order DB에 업데이트하기 위해
+    public void updateInfo(OrderFinalInfoDto dto) {
+        // Order DB에 업데이트할 데이터 -> 배송정보(3개), 메시지, 결제방식
+        log.info("하은 주문번호={}", dto.getOrderId());
+        Order order = orderRepository.findById(dto.getOrderId()).get();
+        order.update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
+        orderRepository.save(order);
+    }
     
 }

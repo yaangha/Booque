@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -329,7 +328,7 @@
 <header id="top-menu-full-screen" class="w3-bar w3-top w3-hide-small w3-hide-medium w3-black w3-xlarge" style="z-index:4">
 
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"  style="margin-left:50px;"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
+    <a href="/" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
     BOOQUE 
     </a>
         <!-- 로그인 하지 않은 상태 -->
@@ -395,7 +394,7 @@
     <br/>
     
     <!-- 로그인한 상태 -->
-    <a href="#" id="btnMyPage" class="w3-bar-item w3-button w3-medium">마이페이지</a>
+    <a href="myPage?id=1" id="btnMyPage" class="w3-bar-item w3-button w3-medium">마이페이지</a>
     <a href="#" id="btnSignOut" class="w3-bar-item w3-button w3-medium">로그아웃</a>
     
     
@@ -438,8 +437,8 @@
       <!-- 검색 버튼 -->
       <input type="submit" value="확인" />
       <a href="javascript:void(0)" type="submit" style="color:black; margin-right:40px; margin-left:20px;"><i class="fa fa-search" id="btnSearch"></i></a> 
-      <!-- 장바구니 버튼 -->
-      <a href="#" style="color:black; margin-right:40px;"><i class="fa fa-shopping-cart w3-margin-right" id="btnCart"></i></a>
+      <!-- 장바구니 버튼 -> (TODO) userId로 연결시키기 -->
+      <a href="/cart?id=1" style="color:black; margin-right:40px;"><i class="fa fa-shopping-cart w3-margin-right" id="btnCart"></i></a>
        </p>
    </form>
 
