@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.User;
 
@@ -20,9 +21,8 @@ public class PostCreateDto {
     private String postWriter; 
     private Integer myScore;
     
-    public Post toEntity() {
-        
-        
-        return Post.builder().bookId(bookId).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
+    public Post toEntity(Book book) {
+               
+        return Post.builder().book(book).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }
