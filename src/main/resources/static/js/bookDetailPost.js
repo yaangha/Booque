@@ -36,7 +36,7 @@
         
         axios
         .get('/api/post/score/'+bookId)
-        .then(respons => {updatePostList(respons.data)})
+        .then(response => {updatePostList(response.data)})
         .catch(err => { console.log(err) });
         
     }
