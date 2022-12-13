@@ -2,6 +2,7 @@ package site.book.project.web;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,12 +74,28 @@ public class BookDetailController {
     
     
     // (지혜) 위시리스트 담기/취소
-    
+    // 리턴되는 문자열 -> selected: 위시리스트 테이블에 추가한 후 하트 상태를 빨강으로 변경
+                     // unselected: 위시리스트 테이블에서 삭제한 후 하트 상태를 빈 하트로 변경
     @ResponseBody
-    @GetMapping("/wishList")
-    public String addToWishList(BookWish bookWish) {
-        return bookWishService.clickWishButton(bookWish);
+    @GetMapping("/book/wishList")
+    public String addToWishList(Integer userId, Integer bookId) {
+        log.info("addToWishList: userId={}, bookId={}", userId, bookId);
+        
+        String wish = bookWishService.changeWishButton(userId, bookId);
+        
+        return wish;
     }
+    
+//    public ResponseEntity<String> addToWishList(Integer userId, Integer bookId) {
+//        log.info("addToWishList: userId={}, bookId={}", userId, bookId);
+//        
+//        String result = bookWishService.clickWishButton(userId, bookId);
+//        
+//        return ResponseEntity.ok(result);
+//    }
+    
+    
+    
     
     
     
