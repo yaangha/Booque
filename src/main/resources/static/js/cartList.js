@@ -4,58 +4,27 @@
  
  window.addEventListener('DOMContentLoaded', () => {
     readCartDesc();
+
+  
     
-    const userId = document.querySelector('#userId').value;
-    console.log(userId)
     
-    const btnDelete = document.querySelector('#btnDelete')
-  //  const formCheck = document.querySelector('#formCheck')
-    const list = document.querySelectorAll('#ckBox');
-    let ckList = [];
-    
-    btnDelete.addEventListener('click', function() {
-        for(let i=0; i<list.length; i++ ){
-            if(list[i].checked){
-                let a = list[i].value;
-                ckList.push(a);
-            }
-            
-        }
-        ckList.push(userId)
-        console.log(ckList.toString())
-        console.log(ckList.length)
-        
-   //     const cartIdList = document.querySelector('#cartIdList');
-   //     cartIdList.innerText = ckList.toString();
-   //     console.log(cartIdList.innerText)
-        
-        const result = confirm('장바구니를 삭제?')
-        
-        if(result){
-            axios
-            .post('api/cartid', ckList)
-            .then(response => {
-                updateCartList(response.data)
-                console.log(response.data);
-            })
-            .catch(err => {console.log(err)})
-        }
-        
-    })   
+
     
     function readCartDesc(){
-        const userId = document.querySelector('#userId').value;
+        const userid = document.querySelector('#userId').value;
         
-        axios.get('api/cart/all/' + userId) 
+        axios.get('api/cart/all/' + userid) 
         .then(response => { updateCartList(response.data)})
         .catch(err => {console.log(err) });
         
+        console.log('전체 페이지 읽기 ajax 함수')
         
     };
     
     
     
     function updateCartList(data){
+        console.log('카트 리스트 전체 보기 함수 data 받음 ')
         const divCart = document.querySelector('#cList')
         let str = '';
         
@@ -77,7 +46,7 @@
       str  += '<tr>'
             +  '<td class="align-middle">' 
             +   ' <form id="formCheck">' 
-            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"' +  c.cartId +' />' 
+            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"  value="'+ c.cartId +'"/>' 
             +   ' </form>' 
             
             +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
@@ -129,6 +98,89 @@
     
     
     
+    const btnDelete = document.querySelector('#btnDelete')
+    
+    btnDelete.addEventListener('click', function(){
+    const userId = document.querySelector('#userId').value;
+    console.log(userId)
+    
+    const list = document.querySelectorAll('#ckBox');
+    let ckList = [];
+    
+        console.log('삭제버튼을 눌렀을때 실행되는 함수')
+         console.log('버튼 누름');
+        console.log('버튼 누름  리스트 길이'+ list.length);
+        
+        for(let i=0; i<list.length; i++ ){
+            if(list[i].checked){
+                let a = list[i].value;
+                console.log('체크된 카트 아이디'+a)
+                ckList.push(a);
+            }
+            
+        }
+        ckList.push(userId)
+        console.log(ckList.toString())
+        console.log(ckList.length)
+        
+        
+        const result = confirm('장바구니를 삭제?')
+        
+        if(result){
+            axios
+            .post('api/cartid', ckList)
+            .then(response => {
+                updateCartList(response.data)
+                console.log(response.data);
+            })
+            .catch(err => {console.log(err)})
+        }
+        
+        }) 
+        
+    btnPlus();
+
+    function btnPlus(){
+        console.log('플러스 마이너스 버튼')
+        const buttons = document.querySelectorAll('.btnPlusMinus');
+        
+        buttons.forEach(btn => {
+            
+            btn.addEventListener('click', e => {
+                const td = btn.closest('td');
+                console.log(td)
+                
+                const span = td.querySelector('span');
+                console.log(span)
+                
+                let number = span.innerText;
+                
+                const type = btn.value;
+                if (type == '+') {
+                    number = parseInt(number) + 1;
+                } else {
+                    number = parseInt(number) - 1;
+                    if(number == 0){
+                       alert('수량은 0이하가 되지 못합니다.')
+                       return;
+                   }
+                }
+                span.innerText = number;
+                
+            
+   
+                
+            });
+        });
+        
+        
+    }
+    
+    
+
+    
+    
+    
     
     
     
@@ -141,3 +193,10 @@
     
     
 })
+
+
+
+
+
+
+
