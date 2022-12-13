@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org/"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -282,7 +283,9 @@
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
-            
+            <div class="col-2 my-2">
+              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">리뷰작성</a>        
+            </div>
             <!-- 최신순, 선호도 등 -->
             <div class="dropdown col">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
@@ -318,13 +321,16 @@
         
           <!--/* th:each를 통해서 불러오기   */-->
           
- <!--/*       <div  th:each="post : ${ postList }">
-            <div class="my-2" th:text="${ post.user.name }" > </div>
+     <div  th:each="post : ${ postList }">
+            <div class="my-2">
+            <a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId }) }"
+            th:text="${ post.postWriter }"></a>
+             </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
-*/-->
+
         
         <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
         <div id="postOrder"></div>
@@ -527,6 +533,6 @@
         
         </script>
 
-    </body>
-</div>
+</body>
+ </div>
 </html>
