@@ -13,14 +13,15 @@ public class UserRegisterDto {
     private String password;
     private String email;
     private String nickname;
+    private String name;
+    private String phone;
     private String address;
     
     public User toEntity() {
-        return User.builder().username(username).password(password).email(email).nickName(nickname).address(address).build();
+        return User.builder().username(username).password(password).email(email).nickName(nickname).name(name).phone(phone).address(address).build();
         // addRole(MemberRole.USER) = 어드민이 아닌 USER 권한을 부여하겠다.
     }
 
 
 }
-
 
