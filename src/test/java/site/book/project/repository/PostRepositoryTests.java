@@ -1,26 +1,29 @@
 package site.book.project.repository;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
-import site.book.project.domain.Post;
-import site.book.project.domain.User;
 import site.book.project.service.PostService;
+import site.book.project.service.UserService;
 
 @Slf4j
 @SpringBootTest
 public class PostRepositoryTests {
-
-   @Autowired
-   private PostRepository postRepository;
+//
+//   @Autowired
+//   private PostRepository postRepository;
+//   
+//   @Autowired
+//   private PostService postService;
    
    @Autowired
-   private PostService postService;
+   private UserService userService;
+   
+   @Autowired
+   private UserRepository userRepository;
    
    @Test
    public void testSave() {
@@ -34,8 +37,11 @@ public class PostRepositoryTests {
 //       log.info("save 후 {} | {} | {}", entity, entity.getCreatedTime(), entity.getModifiedTime());
        
        
-       Assertions.assertNotNull(postRepository);
-       Assertions.assertNotNull(postService);
+       Assertions.assertNotNull(userService);
+       
+       Assertions.assertNotNull(userRepository);
+       log.info(" {}",userService.checkUsername("a"));
+       
 
        
        
