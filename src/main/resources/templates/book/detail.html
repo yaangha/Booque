@@ -322,7 +322,7 @@
           
      <div  th:each="post : ${ postList }">
             <div class="my-2">
-            <a th:href="@{ /post/list }"
+            <a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId }) }"
             th:text="${ post.postWriter }"></a>
              </div>
             <div  th:text="${ post.myScore }"></div>

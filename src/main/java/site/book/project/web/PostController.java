@@ -43,13 +43,17 @@ public class PostController {
         List<Post> postList = postService.read();
         List<Book> bookList = bookService.read();
         List<PostListDto> list = new ArrayList<>();
+        // 포스트 하나당 bookId를 가져오면 됨.
         
         for (Post p : postList) {
             PostListDto dto = null;
             for (Book b : bookList) {
-                if(b.getBookId() == p.getBookId()) {
-                 dto = PostListDto.builder().postId(p.getPostId()).bookId(p.getBookId()).title(p.getTitle()).bookImage(b.getBookImage()).modifiedTime(p.getModifiedTime()).build();
+
+                
+                if(b.getBookId() == p.getBook().getBookId()) {
+                 dto = PostListDto.builder().postId(p.getPostId()).bookId(p.getBook().getBookId()).title(p.getTitle()).bookImage(b.getBookImage()).modifiedTime(p.getModifiedTime()).build();
                  list.add(dto);
+
                 }
             }
         }
@@ -64,7 +68,7 @@ public class PostController {
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto ={})", dto);
         
-        Post entity = postService.create(dto);
+        Post entity = postService.create(dto); 
         
         attrs.addFlashAttribute("createdPostId", entity.getPostId());
         log.info("createdPostId: entity.gePosttId()= {}", entity.getPostId());
