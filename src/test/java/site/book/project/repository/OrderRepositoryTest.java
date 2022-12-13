@@ -25,6 +25,7 @@ public class OrderRepositoryTest {
     private OrderRepository orderRepository;
     
     
+    
     @Autowired
     private OrderService orderService;
 
@@ -41,26 +42,14 @@ public class OrderRepositoryTest {
         
         log.info("카트 4번에 있는것 {}" ,c);
         
-        // 주문번호 만듦
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd"));
-        log.info("주문 번호 날짜 / {}",date);
-        Integer orderNo = Integer.parseInt(date+c.getUser().getId());
-        log.info("주문 번호 / {}",orderNo);
-        
-        
-        Order order =Order.builder().orderNo(orderNo).user(c.getUser()).book(c.getBook())
-                .orderBookCount(c.getCartBookCount()).orderDate(LocalDateTime.now()).total(0)
-                .build();
-        
-        log.info("오더 객체 완료?!!!! {}", order);
         List<Integer> oi = new ArrayList<>();
         oi.add(1);
-        oi.add(3);
-        
-        Integer r = orderService.create(oi);
-
-        
-        log.info("제발 ㅠㅠ 저장 되렴!!!!  {}", r);
+        oi.add(2);
+        log.info("test");
+       Integer r = orderService.create(oi);
+       
+        orderService.orderBtn(oi);
+       
     }
         
         // (하은) 해당 주문번호 관련 내역 읽어오기
