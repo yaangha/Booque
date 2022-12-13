@@ -1,15 +1,18 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{ layout/layout }">
 <div layout:fragment="content" align ="center">
 <head>
 <meta charset="UTF-8">
+
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
     crossorigin="anonymous">
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link
     href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -30,6 +33,7 @@
 
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+
 
     <hr/>
     <div class="container" style="width:100%; padding-right:150px;" > <!-- container-fluid : START -->
@@ -67,6 +71,7 @@
             <div class="card" style="padding-top:15px;  margin-left: 50px;">
                             <table width="100%">
                             
+
                                 <thead>
                                    <tr>
                                        <th>번호</th>
@@ -95,6 +100,7 @@
                                 </tbody>
                             </table>
                         </div>
+
         
               </td><!-- 전체 카드 끝 -->
             </tr>
@@ -114,5 +120,6 @@
     }); </script>
     
   </div><!-- layout:fragment="content" : END -->
+
 
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,8 @@ public class BookDetailController {
         model.addAttribute("score", score);
         // comment 넘기기
         // post 넘기기(post글 필요)
-// choi 책 한권에 대한 post 정보 받기
+
+        // choi 책 한권에 대한 post 정보 받기
         
         List<Post> postList = postService.findBybookId(id);
         model.addAttribute("postList", postList );      

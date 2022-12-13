@@ -1,7 +1,12 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
+    
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -83,9 +88,11 @@
                                 <li><a class="dropdown-item" href="#">리스트형</a></li>
                             </ul>
                         </div>
+
                   </div>
                     </nav> 
                     <!-- 도서 카드 + 리뷰 시작 -->
+
                     <div class="card"
                         style="width: 880px; margin-top: 10px;"
                         align="center">
@@ -286,4 +293,6 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 </body>
+
+</div>
 </html>
