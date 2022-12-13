@@ -90,7 +90,7 @@
 	<!-- 하단 버튼 -->
 	<div class="row">
 		<button type="button" class="col w-50 m-2 btn btn-outline-dark">쇼핑 계속하기</button>
-		<button id="btnOrder" type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
+		<button id="btnOrder" type="button"  class="col w-50 m-2 btn btn-dark">결제하기</button>
 	</div>
 
 	<span class="h4" th:text="${ user.username }"></span><span> 님이 찜한 상품은?</span>
@@ -131,45 +131,6 @@
     </script>
     
     <script th:src="@{ /js/cartList.js }"></script>
-       
-    <script type="text/javascript">
-    window.addEventListener('DOMContentLoaded', function () {
-    	
-    const buttons = document.querySelectorAll('.btnPlusMinus');
-    console.log('플러스 마이너스 버튼')
-    
-    buttons.forEach(btn => {
-        
-        btn.addEventListener('click', e => {
-            const td = btn.closest('td');
-            console.log(td)
-            
-            const span = td.querySelector('span');
-            console.log(span)
-            
-            let number = span.innerText;
-            
-            const type = btn.value;
-            if (type == '+') {
-                number = parseInt(number) + 1;
-            } else {
-                number = parseInt(number) - 1;
-                if(number == 0){
-                   alert('수량은 0이하가 되지 못합니다.')
-                   return;
-               }
-            }
-            span.innerText = number;
-            
-        
-
-            
-        });
-    });
-    
-    })    
-    
-    </script>
  
     
 </body>

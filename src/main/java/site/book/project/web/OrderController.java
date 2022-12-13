@@ -1,7 +1,9 @@
 package site.book.project.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +17,14 @@ public class OrderController {
     private final OrderService orderService;
     
     
-    @GetMapping("/order")
-    public String order() {  // db 전송 우째 할지 고민
-        //
+    @PostMapping("/order")
+    public String order(Integer[] cartId, Model model) { 
         
+        orderService.create(cartId);
+        // TODO 결제창에서 보여줄 데이터 DTO 만들어서 넘길 예정
+
+        
+       // model.addAttribute("주무", model);
         
          
         return "/book/order";
