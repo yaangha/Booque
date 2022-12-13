@@ -5,6 +5,13 @@
     
    <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
 <div layout:fragment="content" align ="center"> <!-- layout:fragment="content" : START -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
@@ -19,13 +26,30 @@
           <a href="javascript:void(0)">별점순</a>
           <a href="javascript:void(0)">리뷰순</a>
           </strong>
+            <div align="right">
+            <select id="dataPerPage">
+                <option value="10">10개씩보기</option>
+                <option value="15">15개씩보기</option>
+                <option value="20">20개씩보기</option>
+            </select>
+            </div>
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
         
         <!-- 도서카드(가로버전) START -->
         <div class="card" style="border: 1px solid red; padding: 20px;">
           <table width= "100%">
-            <tr th:each="book : ${ searchList }">
+            <tr th:if="${ #lists.isEmpty(searchList)}">
+                <td width= "20%" style="border: 1px solid blue;"></td>
+                <td width= "63%">
+                <table style="padding-left: 20px;">
+                <tr><td><br/></td></tr>
+                <tr><td>검색 결과가 없습니다.</td></tr>
+                </table>
+                </td>
+                <td width= "17%" style="border: 1px solid blue;"></td>
+            </tr>
+            <tr th:each="book : ${ searchList }" th:if="${!#lists.isEmpty(searchList)}">
                <td width= "20%" style="border: 1px solid blue;">
                   <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}"><img th:src="${ book.bookImage }" width="150" height="220" class="img-fluid rounded-start"></a>
                </td>
@@ -44,8 +68,9 @@
                      <td th:text="${book.prices}"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
                     </tr>
                     <tr><td>판매지수</td></tr>
-                    <tr>
-                      <td><span><a href="">회원리뷰</a></span> &nbsp;&nbsp;★★★★☆ (8.0)</td>
+                    <tr th:each="reviewCount : ${ reviewCount }">
+                      <td th:if="${ reviewCount.bookId == book.bookId }"><span><a th:href="@{ /detail?id={bookId}#fastReview (bookId = ${ book.bookId}) }" 
+                      th:text="회원리뷰+'('+${reviewCount.reviewCount}+')'"></a></span><span>&nbsp;&nbsp;★★★★☆(8.0)</span></td>
                     </tr>
                     <tr> 
                       <td>오늘 주문하면 내일 도착</td>
@@ -60,15 +85,36 @@
          </table>
         </div> <!-- 도서카드(가로버전) END -->
         
+        <!-- 페이지 선택 바 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" style="justify-content : center;">
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Previous"> 
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">4</a></li>
+                <li class="page-item"><a class="page-link text-dark" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link text-dark" href="#" aria-label="Next"> 
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
     </div> <!-- container-fluid : END -->
     <hr/>
 </div> <!-- layout:fragment="content" : END -->
     
-    
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     
     <th:block layout:fragment="script" th:inline="javascript">
-    
         
     </th:block>
     

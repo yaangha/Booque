@@ -3,6 +3,7 @@ package site.book.project.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ public class SearchService {
 
     private final SearchRepository searchRepository;
     
+    @Transactional(readOnly = true)
     public List<Book> search(String type, String keyword) {
         List<Book> list = null;
 
@@ -32,6 +34,7 @@ public class SearchService {
         return list;
     }
     
+    @Transactional(readOnly = true)
     public List<Book> research(String type, String keyword, String order){
         List<Book> list = null;
         switch(order) {
