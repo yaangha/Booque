@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
+<html xmlns:th="http://www.thymeleaf.org/"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+
+    <div layout:fragment="content">
+    
 <head>
     <meta charset="UTF-8">
     <title>Book Detail</title>
@@ -33,6 +38,7 @@
             .input-label{display:block; font-size:15px; font-weight:bold; margin-bottom:5px;}
             .clickBtn{padding:5px; border:1px solid #0d6efd; border-radius:5px; color:#0d6efd; background:#fff; cursor:pointer; margin:5px;}
             .clickBtn:hover{background:#0d6efd; color:#fff;}
+            .btn-close{}
 
         #likes {
             width: 15px;
@@ -50,6 +56,7 @@
             <div id="registerModal" class="modal-in">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalToggleLabel" style="font-weight: blod; font-size: large;" >회원가입</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cBtn"></button>
                 </div>
                 <hr/>
                 <div class="input-box">
@@ -87,11 +94,20 @@
                     <form action="./register2.php" method="post">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalToggleLabel" style="font-weight: blod; font-size: large;" >회원가입 확인</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cBtn"></button>
                     </div>
                     <hr/>
                     <div class="my-2">
                         <label>아이디 : </label>
                         <input class="form-control my-2" type="text" id="checkupUsername" name="checkupUsername" required readonly>
+                    </div>
+                    <div class="my-2 d-none" id="ok">
+                        <!-- d = display. 화면에 보여주지 않겠다. -->
+                        <p class="text-success">사용할 수 있는 아이디</p>
+                    </div>
+                    <div class="my-2 d-none" id="nok">
+                        <!-- d = display. 화면에 보여주지 않겠다. -->
+                        <p class="text-danger">사용할 수 없는 아이디</p>
                     </div>
                     <div class="my-2">
                         <input class="form-control my-2" type="hidden" id="checkupPassword" name="checkupPassword" required>
@@ -131,18 +147,23 @@
             </div>
             
             <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
-            <div class="col border-top border-bottom border-4 border-dark"> 
+            <div class="col border-top border-bottom border-4 border-dark">
+    <form id="addCartInfo">
+                <div>
+                <input type="text" name="userId" value="2">    
+                님이 보고 계신 책은..</div> 
                 <div class="row">
                     <div class="col-10 h2 my-4" th:text="${ book.bookName }">
                     </div>
                     <div class="col-2 my-2">
                     
                     <!--/* 찜하기는 나중에 */-->
-                        <img src="#" style="width: 50px" />
+                        <!-- <img src="#" style="width: 50px" />  -->
                     </div>
                 </div>
                 
-                <input type="hidden" id="id"  th:value="${ book.bookId }">
+                <input type="hidden" id="id" name="id" th:value="${ book.bookId }"> 
+
                 <div th:text="${ book.author }"><span style="color: gray;"> 저자</span></div>
                 <div th:text="${ book.publisher }"></div>
                 <div>
@@ -156,15 +177,42 @@
                     <span style="font-size: large;"  th:text="${ book.prices * 0.05 }"></span>
                     <span>포인트</span>
                 </div>
-                
+                <div>
+                    <div>수량</div>
+                    <input name="count" class="w-50" type="number" min="1" />
+                </div>
+    </form>           
                 <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="w-50 btn btn-outline-dark">장바구니</button> <!-- 장바구니 페이지 이동 -->
+                    <!-- 
+                    <button type="button" class="w-50 btn btn-outline-dark">장바구니</button>  --> <!-- 장바구니 페이지 이동 -->
+                    
+                    <!-- (하은) 장바구니 페이지 갈지말지 -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="w-50 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">장바구니</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cart</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">장바구니로 이동하시겠습니까?</div>
+                                <div class="modal-footer">
+                                    <button id="btnContinueShopping" type="submit" class="btn btn-outline-dark" data-bs-dismiss="modal">계속 쇼핑하기</button>
+                                    <button id="btnGoCart" type="submit" class="btn btn-dark" data-bs-dismiss="modal">장바구니 가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" class="w-50 btn btn-dark">공유하기</button> <!-- url 복사 등 -->
                 </div>
                 <button type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
             </div>
         </div>
-    
+   
+
     <!-- nav바 메뉴 바로가기(버튼 누르면 해당 부분으로 스크롤) -->
     <nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">
         <ul class="nav nav-pills">
@@ -211,10 +259,13 @@
                 <div class="col" th:each="book : ${ authorOtherBook }">
                 <div class="card my-2" style="width: 15rem; height:450px;">
                     <div style="width:237px; height:330px;">
-                        <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" >
+                        <a th:href="@{ /detail(id=${ book.bookId }) }"><img th:src="${ book.bookImage }" class="card-img-top" alt="테스트" ></a>
                     </div>
                     <div class="card-body">
                         <div class="card-text">
+                            <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                            </small></div>
                             <span class="h5" th:text="${ book.bookName }"></span><br/>
                             <span th:text="${ book.author }"></span><br/>
                             <span th:text="${ book.prices }"></span><span>원</span>
@@ -225,21 +276,15 @@
             </div> <!-- row end -->
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
         
       
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
-            
+            <div class="col-2 my-2">
+              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">리뷰작성</a>        
+            </div>
             <!-- 최신순, 선호도 등 -->
             <div class="dropdown col">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
@@ -275,13 +320,16 @@
         
           <!--/* th:each를 통해서 불러오기   */-->
           
- <!--/*       <div  th:each="post : ${ postList }">
-            <div class="my-2" th:text="${ post.user.name }" > </div>
+     <div  th:each="post : ${ postList }">
+            <div class="my-2">
+            <a th:href="@{ /post/list }"
+            th:text="${ post.postWriter }"></a>
+             </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
-*/-->
+
         
         <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
         <div id="postOrder"></div>
@@ -333,13 +381,6 @@
         
         <!--  comment  하트 증가는 못함 /-->
 
-
-
-        
-        <!-- 작가의 다른 책 -->
-        <div >
-            <span></span>
-        </div>
         
         <!-- 배송/반품/교환 관련 정보 부분 -->
         <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
@@ -435,8 +476,37 @@
                     setModalOpen(false);
                     document.body.style.overflow = "unset";
                   };
+                  
+                  const closeBtn = cBtn.querySelector(".registerModalBg")
+                  closeBtn.addEventListener("click", e => {
+                	  cBtn.style.display = "hidden"
+                  });
             }
         </script>
 
+        <script>
+        // (하은) 장바구니 버튼 
+        const addCartInfo = document.querySelector('#addCartInfo');
+
+        // 계속 쇼핑하기
+        const btnContinueShopping = document.querySelector('#btnContinueShopping');
+        btnContinueShopping.addEventListener('click', function () {
+            alert('해당 책이 장바구니에 추가되었습니다!');
+          addCartInfo.action = '/cart/onlyAdd';
+          addCartInfo.method = 'post';
+          addCartInfo.submit();
+        })
+        
+        // 장바구니 가기
+        const btnGoCart = document.querySelector('#btnGoCart');
+        btnGoCart.addEventListener('click', function () {        	
+            addCartInfo.action = '/cart/add';
+            addCartInfo.method = 'post';
+            addCartInfo.submit();
+        })
+        </script>
+
 </body>
+
+</div>
 </html>
