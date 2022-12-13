@@ -50,7 +50,7 @@
             +  '<td class="align-middle">' 
             +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"  value="'+ c.cartId +'"/>' 
             +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
-            +   ' <td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->' 
+            +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
             +                 '   <span>'+c.group+'</span><span> / </span><span>'+c.category+'</span>' 
             +              '  </small>' 
@@ -62,7 +62,7 @@
             +                  '  <small class="text-primary">'+c.prices*0.05+'</small> ' 
             +               ' </div>' 
             +  '  </td>' 
-            +  '  <div>' 
+
             +  '  <td class="align-middle">' 
             +      '  <input type="button" class="btnPlusMinus"  value="+"/>' 
             +     '   <span style="width: 50px" id="countS" >'+c.count +' </span>' 
@@ -71,8 +71,8 @@
             +  '  </td>' 
             +   ' <td class="align-middle">' 
             +  '  <div class="selectPrice">' 
-            +      '  <div id="price">' 
-            +        c.prices+ '<span>원</span>' 
+            +      '  <div id="price" >' 
+            +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
             +     '   </div>' 
             +   ' </div>' 
             +  '  </td>' 
@@ -99,16 +99,17 @@
             
             btn.addEventListener('click', e => {
                 const td = btn.closest('td');
-                console.log(td)
-                
                 const span = td.querySelector('span');
+                console.log(td);
                 console.log(span)
+                
                 
                 let number = span.innerText;
                 
                 const type = btn.value;
                 if (type == '+') {
                     number = parseInt(number) + 1;
+                    
                 } else {
                     number = parseInt(number) - 1;
                     if(number == 0){
@@ -117,6 +118,21 @@
                    }
                 }
                 span.innerText = number;
+                
+                const allPrices = document.querySelectorAll('#price')
+                console.log(allPrices.length)
+                allPrices.forEach(p => {
+                    const span = p.querySelector('span') // 가격만  span#id를 통해서 값 찾기.. 
+                    let pr = span.innerText;
+                    console.log(pr)
+                    
+                    
+                    
+                    
+                })
+                
+                
+                
             });
         });
         
@@ -131,9 +147,6 @@
 
             console.log('누름')
          
-            //form.submit()
-            
-            
         });
     
     

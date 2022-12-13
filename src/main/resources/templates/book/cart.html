@@ -34,6 +34,7 @@
 		<li class="list-group-item border-0" style="color:gray;">></li>
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
+	
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
     <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
    
@@ -54,20 +55,20 @@
             </tr>
 		</thead>
 		<tbody style="height: 200px;">
-            <tr>
-    			<td class="align-middle">
-    				122<span>원</span>
-    			</td>
-    			<td class="align-middle">
-    				0<span>원</span>
-    			</td>
-    			<td class="align-middle">
-    				0<span>원</span>
-    			</td>
-    			<td class="align-middle">
-    				13,000<span>원</span>
-    			</td>
-            </tr>
+			<tr>
+				<td class="align-middle">
+					<span id="total"> </span> <span>원</span>
+				</td>
+				<td class="align-middle">
+					0<span>원</span>
+				</td>
+				<td class="align-middle">
+					0<span>원</span>
+				</td>
+				<td class="align-middle">
+					13,000<span>원</span>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

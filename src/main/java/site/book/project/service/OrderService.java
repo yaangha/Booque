@@ -55,13 +55,9 @@ public class OrderService {
     	
     }
     
-    
-    
-    
-    
     // 장바구니(cart)에서 받은 데이터로 
     /**
-     * 장바구니-> 결제창 
+     * 장바구니 -> 결제창 
      * 결제 버튼 누름과 동시에 실행될 메서드
      * 총 금액 필요 함?? TODO
      * @param cartId 결제할 책 정보를 가지고 있는 PK
@@ -72,12 +68,11 @@ public class OrderService {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
         
         List<Order> orderList = new ArrayList<>();
-        
+        Integer orderNo = 0;
         for(Integer i : cartId) {
             Cart c = cartRepository.findById(i).get();
             
-            Integer orderNo = Integer.parseInt(date+c.getUser().getId());
-            
+            orderNo = Integer.parseInt(date+c.getUser().getId());
             
             Order o = Order.builder().user(c.getUser())
                     .book(c.getBook())
@@ -89,8 +84,7 @@ public class OrderService {
             
             orderList.add(o);
         }
-        
-        return orderList.size();
+        return orderNo; 
     }
 
     // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
@@ -126,12 +120,6 @@ public class OrderService {
         Order order = orderRepository.findById(dto.getOrderId()).get();
         order.update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
         orderRepository.save(order);
-    
     }
-    
-    
-    
-    
-    
     
 }
