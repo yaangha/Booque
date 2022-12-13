@@ -66,6 +66,10 @@ public class BookService {
         List<Book> authorOtherBook = bookRepository.findAllByAuthor(author);
 
         return authorOtherBook;
+    }
+    public List<Book> read() {
+        
+        return bookRepository.findByOrderByBookIdDesc();
     }   
 	
 }

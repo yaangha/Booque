@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.PostReadDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.repository.PostRepository;
 
 @Slf4j
@@ -21,6 +23,7 @@ import site.book.project.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final BookRepository bookRepository;
 
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
@@ -31,11 +34,11 @@ public class PostService {
     }
     
     public Post create(PostCreateDto dto) {
-        log.info("create(dto = {})",dto);
+        log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
+        Book book = bookRepository.findById(dto.getBookId()).get();
         
         
-        
-        Post entity = postRepository.save(dto.toEntity());
+        Post entity = postRepository.save(dto.toEntity(book));
         return entity;
     }
 
@@ -85,12 +88,15 @@ public class PostService {
         
         return list;
     }
- 
+
+
+    
     // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
 
 	public List<Post> findBybookId(Integer bookId) {
+	    
 	    // 오래된 순
-	    return postRepository.findByBookBookId(bookId);
+	    return postRepository.findByBookId(bookId);
 	}
 
 	// 최신순
