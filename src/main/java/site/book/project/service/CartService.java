@@ -34,10 +34,15 @@ public class CartService {
     
     // 선택한 책 삭제 (결제완료버튼에서도 사용할 예정)
     public void deleteCart(List<Integer> cartId) {
-    	for(Integer i : cartId) {
-    		log.info("장바구니에 있는 데이터 삭제 될 정보 {}", i);
-    		cartRepository.deleteById(i);
-    	}
+        
+        for(int i=0; i<cartId.size()-1; i++) {
+            cartRepository.deleteById(cartId.get(i));
+            log.info("장바구니에 있는 데이터 삭제 될 정보 {}", i);
+            
+            
+        }
+        
+    
     }
     
     
