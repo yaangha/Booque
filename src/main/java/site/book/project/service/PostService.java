@@ -96,7 +96,7 @@ public class PostService {
 	public List<Post> findBybookId(Integer bookId) {
 	    
 	    // 오래된 순
-	    return postRepository.findByBookId(bookId);
+	    return postRepository.findByBookBookId(bookId);
 	}
 
 	// 최신순

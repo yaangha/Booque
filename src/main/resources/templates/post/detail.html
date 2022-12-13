@@ -130,7 +130,7 @@
                             th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
                             
                   
-                     <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId })}">글 편집</a>
+                     <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId })}">글 편집</a>
                   
                      </div>
                    </form>
