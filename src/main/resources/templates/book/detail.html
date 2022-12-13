@@ -42,7 +42,7 @@
 
        /* 한줄평 좋아요 버튼 효과 */
 
-        .likes, .wish {
+        .likes {
             position: relative;
         }
         
@@ -70,6 +70,10 @@
         
         /* 찜(위시리스트) 버튼 효과 */
         
+        .wish {
+            position: relative;
+        }
+        
         #wishFull {
             position: absolute;
             display: none;
@@ -80,11 +84,11 @@
             left: 50px;
         }
         
-        .wish:hover #wishFull {
-            display: block;
+        #btnWish:hover #wishFull {
+            display: inline;
         }
         
-        .wish:hover #wishEmpty {
+        #btnWish:hover #wishEmpty {
             display:none;
         }
         
@@ -203,7 +207,7 @@
                 
                 
                 <div>
-                <input type="text" name="userId" value="2">    
+                <input type="text" id="userId" name="userId" value="2">    
                 님이 보고 계신 책은..</div>
                 
                 
@@ -283,17 +287,21 @@
             
             
             <!-- (지혜) 찜(위시리스트) 버튼 -->
+            <!-- A 유저가 B 책을 위시리스트에 담고 빨강하트 된 상태에서, 화면 새로고침하면 다시 빈 하트로 뜨는 것 수정 필요 (로그인과 연결) -->
             <!-- 작은화면에서 마우스오버(hover)하면 밑의 컨텐츠가 위로 당겨지는 현상 수정 필요 -->
-        <div class="wish" style="margin-top:20px; margin-bottom:20px;">
+            
+        <div class="wish" id="wish" style="margin-top:20px; margin-bottom:20px;">
         <span id="btnWish">
-            <img id="wishEmpty" style="width:25px;" alt="" src=" /images/likeEmpty.png " />
-            <img id="wishFull" style="width:25px;" alt="" src=" /images/likeFull.png " />
+            <img id="wishEmpty" style="width:25px;" alt="추가" src=" /images/likeEmpty.png " />
+            <img id="wishFull" style="width:25px;" alt="취소" src=" /images/likeFull.png " />
         </span>
-        <span id="wishText">위시리스트</span>
+        <span id="wishText">위시리스트 담기</span>
         </div>   
             
             </div>
         </div>
+        
+        
    
 
     <!-- nav바 메뉴 바로가기(버튼 누르면 해당 부분으로 스크롤) -->
@@ -478,6 +486,11 @@
     
     <!-- choi -->
     <script th:src="@{ /js/bookDetailPost.js }"></script>   
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+     crossorigin="anonymous"></script>
     
     <!-- (지혜) 위시리스트 버튼(담기/취소) -->
     <script th:src="@{ /js/wishList.js }"></script>
