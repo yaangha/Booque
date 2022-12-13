@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
+<html xmlns:th="http://www.thymeleaf.org/"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ layout/layout }">
+    
+    <div layout:fragment="content">
+    
 <head>
     <meta charset="UTF-8">
     <title>Book Cart</title>
@@ -30,50 +34,33 @@
 		<li class="list-group-item border-0" style="color:gray;">></li>
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
-	
-	<!-- 주문내역 -->
-	<table class="w-100 table" style="text-align: center;">
-		<thead class="table-light">
-			<th colspan="2">도서 정보</th>
-			<th>수량</th>
-			<th>주문금액</th>
-			<th>배송비</th>
-			<th></th>
-		</thead>
-		<tbody style="height: 200px;">
-			<td class="align-middle">
-			<input type="checkbox" style="width: 30px;" />
-			<img src="images/eximg.jpeg" style="width: 150px;"/></td>
-			<td class="align-middle" style="text-align: left;"><!-- 도서 간략 정보 -->
-						<small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-							<span>국내도서</span><span> / </span><span>소설</span>
-						</small>
-						<div class="h5">노르웨이의 숲</div>
-						<div>무라카미 하루키</div>
-						<div>13,000
-							<span>원</span>
-							<small class="px-1 border border-primary rounded text-primary">p</small>
-							<small class="text-primary">650</small>
-						</div>
-			</td>
-			<td class="align-middle">
-				<input type="number" style="width: 50px" value="1"/>
-			</td>
-			<td class="align-middle">
-				<div>
-					13,000<span>원</span>
-				</div>
-			</td>
-			<td class="align-middle">10,000원 이상<br/>
-				배송비 무료</td>
-			<td class="align-middle">
-				<button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>
-				<button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>
-			</td>
-		</tbody>
-	</table>
-	
-	<button type="button" class="btn btn-outline-dark btn-sm">선택상품 삭제</button>
+    <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
+    <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
+    
+
+
+
+ 
+
+
+
+
+
+
+    
+
+	<!-- table AJax로 만듦 -->
+    <div id="cList"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <button type="button" id="btnDelete" class="btn btn-outline-dark btn-sm">선택상품 삭제</button>
 	<button type="button" class="btn btn-outline-dark btn-sm">선택상품 주문</button>
 	
 	<!-- 가격 정보 -->
@@ -86,7 +73,7 @@
 		</thead>
 		<tbody style="height: 200px;">
 			<td class="align-middle">
-				13,000<span>원</span>
+				122<span>원</span>
 			</td>
 			<td class="align-middle">
 				0<span>원</span>
@@ -103,25 +90,28 @@
 	<!-- 하단 버튼 -->
 	<div class="row">
 		<button type="button" class="col w-50 m-2 btn btn-outline-dark">쇼핑 계속하기</button>
-		<button type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
+		<button id="btnOrder" type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
 	</div>
 
-	<span class="h4" th:text="${}"></span><span> 님이 찜한 상품은?</span>
+	<span class="h4" th:text="${ user.username }"></span><span> 님이 찜한 상품은?</span>
 
     <div id="carouselExampleInterval" class="p-2 carousel slide bg-light" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
             <div class="row">
-                <div class="col" th:each="">
-                <div class="card my-2" style="width: 15rem; height:450px;">
-                    <div style="width:237px; height:330px;">
-                        <a th:href="@{}"><img th:src="${}" class="card-img-top" alt="테스트" ></a>
+                <div class="col" th:each="bookWishDto : ${ wishBookInfo }">
+                <div class="card my-2" style="width: 15rem; height:30rem;">
+                    <div style="width:15rem;">
+                        <a th:href="@{ /detail(id=${ bookWishDto.getBookId }) }"><img th:src="${ bookWishDto.getBookImage }" class="card-img-top" alt="테스트" ></a>
                     </div>
                     <div class="card-body">
                         <div class="card-text">
-                            <span class="h5" th:text="${}"></span><br/>
-                            <span th:text="${}"></span><br/>
-                            <span th:text="${}"></span><span>원</span>
+                            <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span th:text="${ bookWishDto.getBookgroup }"></span><span> / </span><span th:text="${ bookWishDto.getCategory }"></span>
+                            </small></div>
+                            <span class="h5" th:text="${ bookWishDto.getBookName }"></span><br/>
+                            <span th:text="${ bookWishDto.getAuthor }"></span><br/>
+                            <span th:text="${ bookWishDto.getPrices }"></span><span>원</span>
                         </div>
                     </div> <!-- card body end -->
                 </div> <!-- card end -->
@@ -129,23 +119,60 @@
             </div> <!-- row end -->
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
- 
+
 	</div> <!-- 메인 블록 end -->
 	
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous">
     </script>
+    
+    <script th:src="@{ /js/cartList.js }"></script>
+       
+    <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', function () {
+    	
+    const buttons = document.querySelectorAll('.btnPlusMinus');
+    console.log('플러스 마이너스 버튼')
+    
+    buttons.forEach(btn => {
+        
+        btn.addEventListener('click', e => {
+            const td = btn.closest('td');
+            console.log(td)
+            
+            const span = td.querySelector('span');
+            console.log(span)
+            
+            let number = span.innerText;
+            
+            const type = btn.value;
+            if (type == '+') {
+                number = parseInt(number) + 1;
+            } else {
+                number = parseInt(number) - 1;
+                if(number == 0){
+                   alert('수량은 0이하가 되지 못합니다.')
+                   return;
+               }
+            }
+            span.innerText = number;
+            
+        
 
+            
+        });
+    });
+    
+    })    
+    
+    </script>
+ 
+    
 </body>
+
+</div>
 </html>

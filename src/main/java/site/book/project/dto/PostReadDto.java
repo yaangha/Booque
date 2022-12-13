@@ -21,13 +21,13 @@ public class PostReadDto {
     private String content;
     private Integer myScore;
     private LocalDateTime createdTime;
-    private Integer replyCount; // 대충 만들어봄 TODO 댓글 수는 나중에
+    private Integer replyCount; // 대충 만들어봄 
     
-    // 작성 시간 안함. 여기에 댓글 수 넣음 되겠다!
+    // 작성 시간 안함. 여기에 댓글 수 넣음 되겠다! service에서 만들어서 사용 TODO
     
     public static PostReadDto fromEntity(Post entity) {
         return PostReadDto.builder().bookId(entity.getBook().getBookId())
-                .writer(entity.getUser().getUsername())
+                .writer(entity.getPostWriter())
                 .content(entity.getPostContent())
                 .myScore(entity.getMyScore())
                 .createdTime(entity.getCreatedTime())

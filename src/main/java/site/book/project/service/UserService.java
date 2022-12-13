@@ -1,5 +1,6 @@
 package site.book.project.service;
 
+
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,8 +15,8 @@ import site.book.project.dto.UserSigninDto;
 import site.book.project.repository.UserRepository;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserService {
     
     private final PasswordEncoder passwordEncoder;
@@ -53,6 +54,10 @@ public class UserService {
         log.info("entity = {}", entity);
         
         return entity;
+    }
+    
+    public User read(Integer userId) {
+        return userRepository.findById(userId).get();
     }
 
     public String checkEmail(String email) {

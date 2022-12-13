@@ -27,7 +27,8 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	List<Post> findByBookBookId(Integer bookId);
 	
 	
-	
+//	List<Post> findByBookId(Integer bookId);
+
 	
 	
 	

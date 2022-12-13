@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"user","book"})
 @Entity(name= "CARTS")
 @SequenceGenerator(name = "CARTS_SEQ_GEN", sequenceName = "CARTS_SEQ", initialValue = 1, allocationSize = 1)
 public class Cart {
@@ -36,5 +36,11 @@ public class Cart {
     
     @Column(nullable = false)
     private int cartBookCount;
+    
+    // (하은) 유저당 중복되는 책 수량 증가시키기
+    public Cart update(Integer count) {
+        this.cartBookCount = count;
+        return this;
+    }
     
 }

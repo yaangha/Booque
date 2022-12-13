@@ -22,5 +22,6 @@ public class UserRegisterDto {
         // addRole(MemberRole.USER) = 어드민이 아닌 USER 권한을 부여하겠다.
     }
 
+
 }
 
