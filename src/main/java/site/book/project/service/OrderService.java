@@ -14,6 +14,7 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
+import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromDetailDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.CartRepository;
@@ -96,6 +97,15 @@ public class OrderService {
         
         return order;
     }
+
+    // (하은) orderResult로 넘어갈 때 최종 주문&배송정보 order DB에 업데이트하기 위해
+    public void updateInfo(OrderFinalInfoDto dto) {
+        // Order DB에 업데이트할 데이터 -> 배송정보(3개), 메시지, 결제방식
+        log.info("하은 주문번호={}", dto.getOrderId());
+        Order order = orderRepository.findById(dto.getOrderId()).get();
+        order.update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
+        orderRepository.save(order);
     
+    }
     
 }
