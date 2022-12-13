@@ -33,15 +33,15 @@
                   <table style="padding-left: 20px;">
                     <tr><td><br/></td></tr>
                     <tr>
-                      <td th:text= "${ book.bookName }"><span style="font-size: 18px;"><strong></strong></span></td>
+                      <td th:text= "${ book.bookName }" style="font-size: 18px; font-weight: bold;"></td>
                     </tr>
-                    <tr>
+                     <tr>
                       <td th:text="${ book.author }" width= "28%"></td>
                       <td th:text="${ book.publisher }" width= "35%"></td>
                       <td th:text="${ book.publishedDate }"></td>
                     </tr>
                     <tr>
-                     <td th:text="${book.prices}"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
+                     <td th:text="${book.prices +'원'}" style="font-size: 20px; font-weight: bold;"></td>
                     </tr>
                     <tr><td>판매지수</td></tr>
                     <tr>
@@ -54,7 +54,7 @@
                   </table>
                </td>
              <td width= "17%" style="border: 1px solid blue;">
-              <button>카트 담기</button>
+               <button style="margin-left: 30px; background-color:#DCDCDC;" class="btn">카트 담기</button>
              </td>
            </tr>
          </table>

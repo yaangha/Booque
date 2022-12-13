@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.dto.SearchQueryDataDto;
+import site.book.project.service.PostService;
 import site.book.project.service.SearchService;
 
 @Controller
@@ -20,6 +21,7 @@ import site.book.project.service.SearchService;
 public class SeacrhContoller {
     
     private final SearchService searchService;
+
     
     @GetMapping("")
     public String search() {
@@ -35,6 +37,7 @@ public class SeacrhContoller {
         String keyword = dto.getKeyword();
         
         List<Book> searchList = searchService.search(dto.getType(), dto.getKeyword());
+        
         
         model.addAttribute("searchList", searchList);
         model.addAttribute("storedType", type);

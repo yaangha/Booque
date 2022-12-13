@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{ layout/layout }">
+    layout:decorate="~{ layout/layout2 }">
 <div layout:fragment="content" align ="center">
-
 <head>
 <meta charset="UTF-8">
 <link
@@ -25,7 +23,7 @@
     rel="stylesheet">
    <script
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-</head>
+ </head>
 
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
@@ -60,7 +58,7 @@
             <!-- 오른쪽 -->  
              <td width="80%">
             <div style="font-size:15px; font-weight:bold; background-color: #FFFFF0; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
-              <br/> 포스트 수정/삭제 페이지&nbsp;&nbsp;
+              <br/> 포스트 상세 페이지&nbsp;&nbsp;
               </div>             
              
              
@@ -113,21 +111,25 @@
                   <tr>
                   <td>
                      <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
-                   <form id="formModify" method="post" style="border-top: 1px solid #DCDCDC;">
+                   <form style="border-top: 1px solid #DCDCDC;">
                      <div style="margin: 12px;">
                       <input type="hidden" id="bookId" name="bookId" th:value="${ book.bookId }" readonly>
                       <input type="hidden" id="postId" name="postId" th:value="${ post.postId }" readonly style="width: 10%;">
-                      <input id="title"  th:value="${ post.title }" style="width: 63%;"
-                            name="title" required autofocus />
+                      <input id="title"  th:value="${ post.title }" style="width: 63%; background-color: #F5F5F5;"
+                            name="title" readonly />
                      <input style=" width:25%;" th:value="${ post.postWriter }" id="postWriter" name="postWriter" readonly />
                      </div>
-                     <div class="container form-control" style="width:100%; height:370px; border-color: white;">
+                     <div  class="container form-control" style="width:100%; height:370px; border-color: white;">
                        <textarea class="summernote" id="postContent" th:text="${ post.postContent }" style="border-color: white; width:100%; height: 100%;"
-                                        name="postContent" required></textarea>
+                                        name="postContent" readonly></textarea>
                      </div>
-                     <div style="padding: 5px;" align="right">
-                     <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnUpdate">수정</button>
-                     <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnDelete">삭제</button>
+                     <div style="margin: 10px;">
+                     &nbsp;&nbsp;
+                     <input id="modifiedTime"  style="width: 40%;"
+                            th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
+                            
+                  
+                     <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId })}">글 편집</a>
                   
                      </div>
                    </form>
@@ -136,7 +138,68 @@
            </td></tr> 
       </table>
         </div>
-     
+         <div class="mt-3"><!-- 댓글 시작 -->
+        <!-- 댓글 리스트 -->
+        <div id="replies"></div>
+       
+                    <!-- 댓글 작성폼 & 리스트 폼 -->
+                    <section style="margin-left: 50px;" class="mb-3">
+                        <div class="card" style="background-color:#F8F8FF; padding-left: 10px; padding-right: 10px;">
+                            <div style="margin-left: 20px;" class="comment-count mt-3 publisher-nav-color">
+                            <strong><span>0</span> Reply</strong>
+                            </div>
+                            <div class="card-body">
+
+                                <!-- Comment form-->
+                                     <!-- 프로필 정보 -->
+                                     <div  style="margin-left: 4px;" class="profile">
+                                       <!-- #########링크 수정하기######### -->
+                                                <a href=#><img src="/images/프로필.jfif"
+                                                       class="img-fluid rounded-start"
+                                                         style="width: 30px; height: 30px;" alt=""></a>
+                                                <input type="text" id="replyWriter" />
+                                     </div>
+                                <form>
+                                    <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
+                                    <div align="right" style="padding-right: 10px;"> <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button></div>
+                                </form>
+                    
+                            </div>
+                        </div>
+                    </section>
+                    
+    <!-- 댓글 수정 & 삭제 -->
+    <div class="modal" id="postRepModal" tabindex="-1"
+        aria-labelledby="replyModalLabel" aria-hidden="true">
+        <div class="postRepModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">댓글 수정하기</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="modalReplyId" readonly/>
+                        <input type="hidden" id="modalReplyWriter" readonly/>
+                        <textarea id="modalReplyContent"
+                            class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalBtnUpdate"
+                            class="btn btn-primary">수정</button>
+                        <button type="button" id="modalBtnDelete"
+                            class="btn btn-primary">삭제</button>
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">취소</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                 </div><!-- 댓글 끝 -->
         
               </td><!-- 전체 카드 끝 -->
             </tr>
@@ -147,43 +210,6 @@
 
 
     
-<script>
-   // form HTML 요소를 찾음.
-   const form = document.querySelector('#formModify');
-   
-   // 삭제 버튼 찾아서 이벤트 리스너 등록
-   const btnDelete = document.querySelector('#btnDelete');
-   btnDelete.addEventListener('click',function() {
-       const result = confirm('정말 삭제?');
-       if(result) {
-           formModify.action = '/post/delete';
-           formModify.method= 'post';
-           formModify.submit();
-       }
-   })
-   
-   // 수정완료 버튼 찾아서 이벤트 리스너 등록
-   const btnUpdate = document.querySelector('#btnUpdate');
-   btnUpdate.addEventListener('click',function() {
-       
-       const title = document.querySelector('#title').value;
-       const postContent = document.querySelector('#postContent').value;
-       
-       if (title =='' || postContent =='') {
-           alert('제목과 내용은 반드시 입력');
-           return;
-       }
-       
-       const result = confirm('정말 수정?');
-       if(result) {
-           formModify.action = '/post/update';
-           formModify.method= 'post';
-           formModify.submit();
-       }
-   })
-   
- </script>
-    
 <!-- summernote -->
   <script>
  $('.summernote').summernote({
@@ -191,8 +217,12 @@
       height: 300,
       lang: "ko-KR"
     }); </script>
-  
+    
+    <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
+    <script th:src="@{ /js/postReply.js }"></script>
+    
   </div><!-- layout:fragment="content" : END -->
-
 
 </html>

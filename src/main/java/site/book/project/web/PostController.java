@@ -48,10 +48,12 @@ public class PostController {
         for (Post p : postList) {
             PostListDto dto = null;
             for (Book b : bookList) {
+
                 
                 if(b.getBookId() == p.getBook().getBookId()) {
                  dto = PostListDto.builder().postId(p.getPostId()).bookId(p.getBook().getBookId()).title(p.getTitle()).bookImage(b.getBookImage()).modifiedTime(p.getModifiedTime()).build();
                  list.add(dto);
+
                 }
             }
         }

@@ -22,9 +22,11 @@ public class PostCreateDto {
     private Integer myScore;
     
     public Post toEntity(Book book) {
+
         
        // return PostCreateDto.builder().title(title).
         
+
         return Post.builder().book(book).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }
