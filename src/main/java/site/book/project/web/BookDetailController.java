@@ -25,9 +25,7 @@ import site.book.project.service.UserService;
 @Slf4j
 @RequiredArgsConstructor
 public class BookDetailController {
-// 책 상세 페이지, 
-// book, bookcomment, post, 책 홍보(테이블을 만들어야 함)
-// ss
+
 	
 	private final BookService bookService;
 	private final PostService postService;
@@ -58,8 +56,8 @@ public class BookDetailController {
         // comment 넘기기
         // post 넘기기(post글 필요)
 
-        // choi 책 한권에 대한 post 정보 받기
         
+        // choi 책 한권에 대한 post 정보 받기
         List<Post> postList = postService.findBybookId(id);
         model.addAttribute("postList", postList );   
         
@@ -67,9 +65,10 @@ public class BookDetailController {
 //        String nickName = userService.read(userId).getNickName();
 //        model.addAttribute("nickName", nickName);
         
+       
+        
         return "book/detail";
     }
-    
     
     
     
@@ -97,6 +96,14 @@ public class BookDetailController {
     
     
     
-    
-    
+    @GetMapping("/post/create")
+    public String create(Integer id, Model model) {
+        log.info("책 상세(bookId={})",id);
+        
+        Book book = bookService.read(id);
+        model.addAttribute("book", book);
+        
+        return "post/create";
+    }
+	
 }

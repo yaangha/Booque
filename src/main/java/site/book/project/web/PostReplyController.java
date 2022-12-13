@@ -32,7 +32,7 @@ public class PostReplyController {
     public ResponseEntity<List<ReplyReadDto>> readAllReplies(@PathVariable Integer postId){
         log.info("readAllReplies(postId={})", postId);
 
-        List<ReplyReadDto> list = replyService.readReplies(13);
+        List<ReplyReadDto> list = replyService.readReplies(postId);
         log.info("# of list = {}", list.size());
 
         return ResponseEntity.ok(list);
