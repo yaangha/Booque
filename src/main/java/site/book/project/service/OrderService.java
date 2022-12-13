@@ -65,11 +65,11 @@ public class OrderService {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
         
         List<Order> orderList = new ArrayList<>();
-        
+        Integer orderNo = 0;
         for(Integer i : cartId) {
             Cart c = cartRepository.findById(i).get();
             
-            Integer orderNo = Integer.parseInt(date+c.getUser().getId());
+             orderNo = Integer.parseInt(date+c.getUser().getId());
             
             
             Order o = Order.builder().user(c.getUser())
@@ -83,7 +83,7 @@ public class OrderService {
             orderList.add(o);
         }
         
-        return orderList.size(); 
+        return orderNo; 
     }
     
     
