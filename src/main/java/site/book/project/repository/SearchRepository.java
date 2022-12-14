@@ -82,4 +82,15 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
             )
     List<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword);
     
+    
+    
+    // (지혜) 국내도서/외국도서 전체 (사이드바 링크)
+    List<Book> findByBookgroup(String group);
+    
+    // (지혜) 국내도서/외국도서 선택 후 -> 하위 카테고리  (사이드바 링크)
+    List<Book> findByBookgroupAndCategory(String group, String category);
+    
+    // (지혜) 분야별 도서 (사이드바 링크)
+    List<Book> findByCategory(String category);
+    
 }

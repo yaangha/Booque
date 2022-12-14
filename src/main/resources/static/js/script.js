@@ -192,35 +192,101 @@
        
  
  
+ // (지혜) 사이드바 열고 닫기
+function w3_open() {
+  document.getElementById("sideBar").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("sideBar").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
  
  
+ // (지혜) 사이드바 Accordion 메뉴
  
- // Accordion(사이드바) 메뉴
-function AccFunc1() {
-  var x = document.getElementById("Acc1");
+function open_group0() {
+    let x = document.querySelector('#group0');
+    let y = document.querySelector('#group1');
+    let z = document.querySelector('#group2');
+    
+    if (x.className.indexOf("w3-show") == -1) {   // 해당 메뉴가 닫혀 있으면(class에 w3-show 속성이 없으면?)
+        x.className += " w3-show";   // w3-show 속성을 추가해 열어 주기
+        y.className = x.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
+        z.className = x.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
+    } else {
+        x.className = x.className.replace(" w3-show", "");   // 열려 있다면 닫아 주기(w3-show 속성 지우기)
+    }
+}
+ 
+function open_group1() {
+  let x = document.querySelector('#group1');
+  let y = document.querySelector('#group0');
+  let z = document.querySelector('#group2');
+    
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show";
+    y.className = y.className.replace(" w3-show", "");
+    z.className = z.className.replace(" w3-show", "");
   } else {
     x.className = x.className.replace(" w3-show", "");
   }
 }
 
-// 사이드바 하위메뉴 펼치기(구현 중)
-document.getElementById("myBtn1").click();
-
-
-
-
-// 사이드바 열고 닫기
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
+function open_group2() {
+  let x = document.querySelector('#group2');
+  let y = document.querySelector('#group0');
+  let z = document.querySelector('#group1');
+  
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    y.className = y.className.replace(" w3-show", "");
+    z.className = z.className.replace(" w3-show", "");
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
 }
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
+
+
+// 사이드바 하위 메뉴
+
+/*
+                const td = btn.closest('td');
+                const span = td.querySelector('span');
+                let number = span.innerText;
+                
+                const type = btn.value;
+                if (type == '+') {
+                    number = parseInt(number) + 1;
+                } else {
+                    number = parseInt(number) - 1;
+                    if(number == 0){
+                       alert('수량은 0이하가 되지 못합니다.')
+                       return;
+                   }
+                }
+                span.innerText = number;
+*/
+
+window.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.btnCategory');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', e => {
+            
+            const div = btn.closest('div');
+            const a = div.querySelector('a');
+            a.className += " w3-light-grey";
+        });
+    });
+});
+
+
+
+
+
+
 
 
 // 검색 모달창 open/close function? 담에 넣어 보기
