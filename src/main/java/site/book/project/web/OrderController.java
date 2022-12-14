@@ -35,18 +35,24 @@ public class OrderController {
 //         return "book/order";
 //    }
     
+//    @GetMapping("/order")
+//    public String order() { 
+//
+//        // orderService.create(cartId);
+//        // TODO 결제창에서 보여줄 데이터 DTO 만들어서 넘길 예정
+//        // model.addAttribute("주무", model);
+//        
+//         return "book/order";
+//    }
+
+    // (하은)
     @GetMapping("/order")
-    public String order() { 
-
-        // orderService.create(cartId);
-        // TODO 결제창에서 보여줄 데이터 DTO 만들어서 넘길 예정
-        // model.addAttribute("주무", model);
+    public void order() {
         
-         return "book/order";
     }
-
+    
     // (하은) 디테일창에서 바로 구매하기 버튼 눌러서 한 권만 구매할 때 사용
-    @PostMapping("/order")
+    @PostMapping("/orderFromDetail")
     public String orderNow(OrderFromDetailDto dto, Model model) {
                 
          Integer orderId = orderService.createFromDetail(dto);
