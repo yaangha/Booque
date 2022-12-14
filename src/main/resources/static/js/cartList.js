@@ -26,7 +26,6 @@
     
     
     function updateCartList(data){
-        console.log('카트 리스트 전체 보기 함수 data 받음 ')
         const divCart = document.querySelector('#cList')
         let str = '';
         
@@ -48,7 +47,7 @@
         
       str  += '<tr>'
             +  '<td class="align-middle">' 
-            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"  value="'+ c.cartId +'"/>' 
+            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId" checked value="'+ c.cartId +'"/>' 
             +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
             +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
@@ -64,17 +63,14 @@
             +  '  </td>' 
 
             +  '  <td class="align-middle">' 
+            +  '  <div class="selectPrice " >' 
+            +        '<span class="prices"  >'+c.prices*c.count +'</span>' + '<span>원</span>'
+            +  '<input type="hidden" id="fixedPrice" value="'+c.prices+'"/>' 
+            +   ' </div>' 
             +      '  <input type="button" class="btnPlusMinus"  value="+"/>' 
-            +     '   <span style="width: 50px" id="countS" >'+c.count +' </span>' 
+            +     '   <span style="width: 50px" class="count" >'+c.count +' </span>' 
             +       ' <input type="button" class="btnPlusMinus"  value="-"/>' 
     
-            +  '  </td>' 
-            +   ' <td class="align-middle">' 
-            +  '  <div class="selectPrice">' 
-            +      '  <div id="price" >' 
-            +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
-            +     '   </div>' 
-            +   ' </div>' 
             +  '  </td>' 
             +  '  <td class="align-middle">10,000원 이상<br/>' 
             +   '     배송비 무료</td>' 
@@ -93,16 +89,17 @@
         divCart.innerHTML = str;
         
         const buttons = document.querySelectorAll('.btnPlusMinus');
-        console.log('플러스 마이너스 버튼')
         
         buttons.forEach(btn => {
             
             btn.addEventListener('click', e => {
-                const td = btn.closest('td');
-                const span = td.querySelector('span');
-                console.log(td);
-                console.log(span)
-                
+                const td = btn.closest('tr');
+                console.log(td)
+                const span = td.querySelector('span.count');
+                const pri = td.querySelector('span.prices'); // 변경될 값
+                const fix = td.querySelector('input#fixedPrice').value;
+                const chk = td.querySelector('#ckBox');
+                console.log(chk)
                 
                 let number = span.innerText;
                 
@@ -114,28 +111,22 @@
                     number = parseInt(number) - 1;
                     if(number == 0){
                        alert('수량은 0이하가 되지 못합니다.')
+                       pri.innerText = fix;
                        return;
                    }
                 }
                 span.innerText = number;
-                
-                const allPrices = document.querySelectorAll('#price')
-                console.log(allPrices.length)
-                allPrices.forEach(p => {
-                    const span = p.querySelector('span') // 가격만  span#id를 통해서 값 찾기.. 
-                    let pr = span.innerText;
-                    console.log(pr)
-                    
-                    
-                    
+                pri.innerText = number * parseInt(fix);
                     
                 })
                 
                 
                 
+                
+                
+                
             });
-        });
-        
+
     
         const form = document.querySelector('#formCheck')
             // 결제창으로 넘어감.
@@ -149,17 +140,43 @@
          
         });
     
+    // 전체 결제금액은 선택된 곳에서 정가 곱하기 수량
+    const total = document.querySelector('#total');
+    let totalPrice = total.innerText;
+    
+    const list = document.querySelectorAll('#ckBox');
+    for(let i=0; i<list.length; i++ ){
+        
+        list[i].addEventListener('change', function(){
+              
+            const tr = list[i].closest('tr')
+            const bookPrice = tr.querySelector('span.prices')
+            
+            if(list[i].checked){  // 체크가 된 상황에서 값이 바뀌면?
+                totalPrice = parseInt(totalPrice) + parseInt(bookPrice.innerText)
+            } else{
+                totalPrice = parseInt(totalPrice) - parseInt(bookPrice.innerText)
+            }
+            total.innerText = totalPrice
+                
+            })
+            
+        }
     
     
     
     
+    } // function updatCartList end --
     
-    }
+        // 결제금액을 어디에 넣어야할까?
+        // 체크박스를 먼저 체크하고, 자연스럽게,,?
+        // 체크를 하면 가격이 넘어와야함.
+    
+    
     
     
     
     const btnDelete = document.querySelector('#btnDelete')
-    
     btnDelete.addEventListener('click', function(){
     const userId = document.querySelector('#userId').value;
     console.log(userId)

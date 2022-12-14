@@ -41,6 +41,7 @@ public class CartController {
         
         User user = userService.read(id); 
         List<CartDto> cartList = cartService.cartDtoList(id);
+        Integer total = cartService.total(cartList);
         
         // 생성된 CartDTO를 받고
         
@@ -49,6 +50,7 @@ public class CartController {
         
         model.addAttribute("wishBookInfo", wishBookInfo);
         model.addAttribute("user", user);
+        model.addAttribute("total", total);
         model.addAttribute("cartList", cartList);
 
         return "book/cart";

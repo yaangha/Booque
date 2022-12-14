@@ -118,5 +118,16 @@ public class CartService {
         
         return afterCount; // 바꾸기
     }
+
+    public Integer total(List<CartDto> cartList) {
+        // for문에서 가격, 카운트 곱
+        Integer total = 0;
+        for(CartDto o : cartList) {
+            total +=o.getCount()*o.getPrices();
+        }
+        
+        
+        return total;
+    }
         
 }
