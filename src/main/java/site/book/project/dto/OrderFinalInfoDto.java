@@ -15,7 +15,7 @@ import site.book.project.domain.Order;
 public class OrderFinalInfoDto {
     // (하은) order 최종 정보 DB에 업데이트하기 위해!
     
-    private Integer orderId;
+    private Integer orderNo;
     private String username; // Order로 변환은 하지 않음
     private Integer postcode;
     private String address;
@@ -25,7 +25,7 @@ public class OrderFinalInfoDto {
     private String payOption;
     
     public Order toEntity() {
-        return Order.builder().orderId(orderId).postcode(postcode).address(address)
+        return Order.builder().orderId(orderNo).postcode(postcode).address(address)
                 .detailAddress(detailAddress).payOption(payOption).message(message).build();
     }
     

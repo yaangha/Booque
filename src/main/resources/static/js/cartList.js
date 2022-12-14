@@ -23,8 +23,6 @@
         
     };
     
-    
-    
     function updateCartList(data){
         console.log('카트 리스트 전체 보기 함수 data 받음 ')
         const divCart = document.querySelector('#cList')
@@ -36,8 +34,7 @@
          +  '  <tr> '
           +      ' <th colspan="2">도서 정보</th> '
            +   '   <th>수량</th> '
-            +  '   <th>주문금액</th> '
-            +   '  <th>배송비</th> '
+            +  '   <th>배송비</th> '
             +  '  <th></th> '
           + '  </tr> '
       + '  </thead> '
@@ -68,19 +65,16 @@
             +     '   <span style="width: 50px" id="countS" >'+c.count +' </span>' 
             +       ' <input type="button" class="btnPlusMinus"  value="-"/>' 
     
-            +  '  </td>' 
-            +   ' <td class="align-middle">' 
+
             +  '  <div class="selectPrice">' 
             +      '  <div id="price" >' 
             +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
             +     '   </div>' 
             +   ' </div>' 
             +  '  </td>' 
-            +  '  <td class="align-middle">10,000원 이상<br/>' 
+            +  '  <td class="align-middle">30,000원 이상<br/>' 
             +   '     배송비 무료</td>' 
             +  '  <td class="align-middle">' 
-            +      '  <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>' 
-            +     '   <button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>' 
             +  '  </td>'
             + '</tr>'; 
         }
