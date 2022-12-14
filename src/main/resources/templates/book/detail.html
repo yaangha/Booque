@@ -69,8 +69,8 @@
 		#btnWish:hover #wishEmpty {
 		    display: none;
 		}
-		
 	</style>
+    
 </head>
 <body>
 
@@ -91,18 +91,18 @@
                     <input type="text" id="userId" name="userId" value="2"> 님이 보고 계신 책은..
                 </div>
                 
-                <!--/* (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? */-->
+                <!-- (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? -->
 
-                <!--/* 
+                <!-- 
                 <div>
                 <span th:text="${ nickName }" style="font-weight:bold; color:dodgerblue;"></span>
                 <span>님이 보고 계신 책은...</span>
                 </div>
-                 */-->
+                 -->
 
                 <div class="h2 my-4" th:text="${ book.bookName }"></div>
 
-                <!--/* 찜하기는 나중에 -> 만약 사용시 row로 묶는 태그 적어줘야 함 */-->
+                <!-- 찜하기는 나중에 -> 만약 사용시 row로 묶는 태그 적어줘야 함 -->
                 <!--  <div class="col-2 my-2">
                 <img src="#" style="width: 50px" />  -->
                 <input type="hidden" id="id" name="id" th:value="${ book.bookId }"> 
@@ -112,7 +112,6 @@
                 <div>
                     ★ ★ ★ ★ <span th:text="${ score }"></span>
                 </div>
-
 
 				<div class="my-2"style="font-weight: bold;">
                     <input type="hidden" name="price" th:value="${ book.prices }"> 
@@ -245,7 +244,7 @@
 			            </div>
 			        </div>
 			    </div>
-            
+          
 		        <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
 		        <div class="row">
 		            <div id="bookReview" class="h4 col">리뷰</div>
@@ -287,25 +286,20 @@
         
           		<!--/* th:each를 통해서 불러오기
           
-			     <div  th:each="post : ${ postList }">
-			            <div class="my-2">
-			            <a th:href="@{ /post/list }"
-			            th:text="${ post.postWriter }"></a>
-			             </div>
-			            <div  th:text="${ post.myScore }"></div>
-			            <div th:text="${ post.title }"></div>
-			            <p class="border-bottom" th:text="${ post.postContent }"></p>
+			     <!-- <div th:each="post : ${ postList }">
+		            <div class="my-2">
+			            <a th:href="@{ /post/list }" th:text="${ post.postWriter }"></a>
 			        </div>
-			        
-			        <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
-			        <!-- <div id="postOrder"></div> -->
-			        
-
+		            <div th:text="${ post.myScore }"></div>
+		            <div th:text="${ post.title }"></div>
+		            <p class="border-bottom" th:text="${ post.postContent }"></p>
+		        </div> */-->
+                
+                   
                 <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
                 <div id="postOrder"></div>
 
                 <!--  comment  -->
-
 
                 <div class="row">
                     <div id="bookReview" class="h4 col">한줄평</div>
@@ -321,7 +315,7 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <!-- 한줄평 AJax -->
                 <div id="bookComment"></div>
 
@@ -346,7 +340,7 @@
                 <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
 
                 <th:block th:replace="fragments/bookDetailFooter :: bookDetailFooter"></th:block>
-            </div> <!-- ???? -->
+            </div>
 
         </div> <!-- 전체 블록 사이즈때문에 묶어놓은 것 end -->
 

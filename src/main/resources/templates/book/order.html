@@ -52,7 +52,7 @@
                         <input class="col-6" type="hidden" />
                     </div>
                 <div class="row">
-                    <input name="address" class="col mx-2 my-1 form-control" type="text" id="address" placeholder="주소" readonly />
+                    <input name="address" class="col mx-2 my-1 form-control" type="text" id="address_2" placeholder="주소" readonly />
                     <input name="detailAddress" class="col mx-2 my-1 form-control" type="text" id="detailAddress" placeholder="상세주소">
                 </div>
 
@@ -161,7 +161,7 @@
         
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('postcode').value = data.zonecode;
-                    document.getElementById("address").value = addr;
+                    document.getElementById("address_2").value = addr;
                     // 커서를 상세주소 필드로 이동한다.
                     document.getElementById("detailAddress").focus();
     
