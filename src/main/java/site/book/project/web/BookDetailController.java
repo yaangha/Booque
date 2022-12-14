@@ -25,7 +25,6 @@ import site.book.project.service.UserService;
 @Slf4j
 @RequiredArgsConstructor
 public class BookDetailController {
-
 	
 	private final BookService bookService;
 	private final PostService postService;
@@ -56,7 +55,7 @@ public class BookDetailController {
         // comment 넘기기
         // post 넘기기(post글 필요)
 
-        
+     
         // choi 책 한권에 대한 post 정보 받기
         List<Post> postList = postService.findBybookId(id);
         model.addAttribute("postList", postList );   
@@ -65,12 +64,8 @@ public class BookDetailController {
 //        String nickName = userService.read(userId).getNickName();
 //        model.addAttribute("nickName", nickName);
         
-       
-        
         return "book/detail";
     }
-    
-    
     
     // (지혜) 위시리스트 담기/취소
     // 리턴되는 문자열 -> selected: 위시리스트 테이블에 추가한 후 하트 상태를 빨강으로 변경
@@ -92,9 +87,6 @@ public class BookDetailController {
 //        
 //        return ResponseEntity.ok(result);
 //    }
-    
-    
-    
     
     @GetMapping("/post/create")
     public String create(Integer id, Model model) {
