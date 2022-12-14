@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import lombok.val;
 import site.book.project.domain.Book;
 
 public interface SearchRepository extends JpaRepository<Book, Integer> {
@@ -59,8 +58,19 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
                     + " or lower(b.author) like lower ('%' || :keyword || '%')"
                     + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
                     + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.prices desc"
+            )
+    List<Book> researchOrderAllByHighPrice(@Param(value = "keyword") String keyword);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.prices desc"
     )
-    List<Book> researchOrderByHighPrice(@Param(value = "keyword") String keyword);
+    List<Book> researchOrderByHighPrice(@Param(value = "keyword") String keyword, 
+                                        @Param(value = "orderType") String orderType);
+    
     
     // 최저가순 정렬
     @Query(
@@ -70,7 +80,17 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
                     + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
                     + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.prices asc"
             )
-    List<Book> researchOrderByLowPrice(@Param(value = "keyword") String keyword);
+    List<Book> researchOrderAllByLowPrice(@Param(value = "keyword") String keyword);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.prices asc"
+            )
+    List<Book> researchOrderByLowPrice(@Param(value = "keyword") String keyword, 
+                                      @Param(value = "orderType") String orderType);
     
     // 출판날짜순 정렬
     @Query(
@@ -80,6 +100,17 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
                     + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
                     + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.publishedDate desc"
             )
-    List<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword);
+    List<Book> researchOrderAllByPublishedDate(@Param(value = "keyword") String keyword);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.publishedDate desc"
+            )
+    List<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword,
+                                            @Param(value = "orderType") String orderType);
+ 
     
 }

@@ -123,7 +123,6 @@ public class PostService {
 	    Integer count = 0;
 	    List<Post> list = postRepository.findByBookBookId(bookId);
 	    count = list.size();
-	    log.info("카운트={}||{}", count, bookId);
 	    return count;
 	}
 }

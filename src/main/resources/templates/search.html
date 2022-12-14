@@ -24,7 +24,7 @@
           <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
           <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
           <a href="javascript:void(0)">별점순</a>
-          <a href="javascript:void(0)">리뷰순</a>
+          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
           </strong>
             <div align="right">
             <select id="dataPerPage">
@@ -84,27 +84,7 @@
            </tr>
          </table>
         </div> <!-- 도서카드(가로버전) END -->
-        
-        <!-- 페이지 선택 바 -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination" style="justify-content : center;">
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="Previous"> 
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">4</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">5</a></li>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="Next"> 
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+
 
     </div> <!-- container-fluid : END -->
     <hr/>
