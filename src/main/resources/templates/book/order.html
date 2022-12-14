@@ -37,7 +37,6 @@
         <!-- 주문자 정보 창 -->
             <div class="m-2 col">
                 <div class="m-2 h4">배송정보</div>
-                
 <form id="orderFinalInfo">
                 <div class="my-2">
                     <input name="orderId" type="hidden" th:value="${ order.orderId }" />
@@ -90,7 +89,7 @@
         
             <!-- 주문내역 창 -->
             <div class="col">
-            
+ 
     <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
     <div class="container border-top border-bottom border-4 border-dark">
         <div class="row my-5"> 
@@ -116,7 +115,7 @@
                 
             </div>
         </div>                
-
+            </div>
             </div>  
         </div> <!-- row end -->
     </div> <!-- 주문자, 주문내역 블록 end -->
@@ -125,12 +124,6 @@
     <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
     <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
     </div>
-    
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous">
-    </script>
     
     <!-- (하은) 주소 API -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -210,6 +203,13 @@
     	orderFinalInfo.submit();
     })
     
+    </script>
+    
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous">
     </script>
 
 </body>

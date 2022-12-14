@@ -1,12 +1,15 @@
 package site.book.project.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import site.book.project.domain.Book;
+import site.book.project.domain.BookWish;
 
 @AllArgsConstructor
 @Getter
+@Builder
 @ToString
 public class BookWishDto {
     
