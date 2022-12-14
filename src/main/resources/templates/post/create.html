@@ -36,27 +36,33 @@
 
     <div>
         <table style="border-color: white;" width= "100%">
-            <tr>
-
+            <tr >
+          
               <td width="20%" style=" vertical-align: top; border: 1px solid #DCDCDC;"> 
+               <div th:each="user : ${ user }" th:if="${ user.username } == ${ #authentication.name }">
                <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
                  <div>
                    <a href=""> 
-                     <img src="/images/루피.png"  width="200" height="280" class="img-fluid rounded-start">
+                     <img th:src="${ user.userImage }" alt="null"  width="200" height="280" class="img-fluid rounded-start">
                    </a>
                  </div>
                  <br/>
                  <div style="  padding:10px; text-align: left;">
-                   <p><strong>루피 (username)</strong></p>
+                   
+                
+                   <p th:text="${ user.username }" ></p>
+                   <p th:text="${ user.nickName }"></p>
+                   
                    <p>블로그 한 줄 소개</p>
                    <p></p>
                  </div>
                </div><!-- 프로필 끝 -->  
                <hr/>
               <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
+              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
+              </div>
               </td>
-  
+       
   
             <!-- 오른쪽 -->              
               <td width="80%">
@@ -114,10 +120,11 @@
                      <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
                    <form method="post" style="border-top: 1px solid #DCDCDC;">
                      <div style="margin: 12px;">
+                    
                      <input type="hidden" name="bookId" th:value="${ book.bookId }" readonly />
                       <input id="title"  style="width: 70%;"
                            type="text" name="title" placeholder="제목을 입력하세요!" required autofocus />
-                     <input style="margin-left:30px; width:25%;" type="text" id="postWriter" name="postWriter" placeholder="유저네임" required />
+                     <input style="margin-left:30px; width:25%;" type="text" id="postWriter" name="postWriter" th:value="${ #authentication.name }" readonly />
                      </div>
                      <div  class="container form-control" style="width:100%; height:370px; border-color: white;">
                        <textarea class="summernote" id="postContent"  type="text" style="border-color: white; width:100%; height: 100%;"

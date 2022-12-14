@@ -29,15 +29,15 @@ public class PostController {
     private final PostService postService;
     private final BookService bookService;
     
-    @GetMapping("/main")
-    public void main() {
-        log.info("main()");
-
-    }
+//    @GetMapping("/main")
+//    public void main() {
+//        log.info("main()");
+//
+//    }
     
     
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model, Integer userId) {
         log.info("list()");
         
         List<Post> postList = postService.read();

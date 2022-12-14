@@ -125,7 +125,7 @@
                        <textarea class="summernote" id="postContent" th:text="${ post.postContent }" style="border-color: white; width:100%; height: 100%;"
                                         name="postContent" required></textarea>
                      </div>
-                     <div style="padding: 5px;" align="right">
+                     <div style="padding: 5px;" align="right" th:if="${ post.postWriter } == ${ #authentication.name }">
                      <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnUpdate">수정</button>
                      <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnDelete">삭제</button>
                   

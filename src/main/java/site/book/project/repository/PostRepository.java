@@ -42,6 +42,8 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	List<Post> findByBookBookIdOrderByCreatedTimeDesc(Integer bookId);  // 최근순
 	List<Post> findByBookBookIdOrderByMyScore(Integer bookId);   // 별점 낮은 순
 	List<Post> findByBookBookIdOrderByMyScoreDesc(Integer bookId); // 별점 높은 순
+
+
 	
 	
 	

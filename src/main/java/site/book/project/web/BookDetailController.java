@@ -2,6 +2,8 @@ package site.book.project.web;
 
 import java.util.List;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.domain.User;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
+import site.book.project.service.UserService;
 
 @Controller
 @Slf4j
@@ -22,6 +27,7 @@ public class BookDetailController {
 	
 	private final BookService bookService;
 	private final PostService postService;
+	private final UserService userService;
     
     @GetMapping("/detail")
     public String detail(Integer id, Model model) {
@@ -56,12 +62,16 @@ public class BookDetailController {
     }
     
     @GetMapping("/post/create")
-    public String create(Integer id, Model model) {
+    public String create(Integer id, Integer userId, Model model) {
         log.info("책 상세(bookId={})",id);
+         log.info("userId={}",userId);
         
-        Book book = bookService.read(id);
-        model.addAttribute("book", book);
-        
+          List<User> userList = userService.read();
+          model.addAttribute("user", userList);
+          
+          Book book = bookService.read(id);
+          model.addAttribute("book", book);
+     
         return "post/create";
     }
 	
