@@ -23,7 +23,84 @@
 </head>
 <body>
 
-    <h1>My Page</h1>
+    <!-- 상단에 프로필 넣고자(like 교보문고) -->
+    <div class="w-100 text-bg-warning" style="height:200px;">
+        <h1>프로필이미지</h1>
+    </div><!-- 상단 프로필 div end -->
+
+    <div class="row"> <!-- 메인 데이터 -->
+        <div class="col-2 m-4 p-2" style="height:500px;">
+            <h4 class="my-2">나의 쇼핑정보</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">주문내역조회</li>
+                <li class="list-group-item text-secondary">반품내역</li>
+                <li class="list-group-item text-secondary">책 리뷰</li>
+                <br/><br/>
+            </ul>
+            <h4 class="my-2">나의 계정설정</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">회원정보수정</li>
+                <li class="list-group-item text-secondary">회원등급</li>
+                <li class="list-group-item text-secondary">포인트조회</li>
+                <br/><br/>
+            </ul>
+            <h4 class="my-2">고객센터</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">1대1문의</li>
+                <li class="list-group-item text-secondary">공지사항</li>
+                <br/><br/>
+            </ul>
+        </div> <!-- col end -->
+
+        <div class="col-8 container">
+            <div class="row"> <!-- 박스 div -->
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">회원등급</div>
+                </div>
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">포인트</div>
+                </div>
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">위시리스트</div>
+                </div>
+            </div> <!-- box row end -->
+
+            <h4>최근 주문</h4>
+            <table class="table">
+                <thead>
+                    <tr class="border-top border-4">
+                        <th>주문일</th>
+                        <th>주문내역</th>
+                        <th>주문번호</th>
+                        <th>결제금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022.12.15</td>
+                        <td>어린왕자</td>
+                        <td>202212151</td>
+                        <td>15,000원</td>
+                    </tr>
+                    <tr>
+                        <td>2022.12.15</td>
+                        <td>어린왕자</td>
+                        <td>202212151</td>
+                        <td>15,000원</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>My WISH</h4><span>더보기>></span>
+            <hr/>
+            <div class="m-2 border text-bg-light" style="width:200px; height:250px;"></div>
+            <div>다다다</div>
+            <div>김영하 작가</div>
+
+        </div> <!-- col end -->
+
+    </div> <!-- (row) 메인 데이터 end -->
+    
 </body>	
 </div>
 </html>
