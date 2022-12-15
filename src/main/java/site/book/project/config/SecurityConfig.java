@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,33 +16,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+    
+
     @Bean // 스프링 컨텍스트에서 생성, 관리하는 객체 - 필요한 곳에 의존성 주입. <bean></bean>같은.
     // 암호화 알고리즘 객체 -> Spring Security에서는 비밀번호는 반드시 암호화를 해야 함. 암호화 안되면 오류!
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     
-    /*
-    @Bean
-    // 로그인/로그아웃 기능을 테스트하기 위한 가상의 사용자 정보 생성.
-    public InMemoryUserDetailsManager inMeMoryUserDetailsManager () {
-        UserDetails user1 = User.builder() // 직접 만드려면 5~6개의 클래스가 필요하다.
-                .username("user1") // 로그인 아이디
-                .password(passwordEncoder().encode("1111")) // 로그인 아이디 - 반드시 암호화!
-                .roles("USER") // 실제로는 ROLE_USER 권한 부여. 일반사용자.
-                .build();
-        UserDetails user2 = User.builder()
-                .username("user2")
-                .password(passwordEncoder().encode("2222"))
-                .roles("USER", "ADMIN")
-                .build();
-        
-        return new InMemoryUserDetailsManager(user1, user2);
-    }
-    */
+   
     
     /*
     @Bean
@@ -61,11 +54,14 @@ public class SecurityConfig {
         // POST/PUT/DELETE 요청에서 CSRF ㅊ토큰을 서버로 전송하지 않으면 403(forbidden 권한없음) 에러가 발생.
         // 기능 구현을 간단히 하기 위해서 Spring Security의 CSRF 기능을 비활성화.
         http.csrf().disable(); // CSRF 비활성. 새글작성 등을 다시 쓸 수 있다.
-        
-        // 로그인/로그아웃 관련 설정
-        http.formLogin(Customizer.withDefaults()) // Spring Security에서 제공하는 기본 Login form 사용.
-            .logout() // 로그아웃 관련 설정 시작
-            .logoutSuccessUrl("/login"); // 로그아웃 성공 후 이동할 URL 설정.
+        http.formLogin()
+            .loginPage("/")
+            .defaultSuccessUrl("/")
+        .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/")
+            .invalidateHttpSession(true);
         
         // 특정 경로(URL)에 시큐리티 적용:
         // 권한을 가지고 있는(로그인한) 사용자만 접근할 수 있는 경로
