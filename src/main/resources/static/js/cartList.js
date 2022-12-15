@@ -211,7 +211,7 @@
     
     
     
-    // checkbox
+    // checkbox TODO
     const chkBoxAll = document.querySelector('#chkBoxAll')
     chkBoxAll.addEventListener('change', function(){
         
@@ -236,29 +236,9 @@
             ckList.push(btn.value)
             ckList.push(userId)
             
-            
-            const result = confirm('장바구니를 삭제?')
-            
-            if(result){
-                axios
-                .post('api/cartid', ckList)
-                .then(response => {
-                    updateCartList(response.data)
-                    console.log(response.data);
-                })
-                .catch(err => {console.log(err)})
-            }
-            
-            
-            
-            
-            
-            
-            
+            deleteButton(ckList);
             
         })
-        
-        
     })
     
     
@@ -268,7 +248,10 @@
     } // function updatCartList end --
     
     
-    
+
+            
+            
+
     
     
     
@@ -277,7 +260,6 @@
     const btnDelete = document.querySelector('#btnDelete')
     btnDelete.addEventListener('click', function(){
     const userId = document.querySelector('#userId').value;
-    
     const list = document.querySelectorAll('#ckBox');
     let ckList = [];
     
@@ -290,27 +272,24 @@
             
         }
         ckList.push(userId)
-        
-        
-        const result = confirm('장바구니를 삭제?')
-        
-        if(result){
-            axios
-            .post('api/cartid', ckList)
-            .then(response => {
-                updateCartList(response.data)
-                console.log(response.data);
-            })
-            .catch(err => {console.log(err)})
-        }
+        deleteButton(ckList);
         
         }) 
         
         
-        
-        
-        
-
+    function deleteButton(list){
+            const result = confirm('장바구니를 삭제?')
+            
+            if(result){
+                axios
+                .post('api/cartid', list)
+                .then(response => {
+                    updateCartList(response.data)
+                    console.log(response.data);
+                })
+                .catch(err => {console.log(err)})
+            }
+    }
         
 
     
