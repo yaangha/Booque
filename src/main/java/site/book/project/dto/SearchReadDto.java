@@ -1,11 +1,13 @@
 package site.book.project.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class SearchReadDto {
     
-    private Integer boookId;
+    private Integer bookId;
     private String bookImage;
     private String bookName;
     private String author;
@@ -14,4 +16,5 @@ public class SearchReadDto {
     private int prices;
     private Integer myScore;
     private int reviewCount;
+    private int hit;
 }

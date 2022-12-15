@@ -4,7 +4,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{ layout/layout }">
 
-<div layout:fragment="content">
+<div layout:fragment="content" align="center">
 
 <head>
 	<meta charset="UTF-8">
@@ -32,10 +32,9 @@
 </head>
 
     <div>
-        <h3>슬라이드쇼 들어갈 곳!</h3>
 
 <!-- 부트스트랩 버전 -->
-<div id="carouselExampleIndicators" class="carousel slide  text-center" data-bs-ride="true" style="width: 400px;">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true" style="width: 400px; z-index:0;">
   <div class="carousel-indicators text-center">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -81,8 +80,8 @@
 </div>
 
 <div class="postlist" style="margin-top:50px; margin-bottom:70px;">
-<a href='../post/list' title='리뷰(포스트) 목록 페이지'>
-<h3>리뷰(포스트) 목록 페이지</h3>
+<a href='../post/list' title='리뷰(포스트) 목록 페이지' style="text-decoration:none;">
+<h3>▶ 리뷰(포스트) 목록 페이지</h3>
 </a>
 </div>
 
