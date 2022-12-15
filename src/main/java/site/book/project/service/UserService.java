@@ -1,6 +1,7 @@
 package site.book.project.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,6 +93,16 @@ public class UserService {
 
     public Optional<User> getUserBySigninId(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public List<User> read() {
+       
+        return userRepository.findAll();
+    }
+
+    public User read(String username) {
+        
+        return userRepository.findByUsername(username).get();
     }
 
     

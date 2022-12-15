@@ -65,17 +65,18 @@ public class SecurityConfig {
         // 로그인/로그아웃 관련 설정
         http.formLogin(Customizer.withDefaults()) // Spring Security에서 제공하는 기본 Login form 사용.
             .logout() // 로그아웃 관련 설정 시작
-            .logoutSuccessUrl("/login"); // 로그아웃 성공 후 이동할 URL 설정.
+            .logoutSuccessUrl("/"); // 로그아웃 성공 후 이동할 URL 설정.
         
         // 특정 경로(URL)에 시큐리티 적용:
         // 권한을 가지고 있는(로그인한) 사용자만 접근할 수 있는 경로
         // 익명 사용자(로그인하지 않은) 사용자도 접근할 수 있는 경로
         
-//        http.authorizeHttpRequests() // 요청에 따른 권한 설정 시작.
-//            .antMatchers("/post/**", "/api/reply/**") // "/post", "/api/reply" 로 시작하는 모든 경로
-//            .hasRole("USER") // USER 권하능ㄹ 가지고 있는 사용자만 접근 가능
-//            .anyRequest() // 그 이외의 모든 요청
-//            .permitAll(); // 로그인 여부와 상관 없이 허용.
+        http.authorizeHttpRequests() // 요청에 따른 권한 설정 시작.
+            .antMatchers("/post/create", "/post/modify", "/api/reply/**") // "/post/create", "/post/modify"와  "/api/reply" 로 시작하는 모든 경로
+            .hasRole("USER")  // USER 권한을 가지고 있는 사용자만 접근 가능/
+            .anyRequest() // 그 이외의 모든 요청
+            .permitAll(); // 로그인 여부와 상관 없이 허용.         
+           
         // => 새로운 요청 경로/컨트롤러가 생길 때마다 설정 자바 코드를 변경을 해야 하는 번거로움.
         // => 컨트롤러 메서드를 작성할 때 애너테이션을 사용해서 권한 설정을 할 수 있음.
         // => (1) SecurityConfig 클래스에는 @EnableGlobalMethodSecurity 애너테이션을 사용.

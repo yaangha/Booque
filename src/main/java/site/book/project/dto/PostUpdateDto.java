@@ -3,6 +3,7 @@ package site.book.project.dto;
 import lombok.Data;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.domain.User;
 
 
 @Data
@@ -10,11 +11,12 @@ public class PostUpdateDto {
 
     private Integer postId;
     private Integer bookId;
+    private Integer userId;
     private String title;
     private String postContent;
     
-    public Post toEntity(Book book) {
+    public Post toEntity(Book book, User user) {
         
-        return Post.builder().postId(postId).book(book).title(title).postContent(postContent).build();
+        return Post.builder().postId(postId).user(user).book(book).title(title).postContent(postContent).build();
     }
 }
