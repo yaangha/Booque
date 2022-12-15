@@ -32,10 +32,11 @@
         +'<table class="w-100 table" style="text-align: center;"> '
         + '<thead class="table-light"> '
          +  '  <tr> '
-         +'<th> <input type="checkbox"  id="chkBoxAll" style="width: 30px;"> </th>'
+         +'<th> <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> </th>'
           +      ' <th colspan="2">도서 정보</th> '
            +   '   <th>수량</th> '
-            +   '  <th>배송비</th> '
+            +   '  <th>배송정보</th> '
+            +  '  <th>선택</th> '
             +  '  <th></th> '
           + '  </tr> '
       + '  </thead> '
@@ -46,8 +47,8 @@
         
       str  += '<tr>'
             +  '<td class="align-middle">' 
-            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId" value="'+ c.cartId +'"/>' 
-            +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
+            +   ' <input type="checkbox" checked  id="ckBox" style="width: 30px;"  name="cartId" value="'+ c.cartId +'"/>' 
+            +   '<a href="/detail?id='+c.bookId+'"> <img src="' + c.image +'" style="width: 150px;"/></a>  </td>' 
             +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
             +                 '   <span>'+c.group+'</span><span> / </span><span>'+c.category+'</span>' 
@@ -59,6 +60,8 @@
             +                 '   <small class="px-1 border border-primary rounded text-primary">p</small>' 
             +                  '  <small class="text-primary">'+c.prices*0.05+'</small> ' 
             +               ' </div>' 
+            +  '  </td>' 
+            +  ' <td>'
             +  '  </td>' 
 
             +  '  <td class="align-middle">' 
@@ -75,7 +78,7 @@
             +   '     배송비 무료</td>' 
             +  '  <td class="align-middle">' 
             +      '  <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>' 
-            +     '   <button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">Delete</button>' 
+            +     '   <button type="button" id="btnOneDelete" class="btn btn-danger btn-sm my-2" style="width: 100px;" value="'+c.cartId+'"  >Delete</button>' 
             +  '  </td>'
             + '</tr>'; 
         }
@@ -148,7 +151,6 @@
         });
     
     // 전체 결제금액은 선택된 곳에서 정가 곱하기 수량
- //   const total = document.querySelector('#total');
     const totalP = document.querySelector('#totalPoint');
     const delivery = document.querySelector('#delivery');
     const totalPrice = document.querySelector('#totalPrice'); // 배송비 3천원
@@ -187,6 +189,20 @@
             delivery.innerText = '무료!!!'
             totalPrice.innerText = parseInt(total.innerText);
         }
+            if(list[i].checked){  // 체크가 된 상황에서 값이 바뀌면?
+                total.innerText = parseInt(total.innerText) + parseInt(bookPrice.innerText)
+            } else{
+                total.innerText = parseInt(total.innerText) - parseInt(bookPrice.innerText)
+            }
+           // total.innerText = total.innerText
+            totalP.innerText =total.innerText*0.05;   
+        if(parseInt(total.innerText)<30000){
+            delivery.innerText = '3,000'
+            totalPrice.innerText = parseInt(total.innerText)+3000;
+        } else {
+            delivery.innerText = '무료!!!'
+            totalPrice.innerText = parseInt(total.innerText);
+        }
            
             })
            
@@ -207,6 +223,46 @@
     })
     
     
+    // 삭제 
+    const btnOneDelete = document.querySelectorAll('#btnOneDelete')
+    const userId = document.querySelector('#userId').value;
+    btnOneDelete.forEach(btn => {
+        
+        btn.addEventListener('click',function(){
+            console.log('카트 번호'+btn.value);
+            let ckList = [];
+        
+            
+            ckList.push(btn.value)
+            ckList.push(userId)
+            
+            
+            const result = confirm('장바구니를 삭제?')
+            
+            if(result){
+                axios
+                .post('api/cartid', ckList)
+                .then(response => {
+                    updateCartList(response.data)
+                    console.log(response.data);
+                })
+                .catch(err => {console.log(err)})
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        })
+        
+        
+    })
+    
+    
+    
     
     
     } // function updatCartList end --
@@ -221,7 +277,6 @@
     const btnDelete = document.querySelector('#btnDelete')
     btnDelete.addEventListener('click', function(){
     const userId = document.querySelector('#userId').value;
-    console.log(userId)
     
     const list = document.querySelectorAll('#ckBox');
     let ckList = [];

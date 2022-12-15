@@ -31,14 +31,12 @@ public class CartRestController {
     @PostMapping("api/cartid")
     public ResponseEntity<List<CartDto>> cartListll(@RequestBody ArrayList<Integer> ckList){
 
-        log.info("  ~~~~~~~~~~` 여기는? {}",ckList);
         cartService.deleteCart(ckList);
         // 유저 번호 그냥 얻자...  가장 끝번호에 추가하면 되잖아
         // 유저 번호 
         List<CartDto> cartDtoList =  cartService.cartDtoList(ckList.get(ckList.size()-1));
         log.info("유저번호가 제대로 넘어 갔나 ? {} , {}",ckList.get(ckList.size()-1) , cartDtoList );
         
-        log.info("여기~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~````");
         return ResponseEntity.ok(cartDtoList);
     }
 
