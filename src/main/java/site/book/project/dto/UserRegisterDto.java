@@ -19,5 +19,4 @@ public class UserRegisterDto {
         return User.builder().username(username).password(password).email(email).nickName(nickname).address(address).build();
         // addRole(MemberRole.USER) = 어드민이 아닌 USER 권한을 부여하겠다.
     }
-
 }

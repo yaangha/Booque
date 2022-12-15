@@ -320,13 +320,16 @@
         
           <!--/* th:each를 통해서 불러오기   */-->
           
- <!--/*       <div  th:each="post : ${ postList }">
-            <div class="my-2" th:text="${ post.user.name }" > </div>
+     <div  th:each="post : ${ postList }">
+            <div class="my-2">
+            <a th:href="@{ /post/list }"
+            th:text="${ post.postWriter }"></a>
+             </div>
             <div  th:text="${ post.myScore }"></div>
             <div th:text="${ post.title }"></div>
             <p class="border-bottom" th:text="${ post.postContent }"></p>
         </div>
-*/-->
+
         
         <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
         <div id="postOrder"></div>

@@ -54,6 +54,7 @@
             <tr th:each="book : ${ searchList }" th:if="${!#lists.isEmpty(searchList)}">
                <td width= "20%" style="border: 1px solid blue;">
                   <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" width="150" height="220" class="img-fluid rounded-start"></a>
+
                </td>
                <td width= "63%">
                   <table style="padding-left: 20px;">
