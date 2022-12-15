@@ -119,11 +119,22 @@ public class CartService {
         return afterCount; // 바꾸기
     }
     
-    // (하은 테스트용) 카트 정보 읽기
+    // (하은) 카트 정보 읽기
     public Cart read(Integer cartId) { 
         Cart cart = cartRepository.findById(cartId).get();
         
         return cart;
+        
+    }    
+
+    public Integer total(List<CartDto> cartList) {
+        // for문에서 가격, 카운트 곱
+        Integer total = 0;
+        for(CartDto o : cartList) {
+            total +=o.getCount()*o.getPrices();
+        }
+        
+        return total;
     }
         
 }
