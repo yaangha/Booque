@@ -113,4 +113,6 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
                                             @Param(value = "orderType") String orderType);
  
     
+    
+    
 }

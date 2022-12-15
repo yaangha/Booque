@@ -77,7 +77,7 @@ public class SearchService {
                 String orderType = "저자";
                 return list = searchRepository.researchOrderByPublishedDate(keyword, orderType);
             }
-        } else if (order.equals("reviewCount")) {
+        } else if (order.equals("reviewCount") || order.equals("hitCount")) {
             if(type.equals("all")) { // 통합 검색
                 return list = searchRepository.unifiedSearchByKeyword(keyword);
             }  else if (type.equals("do")) { // 국내 도서 검색

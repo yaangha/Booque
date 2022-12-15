@@ -16,4 +16,5 @@ public class SearchReadDto {
     private int prices;
     private Integer myScore;
     private int reviewCount;
+    private int hit;
 }
