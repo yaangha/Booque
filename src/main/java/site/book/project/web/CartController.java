@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import site.book.project.domain.User;
 import site.book.project.dto.BookWishDto;
 import site.book.project.dto.CartAddDto;
 import site.book.project.dto.CartDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookWishService;
 import site.book.project.service.CartService;
 import site.book.project.service.UserService;
@@ -36,11 +38,15 @@ public class CartController {
 
     // Principal 객체가 있군 user객체 안뜰때 사용
     @GetMapping("/cart")
-    public String cart(Integer id, Model model ){
-        log.info("사용자 번호 {}", id);
+    public String cart(@AuthenticationPrincipal UserSecurityDto userSecurityDto,  Model model ){
+        
+        
+        Integer id = userSecurityDto.getId();
+        
         
         User user = userService.read(id); 
         List<CartDto> cartList = cartService.cartDtoList(id);
+        
         Integer total = cartService.total(cartList);
         
         // 생성된 CartDTO를 받고
@@ -59,30 +65,33 @@ public class CartController {
     
     // (하은) detail 페이지에서 cart로 넘어갈 때 사용
     @PostMapping("/cart/add")
-    public String addCart(CartAddDto dto) {
-        log.info("사용자 번호={}", dto.getId());
+    public String addCart(CartAddDto dto , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
         
-        if (cartService.checkUser(dto.getUserId(), dto.getId()) == 1) { // 사용자 없으면 create
-            cartService.addCart(dto.getUserId(), dto.getId(), dto.getCount());
+        Integer userId = userSecurityDto.getId();
+        
+        
+        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, dto.getId(), dto.getCount());
         } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(dto.getUserId(), dto.getId(), dto.getCount());
+            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
             log.info("변경 수량={}", afterCount);
         }
         
-        return "redirect:/cart?id=" + dto.getUserId();
+        return "redirect:/cart?id=" + userId;
     }
 
     // (하은) 장바구니에 넣고 쇼핑 계속하기 버튼 눌렀을 때 사용
     @PostMapping("/cart/onlyAdd")
-    public String onlyAddCart(CartAddDto dto) {
-        log.info("사용자 번호={}", dto.getId());
+    public String onlyAddCart(CartAddDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
+        Integer userId = userSecurityDto.getId();
         
-        if (cartService.checkUser(dto.getUserId(), dto.getId()) == 1) { // 사용자 없으면 create
-            cartService.addCart(dto.getUserId(), dto.getId(), dto.getCount());
+        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, dto.getId(), dto.getCount());
         } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(dto.getUserId(), dto.getId(), dto.getCount());
+            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
             log.info("변경 수량={}", afterCount);
-        }
+        } 
+
         
         return "redirect:/detail?id=" + dto.getId();
     }    
@@ -90,16 +99,5 @@ public class CartController {
     
     
     
-//    @PostMapping("api/cartid")
-//    public ResponseEntity<Integer> cartListll(@RequestBody ArrayList<Integer> ckList){
-////    public String delete(@RequestParam List<Integer>  cartId) {
-//        log.info("여기가~~~~~~~~~~~~~~~~~~~~ 실행되니?");
-//        log.info("{}",ckList);
-//    	for(Integer i : ckList){
-//    	   log.info("정말,,? {}" , i);
-//    	    
-//    	}
-//    	return ResponseEntity.ok(ckList.size());
-//    }
     
 }
