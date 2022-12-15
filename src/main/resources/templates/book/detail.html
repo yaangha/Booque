@@ -88,7 +88,8 @@
                 <form id="addCartInfo">
 
                 <div>
-                    <input type="text" id="userId" name="userId" value="2"> 님이 보고 계신 책은..
+                    <input type="text"  name="userName" th:value="${ #authentication.name }" />
+                    <input type="text" id="userId" name="userId" value="3"> 님이 보고 계신 책은..
                 </div>
                 
                 <!-- (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? -->
@@ -169,6 +170,7 @@
 
 </div>
 </div>
+
 
             <!-- nav바 메뉴 바로가기(버튼 누르면 해당 부분으로 스크롤) -->
             <nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">

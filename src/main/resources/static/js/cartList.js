@@ -19,14 +19,12 @@
         })
         .catch(err => {console.log(err) });
         
-        console.log('전체 페이지 읽기 ajax 함수')
         
     };
     
     
     
     function updateCartList(data){
-        console.log('카트 리스트 전체 보기 함수 data 받음 ')
         const divCart = document.querySelector('#cList')
         let str = '';
         
@@ -34,9 +32,9 @@
         +'<table class="w-100 table" style="text-align: center;"> '
         + '<thead class="table-light"> '
          +  '  <tr> '
+         +'<th> <input type="checkbox"  id="chkBoxAll" style="width: 30px;"> </th>'
           +      ' <th colspan="2">도서 정보</th> '
            +   '   <th>수량</th> '
-            +  '   <th>주문금액</th> '
             +   '  <th>배송비</th> '
             +  '  <th></th> '
           + '  </tr> '
@@ -48,7 +46,7 @@
         
       str  += '<tr>'
             +  '<td class="align-middle">' 
-            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId"  value="'+ c.cartId +'"/>' 
+            +   ' <input type="checkbox"  id="ckBox" style="width: 30px;"  name="cartId" value="'+ c.cartId +'"/>' 
             +   ' <img src="' + c.image +'" style="width: 150px;"/></td>' 
             +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
@@ -64,19 +62,16 @@
             +  '  </td>' 
 
             +  '  <td class="align-middle">' 
+            +  '  <div class="selectPrice " >' 
+            +        '<span class="prices"  >'+c.prices*c.count +'</span>' + '<span>원</span>'
+            +  '<input type="hidden" id="fixedPrice" value="'+c.prices+'"/>' 
+            +   ' </div>' 
             +      '  <input type="button" class="btnPlusMinus"  value="+"/>' 
-            +     '   <span style="width: 50px" id="countS" >'+c.count +' </span>' 
+            +     '   <span style="width: 50px" class="count" >'+c.count +' </span>' 
             +       ' <input type="button" class="btnPlusMinus"  value="-"/>' 
     
             +  '  </td>' 
-            +   ' <td class="align-middle">' 
-            +  '  <div class="selectPrice">' 
-            +      '  <div id="price" >' 
-            +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
-            +     '   </div>' 
-            +   ' </div>' 
-            +  '  </td>' 
-            +  '  <td class="align-middle">10,000원 이상<br/>' 
+            +  '  <td class="align-middle">30,000원 이상<br/>' 
             +   '     배송비 무료</td>' 
             +  '  <td class="align-middle">' 
             +      '  <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">Buy Now</button><br/>' 
@@ -93,49 +88,52 @@
         divCart.innerHTML = str;
         
         const buttons = document.querySelectorAll('.btnPlusMinus');
-        console.log('플러스 마이너스 버튼')
-        
+        const total = document.querySelector('#total');
         buttons.forEach(btn => {
             
             btn.addEventListener('click', e => {
-                const td = btn.closest('td');
-                const span = td.querySelector('span');
-                console.log(td);
-                console.log(span)
-                
+                const td = btn.closest('tr');
+                console.log(td)
+                const span = td.querySelector('span.count');
+                const pri = td.querySelector('span.prices'); // 변경될 값
+                const fix = td.querySelector('input#fixedPrice').value;
+                const chk = td.querySelector('#ckBox');
+                console.log(chk)
                 
                 let number = span.innerText;
                 
                 const type = btn.value;
                 if (type == '+') {
                     number = parseInt(number) + 1;
-                    
+                    if (chk.checked) {
+                        total.innerText = parseInt(total.innerText) + parseInt(fix);
+                    }
                 } else {
                     number = parseInt(number) - 1;
                     if(number == 0){
                        alert('수량은 0이하가 되지 못합니다.')
+                       pri.innerText = fix;
                        return;
-                   }
+                   } 
+                   
+                    if (chk.checked) {
+                        total.innerText = parseInt(total.innerText) - parseInt(fix);
+                    }
+                    
                 }
+                console.log('수량은 변하지 않는데 값은 줄어듦')
                 span.innerText = number;
-                
-                const allPrices = document.querySelectorAll('#price')
-                console.log(allPrices.length)
-                allPrices.forEach(p => {
-                    const span = p.querySelector('span') // 가격만  span#id를 통해서 값 찾기.. 
-                    let pr = span.innerText;
-                    console.log(pr)
-                    
-                    
-                    
+                pri.innerText = number * parseInt(fix);
                     
                 })
                 
                 
                 
+                
+                
+                
             });
-        });
-        
+
     
         const form = document.querySelector('#formCheck')
             // 결제창으로 넘어감.
@@ -149,17 +147,78 @@
          
         });
     
+    // 전체 결제금액은 선택된 곳에서 정가 곱하기 수량
+ //   const total = document.querySelector('#total');
+    const totalP = document.querySelector('#totalPoint');
+    const delivery = document.querySelector('#delivery');
+    const totalPrice = document.querySelector('#totalPrice'); // 배송비 3천원
+    
+    
+    
+    const list = document.querySelectorAll('#ckBox');
+    for(let i=0; i<list.length; i++ ){
+        
+        if(parseInt(total.innerText)<30000){
+        console.log('배송비')
+            delivery.innerText = '3,000 원'
+            totalPrice.innerText = parseInt(total.innerText)+3000;
+        } else {
+            delivery.innerText = '무료배송'
+            totalPrice.innerText = parseInt(total.innerText);
+        }
+        
+        
+        list[i].addEventListener('change', function(){
+              
+            const tr = list[i].closest('tr')
+            const bookPrice = tr.querySelector('span.prices')
+            
+            if(list[i].checked){  // 체크가 된 상황에서 값이 바뀌면?
+                total.innerText = parseInt(total.innerText) + parseInt(bookPrice.innerText)
+            } else{
+                total.innerText = parseInt(total.innerText) - parseInt(bookPrice.innerText)
+            }
+           // total.innerText = total.innerText
+            totalP.innerText =total.innerText*0.05;   
+        if(parseInt(total.innerText)<30000){
+            delivery.innerText = '3,000'
+            totalPrice.innerText = parseInt(total.innerText)+3000;
+        } else {
+            delivery.innerText = '무료!!!'
+            totalPrice.innerText = parseInt(total.innerText);
+        }
+           
+            })
+           
+            
+        }
+    
+    
+    
+    // checkbox
+    const chkBoxAll = document.querySelector('#chkBoxAll')
+    chkBoxAll.addEventListener('change', function(){
+        
+        const chkBox = document.querySelectorAll('#ckBox');
+            chkBox.forEach((check) => {
+                check.checked = chkBoxAll.checked
+            })
+    
+    })
+    
+    
+    
+    
+    } // function updatCartList end --
     
     
     
     
     
-    }
     
     
-    
+    // 선택 삭제
     const btnDelete = document.querySelector('#btnDelete')
-    
     btnDelete.addEventListener('click', function(){
     const userId = document.querySelector('#userId').value;
     console.log(userId)
