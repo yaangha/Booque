@@ -83,12 +83,12 @@
                                 <tbody>
                                     <tr th:each="post : ${ list }">
                                         <td th:text="${ post.postId }"></td> 
-                                        <td  style="border: 1px solid red;" width="18%">
+                                        <td  style="border: 1px solid red;" width="14%">
                                          <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
-                                          <img th:src="${ post.bookImage }" width="120" height="150" class="img-fluid rounded-start"></a>
+                                          <img th:src="${ post.bookImage }" width="80" height="120" class="img-fluid rounded-start"></a>
                                         </td>   
                                         <td><a
-                                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId}) }"
+                                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId }) }"
                                             th:text="${ post.title }"></a>
                                             <!--/* 앵커태그 사이에 들어갈 제목은 th:text로 넣으면 됨 */-->
                                             <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->

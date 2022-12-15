@@ -11,10 +11,12 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-public class CartAddDto {
+public class OrderFromDetailDto {
+    // (하은) 디테일 페이지에서 바로 구매할 때 필요한 정보 - order 테이블에 추가될 것
     
-
-    private Integer id;
+    private Integer userId;
+    private Integer id; // bookId
+    private Integer price;
     private Integer count;
 
 }

@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.PostReply;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.PostReadDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.repository.PostRepository;
 import site.book.project.repository.ReplyRepository;
 
@@ -24,7 +26,7 @@ import site.book.project.repository.ReplyRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-    
+
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -34,11 +36,12 @@ public class PostService {
     }
     
     public Post create(PostCreateDto dto) {
-        log.info("create(dto = {})",dto);
+        log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
+        Book book = bookRepository.findById(dto.getBookId()).get();
         
+      
         
-        
-        Post entity = postRepository.save(dto.toEntity());
+        Post entity = postRepository.save(dto.toEntity(book));
         return entity;
     }
 
@@ -97,7 +100,7 @@ public class PostService {
 	public List<Post> findBybookId(Integer bookId) {
 	    
 	    // 오래된 순
-	    return postRepository.findByBookId(bookId);
+	    return postRepository.findByBookBookId(bookId);
 	}
 
 	// 최신순

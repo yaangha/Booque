@@ -55,6 +55,7 @@ public class SeacrhContoller {
             reviewCount.add(element);
         }
         
+        
         model.addAttribute("searchList", searchList);
         model.addAttribute("storedType", type);
         model.addAttribute("storedKeyword", keyword);

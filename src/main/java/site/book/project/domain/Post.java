@@ -32,6 +32,8 @@ public class Post extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     
+    
+    
     @OneToOne
     private Book book;
     
@@ -46,9 +48,7 @@ public class Post extends BaseTimeEntity {
     
     @Column(nullable = false)
     private Integer myScore;
-    
-    @Column(nullable = false)
-    private Integer bookId;
+
    
     public Post update(String title, String postContent) {
         this.title = title;
