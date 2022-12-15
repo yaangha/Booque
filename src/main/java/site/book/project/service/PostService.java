@@ -11,11 +11,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
+import site.book.project.dto.PostListDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.PostReadDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.PostRepository;
+import site.book.project.repository.UserRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
@@ -33,13 +37,46 @@ public class PostService {
         return postRepository.findByOrderByPostIdDesc();
     }
     
+    public List<Post> findById(Integer userId) {
+        
+        return postRepository.findByUserId(userId);
+
+    }
+ 
+    
+    public List<PostListDto> postDtoList(Integer userId) {
+        List<Post> list = postRepository.findByUserId(userId);
+        
+        List<PostListDto> dtoList = new ArrayList<>();
+        
+     PostListDto dto = null;
+        
+        for (Post post : list) {
+            Post p = post;
+            
+           dto = PostListDto.builder()
+            .userId(p.getUser().getId())
+            .postId(p.getPostId())
+            .title(p.getTitle())
+            .postWriter(p.getPostWriter())
+            .bookId(p.getBook().getBookId())
+            .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime()).build();
+            
+        
+             dtoList.add(dto);           
+        }
+         return dtoList;
+    }
+    
+  
+    
     public Post create(PostCreateDto dto) {
         log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
         Book book = bookRepository.findById(dto.getBookId()).get();
-        
+        User user = userRepository.findById(dto.getUserId()).get();
       
         
-        Post entity = postRepository.save(dto.toEntity(book));
+        Post entity = postRepository.save(dto.toEntity(book,user));
         return entity;
     }
 
@@ -118,4 +155,5 @@ public class PostService {
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
+    
 }

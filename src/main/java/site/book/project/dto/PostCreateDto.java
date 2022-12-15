@@ -16,17 +16,14 @@ import site.book.project.domain.User;
 public class PostCreateDto {
 
     private Integer bookId;
+    private Integer userId;
     private String title;
     private String postContent;
     private String postWriter; 
     private Integer myScore;
     
-    public Post toEntity(Book book) {
-
+    public Post toEntity(Book book, User user) {
         
-       // return PostCreateDto.builder().title(title).
-        
-
-        return Post.builder().book(book).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
+        return Post.builder().user(user).book(book).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }
