@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.service.PostService;
+import site.book.project.service.ReplyService;
 import site.book.project.service.UserService;
 
 @Slf4j
@@ -23,9 +24,15 @@ public class PostRepositoryTests {
    private UserService userService;
    
    @Autowired
+   private PostService postService;
+
+   @Autowired
+   private ReplyService replyService;
    private UserRepository userRepository;
    
-   @Test
+   @Autowired
+   private ReplyRepository replyRepository;
+
    public void testSave() {
    
 //       User user1 = User.builder().username("user1").password("111").nickName("0").email("dd@n").phone("1").name("김").address("경기").build();
@@ -45,5 +52,12 @@ public class PostRepositoryTests {
 
        
        
+   }
+   
+   @Test
+   public void testDelete() {
+//       Assertions.assertNotNull(replyRepository);
+//       Assertions.assertNotNull(replyService);
+       replyService.deletePostIdWithAllReply(17);
    }
 }

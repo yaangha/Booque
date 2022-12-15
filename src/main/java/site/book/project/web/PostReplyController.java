@@ -68,7 +68,6 @@ public class PostReplyController {
     }
     
     // 댓글 수정
-
     @PutMapping("/{replyId}")
     public ResponseEntity<Integer> updateReply(
             @PathVariable Integer replyId,
@@ -79,4 +78,13 @@ public class PostReplyController {
         Integer result = replyService.update(dto);
         return ResponseEntity.ok(result);
     }
+    
+    // 댓글 갯수 갱신
+    @GetMapping("/count/{postId}")
+    public ResponseEntity<Integer> updateReplyCount(@PathVariable Integer postId){
+        List<ReplyReadDto> list = replyService.readReplies(postId);
+        log.info("댓글갯수:{}",list.size());
+        return ResponseEntity.ok(list.size());
+    }
+    
 }
