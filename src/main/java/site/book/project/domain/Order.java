@@ -53,5 +53,30 @@ public class Order {
     @Column(nullable = false)
     private int total; 
     
+    // (하은) 컬럼 추가 -> 배송지 & 메시지 & 결제방식
+    @Column
+    private Integer postcode;
+    
+    @Column
+    private String address;
+    
+    @Column
+    private String detailAddress;
+    
+    @Column
+    private String payOption;
+    
+    @Column
+    private String message;
+    
+    // (하은) update 추가
+    public Order update(Integer postcode, String address, String detailAddress, String payOption, String message) {
+        this.postcode = postcode;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.payOption = payOption;
+        this.message = message;
+        return this;
+    }
     
 }

@@ -2,7 +2,9 @@ package site.book.project.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +16,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.dto.PostListDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
+import site.book.project.service.UserService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +33,7 @@ public class PostController {
 
     private final PostService postService;
     private final BookService bookService;
+    private final UserService userService;
     
 //    @GetMapping("/main")
 //    public void main() {
@@ -37,54 +43,88 @@ public class PostController {
     
     
     @GetMapping("/list")
-    public String list(Model model, Integer userId) {
+    public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
-        
-        List<Post> postList = postService.read();
-        List<Book> bookList = bookService.read();
-        List<PostListDto> list = new ArrayList<>();
-        // 포스트 하나당 bookId를 가져오면 됨.
-        
-        for (Post p : postList) {
-            PostListDto dto = null;
-            for (Book b : bookList) {
-
+       
+         
+        if(userSecurityDto == null) {
+            User user = userService.read(postWriter);
+            Integer userId = user.getId();
+            
+            List<PostListDto> postList = postService.postDtoList(userId);
+            
+                model.addAttribute("user", user);      
+                model.addAttribute("list", postList);
                 
-                if(b.getBookId() == p.getBook().getBookId()) {
-                 dto = PostListDto.builder().postId(p.getPostId()).bookId(p.getBook().getBookId()).title(p.getTitle()).bookImage(b.getBookImage()).modifiedTime(p.getModifiedTime()).build();
-                 list.add(dto);
-
-                }
-            }
-        }
-                
-        model.addAttribute("list", list);
+        } else if (postWriter == null) {
+            
+            Integer userId = userSecurityDto.getId();
+            User user = userService.read(userId);
+            log.info("id= {}",userId);
         
+            List<PostListDto> postList = postService.postDtoList(userId);
+        
+                model.addAttribute("user", user);      
+                model.addAttribute("list", postList);
+                
+        }  else if(userSecurityDto.getUsername().equals(postWriter)) {
+            
+            Integer userId = userSecurityDto.getId();
+            User user = userService.read(userId);
+            log.info("id= {}",userId);
+        
+            List<PostListDto> postList = postService.postDtoList(userId);
+        
+                model.addAttribute("user", user);      
+                model.addAttribute("list", postList);
+        
+        } else if(!userSecurityDto.getUsername().equals(postWriter)) {
+            User user = userService.read(postWriter);
+            Integer userId = user.getId();
+            
+            List<PostListDto> postList = postService.postDtoList(userId);
+            
+                model.addAttribute("user", user);      
+                model.addAttribute("list", postList);
+        } 
+      
         return "/post/list";
     }
+
 
     
     @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
-        log.info("create(dto ={})", dto);
-        
+        log.info("create(dto ={})", dto);   
+      
         Post entity = postService.create(dto); 
         
         attrs.addFlashAttribute("createdPostId", entity.getPostId());
+        attrs.addFlashAttribute("userId", dto.getUserId());
         log.info("createdPostId: entity.gePosttId()= {}", entity.getPostId());
         return "redirect:/post/list";
     }
     
     @GetMapping({ "/detail", "/modify" })
-    public void detail(Integer postId, Integer bookId, Model model) {
-        log.info("detail(postId= {}, bookId={})", postId, bookId);
+    public void detail(Integer postId, String username ,Integer bookId, Model model) {
+        log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
         
-        Post post = postService.read(postId);
-        Book book = bookService.read(bookId);
-      
+       
+        Post p = postService.read(postId);
+        Book b = bookService.read(bookId);
         
-        model.addAttribute("book", book);
-        model.addAttribute("post", post);
+        if (username == null) {
+            User u = userService.read(p.getUser().getId()); 
+            model.addAttribute("user", u);
+        } else { 
+            User u = userService.read(username);
+            model.addAttribute("user", u);
+        }
+        
+         model.addAttribute("post", p);
+         model.addAttribute("book", b);
+        
+         
     }
    
     @PostMapping("/delete")

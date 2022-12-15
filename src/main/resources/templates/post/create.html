@@ -39,7 +39,7 @@
             <tr >
           
               <td width="20%" style=" vertical-align: top; border: 1px solid #DCDCDC;"> 
-               <div th:each="user : ${ user }" th:if="${ user.username } == ${ #authentication.name }">
+           
                <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
                  <div>
                    <a href=""> 
@@ -47,26 +47,31 @@
                    </a>
                  </div>
                  <br/>
-                 <div style="  padding:10px; text-align: left;">
-                   
-                
-                   <p th:text="${ user.username }" ></p>
-                   <p th:text="${ user.nickName }"></p>
-                   
-                   <p>블로그 한 줄 소개</p>
-                   <p></p>
-                 </div>
+                 
+                 <div style="  padding:12px; text-align: left;">
+                 <table width="100%" >
+                 <tr style="border-bottom: 1px solid #DCDCDC;">
+                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
+                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
+                 </tr>
+                 <tr><td><br/></td></tr>
+                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
+              </table></div>
                </div><!-- 프로필 끝 -->  
+             
+               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
+               <hr/>
+               <hr/>
                <hr/>
               <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
-              </div>
+              
+             
               </td>
        
   
             <!-- 오른쪽 -->              
               <td width="80%">
-                <div style="font-size:15px; font-weight:bold; background-color: #FFFFF0; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
+                <div style="font-size:15px; font-weight:bold; background-color: #f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
                 <br/> 포스트 작성 페이지&nbsp;&nbsp;
                 </div>
               
@@ -120,7 +125,7 @@
                      <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
                    <form method="post" style="border-top: 1px solid #DCDCDC;">
                      <div style="margin: 12px;">
-                    
+                   <input type="hidden" name="userId" th:value="${ user.Id }" readonly />
                      <input type="hidden" name="bookId" th:value="${ book.bookId }" readonly />
                       <input id="title"  style="width: 70%;"
                            type="text" name="title" placeholder="제목을 입력하세요!" required autofocus />
