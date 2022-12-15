@@ -35,8 +35,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ_GEN")
     private Integer orderId; // 안써도 되지만 PK는 필요해서 넣은 것
     
+//    @Column(nullable = false) 
+//    private Integer orderNo; // 주문번호, PK아님
+    
     @Column(nullable = false) 
-    private Integer orderNo; // 주문번호, PK아님
+    private Long orderNo; // 주문번호, PK아님
     
     @ManyToOne(fetch = FetchType.LAZY)
     private User user; 

@@ -87,9 +87,7 @@
                 <div class="col border-top border-bottom border-4 border-dark"><br />
                 <form id="addCartInfo">
 
-                <div>
-                    <input type="text" id="userId" name="userId" value="2"> 님이 보고 계신 책은..
-                </div>
+       
                 
                 <!-- (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? -->
 
@@ -97,8 +95,8 @@
                 <div>
                 <span th:text="${ nickName }" style="font-weight:bold; color:dodgerblue;"></span>
                 <span>님이 보고 계신 책은...</span>
-                </div>
-                 -->
+                </div> -->
+                 
 
                 <div class="h2 my-4" th:text="${ book.bookName }"></div>
 
@@ -110,7 +108,7 @@
                 <div th:text="${ book.author }"><span style="color: gray;"> 저자</span></div>
                 <div th:text="${ book.publisher }"></div>
                 <div>
-                    ★ ★ ★ ★ <span th:text="${ score }"></span>
+                    <span id="starAvg"> <img alt="" src="">  </span>  <span id="score" th:text="${ score }"></span>
                 </div>
 
 				<div class="my-2"style="font-weight: bold;">
@@ -151,25 +149,24 @@
                     </div>
                 </div>
                 <button onclick="clip()" type="button" class="w-50 btn btn-dark">공유하기</button>
-            </div>
-            <button id="btnOrderNow" type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
+                </div>
+                <button id="btnOrderNow" type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
 
 
 
-            <!-- (지혜) 찜(위시리스트) 버튼 -->
-            <!-- A 유저가 B 책을 위시리스트에 담고 빨강하트 된 상태에서, 화면 새로고침하면 다시 빈 하트로 뜨는 것 수정 필요 (로그인과 연결) -->
-            <!-- 작은화면에서 마우스오버(hover)하면 밑의 컨텐츠가 위로 당겨지는 현상 수정 필요 -->
-
-            <div class="wish" id="wish" style="margin-top: 20px; margin-bottom: 20px;">
-                <span id="btnWish"> <img id="wishEmpty" style="width: 25px;" alt="추가" src=" /images/likeEmpty.png " /> 
-                	<img id="wishFull" style="width: 25px;" alt="취소" src=" /images/likeFull.png " />
-                </span> 
-                <span id="wishText">위시리스트 담기</span>
-            </div>
-
+                <!-- (지혜) 찜(위시리스트) 버튼 -->
+                <!-- A 유저가 B 책을 위시리스트에 담고 빨강하트 된 상태에서, 화면 새로고침하면 다시 빈 하트로 뜨는 것 수정 필요 (로그인과 연결) -->
+                <!-- 작은화면에서 마우스오버(hover)하면 밑의 컨텐츠가 위로 당겨지는 현상 수정 필요 -->
+    
+                <div class="wish" id="wish" style="margin-top: 20px; margin-bottom: 20px;">
+                    <span id="btnWish"> <img id="wishEmpty" style="width: 25px;" alt="추가" src=" /images/likeEmpty.png " /> 
+                    	<img id="wishFull" style="width: 25px;" alt="취소" src=" /images/likeFull.png " />
+                    </span> 
+                    <span id="wishText">위시리스트 담기</span>
+                </div>
+                
 </div>
 </div>
-
 
             <!-- nav바 메뉴 바로가기(버튼 누르면 해당 부분으로 스크롤) -->
             <nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">
@@ -196,6 +193,7 @@
                     </li>
                 </ul>
             </nav>
+
 
             <!-- 도서정보 부분 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
@@ -344,7 +342,7 @@
         <!--/* layout으로 묶을 경우 <th:block layout:fragment="script">로 묶어주기 */-->
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script th:inline="javascript"> // 로그인 유저 정보 넣을 예정 </script>
+        <script th:inline="javascript">// 로그인 유저 정보 넣을 예정</script>
         <script th:src="@{ /js/comment.js }"></script>
 
         <!-- choi -->
@@ -377,7 +375,7 @@
         // 바로 구매하기 버튼 -> 해당 책 데이터만 order 테이블에 추가됨
         const btnOrderNow = document.querySelector('#btnOrderNow');
         btnOrderNow.addEventListener('click', function() {
-            addCartInfo.action = '/order';
+            addCartInfo.action = '/orderFromDetail';
             addCartInfo.method = 'post';
             addCartInfo.submit();
         })
@@ -398,6 +396,27 @@
             document.body.removeChild(textarea);
             alert("URL이 복사되었습니다.")
         }
+        
+        const score = document.querySelector('#score').innerText
+        const starAvg = document.querySelector('#starAvg')
+        //if(2< score < 3){ // 5점 만점으로하면 반올림으로 숫자 표현? 별을
+        	const scoreR = Math.round(score)
+        	console.log(scoreR)
+        	let s ='';
+        	for(let i=0; i<scoreR; i++){
+        		   s += '★';
+        		
+        	}
+        	for(let i=0; i<5-scoreR; i++){
+        		   s += '☆';
+        		
+        	}
+        	starAvg.innerText = s;
+        //}
+        
+        
+        
+        
         
         </script>
         

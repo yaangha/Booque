@@ -19,6 +19,7 @@ import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.PostListDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
+import site.book.project.service.ReplyService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class PostController {
 
     private final PostService postService;
     private final BookService bookService;
+    private final ReplyService replyService;
     
     @GetMapping("/main")
     public void main() {
@@ -91,7 +93,8 @@ public class PostController {
     public String delete(Integer postId, RedirectAttributes attrs) {
         log.info("delete(postId={})",postId);
        
-          postService.delete(postId);
+        replyService.deletePostIdWithAllReply(postId);
+        postService.delete(postId);
         attrs.addFlashAttribute("deletedPostId", postId);
        
         // 삭제 완료 후에는 목록 페이지로 이동(redirect) - PRG 패턴

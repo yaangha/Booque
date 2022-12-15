@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CartAddDto {
     
-    private Integer userId;
+
     private Integer id;
     private Integer count;
 

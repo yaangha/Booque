@@ -21,7 +21,6 @@ public class UserSecurityDto extends User {
     private String userImage;
     private Integer point;
 
-
     public UserSecurityDto(Integer id ,String username, String password,
             String nickName, String userImage,
             Integer point, Collection<? extends GrantedAuthority> authorities) {
