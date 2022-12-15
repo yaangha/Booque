@@ -43,28 +43,39 @@
         <table style="border-color: white;" width= "100%">
             <tr>
               <td width="20%" style=" vertical-align: top; border: 1px solid #DCDCDC;"> 
+             
                <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
                  <div>
                    <a href=""> 
-                     <img src="/images/루피.png"  width="200" height="280" class="img-fluid rounded-start">
+                     <img th:src="${ user.userImage }"  width="200" height="280" class="img-fluid rounded-start">
                    </a>
                  </div>
                  <br/>
-                 <div style="  padding:10px; text-align: left;">
-                   <p><strong>루피 (username)</strong></p>
-                   <p>블로그 한 줄 소개</p>
-                   <p></p>
-                 </div>
-               </div><!-- 프로필 끝 -->  
+                 
+                 <div style="  padding:12px; text-align: left;">
+                 <table width="100%" >
+                 <tr style="border-bottom: 1px solid #DCDCDC;">
+                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
+                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
+                 </tr>
+                 <tr><td><br/></td></tr>
+                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
+              </table></div>
+                 
+               </div><!-- 프로필 끝 --> 
+               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
+               <hr/>
+               <hr/>
                <hr/>
               <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
+              
+            
               </td>
   
   
             <!-- 오른쪽 -->              
               <td width="80%" style="vertical-align: top">
-                <div style="font-size:15px; font-weight:bold; background-color: #FFFFF0; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
+                <div style="font-size:15px; font-weight:bold; background-color: #f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
                 <br/> 포스트 글 목록&nbsp;&nbsp;
                 </div>
               
@@ -77,24 +88,25 @@
                                        <th>번호</th>
                                         <th>리뷰 도서</th>
                                         <th>제목</th>
+                                        <th>작성자</th>
                                         <th>수정시간</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="post : ${ list }">
+                                    <tr th:each="post : ${ list }" >
                                         <td th:text="${ post.postId }"></td> 
                                         <td  style="border: 1px solid red;" width="14%">
                                          <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
                                           <img th:src="${ post.bookImage }" width="80" height="120" class="img-fluid rounded-start"></a>
                                         </td>   
                                         <td><a
-                                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId }) }"
+                                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}"
                                             th:text="${ post.title }"></a>
                                             <!--/* 앵커태그 사이에 들어갈 제목은 th:text로 넣으면 됨 */-->
                                             <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->
                                             
                                         </td>
-                                                                            
+                                        <td th:text="${ post.postWriter }"></td>                          
                                         <td th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
                                     </tr>
                                 </tbody>

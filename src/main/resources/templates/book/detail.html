@@ -260,6 +260,18 @@
         
         		<!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
 
+                 <!--/* th:each를 통해서 불러오기   */-->
+          
+        <div  th:each="post : ${ postList }">
+            <div class="my-2">
+            <a th:href="@{ /post/detail?postId={postId}&bookId={bookId}&username={username} (postId = ${ post.postId }, bookId = ${ book.bookId }, username = ${ post.postWriter } )}"
+            th:text="${ post.postWriter }"></a>
+             </div>
+            <div  th:text="${ post.myScore }"></div>
+            <div th:text="${ post.title }"></div>
+            <p class="border-bottom" th:text="${ post.postContent }"></p>
+        </div>
+
 		        <!-- (하은) 리뷰 페이지 넘기기 -->
 		        <nav aria-label="Page navigation example">
 		            <ul class="pagination" style="justify-content : center;">
@@ -278,19 +290,7 @@
 		                </li>
 		            </ul>
 		        </nav>
-        
-          		<!--/* th:each를 통해서 불러오기
-          
-			     <!-- <div th:each="post : ${ postList }">
-		            <div class="my-2">
-			            <a th:href="@{ /post/list }" th:text="${ post.postWriter }"></a>
-			        </div>
-		            <div th:text="${ post.myScore }"></div>
-		            <div th:text="${ post.title }"></div>
-		            <p class="border-bottom" th:text="${ post.postContent }"></p>
-		        </div> */-->
-                
-                   
+
                 <!-- ajax를 이용한 Post 출력 순서만 변경하면 됨  bookDetailPost.js파일임 -->
                 <div id="postOrder"></div>
 
