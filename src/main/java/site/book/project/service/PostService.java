@@ -26,6 +26,7 @@ import site.book.project.repository.ReplyRepository;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final BookRepository bookRepository;
 
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
@@ -38,8 +39,6 @@ public class PostService {
     public Post create(PostCreateDto dto) {
         log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
         Book book = bookRepository.findById(dto.getBookId()).get();
-        
-      
         
         Post entity = postRepository.save(dto.toEntity(book));
         return entity;
