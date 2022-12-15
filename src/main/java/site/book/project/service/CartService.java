@@ -118,5 +118,12 @@ public class CartService {
         
         return afterCount; // 바꾸기
     }
+    
+    // (하은 테스트용) 카트 정보 읽기
+    public Cart read(Integer cartId) { 
+        Cart cart = cartRepository.findById(cartId).get();
+        
+        return cart;
+    }
         
 }

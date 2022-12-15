@@ -1,12 +1,12 @@
 package site.book.project.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,17 +65,20 @@ public class OrderService {
      * @param cartId 결제할 책 정보를 가지고 있는 PK
      * @return 뭘 리턴해야 할지 모르겠음. 여러줄의 객체가 생성되는데..!
      */
-    public Integer create(Integer[] cartId) { 
+    public Long create(Integer[] cartId) { 
         // cart가 여러개 1,2,3, ... 
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
+        // String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmm"));
         
         List<Order> orderList = new ArrayList<>();
-        Integer orderNo = 0;
+        // Integer orderNo = 0;
+        Long orderNo = 0L;
         Integer total = 0;
         for(Integer i : cartId) {
             Cart c = cartRepository.findById(i).get();
             
-            orderNo = Integer.parseInt(date + c.getUser().getId() + 1);
+            orderNo = Long.parseLong(date + c.getUser().getId());
+
             // (하은) 각 책 당 total 구하기
             total = c.getCartBookCount() * c.getBook().getPrices();
             
@@ -94,11 +97,11 @@ public class OrderService {
     }
 
     // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
-    public Integer createFromDetail(OrderFromDetailDto dto) {
+    public Long createFromDetail(OrderFromDetailDto dto) {
         
         Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
-        Integer orderNo = Integer.parseInt(date + dto.getUserId() + 0);
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmm")); // ex) 20221209
+        Long orderNo = Long.parseLong(date + dto.getUserId());
         
         User user = userRepository.findById(dto.getUserId()).get();
         Book book = bookRepository.findById(dto.getId()).get();
@@ -120,20 +123,28 @@ public class OrderService {
     }
 
     // (하은) orderResult로 넘어갈 때 최종 주문&배송정보 order DB에 업데이트하기 위해
-    public void updateInfo(OrderFinalInfoDto dto) {
-        // Order DB에 업데이트할 데이터 -> 배송정보(3개), 메시지, 결제방식
-        log.info("하은 주문번호={}", dto.getOrderNo());
+    public void updateInfo(Integer[] cartId, OrderFinalInfoDto dto) {
+        // Order DB에 업데이트할 데이터 -> 배송정보(3개), 메시지, 결제방식        
+        // order DB에는 cartId가 없음 -> 버튼 누르면서 생성된 orderNo, bookId로 cartId 찾아 update
+        // cartId에 맞는 userId, bookId를 찾고, 그걸로 orderNo 비교하면서 찾기
         
-        Order order = orderRepository.findById(dto.getOrderNo()).get();
-        
-        
-//        Order order = orderRepository.findById(dto.getOrderNo()).get();
-//        order.update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
-//        orderRepository.save(order);
+        for (Integer i : cartId) {
+            Cart cart = cartRepository.findById(i).get();
+            
+            log.info("하은 사용자 번호={}, 책 번호={}", cart.getUser().getId(), cart.getBook().getBookId());
+            
+            Order order = orderRepository.findByOrderNoAndUserIdAndBookBookId(dto.getOrderNo(), cart.getUser().getId(), cart.getBook().getBookId());
+            
+            log.info("하은 order 정보={}", order);
+            
+            order.update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
+            orderRepository.save(order);
+        }
+                
     }
     
     // (하은) cart -> order 넘어갈 때 페이지에 띄울 데이터 저장
-    public List<OrderFromCartDto> readByOrderNo(Integer orderNo) {
+    public List<OrderFromCartDto> readByOrderNo(Long orderNo) {
         List<Order> order =  orderRepository.findByOrderNo(orderNo);
         
         List<OrderFromCartDto> orderList = new ArrayList<>();
@@ -149,6 +160,20 @@ public class OrderService {
         }
         
         return orderList;
+    }
+    
+    @Transactional
+    // (하은) 결제창에서 결제 완료 후에는 장바구니 내역 삭제하기
+    public void deleteCart(Integer[] cartId) {
+        for (Integer i : cartId) {
+            cartRepository.deleteById(i);
+        }
+    }
+
+    @Transactional
+    // (하은) 결제창에서 결제 취소 버튼 누르면 order DB 삭제(Long 타입이라 새로 생성)
+    public void deleteInOrder(Long orderNo) {
+        orderRepository.deleteByOrderNo(orderNo);
     }
     
 }

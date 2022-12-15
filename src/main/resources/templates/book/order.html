@@ -95,6 +95,7 @@
     <tbody>
         <tr th:each="order : ${ order }">
             <td>
+                <input form="orderFinalInfo" name="cartId" th:value="${ order.cartId }" />
                 <a th:href="@{ /detail(id=${ order.id }) }">
                     <img th:src="${ order.bookImage }" alt="${ order.bookName }" style="width:200px;" />
                 </a>
@@ -112,9 +113,11 @@
         </tr>
     </tbody>
 </table>
-
-<button id="btnPay" type="button" class="w-100 btn btn-danger">결제하기</button>       
-
+<div class="row">
+    <button id="btnCancel" type="button" class="col m-2 w-50 btn btn-danger">결 제 취 소</button>       
+    <button id="btnPay" type="button" class="col m-2 w-50 btn btn-outline-danger">결 제 하 기</button> 
+</div><!-- 버튼 row end -->      
+</div><!-- 주문내역창 row end -->
 
 
     <!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
@@ -204,6 +207,14 @@
     	orderFinalInfo.action = '/orderResult';
     	orderFinalInfo.method = 'post';
     	orderFinalInfo.submit();
+    })
+    
+    // 결제취소 버튼 누르면 order DB 삭제 -> 메인으로 이동(?)
+    const btnCancel = document.querySelector('#btnCancel'); 
+    btnCancel.addEventListener('click', function() {
+        orderFinalInfo.action = '/orderCancel';
+        orderFinalInfo.method = 'post';
+        orderFinalInfo.submit();
     })
     
     </script>

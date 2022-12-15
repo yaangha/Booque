@@ -16,6 +16,7 @@ public class OrderFromCartDto {
     
     private Integer userId;
     private Integer id; // bookId
+    private Integer cartId;
     
     private Integer prices;
     private Integer count;
