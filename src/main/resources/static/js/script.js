@@ -250,34 +250,28 @@ function open_group2() {
 }
 
 
-// 사이드바 하위 메뉴
-
-/*
-                const td = btn.closest('td');
-                const span = td.querySelector('span');
-                let number = span.innerText;
-                
-                const type = btn.value;
-                if (type == '+') {
-                    number = parseInt(number) + 1;
-                } else {
-                    number = parseInt(number) - 1;
-                    if(number == 0){
-                       alert('수량은 0이하가 되지 못합니다.')
-                       return;
-                   }
-                }
-                span.innerText = number;
-*/
+// (지혜) 사이드바 Accordian 하위 메뉴 선택시 효과
 
 window.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('.btnCategory');
+    const buttons = document.querySelectorAll('.btnCategory');   // 모든 하위카테 버튼 찾기
+    const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
+    
     buttons.forEach(btn => {
         btn.addEventListener('click', e => {
             
+            buttons.forEach(others => {
+                others.className = others.className.replace(" w3-light-grey", "");  // 선택한 하위카테 외의 다른 카테는 모두 회색배경 지우기
+            });
+            
+            cateNows.forEach(others2 => {
+               others2.style.display = "none";  // 선택한 하위카테 외의 다른 카테는 모두 ▶ 표시 지우기 
+            });
+            
             const div = btn.closest('div');
             const a = div.querySelector('a');
-            a.className += " w3-light-grey";
+            const i = div.querySelector('i');
+            a.className += " w3-light-grey";    // 선택한 하위카테에만 회색배경 넣기
+            i.style.display = "inline";  // 선택한 하위카테 앞에만 ▶ 표시 붙이기
         });
     });
 });
@@ -286,10 +280,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
+// (지혜) 검색창 내려오기/닫기
+function search_open() {
+  document.getElementById("searchBar").style.display = "block";
+  document.getElementById("overlay2").style.display = "block";
+}
+ 
+function search_close() {
+  document.getElementById("searchBar").style.display = "none";
+  document.getElementById("overlay2").style.display = "none";
+}
 
 
-
-// 검색 모달창 open/close function? 담에 넣어 보기
 
 
 

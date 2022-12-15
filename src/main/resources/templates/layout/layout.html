@@ -34,6 +34,7 @@
     * {
         font-family: 'NanumBarunGothic';
     }
+    
     </style>
 
 </head>
@@ -322,6 +323,7 @@
     <a href="/" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
     BOOQUE 
     </a>
+    
         <!-- 로그인 하지 않은 상태 -->
         <th:block sec:authorize="isAnonymous()">
             <!-- 익명 사용자인 경우에 보여줄 내용 -->
@@ -344,20 +346,51 @@
                     sec:authentication="name"></span>
         </th:block>
         
-        
-        
-        
-        
-        
-        
+        <!-- 장바구니 버튼  (TODO) userId로 연결시키기 -->
+      <a th:href="@{ /cart(id=1) }" class="w3-bar-item w3-button w3-right" id="btnCart" style="color:white; margin-right:25px; margin-top:18px;">
+      <i class="fa fa-shopping-cart"></i></a>
+      
+      <!-- 검색 버튼 -->
+      <span class="w3-bar-item w3-button w3-right" style="color:white; margin-right:25px; margin-top:18px;" onclick="search_open()">
+      <i class="fa fa-search"></i></span> 
+      
     </header>
+    
+    
+    <!-- 검색 창 내려오기 -->
+    <nav class="w3-bar w3-black w3-animate-top w3-xxlarge" 
+    style="z-index:4; display:none; margin-top:40px; padding-top:80px; padding-bottom:80px;" id="searchBar">
+  <div class="w3-bar-block w3-center">
+    <form th:action="@{ /search/s }">
+    <!-- 검색 타입 -->
+    <select id="type" name="type" class="selectedType" style="height:40px; font-size:20px;">
+            <option value="all">통합검색</option>
+            <option value="do">국내도서</option>
+            <option value="fo">외국도서</option>
+            <option value="au">저자</option>
+    </select>
+      <!-- 검색어 입력 창 -->
+        <input type="search" class="searchText" style="height:40px; font-size:25px;" id="keyword" name="keyword"/>
+        <span class="underline"></span>
+      <!-- 검색 버튼 -->
+      <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
+      <i class="fa fa-search" id="btnSearch"></i></button> 
+
+   </form>
+  </div>
+</nav>
+
+<!-- 검색 창 뒷배경 오버레이, 닫기 -->
+<div class="w3-overlay" onclick="search_close()" style="cursor:pointer" title="close search menu" id="overlay2"></div>
+    
+    
 
 <!-- 사이드바 -->
 
 <nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:3; width:300px; height:100%; display:none;" id="sideBar">
 
   <div class="w3-container w3-display-container w3-padding-16" style="margin-top: 10px;  margin-left: 50px;">
-    <i onclick="w3_close()" class="fa fa-remove w3-button w3-display-topright"></i>
+    <i onclick="w3_close()" class="fa fa-remove w3-button w3-xlarge w3-display-topright"></i>
     
     <div style="margin-top: 5px; margin-bottom: 20px;">
     <!-- 로고 이미지 -->
@@ -376,40 +409,89 @@
   <a onclick="open_group0()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup0">분야별 도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group0" class="w3-bar-block w3-hide w3-padding-large w3-medium w3-show">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1">
-  <i class="cateNow fa fa-caret-right w3-margin-right" id="cateNow1" style="display:none;"></i>경제/경영</a>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-1">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2">
-  <i class="cateNow fa fa-caret-right w3-margin-right" id="cateNow2" style="display:none;"></i>인문</a>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-2">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category3">소설</a>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category4">시/에세이</a>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category5">자기계발</a>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category6">기타</a>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-3">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-4">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-5">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-6">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
+  </div>
   </div>
   
   <a onclick="open_group1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup1">국내도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-  <a href="#" class="w3-bar-item w3-button w3-light-grey">
-  <i class="fa fa-caret-right w3-margin-right"></i>전체</a>
-  <a href="#" class="w3-bar-item w3-button">경제/경영</a>
-  <a href="#" class="w3-bar-item w3-button">인문</a>
-  <a href="#" class="w3-bar-item w3-button">소설</a>
-  <a href="#" class="w3-bar-item w3-button">시/에세이</a>
-  <a href="#" class="w3-bar-item w3-button">자기계발</a>
-  <a href="#" class="w3-bar-item w3-button">기타</a>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-all">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-1">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-2">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-3">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-4">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-5">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-6">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
+  </div>
   </div>
   
   <a onclick="open_group2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup2">외국도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-  <a href="#" class="w3-bar-item w3-button w3-light-grey">
-  <i class="fa fa-caret-right w3-margin-right"></i>전체</a>
-  <a href="#" class="w3-bar-item w3-button">경제/경영</a>
-  <a href="#" class="w3-bar-item w3-button">인문</a>
-  <a href="#" class="w3-bar-item w3-button">소설</a>
-  <a href="#" class="w3-bar-item w3-button">자기계발</a>
-  <a href="#" class="w3-bar-item w3-button">기타</a>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-all">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-1">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-2">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-3">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-5">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
+  </div>
+  <div>
+  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-6">
+  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
+  </div>
   </div>
   
   </div>
@@ -431,6 +513,9 @@
     
   </div>
 </nav> <!-- 사이드바 end -->
+
+<!-- 사이드바 오픈시 뒷배경 오버레이, 닫기 -->
+<div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="overlay"></div>
 
 
 
@@ -468,44 +553,14 @@
      
 </header>
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="overlay"></div>
-
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px">
+<div class="w3-main">
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
   
+  
   <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
-
-    <p class="w3-left" id="title-menu"><b></b></p>
-  
-  
-    <form th:action="@{ /search/s }">
-    <p class="w3-right">  
-    <!-- 검색 타입 -->
-    <select name="type" class="selectedType" style="font-size:20px;">
-            <option value="all">통합검색</option>
-            <option value="do">국내도서</option>
-            <option value="fo">외국도서</option>
-            <option value="au">저자</option>
-    </select>
-      <!-- 검색어 입력 창 -->
-        <input type="text" style="height:30px;" id="keyword" name="keyword"/>
-      <!-- 검색 버튼 -->
-      <input type="submit" value="확인" />
-      <a href="javascript:void(0)" type="submit" style="color:black; margin-right:40px; margin-left:20px;">
-      <i class="fa fa-search" id="btnSearch"></i></a> 
-
-      <!-- 장바구니 버튼  (TODO) userId로 연결시키기 -->
-      <a th:href="@{ /cart(id=1) }" style="color:black; margin-right:40px;"><i class="fa fa-shopping-cart w3-margin-right" id="btnCart"></i></a>
-
-       </p>
-   </form>
-   
-   
-
   </header>
   
   <!-- Main Contents 넣는 곳 -->
@@ -528,6 +583,11 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous">
     </script>
+    
+    <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
 
 
 
