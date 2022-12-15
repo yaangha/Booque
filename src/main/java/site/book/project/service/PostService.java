@@ -2,6 +2,7 @@ package site.book.project.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 // import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Post;
+import site.book.project.domain.PostReply;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.PostReadDto;
 import site.book.project.repository.PostRepository;
+import site.book.project.repository.ReplyRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ import site.book.project.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-
+    
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -68,6 +71,7 @@ public class PostService {
         
     }
 
+    @Transactional(readOnly = true)
     public List<Post> search(String type, String keyword) {
         log.info("search(type= {} keyword={})", type, keyword);
         
@@ -89,7 +93,7 @@ public class PostService {
 
     
     // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
-
+    
 	public List<Post> findBybookId(Integer bookId) {
 	    
 	    // 오래된 순
@@ -114,4 +118,12 @@ public class PostService {
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
+	// 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
+	@Transactional
+	public Integer countPostByBookId(Integer bookId) {
+	    Integer count = 0;
+	    List<Post> list = postRepository.findByBookBookId(bookId);
+	    count = list.size();
+	    return count;
+	}
 }

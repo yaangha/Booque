@@ -266,7 +266,7 @@
                             <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
                                 <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
                             </small></div>
-                            <span class="h5" th:text="${ book.bookName }"></span><br/>
+                            <span class="h5" th:text="${ book.bookName }"></span><br id="fastReview"/>
                             <span th:text="${ book.author }"></span><br/>
                             <span th:text="${ book.prices }"></span><span>원</span>
                         </div>
@@ -278,7 +278,7 @@
         </div>
     </div>
         
-      
+        
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
