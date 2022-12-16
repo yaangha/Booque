@@ -100,13 +100,15 @@ public class SeacrhContoller {
 //                }
 //            }
             
-            // 합친 리뷰 갯수를 포함하는 bookId정보를 생성
+            // book리스트 + 리뷰개수리스트 = 합친 리뷰 갯수를 포함하는 bookId정보를 생성
             for (Book s : noPageSearchList) {
                 for (SearchListDto l : reviewCount) {
                     if (s.getBookId().equals(l.getBookId())) {
                         SearchReadDto listElement = SearchReadDto.builder().bookId(s.getBookId()).bookName(s.getBookName())
                                 .author(s.getAuthor()).publisher(s.getPublisher()).publishedDate(s.getPublishedDate())
-                                .prices(s.getPrices()).bookImage(s.getBookImage()).reviewCount(l.getReviewCount()).build();
+                                .prices(s.getPrices()).bookImage(s.getBookImage()).reviewCount(l.getReviewCount())
+                                .bookgroup(s.getBookgroup()).category(s.getCategory())
+                                .build();
                         list.add(listElement);
                     }
                 }
@@ -125,13 +127,14 @@ public class SeacrhContoller {
                 }
             });
             
-            // 리스트를 Page로 변환 - 그래야 정상적으로 페이징이됨.
+            
             // page : 요청으로 들어온 page
             // size : 한 page 당 data 갯수
 //            PageRequest pageRequest = PageRequest.of(dto.getPage(), 5);
 //            int start = (int) pageRequest.getOffset();
 //            int end = (start + pageRequest.getPageSize()) > list.size() ? list.size() : (start + pageRequest.getPageSize());
             
+            // 리스트를 Page로 변환 - 그래야 정상적으로 페이징이됨.
             int start= (int) pageable.getOffset();
             int end = Math.min((start + pageable.getPageSize()), list.size());            
             Page<SearchReadDto> reviewList = new PageImpl<>(list.subList(start, end), pageable, list.size());
@@ -175,7 +178,9 @@ public class SeacrhContoller {
                         } else {
                         listElement = SearchReadDto.builder().bookId(s.getBookId()).bookName(s.getBookName())
                                 .author(s.getAuthor()).publisher(s.getPublisher()).publishedDate(s.getPublishedDate())
-                                .prices(s.getPrices()).bookImage(s.getBookImage()).hit(h.getHit()).build();
+                                .prices(s.getPrices()).bookImage(s.getBookImage()).hit(h.getHit())
+                                .bookgroup(s.getBookgroup()).category(s.getCategory())
+                                .build();
                         list.add(listElement);
 //                        log.info("같으면 추가해주는거 빠져나가는 시점={},{}",  s.getBookId(), h.getBookId());
                         break;
@@ -184,7 +189,9 @@ public class SeacrhContoller {
                         // 검색 결과 중에 조회수 정보가 없어야하며, 리스트에도 저장이 안되어 있을 경우 hit 정보를 0으로 저장
                             listElement = SearchReadDto.builder().bookId(s.getBookId()).bookName(s.getBookName())
                                     .author(s.getAuthor()).publisher(s.getPublisher()).publishedDate(s.getPublishedDate())
-                                    .prices(s.getPrices()).bookImage(s.getBookImage()).hit(0).build();
+                                    .prices(s.getPrices()).bookImage(s.getBookImage()).hit(0)
+                                    .bookgroup(s.getBookgroup()).category(s.getCategory())
+                                    .build();
                             list.add(listElement);
 //                        log.info("다르면 추가해주는거 빠져나가는 시점={},{}",  s.getBookId(), h.getBookId());
                         continue;

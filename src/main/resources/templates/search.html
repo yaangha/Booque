@@ -38,9 +38,9 @@
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
         
-        <!-- 도서카드(가로버전) START -->
-        <div class="card" style="border: 1px solid red; padding: 20px;">
-          <table width= "100%">
+                
+        <!-- 도서 목록 START -->
+          <table class="w-100 table" style="text-align: center;">
             <tr th:if="${ #lists.isEmpty(searchList)}">
                 <td width= "20%" style="border: 1px solid blue;"></td>
                 <td width= "63%">
@@ -51,41 +51,53 @@
                 </td>
                 <td width= "17%" style="border: 1px solid blue;"></td>
             </tr>
-            <tr th:each="book : ${ searchList }" th:if="${!#lists.isEmpty(searchList)}">
-               <td width= "20%" style="border: 1px solid blue;">
-                  <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" width="150" height="220" class="img-fluid rounded-start"></a>
-               </td>
-               <td width= "63%">
-                  <table style="padding-left: 20px;">
-                    <tr><td><br/></td></tr>
-                    <tr>
-                      <td th:text= "${ book.bookName }"><span style="font-size: 18px;"><strong></strong></span></td>
-                    </tr>
-                    <tr>
-                      <td th:text="${ book.author }" width= "28%"></td>
-                      <td th:text="${ book.publisher }" width= "35%"></td>
-                      <td th:text="${ book.publishedDate }"></td>
-                    </tr>
-                    <tr>
-                     <td th:text="${book.prices}"><span style="font-size: 22px;"><strong>원</strong></span>&nbsp;(할인 10%)</td>
-                    </tr>
-                    <tr><td>판매지수</td></tr>
-                    <tr th:each="reviewCount : ${ reviewCount }">
-                      <td th:if="${ reviewCount.bookId == book.bookId }"><span><a th:href="@{ /detail?id={bookId}#fastReview (bookId = ${ book.bookId}) }" 
-                      th:text="회원리뷰+'('+${reviewCount.reviewCount}+')'"></a></span><span>&nbsp;&nbsp;★★★★☆(8.0)</span></td>
-                    </tr>
-                    <tr> 
-                      <td>오늘 주문하면 내일 도착</td>
-                    </tr>
-                    <tr><td><br/></td></tr>
-                  </table>
-               </td>
-             <td width= "17%" style="border: 1px solid blue;">
-              <button>카트 담기</button>
-             </td>
-           </tr>
-         </table>
-        </div> <!-- 도서카드(가로버전) END -->
+            
+            <thead class="table-light">
+                <tr>
+                    <th colspan="2">도서 정보</th>
+                    <th>수량</th>
+                    <th>출판 일자</th>
+                    <th>배송 정보</th>
+                    <th></th>
+                </tr>
+            </thead>            
+            <tbody style="height: 200px;">
+            <tr th:each="book : ${ searchList }" >
+                <td class="align-middle">
+                    <form id="formCheck">
+                        <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
+                    </form>
+                      <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
+                </td>
+                <td class="align-middle" style="text-align: left;"> 
+                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span  th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                            </small>
+                            <div class="h5" th:text="${ book.bookName }"></div>
+                            <div th:text="${ book.author }"></div>
+                </td>
+
+
+                <td class="align-middle">
+                            <div  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> 
+                                <small class="px-1 border border-primary rounded text-primary">p</small>
+                                <small class="text-primary">[[${ book.prices*0.05 }]]</small> 
+                            </div>
+                
+                </td>
+                <td class="align-middle">
+                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span>배송일자</span><br/>
+                            </small>
+                오늘 구매하면 <br/>
+                    내일 도착 </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">장바구니</button>
+                    <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">구매하기</button><br/>
+                </td>
+            </tr>
+        </tbody>
+        </table>
 
 
     <!-- 페이징 시작 -->
