@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig {
@@ -63,9 +64,14 @@ public class SecurityConfig {
         http.csrf().disable(); // CSRF 비활성. 새글작성 등을 다시 쓸 수 있다.
         
         // 로그인/로그아웃 관련 설정
-        http.formLogin(Customizer.withDefaults()) // Spring Security에서 제공하는 기본 Login form 사용.
-            .logout() // 로그아웃 관련 설정 시작
-            .logoutSuccessUrl("/login"); // 로그아웃 성공 후 이동할 URL 설정.
+        http.formLogin()
+        	.loginPage("/")
+        	.defaultSuccessUrl("/")
+    	.and()
+        	.logout()
+        	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        	.logoutSuccessUrl("/")
+        	.invalidateHttpSession(true);
         
         // 특정 경로(URL)에 시큐리티 적용:
         // 권한을 가지고 있는(로그인한) 사용자만 접근할 수 있는 경로
