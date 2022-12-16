@@ -2,6 +2,8 @@ package site.book.project.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,28 +19,84 @@ public class SearchService {
 
     private final SearchRepository searchRepository;
     
+    
     @Transactional(readOnly = true)
-    public List<Book> search(String type, String keyword) {
-        List<Book> list = null;
-
+    public Page<Book> search(String type, String keyword, String order, Pageable pageable){
+        Page<Book> list = null;
+        
         // 드랍 다운 검색 타입(value 속성):
-        if(type.equals("all")) { // 통합 검색
-            return list = searchRepository.unifiedSearchByKeyword(keyword);
-        }  else if (type.equals("do")) { // 국내 도서 검색
-            return list = searchRepository.domesticSearchByKeyword(keyword);
-        } else if (type.equals("fo")) { // 외국 도서 검색
-            return list = searchRepository.foreignSearchByKeyword(keyword);
-        } else if (type.equals("au")) { // 저자 검색
-            return list = searchRepository.authorSearchByKeyword(keyword);
-        }
+        
+        if (order.equals("0")) { // 정렬 기준이 없을 때
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.unifiedSearchByKeyword(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                return list = searchRepository.domesticSearchByKeyword(keyword, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                return list = searchRepository.foreignSearchByKeyword(keyword, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                return list = searchRepository.authorSearchByKeyword(keyword, pageable);
+            }
+        } else if (order.equals("highPrice")) { // 최고가순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByHighPrice(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByHighPrice(keyword, orderType, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByHighPrice(keyword, orderType, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByHighPrice(keyword, orderType, pageable);
+            }
+        } else if (order.equals("lowPrice")) { // 최저가순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByLowPrice(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByLowPrice(keyword, orderType, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByLowPrice(keyword, orderType, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByLowPrice(keyword, orderType, pageable);
+            }
+        } else if (order.equals("publishedDate")) {
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByPublishedDate(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByPublishedDate(keyword, orderType, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByPublishedDate(keyword, orderType, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByPublishedDate(keyword, orderType, pageable);
+            }
+        } 
         return list;
     }
     
+    
+    
     @Transactional(readOnly = true)
-    public List<Book> research(String type, String keyword, String order){
+    public List<Book> search(String type, String keyword, String order){
         List<Book> list = null;
-         
-        if (order.equals("highPrice")) { // 최고가순 정렬
+        
+        // 드랍 다운 검색 타입(value 속성): 리뷰순, 조회순
+        if (order.equals("0")) { // 정렬 기준이 없을 때
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.unifiedSearchByKeyword(keyword);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                return list = searchRepository.domesticSearchByKeyword(keyword);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                return list = searchRepository.foreignSearchByKeyword(keyword);
+            } else if (type.equals("au")) { // 저자 검색
+                return list = searchRepository.authorSearchByKeyword(keyword);
+            }
+        } else if (order.equals("highPrice")) { // 최고가순 정렬
             if(type.equals("all")) { // 통합 검색
                 return list = searchRepository.researchOrderAllByHighPrice(keyword);
             }  else if (type.equals("do")) { // 국내 도서 검색
@@ -87,9 +145,8 @@ public class SearchService {
             } else if (type.equals("au")) { // 저자 검색
                 return list = searchRepository.authorSearchByKeyword(keyword);
             }
-        }
-
+        } 
+        
         return list;
     }
-    
 }
