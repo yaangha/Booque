@@ -252,6 +252,7 @@ function open_group2() {
 
 // (지혜) 사이드바 Accordian 하위 메뉴 선택시 효과
 
+/*
 window.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.btnCategory');   // 모든 하위카테 버튼 찾기
     const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
@@ -274,13 +275,13 @@ window.addEventListener('DOMContentLoaded', function () {
             i.style.display = "inline";  // 선택한 하위카테 앞에만 ▶ 표시 붙이기
         });
     });
-});
+}); */
 
 
 
 // (지혜) 책 카테고리별 페이지 이동시 사이드바에 표시 효과(현재 보고 있는 카테고리 강조)
 
-/*
+
 window.addEventListener('DOMContentLoaded', function () {
     
     const url = window.location.search;
@@ -288,14 +289,20 @@ window.addEventListener('DOMContentLoaded', function () {
     const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
     
     buttons.forEach(btn => {
+        btn.className = btn.className.replace(" w3-light-grey", "");
        
        const div = btn.closest('div');
        const a = div.querySelector('a');
        const href = a.getAttribute('href');
        
+       console.log(url);
        console.log(href);
+       
+       if (('/category'+url) == href) {
+        a.className += " w3-light-grey";
+    }
         
-    }); */
+    });
     
     /*
     $('div').find('.btnCategory').each(function() {
@@ -310,9 +317,9 @@ window.addEventListener('DOMContentLoaded', function () {
         
         $(this).className += " w3-light-grey";
         console.log(this.className);
-    });
+    });*/
     
-});*/
+});
 
 
 
