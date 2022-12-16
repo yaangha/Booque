@@ -35,8 +35,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ_GEN")
     private Integer orderId; // 안써도 되지만 PK는 필요해서 넣은 것
     
+//    @Column(nullable = false) 
+//    private Integer orderNo; // 주문번호, PK아님
+    
     @Column(nullable = false) 
-    private Integer orderNo; // 주문번호, PK아님
+    private Long orderNo; // 주문번호, PK아님
     
     @ManyToOne(fetch = FetchType.LAZY)
     private User user; 
@@ -53,5 +56,30 @@ public class Order {
     @Column(nullable = false)
     private int total; 
     
+    // (하은) 컬럼 추가 -> 배송지 & 메시지 & 결제방식
+    @Column
+    private Integer postcode;
+    
+    @Column
+    private String address;
+    
+    @Column
+    private String detailAddress;
+    
+    @Column
+    private String payOption;
+    
+    @Column
+    private String message;
+    
+    // (하은) update 추가
+    public Order update(Integer postcode, String address, String detailAddress, String payOption, String message) {
+        this.postcode = postcode;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.payOption = payOption;
+        this.message = message;
+        return this;
+    }
     
 }
