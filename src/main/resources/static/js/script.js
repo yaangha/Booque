@@ -295,4 +295,3 @@ function search_close() {
 
 
 
-
