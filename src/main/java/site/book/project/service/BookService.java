@@ -47,16 +47,16 @@ public class BookService {
 		
 		for(Post p : list) {
 			sum+=p.getMyScore();
-			log.info("합계{}",sum);
 		}
 		
 		double avg = sum/(double)list.size(); 
 		
-		log.info("평균 별점{}",avg);
 		
 		avg = (Math.round(avg*10))/10.0;
+//		Book book = bookRepository.findById(bookId).get();
+//		book.builder().bookScore(avg).build();
+//		log.info("책 별점 나옴? {}", book);
 		
-		log.info("평균 별점{}",avg);
 		return avg;
 	}
 	

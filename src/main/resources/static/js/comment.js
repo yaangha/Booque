@@ -23,7 +23,7 @@
     // comment 작성 함수
     function newComment (){
         const bookId = document.querySelector('#id').value;
-        const writerId = document.querySelector('#commentWriter').value;
+    //    const writerId = document.querySelector('#commentWriter').value;
         const commentText = document.querySelector('#commentText').value;
         
         if(writerId=='' || commentText==''){
@@ -33,7 +33,7 @@
         // BookCommentRegisterDto와 동일한 key값을 넣어야지 제대로 들어감
         const data = {
             bookId: bookId,
-            writerId: writerId,
+        //    writerId: writerId,
             commentText: commentText
         }
         

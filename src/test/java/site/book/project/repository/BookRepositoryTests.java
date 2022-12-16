@@ -17,6 +17,7 @@ import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookService;
+import site.book.project.service.CategoryService;
 import site.book.project.service.PostService;
 
 @Slf4j
@@ -40,6 +41,25 @@ public class BookRepositoryTests {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired 
+	private CategoryService categoryService;
+	
+	@Test
+	public void test() {
+	    Assertions.assertNotNull(categoryService);
+	    
+	    List<Book> list = categoryService.sort("국내도서", "경제/경영");
+	    
+	    log.info("리스트 책 목록 {}", list);
+	    
+	}
+	
+	
+	
+	
 //	@Test
 //	public void test() {
 //		Assertions.assertNotNull(postRepository);
@@ -60,7 +80,7 @@ public class BookRepositoryTests {
 //		
 //	}
 	
-	@Test
+//	@Test
 	public void testComment() {
 	    // 최신순, 오래된순, 좋아요 순
 //	    Assertions.assertNotNull(bookCommentRepository);
@@ -98,14 +118,11 @@ public class BookRepositoryTests {
 //	    log.info("생성된 코멘트 아이디 {}" , commentId);
 	    
 //	    @Test
-	    public void testFindAuthor() {
-	        Assertions.assertNotNull(bookRepository);
-	        List<Book> list = bookRepository.findAllByAuthor("김영하");
-	        
-	        for (Book b : list) {
-	            log.info("bookName", b.getBookName());
-	        }
-	    
-	    }
+//	    public void testFindAuthor() {
+//	        Assertions.assertNotNull(bookRepository);
+//	        
+//	        bookService.scoreAvg(23);
+//	    
+//	    }
 	    
 }

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import lombok.val;
 import site.book.project.domain.Book;
 
-public interface SortRepository extends JpaRepository<Book, Integer> {
+public interface CategoryRepository extends JpaRepository<Book, Integer> {
     
     // (지혜) 분야별 도서 (사이드바 링크)
     List<Book> findByCategory(String category);

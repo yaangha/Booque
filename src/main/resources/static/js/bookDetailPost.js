@@ -66,15 +66,34 @@
         let str = '';
         
         for(let r of data){
+            const scoreR = Math.round(r.myScore)
+            let s ='';
+            for(let i=0; i<scoreR; i++){
+                   s += '★';
+            }
+            for(let i=0; i<5-scoreR; i++){
+                   s += '☆';
+            }
+            
+            let score = '  (평점 '+r.myScore+')'
+            
             
             str += '<div class="my-2">' 
                 + '<div class="card my-2">'
                 + '<div class="card-header">'
+           +  '<div class="my-2"> '
+           +     '<a href=" /post/detail?postId='+r.postId+'&bookId='+r.bookId+'&username='+r.writer+'"' 
                 + '<h5>' + r.writer + '</h5>'
-                + '<h5>' + r.myScore + '</h5>'
+           +   '   </a> '
+           + '  </div> '
+                
+                + '<h5>' + r.title + '</h5>'
+                + '<h5>' + s+ '</h5> <span>'+score+'</span>'
                 + '</div>'
                 + '<div class="card-body">'
-                + '<p>' + r.content + '</p>'
+                + '<div class="box">'
+                    +'<span class="postcontent">'+r.content +'</span>'
+                + '</div>'
                 + '<p> 작성시간: ' + r.createdTime + '</p>'
                 + '</div>';
             // 댓글 작성자 아이디와 로그인 사용자 아이디가 같을 때만 "수정"을 보여줌.
@@ -88,8 +107,57 @@
         
         divPost.innerHTML = str;
         
+
+        $('.box').each(function(){
+            var content = $(this).children('.postcontent');
+            var content_txt = content.text();
+            var content_txt_short = content_txt.substring(0,100)+"   ...";
+            var btn_more = $('<a href="javascript:void(0)" class="more"> <span> <br>     </span> 더보기</a>');
+
+            
+            $(this).append(btn_more);
+            
+            if(content_txt.length >= 100){
+                content.html(content_txt_short)
+                
+            }else{
+                btn_more.hide()
+            }
+            
+            btn_more.click(toggle_content);
+            // 아래 bind가 안 되는 이유는??
+            // btn_more.bind('click',toggle_content);
+
+            function toggle_content(){
+                if($(this).hasClass('short')){
+                    // 접기 상태
+                    $(this).html('     더보기');
+                    content.html(content_txt_short)
+                    $(this).removeClass('short');
+                }else{
+                    // 더보기 상태
+                    $(this).html('접기');
+                    content.html(content_txt);
+                    $(this).addClass('short');
+
+                }
+            }
+        });
         
         
+        
+        
+
+        
+
+        
+        
+    
+    
+    
+    
+    
+    
     }
     
     
