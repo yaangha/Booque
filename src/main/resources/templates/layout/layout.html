@@ -53,7 +53,7 @@
             로그인</button>
 
         <!-- Modal -->
-        <!--
+        
         <div class="modal fade" id="staticBackdrop"
             data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -79,7 +79,7 @@
                                         placeholder="아이디" required
                                         autofocus />
                                     <!-- id= document.parameter로 찾을라고 name= request parameter보낼라고 -->
-                                    <!-- 
+                                    
                                 </div>
 
                                 <div class="my-2">
@@ -96,7 +96,7 @@
                             <h6 style="color: graytext;">아이디 / 비밀번호
                                 찾기</h6>
                             <!-- TODO // -->
-                            <!-- 
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -330,9 +330,10 @@
             <a class="w3-bar-item w3-button w3-right btn nav-link" data-bs-toggle="modal"
             id="registerUser" href="#exampleModalToggle" role="button"
             style="font-size:medium; margin-top:25px; margin-right:50px;">회원가입</a>
-            <a class="w3-bar-item w3-button w3-right btn nav-link" id="btnSignIn"
-            style="font-size:medium; margin-top:25px; margin-right:20px;"
-                th:href="@{ /login }">로그인</a>
+            <a class="w3-bar-item w3-button w3-right btn nav-link" data-bs-toggle="modal"
+            id="btnSignIn" href="#staticBackdrop" role="button"
+            style="font-size:medium; margin-top:25px; margin-right:20px;">로그인</a>
+                
         </th:block>
         <!-- 로그인 한 상태 -->
         <th:block sec:authorize="isAuthenticated()">

@@ -82,32 +82,32 @@ public class UserController {
         return "redirect:/"; // 회원가입 성공 후 이동(redirect)
     }
     
-//    @GetMapping("/signin")
-//    public void signIn() {
-//        log.info("signin() GET");
-//    }
-//    
-//    @PostMapping("/signin")
-//    @ResponseBody
-//    public String doSignin(String username, String password, HttpSession session) {
-//        if (username.length() == 0) {
-//            return String.format("<script> alert('로그인 아이디를 입력해주세요.'); history.back(); </script>" );
-//        }
-//        User user = userService.getUserBySigninId(username).get();
-//        
-//        if (user == null) {
-//            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.'); history.back(); </script>", username);
-//        }
-//
-//        if (user.getPassword().equals(password) == false) {
-//            return String.format("<script> alert('비밀번호를 다시 입력해주세요.'); history.back(); </script>");
-//        }
-//
-//        session.setAttribute("loginedMemberId", user.getId());
-//
-//        return String.format("<script> alert('%s님 환영합니다.'); </script>",
-//                user.getNickName());
-//    }
+    @GetMapping("/signin")
+    public void signIn() {
+        log.info("signin() GET");
+    }
+    
+    @PostMapping("/signin")
+    @ResponseBody
+    public String doSignin(String username, String password, HttpSession session) {
+        if (username.length() == 0) {
+            return String.format("<script> alert('로그인 아이디를 입력해주세요.'); history.back(); </script>" );
+        }
+        User user = userService.getUserBySigninId(username).get();
+        
+        if (user == null) {
+            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.'); history.back(); </script>", username);
+        }
+
+        if (user.getPassword().equals(password) == false) {
+            return String.format("<script> alert('비밀번호를 다시 입력해주세요.'); history.back(); </script>");
+        }
+
+        session.setAttribute("loginedMemberId", user.getId());
+
+        return String.format("<script> alert('%s님 환영합니다.'); </script>",
+                user.getNickName());
+    }
     
 
 }

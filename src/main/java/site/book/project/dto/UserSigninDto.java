@@ -8,11 +8,11 @@ import site.book.project.domain.User;
 @Data
 public class UserSigninDto {
     
-    private String username;
-    private String password;
+    private String signinUsername;
+    private String signinPassword;
     
     public User dto() {
-        return User.builder().username(username).password(password).build();
+        return User.builder().username(signinUsername).password(signinPassword).build();
     }
 
 }
