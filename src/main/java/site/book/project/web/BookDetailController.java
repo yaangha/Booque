@@ -80,7 +80,10 @@ public class BookDetailController {
                      // unselected: 위시리스트 테이블에서 삭제한 후 하트 상태를 빈 하트로 변경
     @ResponseBody
     @GetMapping("/book/wishList")
-    public String addToWishList(Integer userId, Integer bookId) {
+    public String addToWishList(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer bookId) {
+        
+        Integer userId = userSecurityDto.getId();
+        
         log.info("addToWishList: userId={}, bookId={}", userId, bookId);
         
         String wish = bookWishService.changeWishButton(userId, bookId);

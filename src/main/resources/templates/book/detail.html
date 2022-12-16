@@ -7,69 +7,69 @@
 <div layout:fragment="content">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Book Detail</title>
-    
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-        crossorigin="anonymous" />
+	<meta charset="UTF-8">
+	<title>Book Detail</title>
+	
+	<link
+	    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	    rel="stylesheet"
+	    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	    crossorigin="anonymous" />
 
-    <style>
+	<style>
 
         * {
             font-family: 'NanumBarunGothic';
         }
         
-        /* 한줄평 좋아요 버튼 효과 */
-        .likes {
-            position: relative;
-        }
-        
-        #likeFull {
-            position: absolute;
-            top: 3px;
-            left: 5px;
-            display: none;
-        }
-        
-        #likesCount {
-            position: absolute;
-            left: 70px;
-        }
-        
-        .likes:hover #likeFull {
-            display: inline;
-        }
-        
-        .likes:hover #likeEmpty {
-            display: none;
-        }
-        
-        /* 찜(위시리스트) 버튼 효과 */
-        .wish {
-            position: relative;
-        }
-        
-        #wishFull {
-            position: absolute;
-            display: none;
-        }
-        
-        #wishText {
-            position: absolute;
-            left: 50px;
-        }
-        
-        #btnWish:hover #wishFull {
-            display: inline;
-        }
-        
-        #btnWish:hover #wishEmpty {
-            display: none;
-        }
-    </style>
+		/* 한줄평 좋아요 버튼 효과 */
+		.likes {
+		    position: relative;
+		}
+		
+		#likeFull {
+		    position: absolute;
+		    top: 3px;
+		    left: 5px;
+		    display: none;
+		}
+		
+		#likesCount {
+		    position: absolute;
+		    left: 70px;
+		}
+		
+		.likes:hover #likeFull {
+		    display: inline;
+		}
+		
+		.likes:hover #likeEmpty {
+		    display: none;
+		}
+		
+		/* 찜(위시리스트) 버튼 효과 */
+		.wish {
+		    position: relative;
+		}
+		
+		#wishFull {
+		    position: absolute;
+		    display: none;
+		}
+		
+		#wishText {
+		    position: absolute;
+		    left: 50px;
+		}
+		
+		#btnWish:hover #wishFull {
+		    display: inline;
+		}
+		
+		#btnWish:hover #wishEmpty {
+		    display: none;
+		}
+	</style>
     
 </head>
 <body>
@@ -111,10 +111,9 @@
                     <span id="starAvg"> <img alt="" src="">  </span>  <span id="score" th:text="${ score }"></span>
                 </div>
 
-                <div class="my-2"style="font-weight: bold;">
+				<div class="my-2"style="font-weight: bold;">
                     <input type="hidden" name="price" th:value="${ book.prices }"> 
-                    
-                    <span style="font-size: large;"  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></span>
+                    <span style="font-size: large;"  th:text="${ book.prices }"></span>
                     <span>원</span>
                 </div>
                 <div class="my-2"style="font-weight: bold;">
@@ -122,13 +121,8 @@
                     <span>포인트</span>
                 </div>
                 <div>
-                    <span>수량</span>
-                    <input name="count" class="w-50" type="number" value="1"/>
-                </div>
-                <div class="row"> <!-- 리뷰작성 버튼 -->
-                    <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">
-                    <input type="button" class="w-60 m-2 btn btn-dark"  value="블로그 작성하기"> 
-                    </a>
+                    <div>수량</div>
+                    <input name="count" class="w-50" type="number" min="1" />
                 </div>
                 
                 </form>
@@ -157,7 +151,6 @@
                 <button onclick="clip()" type="button" class="w-50 btn btn-dark">공유하기</button>
                 </div>
                 <button id="btnOrderNow" type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
-                
 
 
 
@@ -167,7 +160,7 @@
     
                 <div class="wish" id="wish" style="margin-top: 20px; margin-bottom: 20px;">
                     <span id="btnWish"> <img id="wishEmpty" style="width: 25px;" alt="추가" src=" /images/likeEmpty.png " /> 
-                        <img id="wishFull" style="width: 25px;" alt="취소" src=" /images/likeFull.png " />
+                    	<img id="wishFull" style="width: 25px;" alt="취소" src=" /images/likeFull.png " />
                     </span> 
                     <span id="wishText">위시리스트 담기</span>
                 </div>
@@ -179,13 +172,13 @@
             <nav id="navbar-example2" class="navbar border-bottom px-3 mb-3">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link" href="#bookInfo">도서정보</a>
+                    	<a class="nav-link" href="#bookInfo">도서정보</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#bookReview">리뷰/한줄평</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bookPayInfo">배송/반품/교환</a>
+                    	<a class="nav-link" href="#bookPayInfo">배송/반품/교환</a>
                     </li>
                 </ul>
             </nav>
@@ -211,28 +204,30 @@
                         <div class="col" th:each="book : ${ authorOtherBook }">
                             <div class="card my-2" style="width: 15rem; height:33rem">
                                 <a th:href="@{ /detail(id=${ book.bookId }) }">
-                                    <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트">
+                                	<img th:src="${ book.bookImage }" class="card-img-top" alt="테스트">
                                 </a>
                                 <div class="card-body">
-                                    <div class="card-text">
-                                        <div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                                             <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
-                                             </small>
-                                        </div>
-                                        <span class="h5" th:text="${ book.bookName }"></span><br/>
-                                        <span th:text="${ book.author }"></span><br/>
-                                        <span th:text="${ book.prices }"></span><span>원</span>
-                                    </div>
-                                </div> <!-- card body end -->
-                            </div> <!-- card end -->
-                        </div> <!-- col end -->
-                    </div> <!-- row end -->
+                					<div class="card-text">
+                    					<div><small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                        					 <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                    						 </small>
+                    					</div>
+                    					<span class="h5" th:text="${ book.bookName }"></span><br/>
+                    					<span th:text="${ book.author }"></span><br/>
+                    					<span th:text="${ book.prices }"></span><span>원</span>
+                					</div>
+            					</div> <!-- card body end -->
+        					</div> <!-- card end -->
+        				</div> <!-- col end -->
+    				</div> <!-- row end -->
                 </div>
           
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
-            <div id="bookReview" class="h4 col ">리뷰</div>
-          
+            <div id="bookReview" class="h4 col">리뷰</div>
+            <div class="col-2 my-2">
+              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">리뷰작성</a>        
+            </div>
             <!-- 최신순, 선호도 등 -->
             <div class="dropdown col">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
@@ -270,7 +265,7 @@
         <!-- 한줄평 작성하기 -->
         <div class="my-2 p-2 border">
             <div class="col-4">
-                <input class="form-control "  th:value="${ #authentication.name }" readonly />
+                <input class="form-control " id="commentWriter" type="number" placeholder="유저번호" />
             </div>
             <div class="row">
                 <div class="col-10 my-2">
@@ -319,7 +314,7 @@
         
         // 장바구니 가기
         const btnGoCart = document.querySelector('#btnGoCart');
-        btnGoCart.addEventListener('click', function () {           
+        btnGoCart.addEventListener('click', function () {        	
             addCartInfo.action = '/cart/add';
             addCartInfo.method = 'post';
             addCartInfo.submit();
@@ -335,7 +330,7 @@
         
         </script>
 
-        <script type="text/javascript">
+		<script type="text/javascript">
         // (하은) 공유하기 버튼 누르면 url 복사됨
         function clip(){
         
@@ -353,15 +348,18 @@
         const score = document.querySelector('#score').innerText
         const starAvg = document.querySelector('#starAvg')
         //if(2< score < 3){ // 5점 만점으로하면 반올림으로 숫자 표현? 별을
-            const scoreR = Math.round(score)
-            let s ='';
-            for(let i=0; i<scoreR; i++){
-                   s += '★';
-            }
-            for(let i=0; i<5-scoreR; i++){
-                   s += '☆';
-            }
-            starAvg.innerText = s;
+        	const scoreR = Math.round(score)
+        	console.log(scoreR)
+        	let s ='';
+        	for(let i=0; i<scoreR; i++){
+        		   s += '★';
+        		
+        	}
+        	for(let i=0; i<5-scoreR; i++){
+        		   s += '☆';
+        		
+        	}
+        	starAvg.innerText = s;
         //}
         
         
@@ -376,7 +374,7 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
 
-        <!-- JQuery -->
+		<!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
             crossorigin="anonymous"></script>

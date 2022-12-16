@@ -10,26 +10,23 @@
     
     function clickBtnWish () {
         
-        // 현재 로그인되어 있는 유저 아이디 찾기
-        const userId = document.querySelector('#userId').value;
         // 찜(위시리스트) 누른 책 id 찾기
         const bookId = document.querySelector('#id').value;
         // 하트 버튼 옆의 텍스트 찾기
         const wishText = document.querySelector('#wishText');
         
-        console.log("clickBtnWish: userId=" + userId + ", bookId=" + bookId);
+        console.log("clickBtnWish: bookId=" + bookId);
         
-        if (userId == undefined) {
-            alret("로그인 후 가능한 서비스입니다.");
+        //if (userId == undefined) {
+            //alret("로그인 후 가능한 서비스입니다.");
             // 로그인 모달 열기?
-            return false;
-        }
+            //return false;
+       // }
         
         $.ajax ( {
             url: "/book/wishList",
             type: "Get",
-            data: {
-                userId: userId, 
+            data: { 
                 bookId:bookId
                 },
             dataType: "text",

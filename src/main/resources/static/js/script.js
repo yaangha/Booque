@@ -278,6 +278,42 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
+// (지혜) 책 카테고리별 페이지 이동시 사이드바에 표시 효과(현재 보고 있는 카테고리 강조)
+
+/*
+window.addEventListener('DOMContentLoaded', function () {
+    
+    const url = window.location.search;
+    const buttons = document.querySelectorAll('.btnCategory');   // 모든 하위카테 버튼 찾기
+    const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
+    
+    buttons.forEach(btn => {
+       
+       const div = btn.closest('div');
+       const a = div.querySelector('a');
+       const href = a.getAttribute('href');
+       
+       console.log(href);
+        
+    }); */
+    
+    /*
+    $('div').find('.btnCategory').each(function() {
+        const this = document.querySelector($(this)).getAttribute('href');
+        alert();
+        
+        buttons.forEach(others => {
+           others.className = others.className.replace(" w3-light-grey", ""); 
+           
+           
+        });
+        
+        $(this).className += " w3-light-grey";
+        console.log(this.className);
+    });
+    
+});*/
+
 
 
 // (지혜) 검색창 내려오기/닫기
@@ -290,7 +326,6 @@ function search_close() {
   document.getElementById("searchBar").style.display = "none";
   document.getElementById("overlay2").style.display = "none";
 }
-
 
 
 

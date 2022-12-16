@@ -158,8 +158,8 @@ public class PostService {
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
-	// 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
-	@Transactional
+	// (홍찬) 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
+	@Transactional(readOnly = true)
 	public Integer countPostByBookId(Integer bookId) {
 	    Integer count = 0;
 	    List<Post> list = postRepository.findByBookBookId(bookId);

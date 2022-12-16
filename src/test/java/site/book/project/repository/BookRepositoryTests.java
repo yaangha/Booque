@@ -17,6 +17,7 @@ import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookService;
+import site.book.project.service.CategoryService;
 import site.book.project.service.PostService;
 
 @Slf4j
@@ -39,6 +40,25 @@ public class BookRepositoryTests {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired 
+	private CategoryService categoryService;
+	
+	@Test
+	public void test() {
+	    Assertions.assertNotNull(categoryService);
+	    
+	    List<Book> list = categoryService.sort("국내도서", "경제/경영");
+	    
+	    log.info("리스트 책 목록 {}", list);
+	    
+	}
+	
+	
+	
 	
 //	@Test
 //	public void test() {
