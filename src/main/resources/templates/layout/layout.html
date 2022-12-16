@@ -462,93 +462,81 @@
   
   <div class="w3-large w3-text-grey" style="margin-left: 30px; font-weight:bold">
   
-  <a href="#" class="w3-button w3-block w3-white w3-left-align" id="btnGroupAll">전체도서</a>
+  <a th:href=" @{ /category } " class="w3-button w3-block w3-white w3-left-align" id="btnGroupAll">전체도서</a>
   
   <a onclick="open_group0()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup0">분야별 도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group0" class="w3-bar-block w3-hide w3-padding-large w3-medium w3-show">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-1">
+  <a th:href=" @{ /category(category=경제)} " class="btnCategory w3-bar-item w3-button" id="category0-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-2">
+  <a th:href=" @{ /category(category=인문)} " class="btnCategory w3-bar-item w3-button" id="category0-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-3">
+  <a th:href=" @{ /category(category=소설)} " class="btnCategory w3-bar-item w3-button" id="category0-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-4">
+  <a th:href=" @{ /category(category=시)} " class="btnCategory w3-bar-item w3-button" id="category0-4">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-5">
+  <a th:href=" @{ /category(category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category0-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
   <a onclick="open_group1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup1">국내도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-all">
+  <a th:href=" @{ /category(group=국내도서)} " class="btnCategory w3-bar-item w3-button" id="category1-all">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-1">
+  <a th:href=" @{ /category(group=국내도서, category=경제)} " class="btnCategory w3-bar-item w3-button" id="category1-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-2">
+  <a th:href=" @{ /category(group=국내도서, category=인문)} " class="btnCategory w3-bar-item w3-button" id="category1-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-3">
+  <a th:href=" @{ /category(group=국내도서, category=소설)} " class="btnCategory w3-bar-item w3-button" id="category1-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-4">
+  <a th:href=" @{ /category(group=국내도서, category=시)} " class="btnCategory w3-bar-item w3-button" id="category1-4">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-5">
+  <a th:href=" @{ /category(group=국내도서, category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category1-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
   <a onclick="open_group2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup2">외국도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-all">
+  <a th:href=" @{ /category(group=외국도서)} " class="btnCategory w3-bar-item w3-button" id="category2-all">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-1">
+  <a th:href=" @{ /category(group=외국도서, category=경제)} " class="btnCategory w3-bar-item w3-button" id="category2-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-2">
+  <a th:href=" @{ /category(group=외국도서, category=인문)} " class="btnCategory w3-bar-item w3-button" id="category2-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-3">
+  <a th:href=" @{ /category(group=외국도서, category=소설)} " class="btnCategory w3-bar-item w3-button" id="category2-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-5">
+  <a th:href=" @{ /category(group=외국도서, category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category2-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
