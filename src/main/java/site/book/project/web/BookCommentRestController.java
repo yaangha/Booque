@@ -3,6 +3,7 @@ package site.book.project.web;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import site.book.project.domain.Post;
 import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
 import site.book.project.dto.PostReadDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.PostService;
 
@@ -34,10 +36,11 @@ public class BookCommentRestController {
     
   
     @PostMapping("/api/comment") // 한줄평 insert
-    public ResponseEntity<Integer> registerComment(@RequestBody BookCommentRegisterDto dto){
+    public ResponseEntity<Integer> registerComment(@RequestBody BookCommentRegisterDto dto,
+            @AuthenticationPrincipal UserSecurityDto userSecurityDto){
         log.info("한줄평 dto ={}",dto);
-        
-        Integer commentId = bookCommentService.create(dto);
+        Integer userId = userSecurityDto.getId();
+        Integer commentId = bookCommentService.create(dto, userId);
         
         
         return ResponseEntity.ok(commentId);
@@ -45,7 +48,6 @@ public class BookCommentRestController {
     
     @GetMapping("/api/comment/all/{bookId}")
     public ResponseEntity<List<BookCommentReadDto>> readAllCommentDesc(@PathVariable Integer bookId) {
-        log.info("comment여기가 바로! bookREST!!! bookId= {}", bookId);
         
         List<BookCommentReadDto> list = bookCommentService.readComment(bookId);
         
@@ -55,10 +57,8 @@ public class BookCommentRestController {
     
     @GetMapping("/api/comment/allOrderLike/{bookId}")
     public ResponseEntity<List<BookCommentReadDto>> readAllComment(@PathVariable Integer bookId) {
-        log.info("라이크 순서대로 할거임!!!!! bookId= {}", bookId);
         
         List<BookCommentReadDto> list = bookCommentService.readLikeComment(bookId);
-        log.info("라이크 순서대로 리스트 {}", list);
         
         
         return ResponseEntity.ok(list);

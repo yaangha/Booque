@@ -118,14 +118,11 @@ public class BookRepositoryTests {
 //	    log.info("생성된 코멘트 아이디 {}" , commentId);
 	    
 //	    @Test
-	    public void testFindAuthor() {
-	        Assertions.assertNotNull(bookRepository);
-	        List<Book> list = bookRepository.findAllByAuthor("김영하");
-	        
-	        for (Book b : list) {
-	            log.info("bookName", b.getBookName());
-	        }
-	    
-	    }
+//	    public void testFindAuthor() {
+//	        Assertions.assertNotNull(bookRepository);
+//	        
+//	        bookService.scoreAvg(23);
+//	    
+//	    }
 	    
 }
