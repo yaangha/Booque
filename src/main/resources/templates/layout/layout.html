@@ -556,17 +556,25 @@
    
    <hr class="w3-large w3-text-grey" />
    
-   <div class="w3-large w3-text-grey" style="margin-left: 30px; font-weight:bold">
-  
-    <!-- 로그인하지 않은 상태 -->
-    <a href="#" id="btnSignIn-side" class="w3-bar-item w3-button w3-medium">로그인</a>
-    <a href="#" id="btnSignUp-side" class="w3-bar-item w3-button w3-medium">회원가입</a>
-    
-    <br/>
-    
-    <!-- 로그인한 상태 -->
-    <a href="myPage?id=1" id="btnMyPage" class="w3-bar-item w3-button w3-medium">마이페이지</a>
-    <a href="#" id="btnSignOut" class="w3-bar-item w3-button w3-medium">로그아웃</a>
+   <div class="w3-large w3-text-grey" style="margin-top:30px; font-weight:bold">
+   
+         <!-- 로그인 하지 않은 상태 -->
+            <th:block sec:authorize="isAnonymous()">
+            <!-- 익명 사용자인 경우에 보여줄 내용 -->
+            <a class="w3-bar-item w3-button w3-large" id="btnSignIn"
+                th:href="@{ /login }"  style="padding-left:50px;">로그인</a>
+            <a class="w3-bar-item w3-button w3-large" data-bs-toggle="modal"
+            id="registerUser" href="#exampleModalToggle" role="button"  style="padding-left:50px;">회원가입</a>
+            </th:block>
+            
+        <!-- 로그인 한 상태 -->
+            <th:block sec:authorize="isAuthenticated()">
+            <!-- 로그인(인증) 됐나요? -->
+            
+            <a th:href="@{ /myPage }" id="btnMyPage" class="w3-bar-item w3-button w3-large" style="padding-left:50px;">마이페이지</a>
+            <a th:href="@{ /logout }" id="btnSignOut" class="w3-bar-item w3-button w3-large" style="padding-left:50px;">로그아웃</a>
+   
+        </th:block>
     
     
   </div>
