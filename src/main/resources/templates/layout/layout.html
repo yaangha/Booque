@@ -127,7 +127,7 @@
     <p class="w3-left" id="title-menu"><b>국내도서</b></p>
   
   
-    <form th:action="@{ /search/s }">
+    <form th:action="@{ /search/s }" th:order="0">
     <p class="w3-right">  
     <!-- 검색 타입 -->
     <select name="type" class="selectedType">
@@ -138,6 +138,7 @@
     </select>
       <!-- 검색어 입력 창 -->
         <input type="text" id="keyword" name="keyword"/>
+        <input type="hidden" id="order" name="order" value="0"/>
       <!-- 검색 버튼 -->
       <input type="submit" value="확인" />
       <a href="javascript:void(0)" type="submit" style="color:black; margin-right:40px; margin-left:20px;"><i class="fa fa-search" id="btnSearch"></i></a> 
