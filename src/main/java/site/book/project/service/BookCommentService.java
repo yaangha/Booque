@@ -25,11 +25,11 @@ public class BookCommentService {
     private final UserService userService;
     
     // dto는 bookid, comment, username밖에 없음. 그럼comment에 넣으면 다 부족함!
-    public Integer create(BookCommentRegisterDto dto) {
+    public Integer create(BookCommentRegisterDto dto, Integer userId) {
         log.info("한줄평 책 번호, 유저 번호, 글 dto {}", dto);
         
         // TODO Repository보다는 Service를 사용하는게 낫겠지? 
-        User user = userService.read(dto.getWriterId());
+        User user = userService.read(userId);
         Book book = bookRepository.findById(dto.getBookId()).get();
 //        User user = userRepository.findById(dto.getWriterId()).get();
         

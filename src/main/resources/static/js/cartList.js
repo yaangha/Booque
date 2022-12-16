@@ -22,8 +22,6 @@
         
     };
     
-    
-    
     function updateCartList(data){
         const divCart = document.querySelector('#cList')
         let str = '';
@@ -35,6 +33,7 @@
          +'<th> <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> </th>'
           +      ' <th colspan="2">도서 정보</th> '
            +   '   <th>수량</th> '
+            +  '   <th>배송비</th> '
             +   '  <th>배송정보</th> '
             +  '  <th>선택</th> '
             +  '  <th></th> '
@@ -48,7 +47,7 @@
       str  += '<tr>'
             +  '<td class="align-middle">' 
             +   ' <input type="checkbox" checked  id="ckBox" style="width: 30px;"  name="cartId" value="'+ c.cartId +'"/>' 
-            +   '<a href="/detail?id='+c.bookId+'"> <img src="' + c.image +'" style="width: 150px;"/></a>  </td>' 
+            +   '<a href="/detail?id='+c.bookId+'"><img src="' + c.image +'" style="width: 150px;"/></a>  </td>' 
             +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
             +                 '   <span>'+c.group+'</span><span> / </span><span>'+c.category+'</span>' 
@@ -71,8 +70,12 @@
             +   ' </div>' 
             +      '  <input type="button" class="btnPlusMinus"  value="+"/>' 
             +     '   <span style="width: 50px" class="count" >'+c.count +' </span>' 
-            +       ' <input type="button" class="btnPlusMinus"  value="-"/>' 
-    
+            +       ' <input type="button" class="btnPlusMinus"  value="-"/>'
+            +  '  <div class="selectPrice">' 
+            +      '  <div id="price" >' 
+            +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
+            +     '   </div>' 
+            +   ' </div>' 
             +  '  </td>' 
             +  '  <td class="align-middle">30,000원 이상<br/>' 
             +   '     배송비 무료</td>' 
@@ -96,12 +99,10 @@
             
             btn.addEventListener('click', e => {
                 const td = btn.closest('tr');
-                console.log(td)
                 const span = td.querySelector('span.count');
                 const pri = td.querySelector('span.prices'); // 변경될 값
                 const fix = td.querySelector('input#fixedPrice').value;
                 const chk = td.querySelector('#ckBox');
-                console.log(chk)
                 
                 let number = span.innerText;
                 
@@ -124,7 +125,6 @@
                     }
                     
                 }
-                console.log('수량은 변하지 않는데 값은 줄어듦')
                 span.innerText = number;
                 pri.innerText = number * parseInt(fix);
                     

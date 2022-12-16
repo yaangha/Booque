@@ -39,7 +39,7 @@ public class CartController {
     // Principal 객체가 있군 user객체 안뜰때 사용
     @GetMapping("/cart")
     public String cart(@AuthenticationPrincipal UserSecurityDto userSecurityDto,  Model model ){
-        
+        log.info("하은 테스트 {}", userSecurityDto);
         
         Integer id = userSecurityDto.getId();
         
@@ -95,9 +95,5 @@ public class CartController {
         
         return "redirect:/detail?id=" + dto.getId();
     }    
-    
-    
-    
-    
     
 }

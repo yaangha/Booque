@@ -41,25 +41,33 @@
                <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
                  <div>
                    <a href=""> 
-                     <img src="/images/루피.png"  width="200" height="280" class="img-fluid rounded-start">
+                     <img th:src="${ user.userImage }"  width="200" height="280" class="img-fluid rounded-start">
                    </a>
                  </div>
                  <br/>
-                 <div style="  padding:10px; text-align: left;">
-                   <p><strong>루피 (username)</strong></p>
-                   <p>블로그 한 줄 소개</p>
-                   <p></p>
-                 </div>
+                 
+                <div style="  padding:12px; text-align: left;">
+                 <table width="100%" >
+                 <tr style="border-bottom: 1px solid #DCDCDC;">
+                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
+                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
+                 </tr>
+                 <tr><td><br/></td></tr>
+                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
+              </table></div>
                </div><!-- 프로필 끝 -->  
+               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
+               <hr/>
+               <hr/>
                <hr/>
               <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
+              
               </td>
   
   
             <!-- 오른쪽 -->  
              <td width="80%">
-            <div style="font-size:15px; font-weight:bold; background-color: #FFFFF0; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
+            <div style="font-size:15px; font-weight:bold; background-color: #f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
               <br/> 포스트 수정/삭제 페이지&nbsp;&nbsp;
               </div>             
              
@@ -113,7 +121,7 @@
                   <tr>
                   <td>
                      <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
-                   <form id="formModify" method="post" style="border-top: 1px solid #DCDCDC;">
+                   <form id="formModify" style="border-top: 1px solid #DCDCDC;">
                      <div style="margin: 12px;">
                       <input type="hidden" id="bookId" name="bookId" th:value="${ book.bookId }" readonly>
                       <input type="hidden" id="postId" name="postId" th:value="${ post.postId }" readonly style="width: 10%;">
@@ -125,7 +133,7 @@
                        <textarea class="summernote" id="postContent" th:text="${ post.postContent }" style="border-color: white; width:100%; height: 100%;"
                                         name="postContent" required></textarea>
                      </div>
-                     <div style="padding: 5px;" align="right">
+                     <div style="padding: 5px;" align="right" th:if="${ post.postWriter } == ${ #authentication.name }">
                      <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnUpdate">수정</button>
                      <button style="margin-right: 30px; background-color: #DCDCDC;" class="btn" id="btnDelete">삭제</button>
                   
@@ -191,7 +199,6 @@
       height: 300,
       lang: "ko-KR"
     }); </script>
-  
   </div><!-- layout:fragment="content" : END -->
 
 

@@ -80,5 +80,11 @@ public class ReplyService {
         entity.update(dto.getReplyContent());
         return entity.getReplyId();
     }
+
+    // 포스트 글 삭제시 관련 리플 전부 삭제
+    @Transactional
+    public void deletePostIdWithAllReply(Integer postId) {
+        replyRepository.deletePostIdwithdAllReply(postId);
+    }
 }
 

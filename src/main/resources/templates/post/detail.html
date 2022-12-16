@@ -40,25 +40,34 @@
                <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
                  <div>
                    <a href=""> 
-                     <img src="/images/루피.png"  width="200" height="280" class="img-fluid rounded-start">
+                     <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
                    </a>
                  </div>
                  <br/>
-                 <div style="  padding:10px; text-align: left;">
-                   <p><strong>루피 (username)</strong></p>
-                   <p>블로그 한 줄 소개</p>
-                   <p></p>
-                 </div>
+                 
+                 <div style="  padding:12px; text-align: left;">
+                 <table width="100%" >
+                 <tr style="border-bottom: 1px solid #DCDCDC;">
+                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
+                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
+                 </tr>
+                 <tr><td><br/></td></tr>
+                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
+              </table></div>
+              
                </div><!-- 프로필 끝 -->  
+               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
                <hr/>
-              <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div>
+                <hr/>
+                 <hr/>
+              <div align="center"><a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}">글 전체 목록</a></div>
+              
               </td>
   
   
             <!-- 오른쪽 -->  
              <td width="80%">
-            <div style="font-size:15px; font-weight:bold; background-color: #FFFFF0; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
+            <div style="font-size:15px; font-weight:bold; background-color:#f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
               <br/> 포스트 상세 페이지&nbsp;&nbsp;
               </div>             
              
@@ -114,7 +123,7 @@
                      <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
                    <form style="border-top: 1px solid #DCDCDC;">
                      <div style="margin: 12px;">
-                      <input type="hidden" id="bookId" name="bookId" th:value="${ book.bookId }" readonly>
+                        <input type="hidden" id="userId" name="userId" th:value="${ user.Id }">
                       <input type="hidden" id="postId" name="postId" th:value="${ post.postId }" readonly style="width: 10%;">
                       <input id="title"  th:value="${ post.title }" style="width: 63%; background-color: #F5F5F5;"
                             name="title" readonly />
@@ -129,9 +138,9 @@
                      <input id="modifiedTime"  style="width: 40%;"
                             th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
                             
-                  
+                      <div th:if="${ post.postWriter } == ${ #authentication.name }">
                      <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId })}">글 편집</a>
-                  
+                     </div>
                      </div>
                    </form>
                    </div>
@@ -147,7 +156,7 @@
                     <section style="margin-left: 50px;" class="mb-3">
                         <div class="card" style="background-color:#F8F8FF; padding-left: 10px; padding-right: 10px;">
                             <div style="margin-left: 20px;" class="comment-count mt-3 publisher-nav-color">
-                            <strong><span>0</span> Reply</strong>
+                            <strong><span id="countSpan"></span> Reply</strong>
                             </div>
                             <div class="card-body">
 

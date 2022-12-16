@@ -4,7 +4,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{ layout/layout }">
 
-<div layout:fragment="content">
+<div layout:fragment="content" align="center">
 
 <head>
 	<meta charset="UTF-8">
@@ -32,24 +32,41 @@
 </head>
 
     <div>
-        <h3>슬라이드쇼 들어갈 곳!</h3>
 
 <!-- 부트스트랩 버전 -->
-<div id="carouselExampleIndicators" class="carousel slide  text-center" data-bs-ride="true" style="width: 400px;">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true" style="width: 400px; z-index:0;">
   <div class="carousel-indicators text-center">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
   </div>
   <div class="carousel-inner text-center">
     <div class="carousel-item active text-center">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" class="d-block w-100" alt="...">
+        <a href ='/detail?id=10' target='_self' title='세상의 마지막 기차역'>
+            <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" class="d-block w-100" alt="세상의 마지막 기차역" />
+        </a>
     </div>
     <div class="carousel-item text-center">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168340510.jpg" class="d-block w-100" alt="...">
+        <a href ='/detail?id=93' target='_self' title='다다다'>
+            <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" class="d-block w-100" alt="다다다" />
+        </a>
     </div>
     <div class="carousel-item text-center">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" class="d-block w-100" alt="...">
+        <a href ='/detail?id=48' target='_self' title='물고기는 존재하지 않는다'>
+            <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" class="d-block w-100" alt="물고기는 존재하지 않는다" />
+        </a>
+    </div>
+    <div class="carousel-item text-center">
+        <a href ='/detail?id=16' target='_self' title='인생의 허무를 어떻게 할 것인가'>
+            <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791167070791.jpg" class="d-block w-100" alt="인생의 허무를 어떻게 할 것인가" />
+        </a>
+    </div>
+    <div class="carousel-item text-center">
+        <a href ='/detail?id=3' target='_self' title='불편한 편의점(40만부 기념 벚꽃 에디션)'>
+            <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" class="d-block w-100" alt="불편한 편의점(40만부 기념 벚꽃 에디션)" />
+        </a>
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -60,6 +77,12 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
+
+<div class="postlist" style="margin-top:50px; margin-bottom:70px;">
+<a href='../post/list' title='리뷰(포스트) 목록 페이지' style="text-decoration:none;">
+<h3>▶ 리뷰(포스트) 목록 페이지</h3>
+</a>
 </div>
 
 
@@ -139,11 +162,14 @@
 
 
 
-        <div>
-            <h3>책 랭킹</h3>
+        <div class="ranking" style="margin-top:30px; margin-bottom:30px;">
+            <h3>책 랭킹</h3>  
+            <b><font color="brown"><h3>T</h3><h4>O</h4><h5>D</h5><h6>O...</h6></font></b>
         </div>
-        <div>
-            <h3>현재 싸움이 벌어지고 있는 리뷰</h3>
+        <div class="hotposts" style="margin-top:30px; margin-bottom:30px;">
+            <h3>현재 싸움이 벌어지고 있는 리뷰</h3>  
+            <b><font color="brown"><h3>T</h3><h4>O</h4><h5>D</h5><h6>O...</h6></font></b>
+            
         </div>
     </div>
 
