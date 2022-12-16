@@ -115,35 +115,43 @@ public class SeacrhContoller {
             return "/search";
         } else if(dto.getOrder().equals("hitCount")) { // 조회수 순 정렬
             List<BookHits> hitCount = bookHitsService.readAllBookIdHitCount();
-            for (BookHits s : hitCount) {
-                log.info("hitcount리스트 // id = {}, hit = {}", s.getBookId(),s.getHit());
-            }
-            for (Book s : searchList) {
-                log.info("서치리스트 // id = {}", s.getBookId());
-            }
+            
             List<SearchReadDto> list = new ArrayList<>();
             SearchReadDto listElement = null;
             for (Book s : searchList) {
                 for (BookHits h : hitCount) {
                     if (h.getBookId().equals(s.getBookId())) { // 검색 결과 중에 조회수 정보가 있으면 hit 정보를 그 데이터로 저장
+                        boolean isDouble = isNotDouble(s.getBookId(), list); // 값이 존재하면 DB에 있는 hit으로 바꿔 줘야하기 때문에
+                        if (isDouble == false) {
+                            isDouble = true;
+                            if (isDouble) {
+                                for (SearchReadDto t : list) {
+                                    if (t.getBookId().equals(s.getBookId())) {
+                                        t.setHit(h.getHit()); // 0으로 되어 있던 hit 순을 DB에 있는 hit으로 변경
+                                        break;
+                                    }
+                                }
+//                                log.info("같지만 0을 getHit으로 바꿔주는 시점={},{}",  s.getBookId(), h.getBookId());
+                                break;
+                            } 
+                        } else {
                         listElement = SearchReadDto.builder().bookId(s.getBookId()).bookName(s.getBookName())
                                 .author(s.getAuthor()).publisher(s.getPublisher()).publishedDate(s.getPublishedDate())
                                 .prices(s.getPrices()).bookImage(s.getBookImage()).hit(h.getHit()).build();
                         list.add(listElement);
+//                        log.info("같으면 추가해주는거 빠져나가는 시점={},{}",  s.getBookId(), h.getBookId());
                         break;
+                        }
                     }  else if (isNotDouble(s.getBookId(), list)) { 
                         // 검색 결과 중에 조회수 정보가 없어야하며, 리스트에도 저장이 안되어 있을 경우 hit 정보를 0으로 저장
                             listElement = SearchReadDto.builder().bookId(s.getBookId()).bookName(s.getBookName())
                                     .author(s.getAuthor()).publisher(s.getPublisher()).publishedDate(s.getPublishedDate())
                                     .prices(s.getPrices()).bookImage(s.getBookImage()).hit(0).build();
                             list.add(listElement);
+//                        log.info("다르면 추가해주는거 빠져나가는 시점={},{}",  s.getBookId(), h.getBookId());
                         continue;
                      }
                     }
-            }
-            
-            for (SearchReadDto s  : list) {
-                log.info("출력된 리스트{}, {}", s.getBookId(), s.getHit());
             }
             
             // 조회수 순으로 오름차순 정렬
@@ -176,7 +184,7 @@ public class SeacrhContoller {
         return "/search";
     }
     
-    // 조회수 순 리스트 중복 체크(리스트에도 저장이 안되어 있는지 체크)
+    // 조회수 순 리스트 중복 체크(리스트에도 저장이 안되어 있는지 체크) - 저장이 되어 있으면 false, 안되어 있으면 true
     public boolean isNotDouble(Integer bookId, List<SearchReadDto> compareList) {
         boolean result = true;
         List<SearchReadDto> cL = compareList;
