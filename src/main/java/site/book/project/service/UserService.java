@@ -71,7 +71,7 @@ public class UserService {
         }
     }
 
-    public String checkPw(String username, String password) {
+    public String signIn(String username, String password) {
         log.info("checkPw userid = {} password = {}", username, password);
         User user = userRepository.findByUsername(username).get();
         log.info("checkPassword user = {}", user);
@@ -86,27 +86,18 @@ public class UserService {
             return "nok";
         }
     }
+    
+    public User signinUser(UserSigninDto dto) {
+        User user = userRepository.findByUsername(dto.getSigninUsername()).get();
+        log.info("find in signinUser user = {}", user);
+        return user;
+    }
+    
+    
 
     private Boolean confirm(String password, String password2) {
         return passwordEncoder.matches(password, password2);
     }
-
-    public Optional<User> getUserBySigninId(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public List<User> read() {
-       
-        return userRepository.findAll();
-    }
-
-    public User read(String username) {
-        
-        return userRepository.findByUsername(username).get();
-    }
-
-    
-
 
 }
 

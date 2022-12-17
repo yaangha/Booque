@@ -1,22 +1,22 @@
 package site.book.project.web;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.User;
 import site.book.project.dto.UserRegisterDto;
-import site.book.project.repository.UserRepository;
+import site.book.project.dto.UserSigninDto;
 import site.book.project.service.UserService;
 
 @Slf4j
@@ -26,6 +26,7 @@ import site.book.project.service.UserService;
 public class UserController {
     
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     
     @GetMapping("/signup") 
     public void signUp() {
@@ -68,7 +69,7 @@ public class UserController {
     public ResponseEntity<String> checkPw(String username, String password) {
         log.info("username = {}, password = {}", username, password);
         
-        String result = userService.checkPw(username, password);
+        String result = userService.signIn(username, password);
         return ResponseEntity.ok(result);
     }
     
@@ -83,31 +84,34 @@ public class UserController {
     }
     
     @GetMapping("/signin")
-    public void signIn() {
+    public String signIn() {
         log.info("signin() GET");
+        return "signin";
     }
     
     @PostMapping("/signin")
     @ResponseBody
-    public String doSignin(String username, String password, HttpSession session) {
-        if (username.length() == 0) {
-            return String.format("<script> alert('로그인 아이디를 입력해주세요.'); history.back(); </script>" );
-        }
-        User user = userService.getUserBySigninId(username).get();
-        
+    public String signIn(UserSigninDto dto, HttpSession session, Model model) {
+        String dcdPw = passwordEncoder.encode(dto.getSigninPassword());
+        User user = userService.signinUser(dto);
+        log.info("사용자 정보 {}", user);
         if (user == null) {
-            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.'); history.back(); </script>", username);
+        	
+            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.');</script>", dto.getSigninUsername());
         }
 
-        if (user.getPassword().equals(password) == false) {
-            return String.format("<script> alert('비밀번호를 다시 입력해주세요.'); history.back(); </script>");
+//        if (user.getPassword().equals(dcdPw) == false) {
+//            return String.format("<script> alert('비밀번호를 다시 입력해주세요.');</script>");
+//        }
+        if (!passwordEncoder.matches(dto.getSigninPassword(), dcdPw)) {
+        	return String.format("<script> alert('비밀번호가 틀렸습니다.');</script>");
         }
 
-        session.setAttribute("loginedMemberId", user.getId());
+        
 
         return String.format("<script> alert('%s님 환영합니다.'); </script>",
                 user.getNickName());
     }
     
-
+    
 }
