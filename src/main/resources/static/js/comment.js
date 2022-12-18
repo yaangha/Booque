@@ -23,17 +23,15 @@
     // comment 작성 함수
     function newComment (){
         const bookId = document.querySelector('#id').value;
-    //    const writerId = document.querySelector('#commentWriter').value;
         const commentText = document.querySelector('#commentText').value;
         
-        if(writerId=='' || commentText==''){
+        if( commentText==''){
             alert('한줄 평을 입력해 주세여.')
             return;
         }
         // BookCommentRegisterDto와 동일한 key값을 넣어야지 제대로 들어감
         const data = {
             bookId: bookId,
-        //    writerId: writerId,
             commentText: commentText
         }
         
@@ -53,12 +51,9 @@
     
     
     function clearInputs() {
-        // 댓글 작성자 아이디는 사용자 아이디로 자동완성되기 때문에 지우면 안됨.
-        // document.querySelector('#writer').value = ''; 
         document.querySelector('#commentText').value = '';
     }
     
-    // 책 번호별 comment 테이블에서 가져올 예정
     // 최신순
     function readAllComment(){
         const bookId = document.querySelector('#id').value; // 책 번호

@@ -43,7 +43,6 @@ public class BookDetailController {
     public String detail(Integer id, 
 //            Integer userId,     // 유저 정보도 띄우기( [  ] 님이 보고 계신 책은...)
             Model model) {
-        log.info("책 상세(bookId={})",id);
         
         Book book = bookService.read(id);
         
@@ -52,11 +51,9 @@ public class BookDetailController {
         log.info("하은 author={}", book.getAuthor());
         model.addAttribute("authorOtherBook", authorOtherBook);
         
-        // POST dto 만들기(userid, postid, content, score, title) TODO
         
         // for문을 통해서 숫자를 그림으로 표현? 참고해서 고치기
-        double score = bookService.scoreAvg(id);  // 별점 저장
-        
+        double score = book.getBookScore()/10.0;
         // 책 정보 넘기기 
         model.addAttribute("book", book);
         model.addAttribute("score", score);

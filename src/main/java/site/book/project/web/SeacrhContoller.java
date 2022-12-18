@@ -75,7 +75,7 @@ public class SeacrhContoller {
     public String search() {
         log.info("MainSearch()");
         return "/search";
-    }
+    } 
     
     // 검색 기능 - 검색 결과 정렬(type, keyword를 가지고 다시 order by ?, ?부분만 원하는 order에 따라 바꿔서 검색
     @GetMapping("/s")

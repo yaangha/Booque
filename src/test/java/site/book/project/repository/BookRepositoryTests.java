@@ -49,11 +49,8 @@ public class BookRepositoryTests {
 	
 	@Test
 	public void test() {
-	    Assertions.assertNotNull(categoryService);
+	    Assertions.assertNotNull(bookService);
 	    
-	    List<Book> list = categoryService.sort("국내도서", "경제/경영");
-	    
-	    log.info("리스트 책 목록 {}", list);
 	    
 	}
 	

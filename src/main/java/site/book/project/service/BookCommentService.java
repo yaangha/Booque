@@ -41,7 +41,7 @@ public class BookCommentService {
         // 3) 유저 commentWriter를 유저 번호로 바꿈
         
         BookComment bookComment = BookComment.builder().book(book).commentContent(dto.getCommentText())
-                .user(user).likes(0) .build();
+                .user(user).likes(10) .build();
         log.info("bookcomment 객체 {} =" , bookComment);
         
         bookCommentRepository.save(bookComment);
