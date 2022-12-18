@@ -26,6 +26,7 @@ import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookHitsService;
 import site.book.project.service.CartService;
+import site.book.project.service.OrderService;
 import site.book.project.service.PostService;
 import site.book.project.service.SearchService;
 
@@ -39,9 +40,10 @@ public class SeacrhContoller {
     private final PostService postService;
     private final BookHitsService bookHitsService;
     private final CartService cartService;
+    private final OrderService orderService;
     
     /**
-     *  
+     * 검색 리스트에서 바로 장바구니로
      * @param u user객체
      * @param bookId 장바구니에 넣을 책번호
      * @return 카트로 이동? 아니 현 위치로? 하은 언니 모달창.. 
@@ -54,6 +56,17 @@ public class SeacrhContoller {
     	
     	
     	return "redirect:/cart?id=" + userId;
+    }
+    
+    @PostMapping("/order")
+    public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
+    	// TODO 오더페이지로 넘어가야함 ㅠㅠ 모르겠음 테이블엔 저장됨.
+    	Integer userId = u.getId();
+    	log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
+    	orderService.createFromSearch(userId, bookId);
+    	
+    	
+    	return "redirect:/order" ;
     }
     
     

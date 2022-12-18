@@ -3,7 +3,9 @@ package site.book.project.service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,25 +40,37 @@ public class BookService {
 		}
 		return contentList;
 	}
-//dd
+
+//	public void update(Integer bookScore, Integer) {
+//		Book entity = bookRepository
+//	}
+	
+	
+	
 	// 별점 소숫점 첫째 자리까지 완.
+	@Transactional
 	public Double scoreAvg(Integer bookId) {
-	    log.info("별점 계산 bookid={}", bookId);
 		List<Post> list =postRepository.findByBookBookId(bookId);
+		Book entity = bookRepository.findById(bookId).get();
 		Integer sum=0;
+		if(entity.getBookScore() == null) {
+			sum = 0;
+		} else {
+			sum = entity.getBookScore()/10; // bookScore는 10~50까지의 수임
+		}
 		
 		for(Post p : list) {
 			sum+=p.getMyScore();
 		}
 		
 		double avg = sum/(double)list.size(); 
+		Integer s =Integer.parseInt(Math.round(avg*10)+"");
+		
+		
+		entity.update(s);
 		
 		
 		avg = (Math.round(avg*10))/10.0;
-//		Book book = bookRepository.findById(bookId).get();
-//		book.builder().bookScore(avg).build();
-//		log.info("책 별점 나옴? {}", book);
-		
 		return avg;
 	}
 	

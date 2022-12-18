@@ -55,7 +55,7 @@ public class BookDetailController {
         // POST dto 만들기(userid, postid, content, score, title) TODO
         
         // for문을 통해서 숫자를 그림으로 표현? 참고해서 고치기
-        double score = bookService.scoreAvg(id);
+        double score = bookService.scoreAvg(id);  // 별점 저장
         
         // 책 정보 넘기기 
         model.addAttribute("book", book);
