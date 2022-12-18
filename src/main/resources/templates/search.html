@@ -6,6 +6,13 @@
 
     <div layout:fragment="content">
 <head>
+<style type="text/css">
+	#cartIcon {
+		width: 15px;
+		height: 15px;
+	}
+	
+</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -37,8 +44,11 @@
             </div>
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
-        
-                
+        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
+        <input type="button" class="btn btn-outline-secondary" value="장바구니">
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
+        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
             <tr th:if="${ #lists.isEmpty(searchList)}">
@@ -54,18 +64,21 @@
             
             <thead class="table-light">
                 <tr>
-                    <th colspan="2">도서 정보</th>
-                    <th>수량</th>
-                    <th>출판 일자</th>
-                    <th>배송 정보</th>
-                    <th></th>
+                	<th> </th>
+                    <th >도서 정보</th>
+                    <th >~~~~배송 일정~~~~</th>
+                    <th >~~~~배송 일정~~~~</th>
+                    <th >~~~~배송 일정~~~~</th>
                 </tr>
             </thead>            
             <tbody style="height: 200px;">
             <tr th:each="book : ${ searchList }" >
                 <td class="align-middle">
-                    <form id="formCheck">
+                    <form id="formCheck" >
                         <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
+                    </form>
+                    <form id="formCart" >
+                        <input type="hidden"  name="bookId" th:value="${ book.bookId}" />
                     </form>
                       <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
                 </td>
@@ -75,24 +88,28 @@
                             </small>
                             <div class="h5" th:text="${ book.bookName }"></div>
                             <div th:text="${ book.author }"></div>
+                            <div th:text="${ book.publisher }"></div>
+                            <div th:text="${ book.publishedDate }"></div>
                 </td>
 
 
                 <td class="align-middle">
-                            <div  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> 
+                            <div  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> </div>
                                 <small class="px-1 border border-primary rounded text-primary">p</small>
                                 <small class="text-primary">[[${ book.prices*0.05 }]]</small> 
-                            </div>
                 
                 </td>
                 <td class="align-middle">
                             <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
                                 <span>배송일자</span><br/>
                             </small>
-                오늘 구매하면 <br/>
-                    내일 도착 </td>
+                            <div class="h5">오늘구매하면</div>
+                            <span class="h8" id="todayD"> </span>
+                            <div>내일 도착</div>
+                </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-danger btn-sm my-2" style="width: 100px;">장바구니</button>
+                    <button type="button" class="btn btn-danger btn-sm my-2" id="btnCart"
+                    			style="width: 100px;" th:value="${ book.bookId }">장바구니</button>
                     <button type="button" class="btn btn-dark btn-sm my-2" style="width: 100px;">구매하기</button><br/>
                 </td>
             </tr>
@@ -131,6 +148,48 @@
     
     <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+        <!-- choi 배송 날짜 요일표시-->
+    <script>
+    let today = new Date();  
+    const weekday = ['일', '월', '화', '수', '목', '금', '토'];
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate()+1 // 날짜
+    let day = today.getDay()+1;  // 요일
+    let w = weekday[day];
+    
+    let todayD = document.querySelectorAll('#todayD');
+	todayD.forEach(d => {
+		d.innerText = month+'월'+date+'일'+'('+w+')';
+	})
+    
+	
+	// 장바구니 버튼 
+	const btnCarts = document.querySelectorAll('#btnCart')
+	
+	btnCarts.forEach(btn => {
+		btn.addEventListener('click', e => {
+			const tr = btn.closest('tr')
+			const form = tr.querySelector('form#formCart')
+			const result = confirm('장바구니?')
+			
+			if(result){
+	            form.action = '/search/cart';
+	            form.method = 'post';
+	            form.submit();
+				
+			}
+			
+			
+		})
+		
+	})
+	
+	
+	
+	
+	
+    </script>
     
     <!-- 조회수 증가 -->
     <script>

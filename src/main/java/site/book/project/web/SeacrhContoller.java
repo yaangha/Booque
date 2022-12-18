@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,10 @@ import site.book.project.domain.BookHits;
 import site.book.project.dto.SearchListDto;
 import site.book.project.dto.SearchQueryDataDto;
 import site.book.project.dto.SearchReadDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookHitsService;
+import site.book.project.service.CartService;
 import site.book.project.service.PostService;
 import site.book.project.service.SearchService;
 
@@ -34,6 +38,25 @@ public class SeacrhContoller {
     private final SearchService searchService;
     private final PostService postService;
     private final BookHitsService bookHitsService;
+    private final CartService cartService;
+    
+    /**
+     *  
+     * @param u user객체
+     * @param bookId 장바구니에 넣을 책번호
+     * @return 카트로 이동? 아니 현 위치로? 하은 언니 모달창.. 
+     */
+    @PostMapping("/cart")
+    public String searchCart( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
+    	Integer userId = u.getId();
+    	
+    	cartService.addCart(userId, bookId);
+    	
+    	
+    	return "redirect:/cart?id=" + userId;
+    }
+    
+    
     
     @GetMapping("")
     public String search() {
