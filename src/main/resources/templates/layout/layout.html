@@ -405,9 +405,10 @@
             </div>
    
         </th:block>
-        
+
         <!-- 장바구니 버튼 -->
       <a th:href="@{ /cart }" class="w3-bar-item w3-button  w3-right" id="btnCart" style="color:white; margin-top:18px; margin-right:10px;">
+
       <i class="fa fa-shopping-cart"></i></a>
       
       <!-- 검색 버튼 -->
@@ -417,7 +418,7 @@
     <!-- 검색 창 내려오기 -->
     <nav class="w3-black w3-animate-top w3-xxlarge" 
     style="z-index:4; display:none; margin-top:60px; padding-top:50px; padding-bottom:50px;" id="searchBar">
-  <div class="w3-bar-block w3-center">
+    <div class="w3-bar-block w3-center">
     <form th:action="@{ /search/s }">
     <!-- 검색 타입 -->
     <select id="type" name="type" class="selectedType">
@@ -428,6 +429,7 @@
     </select>
       <!-- 검색어 입력 창 -->
         <input type="search" class="searchText" id="keyword" name="keyword" />
+        <input type="hidden" id="order" name="order" value="0"/>
       <!-- 검색 버튼 -->
       <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
       <i class="fa fa-search" id="btnSearch"></i></button> 
@@ -580,9 +582,9 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
-  
-  
+
   <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
+
   </header>
   
   <!-- Main Contents 넣는 곳 -->
@@ -604,15 +606,11 @@
     <!-- (src/main/resources/templates/)  fragments 폴더 아래의 footer.html 파일 안의 footer 부분으로 여기를 대체 -->
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
+
     <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
             crossorigin="anonymous"></script>
-
-
-
-
 
 <!-- Home에 사용되는 JavaScript -->
 <script th:src="@{ /js/home.js }"></script>
