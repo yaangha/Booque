@@ -88,7 +88,7 @@ public class UserService {
     }
     
     public User signinUser(UserSigninDto dto) {
-        User user = userRepository.findByUsername(dto.getSigninUsername()).get();
+        User user = userRepository.findByUsername(dto.getUsername()).get();
         log.info("find in signinUser user = {}", user);
         return user;
     }

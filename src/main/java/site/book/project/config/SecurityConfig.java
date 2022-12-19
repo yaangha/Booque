@@ -63,11 +63,8 @@ public class SecurityConfig {
         // 기능 구현을 간단히 하기 위해서 Spring Security의 CSRF 기능을 비활성화.
         http.csrf().disable(); // CSRF 비활성. 새글작성 등을 다시 쓸 수 있다.
         http.formLogin()
-        	.loginPage("/signin")
-        	.loginProcessingUrl("/signin")
-            .defaultSuccessUrl("/");
-        
-        http.httpBasic();
+        	.loginPage("/user/signin")
+            .defaultSuccessUrl("/", true);
         
         http.logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
