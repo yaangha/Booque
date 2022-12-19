@@ -32,9 +32,20 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     
     @GetMapping("/signup") 
-    public void signUp() {
+    public String signUp() {
         log.info("signUp() GET");
+        return "./signup";
     } 
+    
+    @PostMapping("/signup")
+    public String signUp(UserRegisterDto dto) {
+        log.info("signUp(dto = {}) POST", dto);
+        
+        userService.registerUser(dto);
+       
+        
+        return "redirect:/"; // 회원가입 성공 후 이동(redirect)
+    }
     
     @GetMapping("/checkid")
     @ResponseBody 
@@ -75,47 +86,14 @@ public class UserController {
         String result = userService.signIn(username, password);
         return ResponseEntity.ok(result);
     }
-    
-    @PostMapping("/signup")
-    public String signUp(UserRegisterDto dto) {
-        log.info("signUp(dto = {}) POST", dto);
-        
-        userService.registerUser(dto);
-       
-        
-        return "redirect:/"; // 회원가입 성공 후 이동(redirect)
-    }
+
     
     @GetMapping("/signin")
     public String signIn() {
         log.info("signin() GET");
+        
         return "./signin";
     }
-    
-    
-//    @PostMapping("/signin")
-//    @ResponseBody
-//    public String signIn(UserSigninDto dto, HttpSession session, Model model) {
-//        String dcdPw = passwordEncoder.encode(dto.getSigninPassword());
-//        User user = userService.signinUser(dto);
-//        log.info("사용자 정보 {}", user);
-//        if (user == null) {
-//        	
-//            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.');</script>", dto.getSigninUsername());
-//        }
-//
-////        if (user.getPassword().equals(dcdPw) == false) {
-////            return String.format("<script> alert('비밀번호를 다시 입력해주세요.');</script>");
-////        }
-//        if (!passwordEncoder.matches(dto.getSigninPassword(), dcdPw)) {
-//        	return String.format("<script> alert('비밀번호가 틀렸습니다.');</script>");
-//        }
-//
-//        
-//
-//        return String.format("<script> alert('%s님 환영합니다.'); </script>",
-//                user.getNickName());
-//    }
     
     
 }

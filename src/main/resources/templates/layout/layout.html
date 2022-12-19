@@ -35,19 +35,260 @@
         font-family: 'NanumBarunGothic';
     }
     
+    .selectedType {
+        height:50px; 
+        font-size:20px; 
+        background-color:black; 
+        color:white;
+        border: 0;
+        margin-right:28px;
+    }
+    
+    .searchText {
+        background-color: black;
+        border: 0;
+        border-bottom: 3px solid white;
+        padding: 10px;
+        font-size:25px; 
+        color:white;
+    }
+    
+    .selectedType:focus, .searchText:focus {
+        outline:none;
+    }
+    
+    .btnTop {
+        position:fixed;
+        bottom:30px;
+        right:30px;
+        z-index:9;
+        border:1px solid darkgrey;
+        outline:none;
+        background-color:white;
+        color:black;
+        cursor:pointer;
+        padding:15px 20px;
+        border-radius:100%;
+    }
+    
+    .btnTop:hover {
+        background-color:grey;
+        color: white;
+    }
+
+    
     </style>
 
 </head>
 
 <body class="w3-content" style="max-width:2000px">
 
-
-
-
+         <!-- Modal 2 -->
+        <div class="modal fade" id="exampleModalToggle"
+            aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalToggleLabel">회원가입 페이지</h1>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="input-box my-2">
+                                <label for="signupUsername"
+                                    class="input-label">아이디</label> <input
+                                    type="text" id="signupUsername"
+                                    name="signupUsername"
+                                    class="input-item form-control"
+                                    placeholder="아이디" autofocus
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="my-2 d-none" id="nameok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-success">사용할 수 있는 아이디</p>
+                            </div>
+                            <div class="my-2 d-none" id="namenok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-danger">사용할 수 없는 아이디</p>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupPassword"
+                                    class="input-label">비밀번호</label> <input
+                                    type="password" id="signupPassword"
+                                    name="signupPassword"
+                                    class="input-item form-control"
+                                    placeholder="비밀번호"
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupEmail"
+                                    class="input-label">이메일</label> <input
+                                    type="email" id="signupEmail"
+                                    name="signupEmail"
+                                    class="input-item form-control"
+                                    placeholder="이메일"
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="my-2 d-none" id="emailok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-success">사용할 수 있는 이메일</p>
+                            </div>
+                            <div class="my-2 d-none" id="emailnok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-danger">사용할 수 없는 이메일</p>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupNickname"
+                                    class="input-label">닉네임</label> <input
+                                    type="text" id="signupNickname"
+                                    name="signupNickname"
+                                    class="input-item form-control"
+                                    placeholder="닉네임"
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="my-2 d-none" id="nickok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-success">사용할 수 있는 닉네임</p>
+                            </div>
+                            <div class="my-2 d-none" id="nicknok">
+                                <!-- d = display. 화면에 보여주지 않겠다. -->
+                                <p class="text-danger">사용할 수 없는 닉네임</p>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupName"
+                                    class="input-label">실명</label> <input
+                                    type="text" id="signupName"
+                                    name="signupName"
+                                    class="input-item form-control"
+                                    placeholder="실명"
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupPhone"
+                                    class="input-label">핸드폰번호</label> <input
+                                    type="text" id="signupPhone"
+                                    name="signupPhone"
+                                    class="input-item form-control"
+                                    placeholder="핸드폰번호"
+                                    onchange="checkValue(this);">
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="signupaddress"
+                                    class="input-label">주소</label> <input
+                                    type="text" id="signupaddress"
+                                    name="signupaddress"
+                                    class="input-item form-control"
+                                    placeholder="주소"
+                                    onchange="checkValue(this);">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">취소</button>
+                        <button id="registerConfirmBtn"
+                            class="btn btn-primary btnSubmit"
+                            data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle=""
+                            onclick="modalConfirm(this);">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalToggle2"
+            aria-hidden="true"
+            aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
+            data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalToggleLabel2">회원 정보 확인</h1>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="registerForm" action="./user/signup"
+                            method="post">
+                            <div class="input-box my-2">
+                                <label for="username"
+                                    class="input-label">아이디</label> <input
+                                    type="text" id="username"
+                                    name="username"
+                                    class="input-item form-control"
+                                    placeholder="아이디" readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="password"
+                                    class="input-label" hidden="true">비밀번호</label>
+                                <input type="password" id="password"
+                                    name="password"
+                                    class="input-item form-control"
+                                    placeholder="비밀번호" required
+                                    hidden="true" readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="email" class="input-label">이메일</label>
+                                <input type="email" id="email"
+                                    name="email"
+                                    class="input-item form-control"
+                                    placeholder="이메일" required readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="nickname"
+                                    class="input-label">닉네임</label> <input
+                                    type="text" id="nickname"
+                                    name="nickname"
+                                    class="input-item form-control"
+                                    placeholder="닉네임" required readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="name" class="input-label">실명</label>
+                                <input type="text" id="name" name="name"
+                                    class="input-item form-control"
+                                    placeholder="주소" required readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="phone" class="input-label">핸드폰번호</label>
+                                <input type="text" id="phone"
+                                    name="phone"
+                                    class="input-item form-control"
+                                    placeholder="주소" required readonly>
+                            </div>
+                            <div class="input-box my-2">
+                                <label for="address" class="input-label">주소</label>
+                                <input type="text" id="address"
+                                    name="address"
+                                    class="input-item form-control"
+                                    placeholder="주소" required readonly>
+                            </div>
+                            <hr />
+                            <div>
+                                <h6>위 정보로 회원가입을 하시겠습니까?</h6>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary"
+                            data-bs-target="#exampleModalToggle"
+                            data-bs-toggle="modal">이전</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="sendForm('register'); alertNewUser();">완료</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
 
 <!-- 상단 메뉴 바(검은색) -->
-<header id="top-menu-full-screen" class="w3-bar w3-top w3-hide-small w3-hide-medium w3-black w3-xlarge">
+<header class="w3-top">
+
+<div id="top-menu-full-screen" class="w3-bar w3-hide-small w3-hide-medium w3-black w3-xlarge">
 
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"  style="margin-left:50px;"><i class="fa fa-bars"></i></a>
     <a href="/" class="w3-bar-item w3-padding-24 w3-wide" id="logo-top" style="text-decoration-line: none; color:white; padding-left:60px;">
@@ -57,7 +298,7 @@
         <!-- 로그인 하지 않은 상태 -->
         <th:block sec:authorize="isAnonymous()">
             <!-- 익명 사용자인 경우에 보여줄 내용 -->
-            <a class="w3-bar-item w3-button w3-right btn nav-link disabled"
+            <a class="w3-bar-item w3-button w3-right btn nav-link"
             id="registerUser" href="/user/signup" role="button"
             style="font-size:medium; margin-top:25px; margin-right:50px;">회원가입</a>
             <a class="w3-bar-item w3-button w3-right btn nav-link"
@@ -68,41 +309,53 @@
         <!-- 로그인 한 상태 -->
         <th:block sec:authorize="isAuthenticated()">
             <!-- 로그인(인증) 됐나요? -->
-            <a class="w3-bar-item w3-button w3-right btn nav-link" id="btnSignOut"
-            style="font-size:medium; margin-top:25px; margin-right:20px;"
-                th:href="@{ /logout }"> 로그아웃
-            </a>
-            <span class="text-info w3-bar-item w3-right"
-                style="font-size:large; margin-top:20px; margin-right:30px;"
-                    sec:authentication="name"></span>
+
+            <!-- 회원정보 버튼(Dropdown) -->
+            <div class="w3-dropdown-hover w3-bar-item w3-right" id="btnUser" 
+            style="color:white; margin-top:8px; margin-right:50px;">
+                <button class="w3-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                    </svg>
+                </button>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="top:66px; right:66px;">
+                    <span class="w3-bar-item"
+                style="font-size:25px; color:dodgerblue; font-weight:bold; background-color:lightgrey;" 
+                sec:authentication="name"></span>
+                    <a th:href="@{ /myPage }" class="w3-bar-item w3-button" 
+                    style="font-size: 17px;">마이페이지</a>
+                    <a th:href="@{ /post/list }" class="w3-bar-item w3-button" 
+                    style="font-size: 17px;">내 블로그</a>
+                    <a th:href="@{ /logout }" class="w3-bar-item w3-button" 
+                    style="font-size: 17px;">로그아웃</a>
+                </div>
+            </div>
+   
         </th:block>
-        
-        <!-- 장바구니 버튼  (TODO) userId로 연결시키기 -->
-      <a th:href="@{ /cart(id=1) }" class="w3-bar-item w3-button w3-right" id="btnCart" style="color:white; margin-right:25px; margin-top:18px;">
+
+        <!-- 장바구니 버튼 -->
+      <a th:href="@{ /cart }" class="w3-bar-item w3-button  w3-right" id="btnCart" style="color:white; margin-top:18px; margin-right:10px;">
+
       <i class="fa fa-shopping-cart"></i></a>
       
       <!-- 검색 버튼 -->
-      <span class="w3-bar-item w3-button w3-right" style="color:white; margin-right:25px; margin-top:18px;" onclick="search_open()">
+      <span class="w3-bar-item w3-button w3-right" style="color:white; margin-top:18px; margin-right:25px;" onclick="search_open()">
       <i class="fa fa-search"></i></span> 
-      
-    </header>
-    
     
     <!-- 검색 창 내려오기 -->
-    <nav class="w3-bar w3-black w3-animate-top w3-xxlarge" 
-    style="z-index:4; display:none; margin-top:40px; padding-top:80px; padding-bottom:80px;" id="searchBar">
+    <nav class="w3-black w3-animate-top w3-xxlarge" 
+    style="z-index:4; display:none; margin-top:60px; padding-top:50px; padding-bottom:50px;" id="searchBar">
   <div class="w3-bar-block w3-center">
     <form th:action="@{ /search/s }">
     <!-- 검색 타입 -->
-    <select id="type" name="type" class="selectedType" style="height:40px; font-size:20px;">
+    <select id="type" name="type" class="selectedType">
             <option value="all">통합검색</option>
             <option value="do">국내도서</option>
             <option value="fo">외국도서</option>
             <option value="au">저자</option>
     </select>
       <!-- 검색어 입력 창 -->
-        <input type="search" class="searchText" style="height:40px; font-size:25px;" id="keyword" name="keyword"/>
-        <span class="underline"></span>
+        <input type="search" class="searchText" id="keyword" name="keyword" />
       <!-- 검색 버튼 -->
       <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
       <i class="fa fa-search" id="btnSearch"></i></button> 
@@ -113,9 +366,11 @@
 
 <!-- 검색 창 뒷배경 오버레이, 닫기 -->
 <div class="w3-overlay" onclick="search_close()" style="cursor:pointer" title="close search menu" id="overlay2"></div>
-    
-    
 
+
+</div>    
+   </header> 
+    
 <!-- 사이드바 -->
 
 <nav class="w3-bar-block w3-white w3-collapse w3-top" style="z-index:3; width:300px; height:100%; display:none;" id="sideBar">
@@ -135,93 +390,81 @@
   
   <div class="w3-large w3-text-grey" style="margin-left: 30px; font-weight:bold">
   
-  <a href="#" class="w3-button w3-block w3-white w3-left-align" id="btnGroupAll">전체도서</a>
+  <a th:href=" @{ /category } " class="w3-button w3-block w3-white w3-left-align" id="btnGroupAll">전체도서</a>
   
   <a onclick="open_group0()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup0">분야별 도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group0" class="w3-bar-block w3-hide w3-padding-large w3-medium w3-show">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-1">
+  <a th:href=" @{ /category(category=경제)} " class="btnCategory w3-bar-item w3-button" id="category0-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-2">
+  <a th:href=" @{ /category(category=인문)} " class="btnCategory w3-bar-item w3-button" id="category0-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-3">
+  <a th:href=" @{ /category(category=소설)} " class="btnCategory w3-bar-item w3-button" id="category0-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-4">
+  <a th:href=" @{ /category(category=시)} " class="btnCategory w3-bar-item w3-button" id="category0-4">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-5">
+  <a th:href=" @{ /category(category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category0-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category0-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
   <a onclick="open_group1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup1">국내도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-all">
+  <a th:href=" @{ /category(group=국내도서)} " class="btnCategory w3-bar-item w3-button" id="category1-all">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-1">
+  <a th:href=" @{ /category(group=국내도서, category=경제)} " class="btnCategory w3-bar-item w3-button" id="category1-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-2">
+  <a th:href=" @{ /category(group=국내도서, category=인문)} " class="btnCategory w3-bar-item w3-button" id="category1-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-3">
+  <a th:href=" @{ /category(group=국내도서, category=소설)} " class="btnCategory w3-bar-item w3-button" id="category1-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-4">
+  <a th:href=" @{ /category(group=국내도서, category=시)} " class="btnCategory w3-bar-item w3-button" id="category1-4">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>시/에세이</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-5">
+  <a th:href=" @{ /category(group=국내도서, category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category1-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category1-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
   <a onclick="open_group2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="btnGroup2">외국도서<i class = "fa fa-caret-down"></i> </a>
   <div id="group2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-all">
+  <a th:href=" @{ /category(group=외국도서)} " class="btnCategory w3-bar-item w3-button" id="category2-all">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>전체</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-1">
+  <a th:href=" @{ /category(group=외국도서, category=경제)} " class="btnCategory w3-bar-item w3-button" id="category2-1">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>경제/경영</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-2">
+  <a th:href=" @{ /category(group=외국도서, category=인문)} " class="btnCategory w3-bar-item w3-button" id="category2-2">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>인문</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-3">
+  <a th:href=" @{ /category(group=외국도서, category=소설)} " class="btnCategory w3-bar-item w3-button" id="category2-3">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>소설</a>
   </div>
   <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-5">
+  <a th:href=" @{ /category(group=외국도서, category=자기계발)} " class="btnCategory w3-bar-item w3-button" id="category2-5">
   <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>자기계발</a>
-  </div>
-  <div>
-  <a href="#" class="btnCategory w3-bar-item w3-button" id="category2-6">
-  <i class="cateNow fa fa-caret-right w3-margin-right" style="display:none;"></i>기타</a>
   </div>
   </div>
   
@@ -229,17 +472,25 @@
    
    <hr class="w3-large w3-text-grey" />
    
-   <div class="w3-large w3-text-grey" style="margin-left: 30px; font-weight:bold">
-  
-    <!-- 로그인하지 않은 상태 -->
-    <a href="#" id="btnSignIn-side" class="w3-bar-item w3-button w3-medium">로그인</a>
-    <a href="#" id="btnSignUp-side" class="w3-bar-item w3-button w3-medium">회원가입</a>
-    
-    <br/>
-    
-    <!-- 로그인한 상태 -->
-    <a href="myPage?id=1" id="btnMyPage" class="w3-bar-item w3-button w3-medium">마이페이지</a>
-    <a href="#" id="btnSignOut" class="w3-bar-item w3-button w3-medium">로그아웃</a>
+   <div class="w3-large w3-text-grey" style="margin-top:30px; font-weight:bold">
+   
+         <!-- 로그인 하지 않은 상태 -->
+            <th:block sec:authorize="isAnonymous()">
+            <!-- 익명 사용자인 경우에 보여줄 내용 -->
+            <a class="w3-bar-item w3-button w3-large" id="btnSignIn"
+                th:href="@{ /login }"  style="padding-left:50px;">로그인</a>
+            <a class="w3-bar-item w3-button w3-large" data-bs-toggle="modal"
+            id="registerUser" href="#exampleModalToggle" role="button"  style="padding-left:50px;">회원가입</a>
+            </th:block>
+            
+        <!-- 로그인 한 상태 -->
+            <th:block sec:authorize="isAuthenticated()">
+            <!-- 로그인(인증) 됐나요? -->
+            
+            <a th:href="@{ /myPage }" id="btnMyPage" class="w3-bar-item w3-button w3-large" style="padding-left:50px;">마이페이지</a>
+            <a th:href="@{ /logout }" id="btnSignOut" class="w3-bar-item w3-button w3-large" style="padding-left:50px;">로그아웃</a>
+   
+        </th:block>
     
     
   </div>
@@ -281,6 +532,8 @@
                 style="font-size:large; margin-top:20px; margin-right:30px;"
                     sec:authentication="name"></span>
         </th:block>
+        
+    
      
 </header>
 
@@ -290,14 +543,19 @@
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
   
-  
+
   <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
+
   </header>
   
   <!-- Main Contents 넣는 곳 -->
     <div class="container-fluid" layout:fragment = "content">
                     
     </div>
+    
+    <a href="#" class="btnTop"> <span
+        class="fa fa-arrow-up"> </span>
+    </a>
     
 </div>
 
@@ -309,20 +567,10 @@
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-            crossorigin="anonymous">
-    </script>
-    
     <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
             crossorigin="anonymous"></script>
-
-
-
-
 
 <!-- Home에 사용되는 JavaScript -->
 <script th:src="@{ /js/home.js }"></script>

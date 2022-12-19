@@ -3,6 +3,7 @@ package site.book.project.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Cart;
 import site.book.project.domain.User;
 import site.book.project.dto.OrderFromDetailDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromCartDto;
 import site.book.project.service.BookService;
@@ -63,11 +65,13 @@ public class OrderController {
            return "book/order";
       }
     
+    
     // (하은) 디테일창에서 바로 구매하기 버튼 눌러서 한 권만 구매할 때 사용
     @PostMapping("/orderFromDetail")
-    public String orderNow(OrderFromDetailDto dto, Model model) {
-                
-         Long orderNo = orderService.createFromDetail(dto);
+    public String orderNow(@AuthenticationPrincipal UserSecurityDto userSecurityDto, OrderFromDetailDto dto, Model model) {
+        
+         Integer userId =  userSecurityDto.getId();
+         Long orderNo = orderService.createFromDetail(userId, dto);
          
          List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
                  

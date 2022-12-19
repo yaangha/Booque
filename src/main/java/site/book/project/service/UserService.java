@@ -50,7 +50,7 @@ public class UserService {
         log.info("registerMember(dto = {})", dto);
         
         // 로그인 비밀번호를 암호화한 후 DB에 insert
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        dto.setSignupPassword(passwordEncoder.encode(dto.getSignupPassword()));
         User entity = userRepository.save(dto.toEntity());
         log.info("entity = {}", entity);
         
