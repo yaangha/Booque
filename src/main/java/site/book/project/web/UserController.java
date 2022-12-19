@@ -71,21 +71,14 @@ public class UserController {
         String result = userService.checkPw(username, password);
         return ResponseEntity.ok(result);
     }
+
     
-    @PostMapping("/signup")
-    public String signUp(UserRegisterDto dto) {
-        log.info("signUp(dto = {}) POST", dto);
+    @GetMapping("/signin")
+    public String signIn() {
+        log.info("signin() GET");
         
-        userService.registerUser(dto);
-       
-        
-        return "redirect:/"; // 회원가입 성공 후 이동(redirect)
+        return "./signin";
     }
-    
-//    @GetMapping("/signin")
-//    public void signIn() {
-//        log.info("signin() GET");
-//    }
 //    
 //    @PostMapping("/signin")
 //    @ResponseBody

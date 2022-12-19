@@ -19,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.BookHits;
+import site.book.project.domain.User;
+import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.SearchListDto;
 import site.book.project.dto.SearchQueryDataDto;
 import site.book.project.dto.SearchReadDto;
@@ -29,6 +31,7 @@ import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
 import site.book.project.service.PostService;
 import site.book.project.service.SearchService;
+import site.book.project.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,6 +44,7 @@ public class SeacrhContoller {
     private final BookHitsService bookHitsService;
     private final CartService cartService;
     private final OrderService orderService;
+    private final UserService userService;
     
     /**
      * 검색 리스트에서 바로 장바구니로
@@ -58,18 +62,23 @@ public class SeacrhContoller {
     	return "redirect:/cart?id=" + userId;
     }
     
+    // (은정) search -> order 작업
     @PostMapping("/order")
-    public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
-    	// TODO 오더페이지로 넘어가야함 ㅠㅠ 모르겠음 테이블엔 저장됨.
-    	Integer userId = u.getId();
-    	log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
-    	orderService.createFromSearch(userId, bookId);
-    	
-    	
-    	return "redirect:/order" ;
+    public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId, Model model) {
+        Integer userId = u.getId();
+        log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
+        Long orderNo = orderService.createFromSearch(userId, bookId);
+        
+        List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
+        
+        User user = userService.read(order.get(0).getUserId());
+        
+        model.addAttribute("order", order);
+        model.addAttribute("user", user);
+        model.addAttribute("orderNo", orderNo);
+        
+        return "book/order" ;
     }
-    
-    
     
     @GetMapping("")
     public String search() {
