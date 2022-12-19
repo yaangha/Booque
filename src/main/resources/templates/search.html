@@ -6,6 +6,13 @@
 
     <div layout:fragment="content">
 <head>
+<style type="text/css">
+	#cartIcon {
+		width: 15px;
+		height: 15px;
+	}
+	
+</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -15,19 +22,19 @@
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
-    
+        <div>총 검색된 결과 : <span th:text="${searchList.totalElements}"></span></div>
         <!-- 검색 상단바 START -->
         <div class="selectRearrange" style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
          <strong>
-          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=hitCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">인기도순</a>
-          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">신상품순</a>
-          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
-          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=hitCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">인기도순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">신상품순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
           <a href="javascript:void(0)">별점순</a>
-          <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
           </strong>
           
-          <!-- 페이징 안됨.. -->
+          
             <div align="right">
             <select id="dataPerPage">
                 <option value="10">10개씩보기</option>
@@ -37,10 +44,13 @@
             </div>
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
-        
-        <!-- 도서카드(가로버전) START -->
-        <div class="card" style="border: 1px solid red; padding: 20px;">
-          <table width= "100%">
+        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
+        <input type="button" class="btn btn-outline-secondary" value="장바구니">
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
+        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
+        <!-- 도서 목록 START -->
+          <table class="w-100 table" style="text-align: center;">
             <tr th:if="${ #lists.isEmpty(searchList)}">
                 <td width= "20%" style="border: 1px solid blue;"></td>
                 <td width= "63%">
@@ -51,56 +61,81 @@
                 </td>
                 <td width= "17%" style="border: 1px solid blue;"></td>
             </tr>
-            <tr th:each="book : ${ searchList }" th:if="${!#lists.isEmpty(searchList)}">
-               <td width= "20%" style="border: 1px solid blue;">
-                  <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" width="150" height="220" class="img-fluid rounded-start"></a>
-
-               </td>
-               <td width= "63%">
-                  <table style="padding-left: 20px;">
-                    <tr><td><br/></td></tr>
-                    <tr>
-                      <td th:text= "${ book.bookName }" style="font-size: 18px; font-weight: bold;"></td>
-                    </tr>
-                     <tr>
-                      <td th:text="${ book.author }" width= "28%"></td>
-                      <td th:text="${ book.publisher }" width= "35%"></td>
-                      <td th:text="${ book.publishedDate }"></td>
-                    </tr>
-                    <tr>
-                     <td th:text="${book.prices +'원'}" style="font-size: 20px; font-weight: bold;"></td>
-                    </tr>
-                    <tr><td>판매지수</td></tr>
-                    <tr th:each="reviewCount : ${ reviewCount }">
-                      <td th:if="${ reviewCount.bookId == book.bookId }"><span><a th:href="@{ /detail?id={bookId}#fastReview (bookId = ${ book.bookId}) }" 
-                      th:text="회원리뷰+'('+${reviewCount.reviewCount}+')'"></a></span><span>&nbsp;&nbsp;★★★★☆(8.0)</span></td>
-                    </tr>
-                    <tr> 
-                      <td>오늘 주문하면 내일 도착</td>
-                    </tr>
-                    <tr><td><br/></td></tr>
-                  </table>
-               </td>
-             <td width= "17%" style="border: 1px solid blue;">
-               <button style="margin-left: 30px; background-color:#DCDCDC;" class="btn">카트 담기</button>
-             </td>
-           </tr>
-         </table>
-        </div> <!-- 도서카드(가로버전) END -->
+            
+            <thead class="table-light">
+                <tr>
+                	<th> </th>
+                    <th >도서 정보</th>
+                    <th >~~~~배송 일정~~~~</th>
+                    <th >~~~~배송 일정~~~~</th>
+                    <th >~~~~배송 일정~~~~</th>
+                </tr>
+            </thead>            
+            <tbody style="height: 200px;">
+            <tr th:each="book : ${ searchList }" >
+                <td class="align-middle">
+                    <form id="formCheck" >
+                        <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
+                    </form>
+                    <form id="formCart" >
+                        <input type="hidden"  name="bookId" th:value="${ book.bookId}" />
+                    </form>
+                      <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
+                </td>
+                <td class="align-middle" style="text-align: left;"> 
+                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span  th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                            </small>
+                            <div class="h5" th:text="${ book.bookName }"></div>
+                            <div th:text="${ book.author }"></div>
+                            <div th:text="${ book.publisher }"></div>
+                            <div th:text="${ book.publishedDate }"></div>
+                </td>
 
 
+                <td class="align-middle">
+                            <div  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> </div>
+                                <small class="px-1 border border-primary rounded text-primary">p</small>
+                                <small class="text-primary">[[${ book.prices*0.05 }]]</small> 
+                
+                </td>
+                <td class="align-middle">
+                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                <span>배송일자</span><br/>
+                            </small>
+                            <div class="h5">오늘구매하면</div>
+                            <span class="h8" id="todayD"> </span>
+                            <div>내일 도착</div>
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-danger btn-sm my-2" id="btnCart"
+                    			style="width: 100px;" th:value="${ book.bookId }">장바구니</button>
+                    <button type="button" class="btn btn-dark btn-sm my-2" id="btnOrder"
+                    			 style="width: 100px;">구매하기</button><br/>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+
+    <!-- 페이징 시작 -->
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center" th:if="${totalPage != 0}">
-                <li class="page-item disabled"><a class="page-link">Previous</a>
+            <ul class="pagination justify-content-center" th:if="${searchList.totalPages != 0}">
+                <li class="page-item" th:classappend="${1 == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/search/s?type={type}&keyword={rekeyword}&order={reorder}
+                     (type = ${ storedType }, rekeyword = ${ storedKeyword }, reorder = ${ storedOrder }, page = ${searchList.pageable.pageNumber - 1})}">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
+                <li class="page-item" th:classappend="${i == searchList.pageable.pageNumber + 1} ? 'disabled'" 
+                    th:each="i : ${#numbers.sequence(startPage, endPage)}"><a class="page-link" th:href="@{/search/s?type={type}&keyword={rekeyword}&order={reorder}
+                     (type = ${ storedType }, rekeyword = ${ storedKeyword }, reorder = ${ storedOrder }, page = ${i - 1})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${searchList.totalPages == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/search/s?type={type}&keyword={rekeyword}&order={reorder}
+                     (type = ${ storedType }, rekeyword = ${ storedKeyword }, reorder = ${ storedOrder }, page = ${searchList.pageable.pageNumber + 1})}">Next</a>
                 </li>
             </ul>
         </nav>
-
+    <!-- 페이징 끝 -->
 
     </div> <!-- container-fluid : END -->
     <hr/>
@@ -114,6 +149,60 @@
     
     <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+        <!-- choi 배송 날짜 요일표시-->
+    <script>
+    let today = new Date();  
+    const weekday = ['일', '월', '화', '수', '목', '금', '토'];
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate()+1 // 날짜
+    let day = today.getDay()+1;  // 요일
+    let w = weekday[day];
+    
+    let todayD = document.querySelectorAll('#todayD');
+	todayD.forEach(d => {
+		d.innerText = month+'월'+date+'일'+'('+w+')';
+	})
+    
+	
+	// 장바구니 버튼 
+	const btnCarts = document.querySelectorAll('#btnCart')
+	
+	btnCarts.forEach(btn => {
+		btn.addEventListener('click', e => {
+			const tr = btn.closest('tr')
+			const form = tr.querySelector('form#formCart')
+			const result = confirm('장바구니?')
+			
+			if(result){
+	            form.action = '/search/cart';
+	            form.method = 'post';
+	            form.submit();
+			}
+		})
+	})
+	
+	const btnOrders = document.querySelectorAll('#btnOrder')
+	btnOrders.forEach(btn => {
+		btn.addEventListener('click', e => {
+			const tr = btn.closest('tr')
+			const form = tr.querySelector('form#formCart')
+			const result = confirm('바로결제?')
+			console.log(form)
+			
+			if(result){
+	            form.action = '/search/order';
+	            form.method = 'post';
+	            form.submit();
+			}
+		})
+	})
+	
+	
+	
+	
+	
+    </script>
     
     <!-- 조회수 증가 -->
     <script>

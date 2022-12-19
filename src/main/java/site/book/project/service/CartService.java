@@ -78,6 +78,19 @@ public class CartService {
     }
     
     // (하은) detail 페이지 책 cart에 저장하기 -> 추가된 행 개수 리턴
+    public void addCart(Integer userId, Integer bookId) {
+    	log.info("Id(user={}, book={})", userId, bookId);
+    	
+    	// 넘길 USER, BOOK 객체 생성        
+    	User user = userRepository.findById(userId).get();
+    	Book book = bookRepository.findById(bookId).get();
+    	
+    	Cart cart = Cart.builder().cartBookCount(1).book(book).user(user).build();
+    	
+    	cartRepository.save(cart);
+    	
+    }
+    // (하은) detail 페이지 책 cart에 저장하기 -> 추가된 행 개수 리턴
     public Integer addCart(Integer userId, Integer bookId, Integer count) {
         log.info("Id(user={}, book={})", userId, bookId);
         

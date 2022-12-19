@@ -377,7 +377,7 @@
             style="font-size:medium; margin-top:25px; margin-right:50px;">회원가입</a>
             <a class="w3-bar-item w3-button w3-right btn nav-link" id="btnSignIn"
             style="font-size:medium; margin-top:25px; margin-right:20px;"
-                th:href="@{ /login }">로그인</a>
+                href="/user/signin">로그인</a>
         </th:block>
         <!-- 로그인 한 상태 -->
         <th:block sec:authorize="isAuthenticated()">
@@ -583,7 +583,7 @@
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
 
-  <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
+  <header class="w3-container w3-xlarge" style="margin-top:100px; margin-bottom:40px;">
 
   </header>
   
@@ -612,13 +612,6 @@
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
             crossorigin="anonymous"></script>
 
-<!-- Home에 사용되는 JavaScript -->
-<script th:src="@{ /js/home.js }"></script>
-
-
-
-<th:block layout:fragment="script">
-</th:block>
 
 <!-- 상단/사이드바, 모달 등 모든 페이지에 들어가는 공통 자바스크립트 -->
 <script th:src="@{ /js/script.js }"></script>

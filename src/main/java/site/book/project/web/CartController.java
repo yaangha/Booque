@@ -65,10 +65,9 @@ public class CartController {
     
     // (하은) detail 페이지에서 cart로 넘어갈 때 사용
     @PostMapping("/cart/add")
-    public String addCart(CartAddDto dto , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
+    public String addCart(CartAddDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
         
         Integer userId = userSecurityDto.getId();
-        
         
         if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
             cartService.addCart(userId, dto.getId(), dto.getCount());
