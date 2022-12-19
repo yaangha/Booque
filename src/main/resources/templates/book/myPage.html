@@ -24,57 +24,122 @@
 <body>
 
     <!-- 상단에 프로필 넣고자(like 교보문고) -->
-    <div class="w-100 text-bg-warning" style="height:100px;">
-        <h1>프로필이미지</h1>
-    
-    </div><!-- 상단 프로필 div end -->
-    <div class="container">
-        <div class="card" align="left" style="margin:20px; width: 200px; height: 400px;"><!-- 프로필  -->
-             <div>
-                 <img th:src="${ user.userImage }" alt="null"  width="200px" height="280px" class="img-fluid rounded-start">
-             </div>
-             <br/>
-              <span>아이디</span> <input class="btn btn-secondary btn-sm " th:value="${ user.username }"  readonly>
-             <div>닉네임</div>
-             <div>닉네임</div>
-             <label for="profile" class="btn btn-outline-dark ">사진 바꾸기</label>
-             <input type="file" id="profile" accept="image/jpg" style="display:none"> 
-             <div style="  padding:12px; text-align: left;">
-    
-            </div>
-        </div><!-- 프로필 끝 -->  
-        <h4>최근 주문</h4>
-        <table class="table">
-            <thead>
-                <tr class="border-top border-4">
-                    <th>주문일</th>
-                    <th>주문내역</th>
-                    <th>주문번호</th>
-                    <th>결제금액</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2022.12.15</td>
-                    <td>어린왕자</td>
-                    <td>202212151</td>
-                    <td>15,000원</td>
-                </tr>
-                <tr>
-                    <td>2022.12.15</td>
-                    <td>어린왕자</td>
-                    <td>202212151</td>
-                    <td>15,000원</td>
-                </tr>
-            </tbody>
-        </table>
-        
-    </div>
 
 
     <div class="row"> <!-- 메인 데이터 -->
+    
         <div class="col-2 m-4 p-2" style="height:500px;">
-            <h4 class="my-2">나의 쇼핑정보</h4>
+        
+            <div class="card" align="left" style="margin:20px; width: 200px; height: 500px;"><!-- 프로필  -->
+                 <div>
+                     <img th:src="${ user.userImage }" alt="null"  width="200px" height="280px" class="img-fluid rounded-start">
+                 </div>
+                 
+        <form action="" id="profileM">
+                 <label for="profile" class="btn btn-outline-dark ">프로필 
+                    <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
+                 </label>
+                 <input type="file" id="profile" accept="image/jpg" style="display:none"> 
+                 
+                 <br/>
+                 <label class="btn">아이디</label> <input   th:value="${ user.username }"  readonly>
+                 <label class="btn">닉네임</label> <input class="btn btn-secondary"  th:value="${ user.nickName }"  >
+                 <label class="btn">이메일</label> <input class="btn btn-secondary"  th:value="${ user.email }"  >
+                 <label class="btn">번호</label> <input class="btn btn-secondary"  th:value="${ user.phone }"  >
+                 
+                 
+                 <button id="modify" class="btn"> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
+        </form>
+    
+            </div><!-- 프로필 끝 -->          
+        </div> <!-- col end -->
+        
+
+
+        <div class="col-8 container">
+            <div class="row"> <!-- 박스 div -->
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">회원등급</div>
+                </div>
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">포인트</div>
+                </div>
+                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
+                    <div class="h4 p-4">위시리스트</div>
+                </div>
+            </div> <!-- box row end -->
+
+            <h4>최근 주문</h4>
+            <table class="table">
+                <thead>
+                    <tr class="border-top border-4">
+                        <th>주문일</th>
+                        <th>주문내역</th>
+                        <th>주문번호</th>
+                        <th>결제금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                            <td>2022.12.15</td>
+                            <td>어린왕자</td>
+                            <td>202212151</td>
+                            <td>15,000원</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        
+        </div> <!-- col end -->
+
+
+    </div> <!-- (row) 메인 데이터 end -->
+    
+    <div class="row"> <!-- 2번째  -->
+    
+        <div class="col-2 m-4 p-2" style="height:500px;">
+        
+        </div>
+        
+        <div class="col-8 container">
+                    <h4>장바구니</h4>
+            <table class="table">
+                <thead>
+                    <tr class="border-top border-4">
+                        <th>주문일</th>
+                        <th>주문내역</th>
+                        <th>주문번호</th>
+                        <th>결제금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022.12.15</td>
+                        <td>어린왕자</td>
+                        <td>202212151</td>
+                        <td>15,000원</td>
+                    </tr>
+                    <tr>
+                        <td>2022.12.15</td>
+                        <td>어린왕자</td>
+                        <td>202212151</td>
+                        <td>15,000원</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        
+        </div>
+    
+
+    </div> <!-- 2row end -->
+    
+    
+    
+    <div class="row"> <!-- 3번째 row -->
+        <div class="col-2 m-4 p-2" style="height:500px;">
+                    <h4 class="my-2">나의 쇼핑정보</h4>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-secondary">주문내역조회</li>
                 <li class="list-group-item text-secondary">반품내역</li>
@@ -94,32 +159,26 @@
                 <li class="list-group-item text-secondary">공지사항</li>
                 <br/><br/>
             </ul>
-        </div> <!-- col end -->
-
+        
+        </div>
+        
         <div class="col-8 container">
-            <div class="row"> <!-- 박스 div -->
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4">회원등급</div>
-                </div>
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4">포인트</div>
-                </div>
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4">위시리스트</div>
-                </div>
-            </div> <!-- box row end -->
-
-
-
-            <h4>My WISH</h4><span>더보기>></span>
+            <h4>My WISH</h4>
             <hr/>
             <div class="m-2 border text-bg-light" style="width:200px; height:250px;"></div>
             <div>다다다</div>
             <div>김영하 작가</div>
+            <h4>My WISH</h4><span>더보기>></span>
+            <hr/>
+        
+        
+        </div>
+    
+    
+    
+    </div>
+    
 
-        </div> <!-- col end -->
-
-    </div> <!-- (row) 메인 데이터 end -->
-</body>	
+</body> 
 </div>
 </html>

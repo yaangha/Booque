@@ -36,6 +36,18 @@ public class OrderService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     
+    
+    public List<Order> readByUserId(Integer userId){
+        orderRepository.findByUserIdOrderByOrderNoDesc(userId);
+        
+        
+        return null;
+    }
+    
+    
+    
+    
+    
     public List<Order> readAll(){
         return orderRepository.findAll();
     }
