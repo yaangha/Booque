@@ -214,8 +214,8 @@ function open_group0() {
     
     if (x.className.indexOf("w3-show") == -1) {   // 해당 메뉴가 닫혀 있으면(class에 w3-show 속성이 없으면?)
         x.className += " w3-show";   // w3-show 속성을 추가해 열어 주기
-        y.className = x.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
-        z.className = x.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
+        y.className = y.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
+        z.className = z.className.replace(" w3-show", "");   // 다른 메뉴는 닫기
     } else {
         x.className = x.className.replace(" w3-show", "");   // 열려 있다면 닫아 주기(w3-show 속성 지우기)
     }
@@ -252,7 +252,6 @@ function open_group2() {
 
 // (지혜) 사이드바 Accordian 하위 메뉴 선택시 효과
 
-/*
 window.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.btnCategory');   // 모든 하위카테 버튼 찾기
     const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
@@ -275,7 +274,7 @@ window.addEventListener('DOMContentLoaded', function () {
             i.style.display = "inline";  // 선택한 하위카테 앞에만 ▶ 표시 붙이기
         });
     });
-}); */
+});
 
 
 
@@ -284,25 +283,41 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('DOMContentLoaded', function () {
     
-    const url = window.location.search;
+    const pathname = window.location.pathname;   // 주소창 '?' 앞의 pathname 찾기 (/category)
+    const url = window.location.search;  // 주소창 '/category' 뒤에 오는 텍스트 찾기(예: ?group=외국도서&category=경제)
     const buttons = document.querySelectorAll('.btnCategory');   // 모든 하위카테 버튼 찾기
     const cateNows = document.querySelectorAll('.cateNow');   // 모든 하위카테 앞의 ▶ 표시 찾기
+    const btnGroup = document.querySelectorAll('.btnGroup');  // 모든 아코디언메뉴 조상 찾기(분야별도서/국내도서/외국도서)
+    
+    buttons.forEach(others => {
+        others.className = others.className.replace(" w3-light-grey", "");   // 다른 버튼들 배경색 제거
+    });
+   
+    cateNows.forEach(others2 => {
+        others2.style.display = "none";  // 다른 버튼들 앞의 ▶ 표시 제거
+    });
     
     buttons.forEach(btn => {
-        btn.className = btn.className.replace(" w3-light-grey", "");
-       
        const div = btn.closest('div');
+       const groupdiv = div.closest('.btnGroup');
        const a = div.querySelector('a');
-       const href = a.getAttribute('href');
+       const i = div.querySelector('i');
+       const href = a.getAttribute('href');  // 선택된 버튼의 href값 찾기
        
-       console.log(url);
-       console.log(href);
+       if ((pathname+url) == href) {      // 주소창의 주소와 동일한 href 경로명을 가진 버튼 찾아서(=현재 선택된 버튼 찾아서)
        
-       if (('/category'+url) == href) {
-        a.className += " w3-light-grey";
-    }
-        
+       btnGroup.forEach(others3 => {
+       others3.className = others3.className.replace(" w3-show", "");   // 다른 열려 있는 아코디언메뉴들 접기
+        });    // 여기에 넣은 이유는, 카테가 선택되지 않는 이상 '분야별도서' 아코디언메뉴는 늘 열어놓을 것이기 때문
+       
+         a.className += " w3-light-grey";  // 배경색 강조
+         i.style.display = "inline";  // 버튼 앞에 ▶ 붙이기
+         groupdiv.className += " w3-show";  // 현재 선택된 하위카테의 아코디언 조상(분야별도서/국내도서/외국도서) 펼치기
+         document.getElementById("sideBar").style.display = "block";   // 사이드바 열어 두기(연속적으로 다른 카테 들어가기 편하도록)
+         document.getElementById("overlay").style.display = "block";
+        };
     });
+    
     
     /*
     $('div').find('.btnCategory').each(function() {
