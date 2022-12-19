@@ -52,8 +52,6 @@ public class Post extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)   // 조회수의 기본 값을 0으로 지정
     private int hit;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)   // 조회수의 기본 값을 0으로 지정
-    private int hit;
     
     public Post update(String title, String postContent) {
         this.title = title;

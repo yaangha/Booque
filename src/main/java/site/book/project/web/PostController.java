@@ -101,6 +101,10 @@ public class PostController {
       
         Post entity = postService.create(dto); 
         
+        // (홍찬) 리뷰순에서 사용할 것 - 글이 등록되기 전에
+        // BookID에 해당하는 포스트 글이 1 증가시켜주기
+        postService.countUpPostByBookId(dto.getBookId());
+        
         attrs.addFlashAttribute("createdPostId", entity.getPostId());
         attrs.addFlashAttribute("userId", dto.getUserId());
         log.info("createdPostId: entity.gePosttId()= {}", entity.getPostId());
