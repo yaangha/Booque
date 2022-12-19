@@ -101,6 +101,7 @@
                                         </td>   
                                         <td><a
                                             th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}"
+                                            th:postId="@{post.postId}" onclick="postHitUp(this.getAttribute('postId'));"
                                             th:text="${ post.title }"></a>
                                             <!--/* 앵커태그 사이에 들어갈 제목은 th:text로 넣으면 됨 */-->
                                             <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->
@@ -123,7 +124,8 @@
 
 
     
-<!-- summernote -->
+<th:block layout:fragment="script" th:inline="javascript">
+  <!-- summernote -->
   <script>
  $('.summernote').summernote({
     width:830,
@@ -131,6 +133,21 @@
       lang: "ko-KR"
     }); </script>
     
+    
+    <!-- 조회수 증가 -->
+    <script>
+    function postHitUp(postId){
+        axios.get('/postHitCount', {params: {postId : postId}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
+    </script>
+    </th:block>
   </div><!-- layout:fragment="content" : END -->
 
 

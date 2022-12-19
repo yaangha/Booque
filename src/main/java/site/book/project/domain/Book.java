@@ -64,8 +64,8 @@ public class Book {
     @Column(nullable = false)
     private String bookgroup;
     
-    @Column
-    private Integer bookScore; // 책 평점. double타입이 안되서 그냥 
+    @Builder.Default
+    private Integer bookScore = 0; // 책 평점. double타입이 안되서 그냥 
     
     public Book update(Integer bookScore) {
     	this.bookScore = bookScore;

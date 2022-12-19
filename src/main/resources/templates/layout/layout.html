@@ -418,7 +418,7 @@
     <!-- 검색 창 내려오기 -->
     <nav class="w3-black w3-animate-top w3-xxlarge" 
     style="z-index:4; display:none; margin-top:60px; padding-top:50px; padding-bottom:50px;" id="searchBar">
-  <div class="w3-bar-block w3-center">
+    <div class="w3-bar-block w3-center">
     <form th:action="@{ /search/s }">
     <!-- 검색 타입 -->
     <select id="type" name="type" class="selectedType">
@@ -429,6 +429,7 @@
     </select>
       <!-- 검색어 입력 창 -->
         <input type="search" class="searchText" id="keyword" name="keyword" />
+        <input type="hidden" id="order" name="order" value="0"/>
       <!-- 검색 버튼 -->
       <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
       <i class="fa fa-search" id="btnSearch"></i></button> 
@@ -615,32 +616,6 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:83px"></div>
-  
-
-  
-    <form th:action="@{ /search/s }" th:order="0">
-    <p class="w3-right">  
-    <!-- 검색 타입 -->
-    <select name="type" class="selectedType">
-            <option value="all">통합검색</option>
-            <option value="do">국내도서</option>
-            <option value="fo">외국도서</option>
-            <option value="au">저자</option>
-    </select>
-      <!-- 검색어 입력 창 -->
-        <input type="text" id="keyword" name="keyword"/>
-        <input type="hidden" id="order" name="order" value="0"/>
-      <!-- 검색 버튼 -->
-      <input type="submit" value="확인" />
-      <a href="javascript:void(0)" type="submit" style="color:black; margin-right:40px; margin-left:20px;"><i class="fa fa-search" id="btnSearch"></i></a> 
-
-      <!-- 장바구니 버튼  (TODO) userId로 연결시키기 -->
-      <a th:href="@{ /cart(id=1) }" style="color:black; margin-right:40px;"><i class="fa fa-shopping-cart w3-margin-right" id="btnCart"></i></a>
-
-       </p>
-   </form>
-   
-   
 
   <header class="w3-container w3-xlarge" style="margin-top:120px; margin-bottom:40px;">
 

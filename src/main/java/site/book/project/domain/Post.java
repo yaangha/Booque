@@ -49,11 +49,20 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer myScore;
 
-   
+    @Column(columnDefinition = "integer default 0", nullable = false)   // 조회수의 기본 값을 0으로 지정
+    private int hit;
+    
     public Post update(String title, String postContent) {
         this.title = title;
         this.postContent = postContent;
         
+        return this;
+    }
+    
+    public Post update(Integer postId, int hit) {
+        this.postId = postId;
+        this.hit = hit;
+                
         return this;
     }
 }
