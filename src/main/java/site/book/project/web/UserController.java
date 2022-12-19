@@ -79,6 +79,15 @@ public class UserController {
         
         return "./signin";
     }
+    
+    @PostMapping("/signup")
+    public String signUp(UserRegisterDto dto) {
+        log.info("signUp(dto={}) POST", dto);
+        userService.registerUser(dto);
+        
+        return "redirect:/";
+    }
+    
 //    
 //    @PostMapping("/signin")
 //    @ResponseBody
