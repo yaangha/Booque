@@ -79,7 +79,7 @@
 		<button id="btnOrder" type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
 	</div>
     
-    <div th:if="${ wishBookInfo } == null"><!-- test -->
+    <div th:if="${ wishBookInfo }">
 	<span class="h4" th:text="${ user.username }"></span><span> 님이 찜한 상품은?</span>
 
     <div id="carouselExampleInterval" class="p-2 carousel slide bg-light" data-bs-ride="carousel">
