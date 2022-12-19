@@ -19,6 +19,10 @@ public interface CategoryRepository extends JpaRepository<Book, Integer> {
     
     // (지혜) 국내도서/외국도서 선택 후 -> 하위 카테고리  (사이드바 링크)
     List<Book> findByBookgroupAndCategory(String group, String category);
+
+    // (홍찬) 메인에서 보여줄 Top8 & category별 & 별점순/리뷰순
+    List<Book> findTop8ByCategoryOrderByBookScoreDesc(String category);
+    List<Book> findTop8ByCategoryOrderByPostCountDesc(String category);
     
     
     
