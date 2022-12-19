@@ -43,6 +43,7 @@ public class OrderController {
           
           Cart cartFindUser = cartService.read(cartId[0]);
           User user = userService.read(cartFindUser.getUser().getId());
+          Integer total = 0;
                     
           for (Integer i : cartId) {
               Cart cart =  cartService.read(i);
@@ -56,11 +57,14 @@ public class OrderController {
               
               order.add(dto);
               
+              // total(총 상품금액)
+              total += book.getPrices() * cart.getCartBookCount();
           }
           
           model.addAttribute("order", order);
           model.addAttribute("user", user);
           model.addAttribute("orderNo", orderNo);
+          model.addAttribute("total", total);
           
            return "book/order";
       }

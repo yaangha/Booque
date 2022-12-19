@@ -99,7 +99,7 @@
                             
                 <!-- 주문내역 창 start -->
                 <div class="col m-4 py-4 px-4 border border-dark border-3">
-                <div class="h5 py-2 border-bottom border-dark">책 상품 정보 / 2권</div>
+                <div class="h5 py-2 border-bottom border-dark">책 상품 정보</div>
                 <div class="row my-2" th:each="order : ${ order }"><!-- 책 정보 row -->
                     <div class="col-4 "><!-- 책 이미지 col start -->
                     <input type="hidden" form="orderFinalInfo" name="cartId" th:value="${ order.cartId }" />
