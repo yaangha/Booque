@@ -38,10 +38,10 @@ public class OrderService {
     
     
     public List<Order> readByUserId(Integer userId){
-        orderRepository.findByUserIdOrderByOrderNoDesc(userId);
+        List<Order> list = orderRepository.findByUserIdOrderByOrderNoDesc(userId);
         
         
-        return null;
+        return list;
     }
     
     

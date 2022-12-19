@@ -1,5 +1,7 @@
 package site.book.project.web;
 
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Order;
 import site.book.project.domain.User;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.UserRepository;
@@ -28,7 +31,9 @@ public class MyPageController {
         User user = userRepository.findById(u.getId()).get();
         
         // 주문내역 확인 리스트로 가져옴. 날짜별로  최근순 
+        List<Order> orderList = orderService.readByUserId(user.getId());
         
+        model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
         
         return "/book/myPage";
