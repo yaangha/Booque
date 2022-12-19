@@ -220,7 +220,7 @@
     </div> <!-- container-fluid : END -->
     <hr/>
     
-<!-- 하은 탬플릿 -->
+<!-- 하은 탬플릿!! -->
     
 <div class="w-75 container"><!-- 메인 블록 - 삭제해도 될 듯 -->
 
@@ -271,24 +271,74 @@
         </tbody>
     </table>
     
-    <p>고독을 사랑한 청년 니체(nietzsche, Friedrich Wilhelm 1844~1900)가 1883년에 저작한 책 <짜라투스트라는 이렇게 말했다>. 40세를 전후하던 니체의 사상을 엿볼 수 있다. 
-        여기서 그는 '신의 죽음'을 말하며 지상의 의의를 설파했고, '영원 회귀'로 삶의 긍정에 대한 개념을 밝혔으며, '초인'의 이상을 가르쳤다. 
-        초인은 모든 고뇌와 죽음을 초극한 니체의 이상적 인간상이다. -옮긴이의 말 中 고독을 사랑한 청년 니체(nietzsche, Friedrich Wilhelm 1844~1900)가 1883년에 저작한 책 <짜라투스트라는 이렇게 말했다>. 40세를 전후하던 니체의 사상을 엿볼 수 있다. 
-        여기서 그는 '신의 죽음'을 말하며 지상의 의의를 설파했고, '영원 회귀'로 삶의 긍정에 대한 개념을 밝혔으며, '초인'의 이상을 가르쳤다. 
-        초인은 모든 고뇌와 죽음을 초극한 니체의 이상적 인간상이다. -옮긴이의 말 中 고독을 사랑한 청년 니체(nietzsche, Friedrich Wilhelm 1844~1900)가 1883년에 저작한 책 <짜라투스트라는 이렇게 말했다>. 40세를 전후하던 니체의 사상을 엿볼 수 있다. 
-        여기서 그는 '신의 죽음'을 말하며 지상의 의의를 설파했고, '영원 회귀'로 삶의 긍정에 대한 개념을 밝혔으며, '초인'의 이상을 가르쳤다. 
-        초인은 모든 고뇌와 죽음을 초극한 니체의 이상적 인간상이다. -옮긴이의 말 中 고독을 사랑한 청년 니체(nietzsche, Friedrich Wilhelm 1844~1900)가 1883년에 저작한 책 <짜라투스트라는 이렇게 말했다>. 40세를 전후하던 니체의 사상을 엿볼 수 있다. 
-        여기서 그는 '신의 죽음'을 말하며 지상의 의의를 설파했고, '영원 회귀'로 삶의 긍정에 대한 개념을 밝혔으며, '초인'의 이상을 가르쳤다. 
-        초인은 모든 고뇌와 죽음을 초극한 니체의 이상적 인간상이다. -옮긴이의 말 中 고독을 사랑한 청년 니체(nietzsche, Friedrich Wilhelm 1844~1900)가 1883년에 저작한 책 <짜라투스트라는 이렇게 말했다>. 40세를 전후하던 니체의 사상을 엿볼 수 있다. 
-        여기서 그는 '신의 죽음'을 말하며 지상의 의의를 설파했고, '영원 회귀'로 삶의 긍정에 대한 개념을 밝혔으며, '초인'의 이상을 가르쳤다. 
-        초인은 모든 고뇌와 죽음을 초극한 니체의 이상적 인간상이다. -옮긴이의 말 中</p>
-    
-    <div class="mb-2">댓글 <span style="color: red;">0</span></div>
-    
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="로그인 후 댓글을 남겨보세요!" aria-label="로그인 후 댓글을 남겨보세요!" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">작성</button>
+    <p th:text="${ post.postContent }"></p>
+    <div th:if="${ post.postWriter } == ${ #authentication.name }">
+        <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId })}">편집하기</a>
     </div>
+    
+    <!-- 댓글 리스트 -->
+    <div id="replies"></div>
+    
+    <!-- 댓글 부분 블록 -->
+    <div style="text-align: left;">
+        <div class="mb-2">Reply <span style="color: red;">0</span></div>
+        <input type="text" class="w-100 form-control m-2" placeholder="로그인 후 댓글을 남겨보세요!" />
+        <button class="w3-button w3-teal w3-round-large m-2" type="button" id="button-addon2">작성</button>
+    </div>
+    
+    
+<!-- 댓글 작성폼 & 리스트 폼 -->
+<div style="text-align: left;">
+    <div class="mb-2">
+        <strong><span id="countSpan"></span>Reply </strong><span style="color: red;">0</span>
+    </div>
+
+<!-- Comment form-->
+<!-- 프로필 정보 -->
+<div  style="margin-left: 4px;" class="profile">
+    <!-- #########링크 수정하기######### -->
+    <a href=#><img src="/images/프로필.jfif" class="img-fluid rounded-start" style="width: 30px; height: 30px;" alt=""></a>
+    <input class="form-control" type="text" id="replyWriter" />
+</div>
+                <form>
+                    <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
+                    <div align="right" style="padding-right: 10px;"> <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button></div>
+                </form>
+</div>
+                    
+    
+    
+    
+    <!-- 댓글 수정 & 삭제 모달창-->
+    <div class="modal" id="postRepModal" tabindex="-1"
+        aria-labelledby="replyModalLabel" aria-hidden="true">
+        <div class="postRepModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">댓글 수정하기</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="modalReplyId" readonly/>
+                        <input type="hidden" id="modalReplyWriter" readonly/>
+                        <textarea id="modalReplyContent"
+                            class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalBtnUpdate"
+                            class="btn btn-primary">수정</button>
+                        <button type="button" id="modalBtnDelete"
+                            class="btn btn-primary">삭제</button>
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">취소</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- 댓글 수정 & 삭제 모달창 끝  -->
     
     <!-- 리스트 탬플릿에 있는 목록 코드 복붙..! -->
     
