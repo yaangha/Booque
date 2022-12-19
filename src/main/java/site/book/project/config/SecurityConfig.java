@@ -3,6 +3,9 @@ package site.book.project.config;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.web.SecurityFilterChain;
@@ -11,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class SecurityConfig {
     @Bean // 스프링 컨텍스트에서 생성, 관리하는 객체 - 필요한 곳에 의존성 주입. <bean></bean>같은.
@@ -59,10 +63,13 @@ public class SecurityConfig {
         // 기능 구현을 간단히 하기 위해서 Spring Security의 CSRF 기능을 비활성화.
         http.csrf().disable(); // CSRF 비활성. 새글작성 등을 다시 쓸 수 있다.
         http.formLogin()
-        	.loginPage("/user/signin")
-            .defaultSuccessUrl("/")
-        .and()
-            .logout()
+        	.loginPage("/signin")
+        	.loginProcessingUrl("/signin")
+            .defaultSuccessUrl("/");
+        
+        http.httpBasic();
+        
+        http.logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/")
             .invalidateHttpSession(true);
@@ -83,6 +90,11 @@ public class SecurityConfig {
         // => (2) 각각의 컨트롤러 메서드에 @PreAuthorize (이전) 또는 @PostAuthorize (이후) 애너테이션을 사용.
         
         return http.build();
+    }
+    
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
     
 }

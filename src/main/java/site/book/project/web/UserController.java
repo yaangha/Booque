@@ -1,5 +1,7 @@
 package site.book.project.web;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -86,32 +89,33 @@ public class UserController {
     @GetMapping("/signin")
     public String signIn() {
         log.info("signin() GET");
-        return "signin";
+        return "./signin";
     }
     
-    @PostMapping("/signin")
-    @ResponseBody
-    public String signIn(UserSigninDto dto, HttpSession session, Model model) {
-        String dcdPw = passwordEncoder.encode(dto.getSigninPassword());
-        User user = userService.signinUser(dto);
-        log.info("사용자 정보 {}", user);
-        if (user == null) {
-        	
-            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.');</script>", dto.getSigninUsername());
-        }
-
-//        if (user.getPassword().equals(dcdPw) == false) {
-//            return String.format("<script> alert('비밀번호를 다시 입력해주세요.');</script>");
+    
+//    @PostMapping("/signin")
+//    @ResponseBody
+//    public String signIn(UserSigninDto dto, HttpSession session, Model model) {
+//        String dcdPw = passwordEncoder.encode(dto.getSigninPassword());
+//        User user = userService.signinUser(dto);
+//        log.info("사용자 정보 {}", user);
+//        if (user == null) {
+//        	
+//            return String.format("<script> alert('%s은(는) 존재하지 않는 로그인 아이디 입니다.');</script>", dto.getSigninUsername());
 //        }
-        if (!passwordEncoder.matches(dto.getSigninPassword(), dcdPw)) {
-        	return String.format("<script> alert('비밀번호가 틀렸습니다.');</script>");
-        }
-
-        
-
-        return String.format("<script> alert('%s님 환영합니다.'); </script>",
-                user.getNickName());
-    }
+//
+////        if (user.getPassword().equals(dcdPw) == false) {
+////            return String.format("<script> alert('비밀번호를 다시 입력해주세요.');</script>");
+////        }
+//        if (!passwordEncoder.matches(dto.getSigninPassword(), dcdPw)) {
+//        	return String.format("<script> alert('비밀번호가 틀렸습니다.');</script>");
+//        }
+//
+//        
+//
+//        return String.format("<script> alert('%s님 환영합니다.'); </script>",
+//                user.getNickName());
+//    }
     
     
 }
