@@ -24,9 +24,53 @@
 <body>
 
     <!-- 상단에 프로필 넣고자(like 교보문고) -->
-    <div class="w-100 text-bg-warning" style="height:200px;">
+    <div class="w-100 text-bg-warning" style="height:100px;">
         <h1>프로필이미지</h1>
+    
     </div><!-- 상단 프로필 div end -->
+    <div class="container">
+        <div class="card" align="left" style="margin:20px; width: 200px; height: 400px;"><!-- 프로필  -->
+             <div>
+                 <img th:src="${ user.userImage }" alt="null"  width="200px" height="280px" class="img-fluid rounded-start">
+             </div>
+             <br/>
+              <span>아이디</span> <input class="btn btn-secondary btn-sm " th:value="${ user.username }"  readonly>
+             <div>닉네임</div>
+             <div>닉네임</div>
+             <label for="profile" class="btn btn-outline-dark ">사진 바꾸기</label>
+             <input type="file" id="profile" accept="image/jpg" style="display:none"> 
+             <div style="  padding:12px; text-align: left;">
+    
+            </div>
+        </div><!-- 프로필 끝 -->  
+        <h4>최근 주문</h4>
+        <table class="table">
+            <thead>
+                <tr class="border-top border-4">
+                    <th>주문일</th>
+                    <th>주문내역</th>
+                    <th>주문번호</th>
+                    <th>결제금액</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2022.12.15</td>
+                    <td>어린왕자</td>
+                    <td>202212151</td>
+                    <td>15,000원</td>
+                </tr>
+                <tr>
+                    <td>2022.12.15</td>
+                    <td>어린왕자</td>
+                    <td>202212151</td>
+                    <td>15,000원</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+
 
     <div class="row"> <!-- 메인 데이터 -->
         <div class="col-2 m-4 p-2" style="height:500px;">
@@ -65,31 +109,7 @@
                 </div>
             </div> <!-- box row end -->
 
-            <h4>최근 주문</h4>
-            <table class="table">
-                <thead>
-                    <tr class="border-top border-4">
-                        <th>주문일</th>
-                        <th>주문내역</th>
-                        <th>주문번호</th>
-                        <th>결제금액</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2022.12.15</td>
-                        <td>어린왕자</td>
-                        <td>202212151</td>
-                        <td>15,000원</td>
-                    </tr>
-                    <tr>
-                        <td>2022.12.15</td>
-                        <td>어린왕자</td>
-                        <td>202212151</td>
-                        <td>15,000원</td>
-                    </tr>
-                </tbody>
-            </table>
+
 
             <h4>My WISH</h4><span>더보기>></span>
             <hr/>
