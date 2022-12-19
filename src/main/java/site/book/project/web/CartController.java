@@ -69,7 +69,6 @@ public class CartController {
         
         Integer userId = userSecurityDto.getId();
         
-        
         if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
             cartService.addCart(userId, dto.getId(), dto.getCount());
         } else { // 사용자 있으면 update

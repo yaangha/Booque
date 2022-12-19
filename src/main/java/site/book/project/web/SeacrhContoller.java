@@ -8,22 +8,30 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.BookHits;
+import site.book.project.domain.User;
+import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.SearchListDto;
 import site.book.project.dto.SearchQueryDataDto;
 import site.book.project.dto.SearchReadDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookHitsService;
+import site.book.project.service.CartService;
+import site.book.project.service.OrderService;
 import site.book.project.service.PostService;
 import site.book.project.service.SearchService;
+import site.book.project.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,12 +42,49 @@ public class SeacrhContoller {
     private final SearchService searchService;
     private final PostService postService;
     private final BookHitsService bookHitsService;
+    private final CartService cartService;
+    private final OrderService orderService;
+    private final UserService userService;
+    
+    /**
+     * 검색 리스트에서 바로 장바구니로
+     * @param u user객체
+     * @param bookId 장바구니에 넣을 책번호
+     * @return 카트로 이동? 아니 현 위치로? 하은 언니 모달창.. 
+     */
+    @PostMapping("/cart")
+    public String searchCart( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
+    	Integer userId = u.getId();
+    	
+    	cartService.addCart(userId, bookId);
+    	
+    	
+    	return "redirect:/cart?id=" + userId;
+    }
+    
+    // (은정) search -> order 작업
+    @PostMapping("/order")
+    public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId, Model model) {
+        Integer userId = u.getId();
+        log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
+        Long orderNo = orderService.createFromSearch(userId, bookId);
+        
+        List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
+        
+        User user = userService.read(order.get(0).getUserId());
+        
+        model.addAttribute("order", order);
+        model.addAttribute("user", user);
+        model.addAttribute("orderNo", orderNo);
+        
+        return "book/order" ;
+    }
     
     @GetMapping("")
     public String search() {
         log.info("MainSearch()");
         return "/search";
-    }
+    } 
     
     // 검색 기능 - 검색 결과 정렬(type, keyword를 가지고 다시 order by ?, ?부분만 원하는 order에 따라 바꿔서 검색
     @GetMapping("/s")
