@@ -75,26 +75,26 @@
                    s += '☆';
             }
             
-            let score = '  (평점 '+r.myScore+')'
+            let score = '  (별점 '+r.myScore+')'
             
             
             str += '<div class="my-2">' 
                 + '<div class="card my-2">'
                 + '<div class="card-header">'
            +  '<div class="my-2"> '
-           +     '<a href=" /post/detail?postId='+r.postId+'&bookId='+r.bookId+'&username='+r.writer+'"' 
-                + '<h5>' + r.writer + '</h5>'
+           +     '<a  href=" /post/detail?postId='+r.postId+'&bookId='+r.bookId+'&username='+r.writer+'"' 
+                + '<h5 style="float: right;" class="btn btn-outline-secondary">' + r.writer + '</h5>'
            +   '   </a> '
            + '  </div> '
                 
-                + '<h5>' + r.title + '</h5>'
-                + '<h5>' + s+ '</h5> <span>'+score+'</span>'
+                + '<h5 class="card-title">' + r.title + '</h5>'
+                + '<span>' + s+ '</span> <span class="card-subtitle mb-2 text-muted">'+score+'</span>'
                 + '</div>'
                 + '<div class="card-body">'
                 + '<div class="box">'
                     +'<span class="postcontent">'+r.content +'</span>'
                 + '</div>'
-                + '<p> 작성시간: ' + r.createdTime + '</p>'
+                + '<p id="postDate" style="float: right;" class="card-subtitle mb-2 text-muted" >' + r.createdTime + '</p>'
                 + '</div>';
             // 댓글 작성자 아이디와 로그인 사용자 아이디가 같을 때만 "수정"을 보여줌.
     //        if (r.writer==loginUser) {
@@ -106,6 +106,11 @@
         }
         
         divPost.innerHTML = str;
+        
+        const postDates = document.querySelectorAll('#postDate');
+        postDates.forEach(d =>{
+			d.innerText = d.innerText.substr(0,10);
+		})
         
 
         $('.box').each(function(){
