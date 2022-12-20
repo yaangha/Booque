@@ -50,15 +50,11 @@ public class OrderRepositoryTest {
 //    }
         
         // (하은) 해당 주문번호 관련 내역 읽어오기
-  //      @Test
+        @Test
         public void testOrderNow() {
             Assertions.assertNotNull(orderService);
             Assertions.assertNotNull(orderRepository);
-            List<Order> list = orderRepository.findByUserIdOrderByOrderNoDesc(21);
-            for(Order o : list) {
-                
-                log.info(" 책번호 나오라 뿅{}",o.getBook().getBookId());
-            }
+   
             
         }
         

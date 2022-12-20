@@ -18,18 +18,18 @@ public class UserSecurityDto extends User {
     private String username;
     private String password;
     private String nickName;
-    private String userImage;
+  //  private String userImage;
     private Integer point;
 
     public UserSecurityDto(Integer id ,String username, String password,
-            String nickName, String userImage,
+            String nickName,
             Integer point, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id=id;
         this.username = username;
         this.password = password;
         this.nickName = nickName;
-        this.userImage = userImage;
+ //       this.userImage = userImage;
         this.point = point;
 
     };
@@ -39,7 +39,7 @@ public class UserSecurityDto extends User {
                 .map(x -> new SimpleGrantedAuthority(x.getRole()))
                 .collect(Collectors.toList());
         UserSecurityDto dto = new UserSecurityDto(u.getId(), u.getUsername(),
-                u.getPassword(), u.getNickName(), u.getUserImage(),
+                u.getPassword(), u.getNickName(),
                 u.getPoint(), authorities);
 
         return dto;

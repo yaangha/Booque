@@ -72,6 +72,9 @@ public class Order {
     @Column
     private String message;
     
+    @Builder.Default
+    private Integer status = 1;
+    
     // (하은) update 추가
     public Order update(Integer postcode, String address, String detailAddress, String payOption, String message) {
         this.postcode = postcode;

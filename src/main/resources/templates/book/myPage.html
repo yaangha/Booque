@@ -30,27 +30,33 @@
     
         <div class="col-2 m-4 p-2" style="height:500px;">
                 <div class="card" align="left" style="margin:20px; width: 200px; height: 750px;"><!-- 프로필  -->
-                     <div>
-                         <img th:src="${ user.userImage }" alt="null"  width="200px" height="280px" class="img-fluid rounded-start">
-                     </div>
-                     
-            <form id="profileM">
-                     <label for="profile" class="btn btn-outline-dark ">프로필 
-                        <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
-                     </label>
-                     <input type="file" id="profile" name="userImage" accept="image/jpg, image/png" style="display:none"> 
-                     
-                     <br/>
-                     <label class="btn">아이디</label> <input name="username"   th:value="${ user.username }"  readonly>
-                     <label class="btn">닉네임</label> <input name="nickName"  class="btn btn-secondary"  th:value="${ user.nickName }"  >
-                     <label class="btn">이메일</label> <input name="email"  class="btn btn-secondary"  th:value="${ user.email }"  >
-                     <label class="btn">번호</label> <input name="phone" class="btn btn-secondary"  th:value="${ user.phone }"  >
-                     
-                     
-            </form>
-                     <button id="modify" class="btn"> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
-        
-                </div><!-- 프로필 끝 -->          
+
+                    <div>
+                         <img th:src="${ user.userImage}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
+                    </div>
+                    <form name="userimageModify" id="userimageModify" enctype="multipart/form-data"  action="/myPage/file" method="post">
+                         <label for="filePath" class="btn btn-outline-dark ">파일 선택
+                            <img style="width: 15px; height: 15px;" alt="..." th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
+                         </label>
+                         <input type="file" id="filePath" name="filePath" accept="image/jpg, image/png" style="display:none"> 
+                         
+                         <label for="imageModify" class="btn btn-outline-dark ">변경
+                            <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
+                         </label>
+                         <input type="button" id="imageModify" name="imageModify" accept="image/jpg, image/png" style="display:none" > 
+                         
+                    </form>
+                 
+                    <form id="profileM">
+                             
+                             <br/>
+                             <label class="btn">아이디</label> <input name="username"   th:value="${ user.username }"  readonly>
+                             <label class="btn">닉네임</label> <input name="nickName"  class="btn btn-secondary"  th:value="${ user.nickName }"  >
+                             <label class="btn">이메일</label> <input name="email"  class="btn btn-secondary"  th:value="${ user.email }"  >
+                             <label class="btn">번호</label> <input name="phone" class="btn btn-secondary"  th:value="${ user.phone }"  >
+                    </form>
+                    <button id="modify" class="btn"> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
+            </div><!-- 프로필 끝 -->          
         </div> <!-- col end -->
 
 
@@ -71,33 +77,80 @@
             <table class="table">
                 <thead>
                     <tr class="border-top border-4" >
-                        <th>주문일</th>
-                        <th>주문내역</th>
+                        <th> 주문날짜</th>
+                        <th>주문상세</th>
                         <th>주문번호</th>
                         <th>결제금액</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each=" order : ${ orderList }">
+                    <tr id="bookTotal"  th:each=" order : ${ orderList }">
                         <td class="align-middle">
-                            <div th:text="${ order.orderDate }"></div>
+                            <div class="container">
+                            <ul style="list-style: none;">
+                                <li>
+                                    <a th:href="@{ /detail?id={bookId} (bookId = ${ order.book.bookId })}" th:bookId="${order.book.bookId}" ><img th:src="${ order.book.bookImage }" 
+                                    style="width: 100px; height: 130px;" ></a>
+                                </li>
+                                <br>
+                                <li><span id="orderDate" th:text="${ order.orderDate}"></span></li>
+                            </ul>
+                            </div>
                         </td>
                         <td>
-                      <a th:href="@{ /detail?id={bookId} (bookId = ${ order.book.bookId })}" th:bookId="${order.book.bookId}" ><img th:src="${ order.book.bookImage }" style="width: 150px;"></a>
+                            <ul style=" list-style: none;">
+                                <li>
+                                    <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                    <span  th:text="${ order.book.bookgroup }"></span><span> / </span><span th:text="${ order.book.category }"></span>
+                                    </small>
+                                </li>
+                                <li>
+                                    <span class="fw-bold" th:text="${ order.book.bookName}"></span>
+                                </li>
+                                <li>
+                                    <span th:text="${ order.book.author}"></span>
+                                    <span></span>
+                                </li>
+                                <li> </li>
+                                <li>
+                                    <span id="score" th:text="${ order.book.bookScore }/10"></span>
+                                    <span id="scoreS" class="text-muted" >  ([[${ order.book.bookScore/10.0 }]])</span>
+                                </li>
+                                <li>
+                                    <span id="bookPrice" th:text="${order.total}"></span>
+                                    <span id="count">[[${ order.orderBookCount }]]</span><span>권</span> <br>
+                                
+                                </li>
+                                
+                            </ul>
  
                         </td>
                         
                         <td class="align-middle">
-                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                                <span  th:text="${ order.book.bookgroup }"></span><span> / </span><span th:text="${ order.book.category }"></span>
-                            </small>
-                            <div th:text="${ order.book.bookName}"></div>
+                            <ul style=" list-style: none;">
+                                <li>                              
+                                <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
+                                        <span >주문번호</span><br/></small>
+                                    <div  class="text-muted" th:text="${order.orderNo }" ></div>
+                                </li>
+                                <li>
+                                    <span id="to" th:text="${order.total}"></span><span>원 결제</span>
+                                </li>
+                            </ul>
                         </td>
                         <td class="align-middle">
-                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                                <span >주문번호</span><br/>
-                            </small>
-                            <div  th:text="${order.orderNo }"></div>
+                            <th:block th:if="${ order.status == 1}">
+                                <span class="fw-bold">배송 대기중</span><br/>
+                                <span class="text-muted">결제일로 부터</span> <br/>
+                                <span class="text-muted">2~3일 소요 됩니다.</span>
+                            </th:block>
+                            <th:block th:if="${ order.status == 0}">
+                                <span class="btn fw-bold">배송 완료</span>
+                            </th:block>
+                            <br>
+                            <div class="col-2 my-2">
+                            <a th:href="@{ /post/create?id={bookId} (bookId = ${ order.book.bookId })}"><input type="button" class="btn btn-outline-dark" value="리뷰 작성"></a>        
+                            </div>
                         </td>
     
                     </tr>
@@ -142,22 +195,23 @@
         </div>
         
         <div class="col-8 container">
-                    <h4>장바구니</h4>
+                    <h4>배송완료 상세</h4>
             <table class="table">
                 <thead>
                     <tr class="border-top border-4">
-                        <th>주문일</th>
-                        <th>주문내역</th>
                         <th>주문번호</th>
+                        <th>주문날짜</th>
+                        <th>배송지</th>
                         <th>결제금액</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2022.12.15</td>
-                        <td>어린왕자</td>
-                        <td>202212151</td>
-                        <td>15,000원</td>
+                    <tr th:each=" order : ${ orderList }">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
                     </tr>
                     <tr>
                         <td>2022.12.15</td>
@@ -192,6 +246,67 @@
 
 
     <script type="text/javascript">
+    const b = document.querySelectorAll('#bookTotal')
+    b.forEach(e => {
+    	const total = e.querySelector('#to');
+    	const price = e.querySelector('#bookPrice');  // 26000
+    	const count = e.querySelector('#count').innerText;
+    	console.log(count)
+    //	e.innerText = parseInt(book).toLocaleString('ko-KR');
+    	price.innerText = (price.innerText/count).toLocaleString('ko-KR');
+    	total.innerText = parseInt(total.innerText).toLocaleString('ko-KR');
+    })
+    
+    
+    
+    
+    const date = document.querySelectorAll('#orderDate');
+    date.forEach(e => {
+        const dd = e.innerText;
+        e.innerText = dd.substr(0,10);
+        	
+    })
+    
+    const sc = document.querySelectorAll('#score');
+    sc.forEach( e=> {
+        let s ='';
+        let a = parseInt(e.innerText)
+        for(let i=0; i<a; i++){
+               s += '★';
+            
+        }
+        for(let i=0; i<5-a; i++){
+               s += '☆';
+            
+        }
+        e.innerText = s;
+    	
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    const formFile = document.querySelector('#userimageModify')
+    const btnModifyFile = document.querySelector('#imageModify')
+    btnModifyFile.addEventListener('click', e => {
+        const result = confirm('사진 변경?')
+        if(result){
+        	formFile.action='/myPage/file';
+        	formFile.method='post';
+        	formFile.submit();
+            
+        }
+    	
+    })
+    
+    
+    
+    
+    
     
     const formP = document.querySelector('#profileM')
     const btnModify = document.querySelector('#modify')
@@ -199,7 +314,7 @@
     btnModify.addEventListener('click', e => {
     	const result = confirm('회원정보 변경?')
         if(result){
-        	formP.action='/mypage/modify';
+        	formP.action='/myPage/modify';
         	formP.method='post';
         	formP.submit();
         	

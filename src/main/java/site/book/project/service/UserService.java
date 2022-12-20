@@ -1,17 +1,23 @@
 package site.book.project.service;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.User;
+import site.book.project.dto.UserModifyDto;
 import site.book.project.dto.UserRegisterDto;
+import site.book.project.dto.UserSecurityDto;
 import site.book.project.dto.UserSigninDto;
 import site.book.project.repository.UserRepository;
 
@@ -23,10 +29,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     
-    public void profileModify() {
-        
-        
-    }
+
     
     
     
@@ -112,6 +115,40 @@ public class UserService {
     public User read(String username) {
         
         return userRepository.findByUsername(username).get();
+    }
+
+
+
+
+    @Transactional
+    public void modifyUserImage(Integer id, MultipartFile file) throws IllegalStateException, IOException {
+      String projectPath=System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";
+      
+      log.info(projectPath);
+      UUID uuid=UUID.randomUUID();
+      String fileName = uuid+"_"+file.getOriginalFilename();
+      File saveFile=new File(projectPath, fileName);
+      file.transferTo(saveFile);
+ //     freeSharePost.setFileName(fileName);        //생성한 파일이름을 저장해줌.
+      System.out.println(fileName);
+//      System.out.println(freeSharePost.toString());
+ //     freeSharePost.setFilePath("/files/" + fileName);
+      User user = userRepository.findById(id).get();
+      user.updateImage(fileName, "./files/" + fileName);
+      
+      
+    }
+
+
+
+
+    @Transactional
+    public Integer modify(UserModifyDto userModifyDto, UserSecurityDto u) {
+        // 중복검사
+        User user = userRepository.findById(u.getId()).get();
+        user.updateProfile(userModifyDto);
+        
+        return 0;
     }
 
     
