@@ -27,102 +27,119 @@
    <script
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     
-    
-      
- </head>
-
+</head>
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
-
-
-    <hr/>
-    <div class="container" style="width:100%; padding-right:150px;" > <!-- container-fluid : START -->
-
-
-    <div>
-        <table style="border-color: white;" width= "100%">
-            <tr>
-              <td width="20%" style=" vertical-align: top; border: 1px solid #DCDCDC;"> 
-             
-               <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
-                 <div>
-                   <a href=""> 
-                     <img th:src="${ user.userImage }"  width="200" height="280" class="img-fluid rounded-start">
-                   </a>
-                 </div>
-                 <br/>
-                 
-                 <div style="  padding:12px; text-align: left;">
-                 <table width="100%" >
-                 <tr style="border-bottom: 1px solid #DCDCDC;">
-                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
-                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
-                 </tr>
-                 <tr><td><br/></td></tr>
-                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
-              </table></div>
-                 
-               </div><!-- 프로필 끝 --> 
-               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
-               <hr/>
-               <hr/>
-               <hr/>
-              <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              
-            
-              </td>
-  
-  
-            <!-- 오른쪽 -->              
-              <td width="80%" style="vertical-align: top">
-                <div style="font-size:15px; font-weight:bold; background-color: #f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
-                <br/> 포스트 글 목록&nbsp;&nbsp;
-                </div>
-              
-            <div class="card" style="padding-top:15px;  margin-left: 50px;">
-                            <table width="100%">
-                            
-
-                                <thead>
-                                   <tr>
-                                       <th>번호</th>
-                                        <th>리뷰 도서</th>
-                                        <th>제목</th>
-                                        <th>작성자</th>
-                                        <th>수정시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="post : ${ list }" >
-                                        <td th:text="${ post.postId }"></td> 
-                                        <td  style="border: 1px solid red;" width="14%">
-                                         <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
-                                          <img th:src="${ post.bookImage }" width="80" height="120" class="img-fluid rounded-start"></a>
-                                        </td>   
-                                        <td><a
-                                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}"
-                                            th:text="${ post.title }"></a>
-                                            <!--/* 앵커태그 사이에 들어갈 제목은 th:text로 넣으면 됨 */-->
-                                            <!--/* 타임리프에서 변수는 중괄호 안에 넣어줌 -> 변수에 들어 갈 값은 소괄호 안에 (id = ) -> 글 번호가 ${ post.id } */-->
-                                            
-                                        </td>
-                                        <td th:text="${ post.postWriter }"></td>                          
-                                        <td th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-        
-              </td><!-- 전체 카드 끝 -->
-            </tr>
-        </table>
-    </div>
-    </div> <!-- container-fluid : END -->
-    <hr/>
-
-
     
+<div class="w-75 container"><!-- 메인 블록 - 삭제해도 될 듯 -->
+
+<div class="row"><!-- main block start -->
+<div class="col-2"><!-- 프로필 블록 start -->
+    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
+    <div style="font-weight: bold;">
+        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
+        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+    </div>
+    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
+    
+    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
+        
+    <div>전체 방문자수</div>
+    <div class="h4"><strong>1,004</strong></div>
+    <div>Today: <span>58</span></div>
+    
+    <br/><br/>
+    
+    <div class="h5" style="text-align: left;">이런 글은 어떠세요?</div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>짜라투스트라는 도대체..</a><br/>
+            <small style="color:gray;">글 19개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>김영하가 다다다라는..</a><br/>
+            <small style="color:gray;">글 15개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>오늘도 화이팅이란</a><br/>
+            <small style="color:gray;">글 159개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>트렌드를 따라가려면..</a><br/>
+            <small style="color:gray;">글 9개</small>
+        </div>
+    </div>
+    
+</div><!-- 프로필 블록 end -->
+    
+ <div class="col-10"><!-- content block start -->
+    <!-- 최근에 본 책 간단 정보 -->
+    <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p> 
+    <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
+        <div class="row container">
+            <div class="col" th:each="post : ${ list }">
+                <div class="card my-2" style="width: 20rem; height:40rem">
+                    <a th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                        <img th:src="${ post.bookImage }" class="card-img-top" style="height:30rem" />
+                    </a>
+                    <div class="card-body" style="text-align: left;">
+                        <div class="card-text">
+                            <a class="h4" th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a><br/>
+                            <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd') }" style="color:gray;"></small>
+                        </div>
+                    </div> <!-- card body end -->
+                </div> <!-- card end -->
+            </div> <!-- col end -->
+        </div> <!-- row end -->
+    </div><!-- 최근에 본 책 블록 end -->
+    
+    <br/>
+    
+    <!-- 사용자 작성 리뷰 리스트(테이블) -->
+    <table class="table">
+    <thead>
+        <tr class="border-bottom border-4 border-dark">
+            <td class="col-8">책 리뷰 목록</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="post : ${ list }">
+            <td class="py-5">
+                <div class="h4">
+                    <span th:text="${ post.postId }"></span>
+                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a></strong>
+                </div>
+                <div>오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
+                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
+                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..</div>
+                <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
+                <small>조회수 <span>100</span></small>
+            </td>
+            <td style="text-align: center;">
+                <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                    <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    
+</div><!-- content block end -->
+</div><!-- main block end -->
+
+</div><!-- 메인 블록 end -->
+
 <!-- summernote -->
   <script>
  $('.summernote').summernote({

@@ -46,7 +46,7 @@ public class User {
     @Column(nullable = false)
     private String phone;
     
-    @Column(nullable = false)
+
     private String address;
     
     @Column(unique = true, nullable = false)
@@ -60,6 +60,8 @@ public class User {
     
     @Builder.Default
     private String grade = "0"; 
+    
+    private String postIntro;
     
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default

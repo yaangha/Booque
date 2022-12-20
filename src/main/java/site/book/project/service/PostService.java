@@ -78,7 +78,6 @@ public class PostService {
         Book book = bookRepository.findById(dto.getBookId()).get();
         User user = userRepository.findById(dto.getUserId()).get();
       
-        
         Post entity = postRepository.save(dto.toEntity(book,user));
         return entity;
     }
