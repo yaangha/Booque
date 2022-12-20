@@ -101,9 +101,6 @@ public class SeacrhContoller {
             reviewCount.add(reviewElement);
         }
         
-        if (keyword.equals("")) {
-            return "/search";
-        }
         
         // 리뷰순, 조회수 순 정렬할 때 List 직접 재정렬
         if (order.equals("reviewCount")) { // 리뷰순 정렬

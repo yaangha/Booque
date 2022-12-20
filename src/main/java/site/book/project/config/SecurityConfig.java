@@ -72,7 +72,7 @@ public class SecurityConfig {
         // 익명 사용자(로그인하지 않은) 사용자도 접근할 수 있는 경로
         
         http.authorizeHttpRequests() // 요청에 따른 권한 설정 시작.
-            .antMatchers("/post/create", "/post/modify", "/api/reply/**") // "/post/create", "/post/modify"와  "/api/reply" 로 시작하는 모든 경로
+            .antMatchers("/post/create", "/post/modify") // "/post/create", "/post/modify" 로 시작하는 모든 경로
             .hasRole("USER")  // USER 권한을 가지고 있는 사용자만 접근 가능/
             .anyRequest() // 그 이외의 모든 요청
             .permitAll(); // 로그인 여부와 상관 없이 허용.         

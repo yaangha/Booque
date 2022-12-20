@@ -47,7 +47,7 @@ public class PostController {
     @GetMapping("/list")
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
-       
+//        bookService.readPostCountByAllBookId();
          
         if(userSecurityDto == null) {
             User user = userService.read(postWriter);
@@ -119,13 +119,24 @@ public class PostController {
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
-        if (username == null) {
-            User u = userService.read(p.getUser().getId()); 
+        
+        if (username == null) { // 글 작성자와 유저가 다른 경우
+            User u = userService.read(p.getUser().getId());
+            Post entity = postService.read(postId); // 그 글의 조회수를 1올려줌.
+            entity.update(postId, entity.getHit()+1);
+            int hitCount = entity.getHit();
+            model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
-        } else { 
+        } else { // 글 작성자와 유저가 같은경우
             User u = userService.read(username);
+            int hitCount = postService.read(postId).getHit();
+            model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
+        
+        
+        
+        
         
          model.addAttribute("post", p);
          model.addAttribute("book", b);
