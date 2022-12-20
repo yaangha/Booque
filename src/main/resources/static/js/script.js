@@ -10,14 +10,10 @@
     let signupNickname = document.getElementById('signupNickname');
     let signupName = document.getElementById('signupName');
     let signupPhone = document.getElementById('signupPhone')
-<<<<<<< HEAD
-=======
     let signupaddress = document.getElementById('signupaddress');
     
     let signinUsername = document.getElementById('signinUsername');
     let signinPassword = document.getElementById('signinPassword');
-    
->>>>>>> branch 'develop_yet' of https://github.com/yaangha/Booque.git
     console.log('modalConfirm');
     console.log(`data-type : ${tar.getAttribute('data-bs-toggle')}`);
 
