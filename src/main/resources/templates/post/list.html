@@ -27,10 +27,7 @@
    <script
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     
-    
-      
- </head>
-
+</head>
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
     
@@ -127,6 +124,7 @@
                     오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
                     오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..</div>
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
+                <small>조회수 <span>100</span></small>
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
@@ -140,13 +138,8 @@
 </div><!-- content block end -->
 </div><!-- main block end -->
 
-    
 </div><!-- 메인 블록 end -->
-    
-    
 
-
-    
 <!-- summernote -->
   <script>
  $('.summernote').summernote({
