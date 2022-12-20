@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.service.BookHitsService;
+import site.book.project.service.PostHitsService;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class BookHitController {
+public class HitController {
     
     private final BookHitsService bookHitsService;
+    private final PostHitsService postHitsService;
     
     
     // 쿠키써서 조회수 어뷰징 방지
@@ -53,4 +55,37 @@ public class BookHitController {
         }
         
     }
+    
+    @GetMapping("/postHitCount")
+    private void postHitsUp(Integer postId, HttpServletRequest request, HttpServletResponse response) {
+        log.info("viewCountUp(postId={})", postId);
+        
+        Cookie oldCookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("bookDetailViewCount")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + postId.toString() + "]")) {
+                postHitsService.postHitsUp(postId);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + postId + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(oldCookie);
+            }
+        } else {
+            postHitsService.postHitsUp(postId);
+            Cookie newCookie = new Cookie("bookDetailViewCount","[" + postId + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            response.addCookie(newCookie);
+        }
+        
+    }
+    
+    
 }

@@ -30,6 +30,13 @@
         padding-left: 100px;
     }
     
+    .best>a {
+        text-decoration:none;
+        color:black;
+        font-weight:bold; 
+        font-size:25px;
+    }
+    
     .best>a>img {
         box-shadow: 10px 10px 20px lightgrey;
         height: 400px;
@@ -39,6 +46,21 @@
         height: 450px;
         transition: .3s;
     }
+    
+    .post {
+        font-weight:bold;
+    }
+    
+    .post>h3 {
+        color: dodgerBlue;
+    }
+    
+    .post>h3:hover {
+        text-decoration:underline lightgrey;
+        text-underline-position: under;
+    }
+    
+    
     
     
     </style>
@@ -240,27 +262,27 @@
    
   <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" alt="물고기는 존재하지 않는다">
-      <br/>물고기는 존재하지 않는다</a>
+    <a th:href="@{ /detail(id= ${ top4ScoreList[0].getBookId } ) }">
+      <img th:src="${ top4ScoreList[0].getBookImage }" th:alt="${ top4ScoreList[0].getBookName }">
+      <br/><span th:text="${ top4ScoreList[0].getBookName}"></span></a>
     </div>
     
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" alt="다다다">
-      <br/>다다다</a>
+    <a th:href="@{ /detail(id= ${ top4ScoreList[1].getBookId } ) }">
+      <img th:src="${ top4ScoreList[1].getBookImage }" th:alt="${ top4ScoreList[1].getBookName }">
+      <br/><span th:text="${ top4ScoreList[1].getBookName}"></span></a>
       </div>
     
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" alt="불편한 편의점">
-      <br/>불편한 편의점</a>
+    <a th:href="@{ /detail(id= ${ top4ScoreList[2].getBookId } ) }">
+      <img th:src="${ top4ScoreList[2].getBookImage }" th:alt="${ top4ScoreList[2].getBookName }">
+      <br/><span th:text="${ top4ScoreList[2].getBookName}"></span></a>
    </div>
    
    <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791167070791.jpg" alt="인생의 허무를 어떻게 할 것인가">
-      <br/>인생의 허무를 어떻게 할 것인가</a>
+    <a th:href="@{ /detail(id= ${ top4ScoreList[3].getBookId } ) }">
+      <img th:src="${ top4ScoreList[3].getBookImage }" th:alt="${ top4ScoreList[3].getBookName }">
+      <br/><span th:text="${ top4ScoreList[3].getBookName}"></span></a>
    </div>
   </div>
   
@@ -278,33 +300,177 @@
    <span class="mainTitle"> What's HOT? </span>
    <span class="underline"></span>
   
-  <div class="w3-row w3-padding-16" style="height: 520px;">
+  <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168340510.jpg" alt="파친코1">
-      <br/>파친코1</a>
+    <a th:href="@{ /detail(id= ${ top4ReviewList[0].getBookId } ) }">
+      <img th:src="${ top4ReviewList[0].getBookImage }" th:alt="${ top4ReviewList[0].getBookName }">
+      <br/><span th:text="${ top4ReviewList[0].getBookName}"></span></a>
     </div>
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791130637037.jpg" alt="왜 일하는가">
-      <br/>왜 일하는가</a>
+    <a th:href="@{ /detail(id= ${ top4ReviewList[1].getBookId } ) }">
+      <img th:src="${ top4ReviewList[1].getBookImage }" th:alt="${ top4ReviewList[1].getBookName }">
+      <br/><span th:text="${ top4ReviewList[1].getBookName}"></span></a>
     </div>
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" alt="아버지의 해방일지">
-      <br/>아버지의 해방일지</a>
+    <a th:href="@{ /detail(id= ${ top4ReviewList[2].getBookId } ) }">
+      <img th:src="${ top4ReviewList[2].getBookImage }" th:alt="${ top4ReviewList[2].getBookName }">
+      <br/><span th:text="${ top4ReviewList[2].getBookName}"></span></a>
     </div>
     <div class="best w3-quarter">
-    <a style="font-weight:bold; font-size:25px;">
-      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791157280292.jpg" alt="꽃을 보듯 너를 본다">
-      <br/>꽃을 보듯 너를 본다</a>
+    <a th:href="@{ /detail(id= ${ top4ReviewList[3].getBookId } ) }">
+      <img th:src="${ top4ReviewList[3].getBookImage }" th:alt="${ top4ReviewList[3].getBookName }">
+      <br/><span th:text="${ top4ReviewList[3].getBookName}"></span></a>
     </div>
   </div>
   
   </div>
+  
+  
+  
+  <!-- 인기 리뷰(포스트 댓글 많이 달린 순) -->
+  <div id="hotPosts" class="w3-padding" style="width:75%; margin-bottom:120px; border:2px solid white;">
+           
+    <span class="underline"></span>
+    <span class="mainTitle"> 인기 리뷰 </span>
+    <span class="underline"></span>
+        
+    <div id="hotPostsSlides" class="carousel slide" data-bs-ride="true" style="border:2px solid white; width: 100%; z-index:0;">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px;  padding-left:30px; padding-right:30px;">
+            <div class="carousel-item active">
+                <div class="w3-quarter">
+                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>너무 좋은 책이에요!!!</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
+                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>최고의 책</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
+                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                </div>
+            </div>
+             <div class="carousel-item">
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>너무 좋은 책이에요!!!</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
+                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>최고의 책</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
+                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+            
+</div>
+    
+    
+    
+    
+    
+<!-- 현재 많이 보고 있는 리뷰(포스트 조회수 높은 순) -->
+<div id="hitPosts" class="w3-padding" style="width:75%; margin-bottom:120px;">
+           
+    <span class="underline"></span>
+    <span class="mainTitle"> 현재 많이 보고 있는 리뷰 </span>
+    <span class="underline"></span>
+        
+  <div id="hitPostsSlides" class="carousel slide" data-bs-ride="true" style="border:2px solid white; width: 100%; z-index:0;">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hitPostsSlides" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hitPostsSlides" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px; padding-left:30px; padding-right:30px;">
+            <div class="carousel-item active">
+                <div class="w3-quarter">
+                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791130637037.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>인생책을 찾았습니다</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">그러게요 왜 일할까요....<br/>아무래도...<br/>먹고 살아야 하니까요.....?<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791167070791.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>오늘은 '인생의 허무를 어떻게 할 것인가'에 대해 알아 보려고 해요~</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:20px;">인생의 허무를 어떻게 할 것인지 궁금한 사람이 많은 것 같아요~~
+                    <br/>저도 그게 참 궁금하답니다ㅠㅠ</p>
+                    <p>그럼 지금까지 '인생의 허무를 어떻게 할 것인가'에 대해 알아 보았어요~
+                    <br/>속시원한 답변이 되셨길 바라요&gt;&lt;♥</p></div>
+                </div>
+            </div>
+             <div class="carousel-item">
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168340510.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>너무 좋은 책이에요!!!</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
+                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>최고의 책</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
+                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hitPostsSlides" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hitPostsSlides" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+                  
+            
+</div>
+  
+  
+  
+  
 
 
-
+    <!-- 카테고리별 베스트 목록 -->
     <div id="cateBest">
 
         <span class="underline"></span>
@@ -334,27 +500,27 @@
                 <h2>경제/경영</h2>
                 <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" alt="물고기는 존재하지 않는다">
-                      <br/>물고기는 존재하지 않는다</a>
+                        <a th:href="@{ /detail(id= ${ economyScoreList[0].getBookId } ) }">
+                        <img th:src="${ economyScoreList[0].getBookImage }" th:alt="${ economyScoreList[0].getBookName }">
+                        <br/><span th:text="${ economyScoreList[0].getBookName}"></span></a>
                     </div>
                     
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" alt="다다다">
-                      <br/>다다다</a>
+                        <a th:href="@{ /detail(id= ${ economyScoreList[1].getBookId } ) }">
+                        <img th:src="${ economyScoreList[1].getBookImage }" th:alt="${ economyScoreList[1].getBookName }">
+                        <br/><span th:text="${ economyScoreList[1].getBookName}"></span></a>
                       </div>
                     
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" alt="불편한 편의점">
-                      <br/>불편한 편의점</a>
+                        <a th:href="@{ /detail(id= ${ economyScoreList[2].getBookId } ) }">
+                        <img th:src="${ economyScoreList[2].getBookImage }" th:alt="${ economyScoreList[2].getBookName }">
+                        <br/><span th:text="${ economyScoreList[2].getBookName}"></span></a>
                    </div>
                    
                    <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791167070791.jpg" alt="인생의 허무를 어떻게 할 것인가">
-                      <br/>인생의 허무를 어떻게 할 것인가</a>
+                        <a th:href="@{ /detail(id= ${ economyScoreList[3].getBookId } ) }">
+                        <img th:src="${ economyScoreList[3].getBookImage }" th:alt="${ economyScoreList[3].getBookName }">
+                        <br/><span th:text="${ economyScoreList[3].getBookName}"></span></a>
                    </div>
                   </div>
             </div>
@@ -363,44 +529,117 @@
                 <h2>인문</h2>
                 <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168340510.jpg" alt="파친코1">
-                      <br/>파친코1</a>
+                        <a th:href="@{ /detail(id= ${ humanitiesScoreList[0].getBookId } ) }">
+                        <img th:src="${ humanitiesScoreList[0].getBookImage }" th:alt="${ humanitiesScoreList[0].getBookName }">
+                        <br/><span th:text="${ humanitiesScoreList[0].getBookName}"></span></a>
                     </div>
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791130637037.jpg" alt="왜 일하는가">
-                      <br/>왜 일하는가</a>
+                        <a th:href="@{ /detail(id= ${ humanitiesScoreList[1].getBookId } ) }">
+                        <img th:src="${ humanitiesScoreList[1].getBookImage }" th:alt="${ humanitiesScoreList[1].getBookName }">
+                        <br/><span th:text="${ humanitiesScoreList[1].getBookName}"></span></a>
                     </div>
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" alt="아버지의 해방일지">
-                      <br/>아버지의 해방일지</a>
+                        <a th:href="@{ /detail(id= ${ humanitiesScoreList[2].getBookId } ) }">
+                        <img th:src="${ humanitiesScoreList[2].getBookImage }" th:alt="${ humanitiesScoreList[2].getBookName }">
+                        <br/><span th:text="${ humanitiesScoreList[2].getBookName}"></span></a>
                     </div>
                     <div class="best w3-quarter">
-                    <a style="font-weight:bold; font-size:25px;">
-                      <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791157280292.jpg" alt="꽃을 보듯 너를 본다">
-                      <br/>꽃을 보듯 너를 본다</a>
+                        <a th:href="@{ /detail(id= ${ humanitiesScoreList[3].getBookId } ) }">
+                        <img th:src="${ humanitiesScoreList[3].getBookImage }" th:alt="${ humanitiesScoreList[3].getBookName }">
+                        <br/><span th:text="${ humanitiesScoreList[3].getBookName}"></span></a>
                     </div>
                   </div>
             </div>
+            
 
             <div id="tapContent3" class="tapContent w3-container w3-animate-opacity">
                 <h2>소설</h2>
-                
+                <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ fictionScoreList[0].getBookId } ) }">
+                        <img th:src="${ fictionScoreList[0].getBookImage }" th:alt="${ fictionScoreList[0].getBookName }">
+                        <br/><span th:text="${ fictionScoreList[0].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ fictionScoreList[1].getBookId } ) }">
+                        <img th:src="${ fictionScoreList[1].getBookImage }" th:alt="${ fictionScoreList[1].getBookName }">
+                        <br/><span th:text="${ fictionScoreList[1].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ fictionScoreList[2].getBookId } ) }">
+                        <img th:src="${ fictionScoreList[2].getBookImage }" th:alt="${ fictionScoreList[2].getBookName }">
+                        <br/><span th:text="${ fictionScoreList[2].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ fictionScoreList[3].getBookId } ) }">
+                        <img th:src="${ fictionScoreList[3].getBookImage }" th:alt="${ fictionScoreList[3].getBookName }">
+                        <br/><span th:text="${ fictionScoreList[3].getBookName}"></span></a>
+                    </div>
+                  </div>
             </div>
             
             <div id="tapContent4" class="tapContent w3-container w3-animate-opacity">
                 <h2>시/에세이</h2>
+                <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ essayScoreList[0].getBookId } ) }">
+                        <img th:src="${ essayScoreList[0].getBookImage }" th:alt="${ essayScoreList[0].getBookName }">
+                        <br/><span th:text="${ essayScoreList[0].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ essayScoreList[1].getBookId } ) }">
+                        <img th:src="${ essayScoreList[1].getBookImage }" th:alt="${ essayScoreList[1].getBookName }">
+                        <br/><span th:text="${ essayScoreList[1].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ essayScoreList[2].getBookId } ) }">
+                        <img th:src="${ essayScoreList[2].getBookImage }" th:alt="${ essayScoreList[2].getBookName }">
+                        <br/><span th:text="${ essayScoreList[2].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ essayScoreList[3].getBookId } ) }">
+                        <img th:src="${ essayScoreList[3].getBookImage }" th:alt="${ essayScoreList[3].getBookName }">
+                        <br/><span th:text="${ essayScoreList[3].getBookName}"></span></a>
+                    </div>
+                  </div>
             </div>
             
             <div id="tapContent5" class="tapContent w3-container w3-animate-opacity">
                 <h2>자기계발</h2>
+                <div class="w3-row w3-padding-16" style="margin-top:40px; height: 520px;">
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ selpHelpScoreList[0].getBookId } ) }">
+                        <img th:src="${ selpHelpScoreList[0].getBookImage }" th:alt="${ selpHelpScoreList[0].getBookName }">
+                        <br/><span th:text="${ selpHelpScoreList[0].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ selpHelpScoreList[1].getBookId } ) }">
+                        <img th:src="${ selpHelpScoreList[1].getBookImage }" th:alt="${ selpHelpScoreList[1].getBookName }">
+                        <br/><span th:text="${ selpHelpScoreList[1].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ selpHelpScoreList[2].getBookId } ) }">
+                        <img th:src="${ selpHelpScoreList[2].getBookImage }" th:alt="${ selpHelpScoreList[2].getBookName }">
+                        <br/><span th:text="${ selpHelpScoreList[2].getBookName}"></span></a>
+                    </div>
+                    <div class="best w3-quarter">
+                        <a th:href="@{ /detail(id= ${ selpHelpScoreList[3].getBookId } ) }">
+                        <img th:src="${ selpHelpScoreList[3].getBookImage }" th:alt="${ selpHelpScoreList[3].getBookName }">
+                        <br/><span th:text="${ selpHelpScoreList[3].getBookName}"></span></a>
+                    </div>
+                  </div>
             </div>
             
         </div>
-        
     </div>
+    
+    
+            
+    
+            
+        
+        
+   
 
 
 

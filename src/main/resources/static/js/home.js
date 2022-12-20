@@ -4,10 +4,18 @@
  
  // 홈(메인) 화면 컨텐츠에 쓰일 자바스크립트
  
-// 카테고리별 BEST
+ 
+ 
+// 카테고리별 BEST 탭 효과
 function openTap(e, tapContent) {
     const content = document.querySelectorAll('.tapContent');  // 모든 탭 내용 찾기
     const button = document.querySelectorAll('.btnTap');  // 모든 탭 버튼 찾기  
+    
+    /*
+    content.forEach(c => {
+        c.style.display = "none";
+    });
+    */
     
     let i;
     for (i = 0; i < content.length; i++) {

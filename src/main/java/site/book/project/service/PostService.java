@@ -177,4 +177,10 @@ public class PostService {
 	    return count;
 	}
 
+	// (홍찬) 리뷰순에서 사용할 것 - 책 ID에 해당하는 포스트 글이 1 증가시켜주기
+	@Transactional
+	public void countUpPostByBookId(Integer bookId) {
+	    Book entity = bookRepository.findById(bookId).get();
+	    entity.updatePostCount(entity.getPostCount()+1);
+	}
 }
