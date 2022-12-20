@@ -115,6 +115,47 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
     Page<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword,
                                             @Param(value = "orderType") String orderType, Pageable pageable);
  
+    // 별점순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.bookScore desc"
+            )
+    Page<Book> researchOrderAllByhighScore(@Param(value = "keyword") String keyword, Pageable pageable);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.bookScore desc"
+    )
+    Page<Book> researchOrderByhighScore(@Param(value = "keyword") String keyword, 
+                                        @Param(value = "orderType") String orderType, Pageable pageable);
+    
+    // 정확도순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.bookName desc"
+            )
+    Page<Book> researchOrderAllByAccuracy(@Param(value = "keyword") String keyword, Pageable pageable);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.bookName desc"
+    )
+    Page<Book> researchOrderByAccuracy(@Param(value = "keyword") String keyword, 
+                                        @Param(value = "orderType") String orderType, Pageable pageable);
+    
+    
     
     
     // 여기서부터는 리뷰순, 조회순에 필요한 쿼리문 시작(List 타입 리턴하는 쿼리문)
@@ -220,5 +261,45 @@ public interface SearchRepository extends JpaRepository<Book, Integer> {
     List<Book> researchOrderByPublishedDate(@Param(value = "keyword") String keyword,
                                             @Param(value = "orderType") String orderType);
  
+    // 별점순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.bookScore desc"
+            )
+    List<Book> researchOrderAllByhighScore(@Param(value = "keyword") String keyword);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.bookScore desc"
+    )
+    List<Book> researchOrderByhighScore(@Param(value = "keyword") String keyword, 
+                                        @Param(value = "orderType") String orderType);
+    
+    // 정확도순 정렬
+    @Query(
+            "select b from BOOKS b"
+                    + " where lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%') order by b.bookName desc"
+            )
+    List<Book> researchOrderAllByAccuracy(@Param(value = "keyword") String keyword);
+    @Query(
+            "select b from BOOKS b"
+                    + " where b.bookgroup = :orderType"
+                    + " and (lower(b.bookName) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.author) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.publisher) like lower ('%' || :keyword || '%')"
+                    + " or lower(b.bookIntro) like lower ('%' || :keyword || '%')) order by b.bookName desc"
+    )
+    List<Book> researchOrderByAccuracy(@Param(value = "keyword") String keyword, 
+                                        @Param(value = "orderType") String orderType);
+    
     
 }
