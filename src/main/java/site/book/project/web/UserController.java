@@ -87,7 +87,7 @@ public class UserController {
     
    
     
-    /*
+    
     @PostMapping("/signup")
     public String signUp(UserRegisterDto dto) {
         log.info("signUp(dto = {}) POST", dto);
@@ -96,6 +96,6 @@ public class UserController {
        
         
         return "redirect:/"; // 회원가입 성공 후 이동(redirect)
-    } */
+    } 
     
 }

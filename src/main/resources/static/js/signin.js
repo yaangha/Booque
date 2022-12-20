@@ -79,7 +79,7 @@ const modalConfirm = (tar) => {
         let nameok = false;
         let emailok = false;
         let nickok = false;
-    
+    /*
        usernameInput.addEventListener('change', function() {
             
             const username = usernameInput.value;
@@ -147,18 +147,8 @@ const modalConfirm = (tar) => {
                 emailnokDiv.className = 'my-2';
             }
         }
-
-        document.getElementById('signupaddress').addEventListener('change', function () {
-          
-            if(nameok == emailok == nickok == true){
-                document.getElementById('registerConfirmBtn').className.remove('disabled');
-                console.log('true 지렁');
-            }else{
-                console.log('false 지렁');
-            }
-            
-            
-       });
+*/
+        
        
     });
     /*
