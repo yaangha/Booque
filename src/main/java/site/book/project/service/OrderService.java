@@ -68,7 +68,7 @@ public class OrderService {
     public Long create(Integer[] cartId) { 
         // cart가 여러개 1,2,3, ... 
         // String date = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYYMMdd")); // ex) 20221209
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmm"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS"));
         
         List<Order> orderList = new ArrayList<>();
         // Integer orderNo = 0;
@@ -95,15 +95,39 @@ public class OrderService {
         }
         return orderNo; 
     }
+    
+    // (은정)
+    /**
+     * 검색 페이지에서 바로 결제
+     * @param userId
+     * @param bookId
+     * @return
+     */
+    public Long createFromSearch(Integer userId, Integer bookId) {
+    	Book book = bookRepository.findById(bookId).get();
+    	
+    //	Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
+    	String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS")); // ex) 20221209
+    	Long orderNo = Long.parseLong(date + userId);
+    	
+    	User user = userRepository.findById(userId).get();
+    	
+    	Order order = Order.builder().orderNo(orderNo).user(user).book(book)
+    			.orderDate(LocalDateTime.now()).orderBookCount(1).total(book.getPrices()).build();
+    	
+    	Order orderResult = orderRepository.save(order);
+    	
+    	return orderResult.getOrderNo();
+    }
 
     // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
-    public Long createFromDetail(OrderFromDetailDto dto) {
+    public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
         
         Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmm")); // ex) 20221209
-        Long orderNo = Long.parseLong(date + dto.getUserId());
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS")); // ex) 20221209
+        Long orderNo = Long.parseLong(date + userId);
         
-        User user = userRepository.findById(dto.getUserId()).get();
+        User user = userRepository.findById(userId).get();
         Book book = bookRepository.findById(dto.getId()).get();
         
         Order order = Order.builder().orderNo(orderNo).user(user).book(book)

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import site.book.project.domain.Post;
 
 @Builder

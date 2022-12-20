@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,6 @@ public class BookDetailController {
     public String detail(Integer id, 
 //            Integer userId,     // 유저 정보도 띄우기( [  ] 님이 보고 계신 책은...)
             Model model) {
-        log.info("책 상세(bookId={})",id);
         
         Book book = bookService.read(id);
         
@@ -52,11 +52,9 @@ public class BookDetailController {
         log.info("하은 author={}", book.getAuthor());
         model.addAttribute("authorOtherBook", authorOtherBook);
         
-        // POST dto 만들기(userid, postid, content, score, title) TODO
         
         // for문을 통해서 숫자를 그림으로 표현? 참고해서 고치기
-        double score = bookService.scoreAvg(id);
-        
+        double score = book.getBookScore()/10.0;
         // 책 정보 넘기기 
         model.addAttribute("book", book);
         model.addAttribute("score", score);
@@ -80,7 +78,10 @@ public class BookDetailController {
                      // unselected: 위시리스트 테이블에서 삭제한 후 하트 상태를 빈 하트로 변경
     @ResponseBody
     @GetMapping("/book/wishList")
-    public String addToWishList(Integer userId, Integer bookId) {
+    public String addToWishList(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer bookId) {
+        
+        Integer userId = userSecurityDto.getId();
+        
         log.info("addToWishList: userId={}, bookId={}", userId, bookId);
         
         String wish = bookWishService.changeWishButton(userId, bookId);
@@ -96,20 +97,6 @@ public class BookDetailController {
 //        return ResponseEntity.ok(result);
 //    }
     
-    @GetMapping("/post/create")
-    public String create(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer id, Model model) {
-        log.info("책 상세(bookId={})",id);
-    
-          Integer userId = userSecurityDto.getId();
-          log.info("userId= {}",userId);
-
-          User user = userService.read(userId);
-          model.addAttribute("user", user);
-          
-          Book book = bookService.read(id);
-          model.addAttribute("book", book);
-     
-        return "post/create";
-    }
+   
 	
 }

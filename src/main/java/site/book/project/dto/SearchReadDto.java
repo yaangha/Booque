@@ -17,4 +17,6 @@ public class SearchReadDto {
     private Integer myScore;
     private int reviewCount;
     private int hit;
+    private String bookgroup;
+    private String category;
 }
