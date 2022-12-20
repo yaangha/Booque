@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,12 +38,12 @@ public class PostController {
     private final BookService bookService;
     private final UserService userService;
     private final ReplyService replyService;
-    
-    @GetMapping("/main")
+   
+   @GetMapping("/main")
     public void main() {
         log.info("main()");
 
-    }
+   }
     
     
     @GetMapping("/list")
@@ -95,6 +96,22 @@ public class PostController {
     }
 
 
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/post/create")
+    public String create(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer id, Model model) {
+        log.info("책 상세(bookId={})",id);
+    
+          Integer userId = userSecurityDto.getId();
+          log.info("userId= {}",userId);
+
+          User user = userService.read(userId);
+          model.addAttribute("user", user);
+          
+          Book book = bookService.read(id);
+          model.addAttribute("book", book);
+     
+        return "post/create";
+    }
     
     @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
@@ -108,7 +125,6 @@ public class PostController {
         
         attrs.addFlashAttribute("createdPostId", entity.getPostId());
         attrs.addFlashAttribute("userId", dto.getUserId());
-        log.info("createdPostId: entity.gePosttId()= {}", entity.getPostId());
         return "redirect:/post/list";
     }
     
@@ -137,6 +153,7 @@ public class PostController {
          
     }
    
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/delete")
     public String delete(Integer postId, RedirectAttributes attrs) {
         log.info("delete(postId={})",postId);
@@ -149,6 +166,7 @@ public class PostController {
         return "redirect:/post/list";
     }
    
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/update")
     public String update(PostUpdateDto dto) {
         log.info("update(dto={})", dto);

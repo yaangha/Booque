@@ -102,6 +102,15 @@ public class UserService {
     private Boolean confirm(String password, String password2) {
         return passwordEncoder.matches(password, password2);
     }
+    
+    public Optional<User> getUserBySigninId(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public List<User> read() {
+       
+        return userRepository.findAll();
+    }
 
 }
 

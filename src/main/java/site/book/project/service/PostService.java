@@ -53,7 +53,7 @@ public class PostService {
         
         List<PostListDto> dtoList = new ArrayList<>();
         
-     PostListDto dto = null;
+        PostListDto dto = null;
         
         for (Post post : list) {
             Post p = post;
@@ -75,7 +75,6 @@ public class PostService {
   
     @Transactional
     public Post create(PostCreateDto dto) {
-        log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
         Book book = bookRepository.findById(dto.getBookId()).get();
         User user = userRepository.findById(dto.getUserId()).get();
 

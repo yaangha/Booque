@@ -12,7 +12,7 @@ import site.book.project.domain.User;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"postContent"})
 public class PostCreateDto {
 
     private Integer bookId;

@@ -46,7 +46,6 @@ public class User {
     @Column(nullable = false)
     private String phone;
     
-    @Column(nullable = true)
     private String address;
     
     @Column(unique = true, nullable = false)
