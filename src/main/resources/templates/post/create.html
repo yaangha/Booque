@@ -127,7 +127,7 @@
         <div th:text="${ book.author }"></div>
         <div th:text="${ book.publisher }"></div>
         <div th:text="${ book.publishedDate }"></div>
-        <div th:text="${ book.prices +'원' }"></div>
+        <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>
         <div>판매지수</div>
         <div><a>회원리뷰</a> ★★★★★</div>
         <div>오늘 주문하면 내일 도착</div><br/>

@@ -107,6 +107,14 @@ public class BookCommentRestController {
         return ResponseEntity.ok(list);
     }
     
+    // (하은)
+    @GetMapping("/api/post/content/{postId}")
+    public ResponseEntity<Post> readPostContent(@PathVariable Integer postId) {
+        
+        Post post = postService.read(postId);
+        
+        return ResponseEntity.ok(post);
+    }
     
     
     

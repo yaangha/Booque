@@ -21,6 +21,7 @@ import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.dto.PostListDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
 import site.book.project.service.UserService;
@@ -115,6 +116,8 @@ public class PostController {
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
+        PostReadDto dto = PostReadDto.fromEntity(p);
+        
         if (username == null) {
             User u = userService.read(p.getUser().getId()); 
             model.addAttribute("user", u);
@@ -125,6 +128,7 @@ public class PostController {
         
          model.addAttribute("post", p);
          model.addAttribute("book", b);
+         model.addAttribute("dto", dto);
         
          
     }

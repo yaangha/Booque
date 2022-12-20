@@ -117,7 +117,7 @@
                 <div th:text="${ book.author }"></div>
                 <div th:text="${ book.publisher }"></div>
                 <div th:text="${ book.publishedDate }"></div>
-                <div th:text="${ book.prices +'원' }"></div>
+                <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>
                 <div>판매지수</div>
                 <div><a>회원리뷰</a> ★★★★★</div>
                 <div>오늘 주문하면 내일 도착</div>
@@ -130,16 +130,24 @@
         
         <hr/>
         
-        <p class="px-5" th:text="${ post.postContent }"></p>
+        <div th:if="${ post.postWriter } == ${ #authentication.name }">
+            <a class="btn" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId })}">글 편집</a>
+        </div>
+        
+        <!-- ajax로 수정! 성공시 코드 삭제 예정 -->
+        <!-- <div class="w-100 px-3 py-3 border" style="height:500px;">
+            <textarea class="px-5  summernote" th:text="${ dto.content }"></textarea>
+        </div> -->
+        
+        <!-- ajax test -->
+        <div id="postContent"></div>
+        
         <!-- 혹시 id, name 속성이 필요할까하여 우선 남겨놓음 -->
         <!-- <input type="hidden" th:text="${ post.postContent }" id="postContent" name="postContent" /> -->
         <!-- <div class="container form-control" style="width:100%; height:370px; border-color: white;"> -->
         <!-- <textarea class="summernote" id="postContent" th:text="${ post.postContent }" style="border-color: white; width:100%; height: 100%;" name="postContent" readonly></textarea> -->
         <!-- </div> -->
-        
-        <div th:if="${ post.postWriter } == ${ #authentication.name }">
-            <a class="btn" style="margin-left: 400px;" th:href="@{ /post/modify?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ book.bookId })}">글 편집</a>
-        </div>                                
+               
     </form>
     
     <!-- 댓글 시작 -->
@@ -195,7 +203,26 @@
         </div>
     </div><!-- 댓글 수정 & 삭제 모달창 끝  -->
 </div><!-- 댓글 끝 -->
-    
+
+    <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
+        <div class="row container">
+            <div class="col" th:each="post : ${ list }">
+                <div class="card my-2" style="width: 20rem; height:40rem">
+                    <a th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                        <img th:src="${ post.bookImage }" class="card-img-top" style="height:30rem" />
+                    </a>
+                    <div class="card-body" style="text-align: left;">
+                        <div class="card-text">
+                            <a class="h4" th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a><br/>
+                            <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd') }" style="color:gray;"></small>
+                        </div>
+                    </div> <!-- card body end -->
+                </div> <!-- card end -->
+            </div> <!-- col end -->
+        </div> <!-- row end -->
+    </div><!-- 최근에 본 책 블록 end -->
+
+
 </div><!-- 포스트 콘텐츠 블록 end -->
 </div><!-- row end -->
 </div> <!-- container-fluid : END -->
@@ -215,6 +242,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
     <script th:src="@{ /js/postReply.js }"></script>
+    <script th:src="@{ /js/post.js }"></script>
 
     
   </div><!-- layout:fragment="content" : END -->
