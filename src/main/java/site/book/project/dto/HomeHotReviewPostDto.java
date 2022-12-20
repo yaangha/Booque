@@ -8,6 +8,6 @@ import lombok.Data;
 public class HomeHotReviewPostDto {
     
     private Integer postId;
-    private int postCount;
+    private int replyCount;
     
 }
