@@ -17,8 +17,6 @@ public class MyPageController {
     @GetMapping("/myPage")
     public String myPage(@AuthenticationPrincipal UserSecurityDto userSecurityDto) {
         
-        
-        
         return "/book/myPage";
     }
     
