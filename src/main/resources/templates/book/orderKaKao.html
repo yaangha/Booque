@@ -49,7 +49,10 @@
             <div class="col-10 p-5"><!-- col start -->
                 <div class="h3"><span th:text="${ user.username }"></span>님, QR 찍고 결제 완료시 바로 발송됩니다~~!</div>            
                 <hr/>
-                <div><span th:text="'결제금액: ' + |${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span></div>
+                <div>결제금액: 
+                    <span th:if="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                    <span th:unless="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total + 3000, 0, 'COMMA')}원|"></span>
+                </div>
                 <div>결제 시기에 따라 도착예상일이 변경될 수 있습니다. 입금 완료 후, <a th:href="@{ /myPage }">마이페이지 > 주문내역</a> 에서 꼭 확인 부탁드립니다.</div>
             </div><!-- col end -->
             <div class="col-2"><!-- col start -->
@@ -135,7 +138,10 @@
         </tr>
         <tr>
             <th class="py-3">결제금액</th>
-            <td class="py-3"><span th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span></td>
+            <td class="py-3">
+                <span th:if="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                <span th:unless="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total + 3000, 0, 'COMMA')}원|"></span>
+            </td>
         </tr>
         <tr>
             <th class="py-3">입금 예정자명</th>
