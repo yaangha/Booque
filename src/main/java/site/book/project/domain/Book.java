@@ -64,13 +64,21 @@ public class Book {
     @Column(nullable = false)
     private String bookgroup;
     
-    @Column
-    private Integer bookScore; // 책 평점. double타입이 안되서 그냥 
+    @Builder.Default
+    private Integer bookScore = 0; // 책 평점. double타입이 안되서 그냥 
+    
+    @Column(columnDefinition = "integer default 0", nullable = false)   // 조회수의 기본 값을 0으로 지정
+    private int postCount;
     
     public Book update(Integer bookScore) {
     	this.bookScore = bookScore;
     	
     	return this;
+    }
+    
+    public Book updatePostCount(Integer postCount) {
+        this.postCount = postCount;
+        return this;
     }
     
     
