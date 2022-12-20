@@ -23,6 +23,15 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     
+    public void profileModify() {
+        
+        
+    }
+    
+    
+    
+    
+    
     public String checkUsername(String username) {
         log.info("checkUsername(username = {})", username);
         
