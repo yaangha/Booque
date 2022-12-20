@@ -109,11 +109,12 @@ public class BookCommentRestController {
     
     // (하은)
     @GetMapping("/api/post/content/{postId}")
-    public ResponseEntity<Post> readPostContent(@PathVariable Integer postId) {
-        
+    public ResponseEntity<PostReadDto> readPostContent(@PathVariable Integer postId) {
+        log.info("하은 로그 찾기 postid={}", postId);
         Post post = postService.read(postId);
+        PostReadDto dto = PostReadDto.fromEntity(post);
         
-        return ResponseEntity.ok(post);
+        return ResponseEntity.ok(dto);
     }
     
     
