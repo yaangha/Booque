@@ -37,11 +37,11 @@ public class PostController {
     private final UserService userService;
     private final ReplyService replyService;
     
-//    @GetMapping("/main")
-//    public void main() {
-//        log.info("main()");
-//
-//    }
+    @GetMapping("/main")
+    public void main() {
+        log.info("main()");
+
+    }
     
     
     @GetMapping("/list")
