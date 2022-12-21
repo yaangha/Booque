@@ -2,7 +2,6 @@ package site.book.project.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.PostReply;
 import site.book.project.dto.HomeHotReviewPostDto;
-import site.book.project.dto.SearchReadDto;
+import site.book.project.dto.HomeTopFiveListDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.CategoryRepository;
 import site.book.project.repository.PostRepository;
@@ -29,16 +28,16 @@ public class HomeService {
     private final CategoryRepository categoryRepository;
     private final PostRepository postRepository;
     private final ReplyRepository replyRepository;
-    // 전체 별점 Top 4
+    // 전체 별점 Top 10
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByBookScore() {
-        List<Book> list = new ArrayList<>();
+        List<Book> list = null;
         list = bookRepository.findTop4ByOrderByBookScoreDesc();
         
         return list;
     }
 
-    // 전체 리뷰 Top 4
+    // 전체 리뷰 Top 10
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByPostReview() {
         List<Book> list = new ArrayList<>();
@@ -81,7 +80,7 @@ public class HomeService {
         return list;
     }
 
-    // 카테고리별 별점 Top 4
+    // 카테고리별 별점 Top 10
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookScore(String category) {
         List<Book> list = new ArrayList<>();
@@ -90,7 +89,7 @@ public class HomeService {
         return list;
     }
     
-    // 카테고리별 리뷰순 Top 4
+    // 카테고리별 리뷰순 Top 10
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookReview(String category) {
         List<Book> list = new ArrayList<>();
@@ -102,7 +101,7 @@ public class HomeService {
     
     // 전체 포스트(리뷰) 중 댓글이 많이 달린 순 1~5위
     @Transactional(readOnly = true)
-    public List<Post> readTopFiveHotReviewOrderByPost() {
+    public List<HomeTopFiveListDto> readTopFiveHotReviewOrderByPost() {
         List<Post> list = postRepository.findAll();
         
         // postID 당 Reply 갯수 매칭시킨 리스트 만들기
@@ -137,11 +136,40 @@ public class HomeService {
             }
             top++;
         }
+        
+        // bookname과 bookimage가 추가된 최종 리스트
+        List<HomeTopFiveListDto> finalList = new ArrayList<>();
         for (Post p : hotReviewTopFiveList) {
-            log.info("postId={}", p.getPostId());
+            Book dtoElement = bookRepository.findById(p.getBook().getBookId()).get();
+            HomeTopFiveListDto dto = HomeTopFiveListDto.builder().postId(p.getPostId()).postWriter(p.getPostWriter()).title(p.getTitle())
+                    .postContent(p.getPostContent().replaceAll("<([^>]+)>", "")).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
+                    .hit(p.getHit()).bookId(p.getBook().getBookId()).bookImage(dtoElement.getBookImage()).bookName(dtoElement.getBookName()).build();
+                    
+            finalList.add(dto);
         }
         
-        return hotReviewTopFiveList;
+        return finalList;
+    }
+
+    // 전체 포스트(조회수순) 1~5위
+    @Transactional(readOnly = true)
+    public List<HomeTopFiveListDto> readTopFiveBestHitOrderByPost() {
+        List<Post> list = new ArrayList<>(); 
+        list = postRepository.findTop5ByOrderByHitDesc();
+        
+        // bookname과 bookimage가 추가된 최종 리스트
+        List<HomeTopFiveListDto> finalList = new ArrayList<>();
+        for (Post p : list) {
+            Book dtoElement = bookRepository.findById(p.getBook().getBookId()).get();
+            HomeTopFiveListDto dto = HomeTopFiveListDto.builder().postId(p.getPostId()).postWriter(p.getPostWriter()).title(p.getTitle())
+                    .postContent(p.getPostContent().replaceAll("<([^>]+)>", "")).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
+                    .hit(p.getHit()).bookId(p.getBook().getBookId()).bookImage(dtoElement.getBookImage()).bookName(dtoElement.getBookName()).build();
+                
+            finalList.add(dto);
+        }
+        
+        
+        return finalList;
     }
 
     

@@ -11,10 +11,27 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" 
         crossorigin="anonymous">
         
-    <style type="text/css">
+<style>
     #cartIcon {
         width: 15px;
         height: 15px;
+    }
+    
+    .thumbnail {
+        display:flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+        justify-content:center;
+    }
+    
+    a {
+        text-decoration:none;
+        color:black;
+    }
+    
+    .bookName {
+        font-weight:bold;
+        font-size:20px;
     }
     
 </style>
@@ -30,17 +47,18 @@
         <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
         <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
         
-        
-        
-        <!-- 도서 바둑판버전 -->
-        <div class="w3-container" th:each="book : ${searchList }" >
-            
-            <div class="w3-quarter">
-                <img th:src="${ book.bookImage }" />
-            </div>
-            
-            
-        </div>
+     </div>
+     
+     <!-- 도서 바둑판버전 -->
+        <table class="thumbnail w3-container" style="margin-top:60px; margin-bottom:60px;">
+            <tr >
+                <td th:each="book : ${searchList }" class="w3-quarter" style="padding-left:30px; padding-right:30px; padding-bottom:40px;">
+                    <a th:href=" #">
+                    <img th:src="${ book.bookImage }" style="height:350px; width:auto;" />
+                    <br/><span class="bookName" th:text="${ book.bookName}"></span></a>
+                </td>
+            </tr>
+        </table>
         
         <!-- 도서카드(가로버전) START -->
           <table class="w-100 table" style="text-align: center;">
