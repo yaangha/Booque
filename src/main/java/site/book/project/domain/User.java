@@ -72,5 +72,11 @@ public class User {
         return this;
     }
     
+    // (하은) 책 구매시 포인트 추가
+    public User update(Integer point) {
+        this.point = point;
+        return this;
+    }
+    
     
 }

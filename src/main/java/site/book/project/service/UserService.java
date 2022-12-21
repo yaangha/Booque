@@ -112,5 +112,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // (하은) 포인트 적립
+    public void update(Integer point, Integer id) {
+        User user = userRepository.findById(id).get();
+        user.update(point + user.getPoint());
+        userRepository.save(user);
+    }
+
 }
 

@@ -15,7 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     
     // (하은) cartId에 따른 order DB 불러오기
     Order findByOrderNoAndUserIdAndBookBookId(Long orderNo, Integer id, Integer bookId);
-
+    
     void deleteByOrderNo(Long orderNo);
 
 }
