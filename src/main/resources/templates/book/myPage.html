@@ -29,7 +29,7 @@
     <div class="row"> <!-- 메인 데이터 -->
     
         <div class="col-2 m-4 p-2" style="height:800px;">
-                <div class="card" align="left" style="margin:20px; width: 200px; height: 700px;"><!-- 프로필  -->
+                <div class="card" align="left" style="margin:20px; width: 200px; "><!-- 프로필  -->
 
                     <div>
                          <img th:src="${ user.userImage}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
@@ -47,7 +47,9 @@
                          <input  type="button" id="imageModify" name="imageModify" style="display: none;"  > 
 
                     </form>
-          
+                    
+              <a class="btn btn-outline-secondary" th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ user.username })}">내 블로그
+              <img style="width: 18px" alt="" src="https://cdn-icons-png.flaticon.com/512/609/609803.png">  </a>
           
                     <form id="profileM">
                              
@@ -95,21 +97,7 @@
 
 
         <div class="col-8 container">
-            <div class="row"> <!-- 박스 div -->
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4">회원등급</div>
-                     <img alt="" src="https://cdn-icons-png.flaticon.com/512/4616/4616319.png" style="width:70px; height:100px;" > 
-                </div>
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4">포인트</div>
-                    <ul style=" list-style: none;">
-                        <li >[[${ user.point }]]</li>
-                    </ul>
-                </div>
-                <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
-                    <div class="h4 p-4"></div>
-                </div>
-            </div> <!-- box row end -->
+
 
             <h4>최근 주문 내역</h4>
             <table class="table">
@@ -280,7 +268,45 @@
 </div> <!-- wish row -->
     
     
+
     
+      <div class="col-8 container">
+                    <h4>작성된 한줄평~!</h4>
+            <table class="table">
+                <thead>
+                    <tr class="border-top border-4">
+                        <th>책이름(책으로 넘어가기)</th>
+                        <th>내용(좋아요)</th>
+                        <th>작성날짜/ 수정날짜</th>
+                        <th>수정/삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each=" comment : ${ commentList }">
+                        <td>
+                            <span th:text="${ comment.bookName }"></span>
+                        <a th:href="@{ /detail?id={bookId} (bookId = ${ comment.bookId})}" th:bookId="${ comment.bookId}" >
+                            <img style="width: 70px; height: 100px;" alt="" th:src="${ comment.bookImage }">
+                        </a> 
+                        </td>
+                        <td>
+                            <p th:text="${ comment.commentText }"></p>
+                            <img style="width: 15px" alt="" src="images/likeFull.png">    <span th:text="${ comment.likes }"></span>
+                        </td>
+                        <td>
+                            <span id="commentDate" th:text="${ comment.createdTime }" ></span>
+                            <br>
+                            <span id="commentDate" th:text="${ comment.modifiedTime }" ></span>
+                        </td>
+                        <td>
+                            <button id="btnDelete" class="btn btn-outline-success">수정</button>
+                            <button id="btnDelete" class="btn btn-outline-danger">삭제</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            </div>
     
     
     
@@ -296,6 +322,8 @@
 
 
     <script type="text/javascript">
+    
+    
     
     
     
@@ -320,6 +348,20 @@
     date.forEach(e => {
         const dd = e.innerText;
         e.innerText = dd.substr(0,10);
+        	
+    })
+    const dateC = document.querySelectorAll('#commentDate');
+    dateC.forEach(e => {
+    	let dateComment = new Date(e.innerText);
+    	console.log(dateComment)
+    	let dateM = dateComment.getMonth()+1;
+    	let dateD = dateComment.getDate()+1;
+    	let dateH = dateComment.getHours();
+    	let dateMi = dateComment.getMinutes();
+    	
+    	const dd =dateM+'월'+dateD+'일  '+dateH+'시'+dateMi+'분' 
+    	
+        e.innerText = dd;
         	
     })
     

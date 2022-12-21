@@ -104,8 +104,7 @@
                             <div>내일 도착</div>
                 </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-outline-secondary btn-sm my-2" id="btnCart" style="width: 100px;"
-                     data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-outline-secondary btn-sm my-2" id="btnCart" style="width: 100px;">
                                  <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"  > 장바구니</button>
 
                     
@@ -172,25 +171,7 @@
     
     
     // 장바구니 버튼 
-            // (하은) 장바구니 버튼 
-    const addCartInfo = document.querySelector('#addCartInfo');
 
-    // 계속 쇼핑하기
-    const btnContinueShopping = document.querySelector('#btnContinueShopping');
-    btnContinueShopping.addEventListener('click', function () {
-        alert('해당 책이 장바구니에 추가되었습니다!');
-      addCartInfo.action = '/cart/onlyAdd';
-      addCartInfo.method = 'post';
-      addCartInfo.submit();
-    })
-    
-    // 장바구니 가기
-    const btnGoCart = document.querySelector('#btnGoCart');
-    btnGoCart.addEventListener('click', function () {           
-        addCartInfo.action = '/cart/add';
-        addCartInfo.method = 'post';
-        addCartInfo.submit();
-    })
     
     
     
@@ -199,8 +180,10 @@
     
     btnCarts.forEach(btn => {
         btn.addEventListener('click', e => {
+        	console.log('장ㅇ바구니')
             const tr = btn.closest('tr')
             const form = tr.querySelector('form#formCart')
+            const result = confirm('장바구니?')
             
             if(result){
                 form.action = '/search/cart';
@@ -217,7 +200,6 @@
             const form = tr.querySelector('form#formCart')
             const result = confirm('바로결제?')
             
-            console.log(form)
             
             if(result){
                 form.action = '/search/order';

@@ -13,12 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.BookComment;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
+import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookWishDto;
 import site.book.project.dto.UserModifyDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.UserRepository;
+import site.book.project.service.BookCommentService;
 import site.book.project.service.BookWishService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
@@ -32,7 +35,7 @@ public class MyPageController {
     private final OrderService orderService;
     private final UserService userService;
     private final BookWishService bookWishService;
-    
+    private final BookCommentService bookCommentService;
     
     // (하은) 마이페이지 연결
     @GetMapping("/myPage")
@@ -42,11 +45,14 @@ public class MyPageController {
         
         // 주문내역 확인 리스트로 가져옴. 날짜별로  최근순 
         List<Order> orderList = orderService.readByUserId(user.getId());
-//        List<OrderNoList> noList = orderService.listOrderNo(user.getId());
-        // 주문 내역별 배송지 확인, bookid리스트, 
         
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(user.getId());
+        List<BookCommentReadDto> commentList = bookCommentService.readByUserId(user.getId());
         
+        
+        
+        
+        model.addAttribute("commentList", commentList);
         model.addAttribute("wishBookInfo", wishBookInfo);
         model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
@@ -111,6 +117,8 @@ public class MyPageController {
         return "redirect:/myPage";
         
     }
+    
+    
     
     
 }
