@@ -95,4 +95,32 @@ public class CartController {
         return "redirect:/detail?id=" + dto.getId();
     }    
     
+    @PostMapping("/cart/postOnlyAdd")
+    public String onlyAddCart(Integer bookId, Integer postId , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
+        Integer userId = userSecurityDto.getId();
+        
+        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, bookId,1);
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(userId, bookId,1);
+            log.info("변경 수량={}", afterCount);
+        }
+        
+        return "redirect:/post/detail?postId=" + postId +"&bookId"+bookId;
+    }    
+    
+    @PostMapping("/cart/postAdd")
+    public String addCart(Integer bookId, Integer postId , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
+        
+        Integer userId = userSecurityDto.getId();
+        
+        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, bookId,1);
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(userId, bookId,1);
+            log.info("변경 수량={}", afterCount);
+        }
+        
+        return "redirect:/cart?id=" + userId;
+    }
 }
