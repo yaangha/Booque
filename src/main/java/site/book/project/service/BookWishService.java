@@ -38,7 +38,7 @@ public class BookWishService {
             BookWishDto dto = new BookWishDto(
                     bw.getBook().getBookId(), bw.getBook().getAuthor(), bw.getBook().getBookName(), 
                     bw.getBook().getBookImage(), bw.getBook().getPrices(), 
-                    bw.getBook().getCategory(), bw.getBook().getBookgroup());
+                    bw.getBook().getCategory(), bw.getBook().getBookgroup(),bw.getBookWishId());
             wishBookInfo.add(dto);
         }
 
@@ -94,6 +94,13 @@ public class BookWishService {
 //        }
 //        
 //        return result;
+        
+        
+    }
+
+
+    public void deleteWish( Integer bookWishId) {
+        bookWishRepository.deleteById(bookWishId);
         
         
     }

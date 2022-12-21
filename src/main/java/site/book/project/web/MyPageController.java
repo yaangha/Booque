@@ -15,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
+import site.book.project.dto.BookWishDto;
 import site.book.project.dto.UserModifyDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.UserRepository;
+import site.book.project.service.BookWishService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
 
@@ -29,6 +31,7 @@ public class MyPageController {
     private final UserRepository userRepository;
     private final OrderService orderService;
     private final UserService userService;
+    private final BookWishService bookWishService;
     
     
     // (하은) 마이페이지 연결
@@ -42,6 +45,9 @@ public class MyPageController {
 //        List<OrderNoList> noList = orderService.listOrderNo(user.getId());
         // 주문 내역별 배송지 확인, bookid리스트, 
         
+        List<BookWishDto> wishBookInfo = bookWishService.searchWishList(user.getId());
+        
+        model.addAttribute("wishBookInfo", wishBookInfo);
         model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
         
@@ -92,6 +98,18 @@ public class MyPageController {
         
         
         return "redirect:/myPage";
+    }
+    
+    // (은정) wish 삭제
+    @PostMapping("/myPage/delete")
+    public String deleteWish( Integer bookWishId) {
+        log.info("삭제아아ㅏ아아아 {}" , bookWishId);
+        
+        bookWishService.deleteWish(bookWishId);
+        
+        
+        return "redirect:/myPage";
+        
     }
     
     

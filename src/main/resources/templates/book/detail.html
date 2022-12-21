@@ -121,9 +121,10 @@
                     <span>포인트</span>
                 </div>
                 <div>
-                    <input type='button' class="btn btn-outline-secondary"  value='+'/>
-                        <input name="count" value="1">
-                    <button type="button" class="btn btn-outline-secondary" value="-">-</button>
+                    <input type='button' id="btnCountM" class="btn btn-secondary"   value='-'/>
+                        <input id="count" name="count"  type="text"  value="1" class="btn">
+                    <input type='button' id="btnCountP" class="btn btn-secondary"  value='+'/>
+                 
                 </div>
                 
             <div class="col-2 my-2">
@@ -304,6 +305,36 @@
         <script th:src="@{ /js/wishList.js }"></script>
 
         <script>
+        const btnP = document.querySelector('#btnCountP');
+        const btnM = document.querySelector('#btnCountM');
+        	
+        btnP.addEventListener( 'click',  function() {
+        	
+            const count = document.querySelector('#count');
+            let countT = count.value
+        	let countP =  parseInt(countT)+1;
+        	countP = countP+' '
+        	count.setAttribute('value',countP);
+
+        })
+        
+        btnM.addEventListener( 'click',  function() {
+        	
+            const count = document.querySelector('#count');
+            let countT = count.value
+        	if(countT == 1){
+        		alert('수량은 0이하가 되지 못합니다.')
+        		return;
+        	}
+            
+        	let countP =  parseInt(countT)-1;
+        	countP = countP+' '
+        	count.setAttribute('value',countP);
+
+        })
+        
+        
+        
         // (하은) 장바구니 버튼 
         const addCartInfo = document.querySelector('#addCartInfo');
 
