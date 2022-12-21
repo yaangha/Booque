@@ -36,6 +36,18 @@ public class OrderService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     
+    
+    public List<Order> readByUserId(Integer userId){
+        List<Order> list = orderRepository.findByUserIdOrderByOrderNoDesc(userId);
+        
+        
+        return list;
+    }
+    
+    
+    
+    
+    
     public List<Order> readAll(){
         return orderRepository.findAll();
     }
@@ -209,5 +221,21 @@ public class OrderService {
     public void deleteInOrder(Long orderNo) {
         orderRepository.deleteByOrderNo(orderNo);
     }
+
+
+
+
+
+//    public List<OrderNoList> listOrderNo(Integer id) {
+//        List<Order> list = readByUserId(id);
+//        OrderNoList noList = null;
+//        // 오더넘버가 같은 것들을 어떻게 처리할 수 있지?
+//        for(Order o : list) {
+//            noList.builder().
+//            
+//            
+//        }
+//        return null;
+//    }
     
 }

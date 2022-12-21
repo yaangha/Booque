@@ -45,11 +45,8 @@
             </div>
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
-        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
-        <input type="button" class="btn btn-outline-secondary" value="장바구니">
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
-        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
+        
+        
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
             <tr th:if="${ #lists.isEmpty(searchList)}">
@@ -66,19 +63,18 @@
             <thead class="table-light">
                 <tr>
                 	<th> </th>
-                    <th >도서 정보</th>
-                    <th >~~~~배송 일정~~~~</th>
-                    <th >~~~~배송 일정~~~~</th>
-                    <th >~~~~배송 일정~~~~</th>
+                	<th> </th>
+                	<th> </th>
+                	<th> </th>
+                	<th> </th>
+
                 </tr>
             </thead>            
             <tbody style="height: 200px;">
             <tr th:each="book : ${ searchList }" >
                 <td class="align-middle">
-                    <form id="formCheck" >
-                        <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
-                    </form>
-                    <form id="formCart" >
+                    
+                    <form id="formCart" action="/search/cart" >
                         <input type="hidden"  name="bookId" th:value="${ book.bookId}" />
                     </form>
                       <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
@@ -109,15 +105,14 @@
                             <div>내일 도착</div>
                 </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-danger btn-sm my-2" id="btnCart"
-                    			style="width: 100px;" th:value="${ book.bookId }">장바구니</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm my-2" id="btnCart" style="width: 100px;" th:value="${ book.bookId }">
+                                 <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"> 장바구니</button>
                     <button type="button" class="btn btn-dark btn-sm my-2" id="btnOrder"
                     			 style="width: 100px;">구매하기</button><br/>
                 </td>
             </tr>
         </tbody>
         </table>
-
 
     <!-- 페이징 시작 -->
         <nav aria-label="Page navigation example">
@@ -189,6 +184,7 @@
 			const tr = btn.closest('tr')
 			const form = tr.querySelector('form#formCart')
 			const result = confirm('바로결제?')
+			
 			console.log(form)
 			
 			if(result){
@@ -198,12 +194,10 @@
 			}
 		})
 	})
-	
-	
-	
-	
-	
     </script>
+    
+
+    
     
     <!-- 조회수 증가 -->
     <script>
