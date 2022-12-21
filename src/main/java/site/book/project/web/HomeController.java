@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.dto.HomeTopFiveListDto;
 import site.book.project.service.HomeService;
 
 @Slf4j
@@ -85,12 +86,15 @@ public class HomeController {
 //          }
         
         // 전체 포스트(리뷰) 중 댓글이 많이 달린 순 1~5위
-        List<Post> hotReviewPostList = homeService.readTopFiveHotReviewOrderByPost();
+        List<HomeTopFiveListDto> hotReviewPostList = homeService.readTopFiveHotReviewOrderByPost();
+        for (HomeTopFiveListDto b : hotReviewPostList) {
+            log.info("id={},score={},bookname={}", b.getPostId(), b.getHit(), b.getBookName());
+          }
         
         // 전체 포스트(조회수순) 1~5위
-        List<Post> bestHitPostList = homeService.readTopFiveBestHitOrderByPost();
-        for (Post b : bestHitPostList) {
-          log.info("id={},score={}", b.getPostId(), b.getHit());
+        List<HomeTopFiveListDto> bestHitPostList = homeService.readTopFiveBestHitOrderByPost();
+        for (HomeTopFiveListDto b : bestHitPostList) {
+          log.info("id={},score={},bookname={}", b.getPostId(), b.getHit(), b.getBookName());
         }
         
         model.addAttribute("top10ScoreList", list);                     // 전체 책 별점순 1~8위
@@ -106,7 +110,7 @@ public class HomeController {
         model.addAttribute("essayPostList", essayPostList);             // 시/에세이(리뷰순)
         model.addAttribute("selpHelpPostList", selpHelpPostList);       // 자기계발(리뷰순)
         model.addAttribute("hotReviewPostList", hotReviewPostList);     // 댓글 많이 달린 Top 1~5위 리뷰글
-        model.addAttribute("bestHitPostList", bestHitPostList);     // 조회수 많은 Top 1~5위 베스트글
+        model.addAttribute("bestHitPostList", bestHitPostList);         // 조회수 많은 Top 1~5위 베스트글
         return "home";
     }
 
