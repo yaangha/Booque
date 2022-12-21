@@ -24,64 +24,70 @@ public class HitController {
     
     // 쿠키써서 조회수 어뷰징 방지
     // 쿠키 재적용 시간은 setMaxAge에서 시간 조절 가능, 일단 24시간으로 설정
-    // TODO: login ID와 비회원에 따라 구분하여 적용하는 것은 아직 
+    // bookDetail 관련 조회수
     @GetMapping("/viewCount")
     private void viewCountUp(Integer bookId, HttpServletRequest request, HttpServletResponse response) {
         log.info("viewCountUp(bookId={})", bookId);
         
-        Cookie oldCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
+        Cookie viewCookie = null; // 쿠키값 정의
+        Cookie[] cookies = request.getCookies(); // 클라이언트에서 보낸 데이터에서 쿠키 값을 가져옴
+        if (cookies != null) { // 쿠키들이 있다면,
+            for (Cookie cookie : cookies) { // 있는 쿠키들 중에 bookDetail 쿠키가 있으면 viewCookie를 쿠키로 저장.
                 if (cookie.getName().equals("bookDetailViewCount")) {
-                    oldCookie = cookie;
+                    viewCookie = cookie;
                 }
             }
         }
-        if (oldCookie != null) {
-            if (!oldCookie.getValue().contains("[" + bookId.toString() + "]")) {
+        
+        // 만들어진 쿠키가 없을 때
+        if (viewCookie != null) { // view 쿠키가 있다면, 
+            if (!viewCookie.getValue().contains("[" + bookId.toString() + "]")) {
                 bookHitsService.viewCountUp(bookId);
-                oldCookie.setValue(oldCookie.getValue() + "_[" + bookId + "]");
-                oldCookie.setPath("/");
-                oldCookie.setMaxAge(60 * 60 * 24);
-                response.addCookie(oldCookie);
+                viewCookie.setValue(viewCookie.getValue() + "_[" + bookId + "]");
+                viewCookie.setPath("/");
+                viewCookie.setMaxAge(60 * 1);
+                response.addCookie(viewCookie);
             }
-        } else {
+        } else { // view 쿠키가 없을 경우 쿠키를 만들고 조회수 1을 증가시켜주기
             bookHitsService.viewCountUp(bookId);
             Cookie newCookie = new Cookie("bookDetailViewCount","[" + bookId + "]");
             newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 60 * 24);
+            newCookie.setMaxAge(60 * 1);
             response.addCookie(newCookie);
         }
+//        for (Cookie cookie : cookies) {
+//            log.info("쿠키목록={}",cookie.getValue()
+//        }
         
     }
     
+    // postDetail 관련 조회수
     @GetMapping("/postHitCount")
     private void postHitsUp(Integer postId, HttpServletRequest request, HttpServletResponse response) {
-        log.info("viewCountUp(postId={})", postId);
+        log.info("postHitsUp(postId={})", postId);
         
-        Cookie oldCookie = null;
+        Cookie hitCookie = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("bookDetailViewCount")) {
-                    oldCookie = cookie;
+                if (cookie.getName().equals("postDetailHitCount")) {
+                    hitCookie = cookie;
                 }
             }
         }
-        if (oldCookie != null) {
-            if (!oldCookie.getValue().contains("[" + postId.toString() + "]")) {
+        if (hitCookie != null) {
+            if (!hitCookie.getValue().contains("[" + postId.toString() + "]")) {
                 postHitsService.postHitsUp(postId);
-                oldCookie.setValue(oldCookie.getValue() + "_[" + postId + "]");
-                oldCookie.setPath("/");
-                oldCookie.setMaxAge(60 * 60 * 24);
-                response.addCookie(oldCookie);
+                hitCookie.setValue(hitCookie.getValue() + "_[" + postId + "]");
+                hitCookie.setPath("/");
+                hitCookie.setMaxAge(60 * 1);
+                response.addCookie(hitCookie);
             }
         } else {
             postHitsService.postHitsUp(postId);
-            Cookie newCookie = new Cookie("bookDetailViewCount","[" + postId + "]");
+            Cookie newCookie = new Cookie("postDetailHitCount","[" + postId + "]");
             newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 60 * 24);
+            newCookie.setMaxAge(60 * 1);
             response.addCookie(newCookie);
         }
         

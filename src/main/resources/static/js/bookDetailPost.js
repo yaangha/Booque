@@ -82,10 +82,11 @@
                 + '<div class="card my-2">'
                 + '<div class="card-header">'
            +  '<div class="my-2"> '
-           +     '<a  href=" /post/detail?postId='+r.postId+'&bookId='+r.bookId+'&username='+r.writer+'"' 
-                + '<h5 style="float: right;" class="btn btn-outline-secondary">' + r.writer + '</h5>'
+           +  `<a href="/post/detail?postId=${r.postId}&bookId=${r.bookId}&username=${r.writer}" onclick="postHitCountUp(${r.postId});">` 
+                + '<h5>' + r.writer + '</h5>'
            +   '   </a> '
            + '  </div> '
+           
                 
                 + '<h5 class="card-title">' + r.title + '</h5>'
                 + '<span>' + s+ '</span> <span class="card-subtitle mb-2 text-muted">'+score+'</span>'
@@ -104,6 +105,8 @@
      //           + '</div>'
       //      }
             str += '</div>';
+            
+            
         }
         
         divPost.innerHTML = str;
@@ -160,18 +163,6 @@
         
         
         
-        
-
-        
-
-        
-        
-    
-    
-    
-    
-    
-    
     }
     
     

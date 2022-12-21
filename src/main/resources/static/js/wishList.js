@@ -53,8 +53,8 @@
                 
             },
             
-            error: function(err) {
-                alert("실패: " + err.responseText);
+            error: function() {
+                alert("실패: 로그인 후 이용가능합니다!" );
             }
             
         })
