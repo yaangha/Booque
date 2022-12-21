@@ -35,14 +35,20 @@
                          <img th:src="${ user.userImage}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
                     </div>
                     <form name="userimageModify" id="userimageModify" enctype="multipart/form-data"  action="/myPage/file" method="post">
-                         <input type="file" id="filePath" name="filePath" accept="image/jpg, image/png" > 
+                         <label for="filePath" class="btn">
+                            <span>프로필</span>
+                            <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
+                         </label >
+                         <input type="file" id="filePath" name="filePath"  style="display: none;" accept="image/jpg, image/png" > 
                          
-                         <input type="button" id="imageModify" name="imageModify" accept="image/jpg, image/png"  > 
+                         <label for="imageModify" class="btn">
+                            <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
+                         </label >
+                         <input  type="button" id="imageModify" name="imageModify" style="display: none;"  > 
 
                     </form>
-                    <div>
-                         <img th:src="${ user.filePath}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
-                    </div>
+          
+          
                     <form id="profileM">
                              
                              <br/>
@@ -51,7 +57,9 @@
                              <label class="btn">이메일</label> <input name="email"  class="btn btn-secondary"  th:value="${ user.email }"  >
                              <label class="btn">번호</label> <input name="phone" class="btn btn-secondary"  th:value="${ user.phone }"  >
                     </form>
-                    <button id="modify" class="btn"> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
+                    <button id="modify" class="btn btn"> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
+                    <button id="modify" class="btn btn-outline-danger"><span>아이디/비밀번호</span> <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }"> </button>
+                    
             </div><!-- 프로필 끝 -->          
         </div> <!-- col end -->
 
@@ -60,6 +68,7 @@
             <div class="row"> <!-- 박스 div -->
                 <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
                     <div class="h4 p-4">회원등급</div>
+                     <img alt="" src="https://cdn-icons-png.flaticon.com/512/4616/4616319.png" style="width:70px; height:100px;" > 
                 </div>
                 <div class="col m-4 border rounded-4 text-bg-light" style="width:300px; height:200px;">
                     <div class="h4 p-4">포인트</div>
