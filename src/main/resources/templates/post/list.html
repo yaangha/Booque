@@ -94,7 +94,12 @@
     
  <div class="col-10"><!-- content block start -->
     <!-- 최근에 본 책 간단 정보 -->
+    
+     <!-- 예진: 작성한 리뷰가 있을 때만 보여줌. -->
+    <div th:if="${ !#lists.isEmpty(list) }">
     <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p> 
+    </div>
+    
     <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
         <div class="row container">
             <div class="col" th:each="post : ${ list }">
@@ -115,8 +120,6 @@
     
 <!-- test용 -->
 <div>
-           
-    <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p>
              
     <div id="hotPostsSlides" class="carousel slide" data-bs-ride="true" style="border:2px solid white; width: 100%; z-index:0;">
         <div class="carousel-indicators">
@@ -176,20 +179,15 @@
     </div>
             
 </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      
     <br/>
     
+ <!-- 예진: 작성한 리뷰가 없을 때.  -->   
+ <div th:if="${ #lists.isEmpty(list) }">작성한 글이 없습니다.<span style="font-weight: bold; font-size: 20px;">첫 리뷰를 작성해보세요!!</span></div>
+ 
+ <!-- 예진: 작성한 리뷰가 있을 때. -->
+ <div th:if="${ !#lists.isEmpty(list) }">
+ 
     <!-- 사용자 작성 리뷰 리스트(테이블) -->
     <table class="table">
     <thead>
@@ -201,8 +199,8 @@
     <tbody>
         <tr th:each="post : ${ list }">
             <td class="py-5">
-                <div class="h4">
-                    <span th:text="${ post.postId }"></span>
+                  <div class="h4">
+                   <span th:text="${ post.postId }"></span>
                    
                     <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
                     
@@ -226,7 +224,7 @@
                     </div>
                      <div th:text="${ post.postContent }"></div>
                 </div>
-              
+          
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
                 <!-- 홍찬 -->
                 <small>조회수 <span th:text="${post.hit}"></span></small>
@@ -236,11 +234,11 @@
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
-            
-        </tr>
+       </tr>
+    
     </tbody>
     </table>
-    
+    </div>
 </div><!-- content block end -->
 </div><!-- main block end -->
 

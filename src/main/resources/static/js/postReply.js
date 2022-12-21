@@ -63,9 +63,9 @@
             str += '<div style="margin-left: 50px;" class="card my-2 mt-2>'
                 + '<div class="card-header">'
                 + '<div class="d-flex mb-4">'
-                + '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>'
+                + '<div class="flex-shrink-0"><img class="rounded-circle" width="60" height="60" src="' + r.userImage + '" alt="..." /></div>'
                 + '<div class="ms-3">'
-                + '<div class="fw-bold">' + r.replyWriter + '</div>'
+                + '<div class="fw-bold"><a href="/post/list">' + r.replyWriter + '</a></div>'
                 + '</div>'
                 + '<div class="card-body">'
                 + '<p>' + r.replyContent + '</p>'
@@ -178,4 +178,6 @@
             })
             .catch(err => {console.log(err)});
     }
+  
+            
 });
