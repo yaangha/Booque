@@ -34,20 +34,27 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
-    <div style="font-weight: bold;">
-        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
-        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+
+    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
+        <img th:src="${ user.userImage }" width="200" height="280" class="card-img-top">
+        <div class="card-body" style="text-align: left;">
+            <div class="border-bottom mb-2 border-dark">
+                <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
+                <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+            </div>
+            <div class="mb-4">
+                <input value="블로그 소개글 넣기" />
+            </div>
+            <span style="color:gray;">전체 리뷰수</span>
+            <span class="h4"><strong style="color:red;">1,004</strong></span>
+        </div>
     </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
     
-    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
-        
-    <div>전체 방문자수</div>
-    <div class="h4"><strong>1,004</strong></div>
-    <div>Today: <span>58</span></div>
-    
-    <br/><br/>
+    <div class="border rounded py-2 w-75 bg-light">
+        <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
+    </div>
+
+    <br/>
     
     <div class="h5" style="text-align: left;">이런 글은 어떠세요?</div>
     <div class="row my-2">
@@ -83,23 +90,21 @@
     
 <div class="col-8"><!-- content block start -->
 
-<div class="my-2 py-4 px-2 border rounded" style="text-align: left;">
+<div class="my-2 py-4 px-2" style="text-align: left;">
     <span>
     <small class="d-inline-flex px-2 border border-1 rounded text-secondary">
-        <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+        <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span> 
     </small>
     <span class="h4" th:text="${ book.bookName }" style="font-weight: bold;"></span>
     </span> 수정 및 삭제를 해주세요!
 </div>
-
-<br/>
 
 <form id="formModify"><!-- 글 작성 from start -->
     <div>
         <input type="hidden" id="bookId" name="bookId" th:value="${ book.bookId }"/>
         <input type="hidden" id="postId" name="postId" th:value="${ post.postId }"/>
         <div class='row my-2'>
-            <div class="col">
+            <div class="col-sm-9">
                 <input id="title" th:value="${ post.title }" class="form-control" type="text" name="title" style="height:50px; font-size: large;" required autofocus />
             </div>
             <div class="col-sm-3">
@@ -109,13 +114,15 @@
         <input type="hidden" th:value="${ post.postWriter }" id="postWriter" name="postWriter" />
         <textarea class="summernote" id="postContent" th:text="${ post.postContent }" name="postContent" required></textarea>
         <div style="padding: 5px;" align="right" th:if="${ post.postWriter } == ${ #authentication.name }">
-            <div class="row">
-                 <button class="col btn border rounded bg-primary" id="btnUpdate">수정</button>
-                 <button class="col btn border rounded bg-danger" id="btnDelete">삭제</button>
+            <div class="row justify-content-center">
+                <button class="col-4 mx-2 py-3 btn border rounded-4 btn-danger" id="btnDelete">삭 제</button>
+                <button class="col-4 mx-2 py-3 btn border rounded-4 btn-primary" id="btnUpdate">수 정</button> 
             </div>
         </div>
     </div>
 </form><!-- 글 작성 from end -->
+
+<br/>
     
 </div><!-- content block end -->
 
@@ -135,11 +142,8 @@
         <div th:text="${ book.author }"></div>
         <div th:text="${ book.publisher }"></div>
         <div th:text="${ book.publishedDate }"></div>
-        <div th:text="${ book.prices +'원' }"></div>
-        <div>판매지수</div>
-        <div><a>회원리뷰</a> ★★★★★</div>
-        <div>오늘 주문하면 내일 도착</div><br/>
-        <a href="#" class="btn btn-primary">카트 담기</a>
+        <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>
+        <a href="#" class="btn btn-primary my-2">카트 담기</a>
     </div>
 </div>
 <!-- 도서 정보 블록 end -->

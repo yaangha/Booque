@@ -59,28 +59,45 @@
     function updateReplyList(data){
         const divReplies = document.querySelector('#replies');
         let str = '';
+//        for (let r of data){
+//            str += '<div style="margin-left: 50px;" class="card my-2 mt-2>'
+//                + '<div class="card-header">'
+//                + '<div class="d-flex mb-4">'
+//                + '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>'
+//                + '<div class="ms-3">'
+//                + '<div class="fw-bold">' + r.replyWriter + '</div>'
+//                + '</div>'
+//                + '<div class="card-body">'
+//                + '<p>' + r.replyContent + '</p>'
+//                + '<p> 작성시간: ' + r.createdTime + '</p>'
+//                + '<p> 수정시간: ' + r.modifiedTime + '</p>'
+//                + '</div>';
+//            if(r.replyWriter == loginUser){
+//            str += '<div class="card-footer">'
+//                + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
+//                + '</div>';
+//            }
+//            str += '</div>'
+//                + '</div>'
+//                + '</div>';
+//        }
+        
         for (let r of data){
-            str += '<div style="margin-left: 50px;" class="card my-2 mt-2>'
-                + '<div class="card-header">'
-                + '<div class="d-flex mb-4">'
-                + '<div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>'
-                + '<div class="ms-3">'
-                + '<div class="fw-bold">' + r.replyWriter + '</div>'
-                + '</div>'
-                + '<div class="card-body">'
-                + '<p>' + r.replyContent + '</p>'
-                + '<p> 작성시간: ' + r.createdTime + '</p>'
-                + '<p> 수정시간: ' + r.modifiedTime + '</p>'
+            str += '<div class="card border-dark mb-3 w-100" style="text-align: left;">'
+                + '<div class="card-header">' + r.replyWriter + '</div>'
+                + '<div class="card-body text-dark">'
+                + '<p class="card-text">' + r.replyContent + '</p>'
+                + '<div><small style="color:gray;"> 작성시간: ' + r.createdTime + '</small></div>'
+    //            + '<div><small style="color:gray;"> 수정시간: ' + r.modifiedTime + '</small></div>'
                 + '</div>';
             if(r.replyWriter == loginUser){
             str += '<div class="card-footer">'
                 + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
                 + '</div>';
             }
-            str += '</div>'
-                + '</div>'
-                + '</div>';
+            str += '</div>';
         }
+        
         divReplies.innerHTML = str;
         
         // [수정] 버튼에 이벤트 리스너를 등록

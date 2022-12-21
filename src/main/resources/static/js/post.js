@@ -24,7 +24,7 @@
         
         let str = '';
         
-            str += '<div class="w-100 px-3 py-3 border">'
+            str += '<div class="w-100 px-5 py-5 mt-5 border-top border-dark">'
                 + '<div>' + data.content + '</div>'
                 + '</div>';
         divPost.innerHTML = str;

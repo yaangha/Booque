@@ -48,15 +48,21 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
-    <div style="font-weight: bold;">
-        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
-        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+    
+    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
+        <img th:src="${ user.userImage }" width="200" height="280" class="card-img-top">
+        <div class="card-body" style="text-align: left;">
+            <div class="border-bottom mb-2 border-dark">
+                <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
+                <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+            </div>
+            <div class="mb-4">
+                <input value="블로그 소개글 넣기" />
+            </div>
+            <span style="color:gray;">전체 리뷰수</span>
+            <span class="h4"><strong style="color:red;">1,004</strong></span>
+        </div>
     </div>
-    <input /><span>블로그 소개글 넣기</span>
-        
-    <div>전체 리뷰수</div>
-    <div class="h4"><strong>1,004</strong></div>
     
     <br/><br/>
     
@@ -96,97 +102,29 @@
     <!-- 최근에 본 책 간단 정보 -->
     <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p> 
     <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
-        <div class="row container">
-            <div class="col" th:each="post : ${ list }">
-                <div class="card my-2" style="width: 20rem; height:40rem">
-                    <a th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
-                        <img th:src="${ post.bookImage }" class="card-img-top" style="height:30rem" />
+        <div class="row justify-content-start">
+            <div class="col" th:each="book : ${ books }">
+                <div class="card my-2" style="width: 20rem; height:auto">
+                    <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}">
+                        <img th:src="${ book.bookImage }" class="card-img-top" style="height:30rem" />
                     </a>
                     <div class="card-body" style="text-align: left;">
                         <div class="card-text">
-                            <a class="h4" th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a><br/>
-                            <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd') }" style="color:gray;"></small>
+                            <div class="my-2">
+                                <small class="d-inline-flex px-2 border border-1 rounded text-secondary">
+                                    <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+                                </small>
+                            </div>
+                            <div class="h4" th:text="${ book.bookName }"></div>
+                            <div th:text="${ book.author }"></div>
+                            <div th:text="${ book.publisher }"></div>
+                            <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>                            
                         </div>
                     </div> <!-- card body end -->
                 </div> <!-- card end -->
             </div> <!-- col end -->
         </div> <!-- row end -->
     </div><!-- 최근에 본 책 블록 end -->
-    
-<!-- test용 -->
-<div>
-           
-    <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p>
-             
-    <div id="hotPostsSlides" class="carousel slide" data-bs-ride="true" style="border:2px solid white; width: 100%; z-index:0;">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        </div>
-        <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px;  padding-left:30px; padding-right:30px;">
-            <div class="carousel-item active">
-                <div class="w3-quarter">
-                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" style="height:250px; width:auto;" />
-                </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>너무 좋은 책이에요!!!</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
-                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
-                </div>
-                <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" style="height: 250px; width:auto;" />
-                </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>최고의 책</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
-                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
-                </div>
-            </div>
-             <div class="carousel-item">
-                <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" style="height:250px; width:auto;" />
-                </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>너무 좋은 책이에요!!!</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
-                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
-                </div>
-                <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" style="height: 250px; width:auto;" />
-                </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>최고의 책</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
-                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-            
-</div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     <br/>
     

@@ -92,11 +92,19 @@ public class PostController {
         // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
         LocalDate now = LocalDate.now();
         String day= now.toString().substring(8);
-
+        
+        // (하은) post에 있는 bookId로 책 정보 넘기기
+        List<Book> books = new ArrayList<>();
+        
+        for (PostListDto p : postList) {
+            Book book = bookService.read(p.getBookId());
+            books.add(book);
+        }
 
             model.addAttribute("day", day);
             model.addAttribute("user", user);      
             model.addAttribute("list", postList);
+            model.addAttribute("books", books);
                 
         return "/post/list";
     }
