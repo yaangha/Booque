@@ -37,7 +37,7 @@
 	
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
     <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
-   
+    <input type="hidden" id="un" th:value="${#authentication.name}">
 	<!-- table AJax로 만듦 -->
     <div id="cList"></div>
     
@@ -119,7 +119,21 @@
     </script>
     
     <script th:src="@{ /js/cartList.js }"></script>
+    <!-- 조회수 증가(책 상세보기, 리뷰 상세보기) -->
+    <script>
+    function viewHitUp(bookId, username){
+        console.log(username);
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
     
+    </script>
 </body>
 
 </div>

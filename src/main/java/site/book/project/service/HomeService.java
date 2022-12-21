@@ -144,6 +144,15 @@ public class HomeService {
         return hotReviewTopFiveList;
     }
 
+    // 전체 포스트(조회수순) 1~5위
+    @Transactional(readOnly = true)
+    public List<Post> readTopFiveBestHitOrderByPost() {
+        List<Post> list = new ArrayList<>(); 
+        list = postRepository.findTop5ByOrderByHitDesc();
+        
+        return list;
+    }
+
     
     
 

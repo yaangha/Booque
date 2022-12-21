@@ -88,6 +88,10 @@ public class HomeController {
         List<Post> hotReviewPostList = homeService.readTopFiveHotReviewOrderByPost();
         
         // 전체 포스트(조회수순) 1~5위
+        List<Post> bestHitPostList = homeService.readTopFiveBestHitOrderByPost();
+        for (Post b : bestHitPostList) {
+          log.info("id={},score={}", b.getPostId(), b.getHit());
+        }
         
         model.addAttribute("top10ScoreList", list);                     // 전체 책 별점순 1~8위
         model.addAttribute("top10ReviewList", postList);                // 전체 책 리뷰많은순 1~8위
@@ -102,6 +106,7 @@ public class HomeController {
         model.addAttribute("essayPostList", essayPostList);             // 시/에세이(리뷰순)
         model.addAttribute("selpHelpPostList", selpHelpPostList);       // 자기계발(리뷰순)
         model.addAttribute("hotReviewPostList", hotReviewPostList);     // 댓글 많이 달린 Top 1~5위 리뷰글
+        model.addAttribute("bestHitPostList", bestHitPostList);     // 조회수 많은 Top 1~5위 베스트글
         return "home";
     }
 

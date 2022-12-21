@@ -24,6 +24,7 @@
     
     function updateCartList(data){
         const divCart = document.querySelector('#cList')
+        const username = document.querySelector('#un').value;
         let str = '';
         
         str += ' <form id="formCheck" mehtod="post">' 
@@ -47,7 +48,7 @@
       str  += '<tr>'
             +  '<td class="align-middle">' 
             +   ' <input type="checkbox" checked  id="ckBox" style="width: 30px;"  name="cartId" value="'+ c.cartId +'"/>' 
-            +   '<a href="/detail?id='+c.bookId+'"><img src="' + c.image +'" style="width: 150px;"/></a>  </td>' 
+            +   `<a href="/detail?id=${c.bookId}" onclick="viewHitUp(${c.bookId}, ${username});"><img src="${c.image}" style="width: 150px;"/></a>  </td>` 
             +   ' <td class="align-middle" style="text-align: left;">' 
             +              '  <small class="d-inline-flex px-2 my-1 border rounded text-secondary">' 
             +                 '   <span>'+c.group+'</span><span> / </span><span>'+c.category+'</span>' 
@@ -161,7 +162,6 @@
     for(let i=0; i<list.length; i++ ){
         
         if(parseInt(total.innerText)<30000){
-        console.log('배송비')
             delivery.innerText = '3,000 원'
             totalPrice.innerText = parseInt(total.innerText)+3000;
         } else {

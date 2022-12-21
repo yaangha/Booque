@@ -89,7 +89,7 @@
         <div class="row container">
             <div class="col" th:each="post : ${ list }">
                 <div class="card my-2" style="width: 20rem; height:40rem">
-                    <a th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                    <a th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}" th:bookId="${post.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
                         <img th:src="${ post.bookImage }" class="card-img-top" style="height:30rem" />
                     </a>
                     <div class="card-body" style="text-align: left;">
@@ -118,16 +118,16 @@
             <td class="py-5">
                 <div class="h4">
                     <span th:text="${ post.postId }"></span>
-                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" th:username="${#authentication.name}" onclick="postHitCountUp(this.getAttribute('postId'), this.getAttribute('username'));"></a></strong>
                 </div>
                 <div>오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
                     오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
                     오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..</div>
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
-                <small>조회수 <span th:text="${hitCount}"></span></small>
+                <small>조회수 <span></span></small>
             </td>
             <td style="text-align: center;">
-                <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}" th:bookId="${post.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
@@ -150,8 +150,23 @@
     
     <!-- 포스트 글 조회수 증가-->
     <script>
-    function postHitCountUp(postId){
-        axios.get('/postHitCount', {params: {postId : postId}})
+    function postHitCountUp(postId, username){
+        axios.get('/postHitCount', {params: {postId : postId, username : username}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
+    </script>
+    
+    <!-- 조회수 증가(책 상세보기) -->
+    <script>
+    function viewHitUp(bookId, username){
+        console.log(username);
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);
                return true;

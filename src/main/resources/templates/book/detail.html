@@ -208,7 +208,7 @@
                     <div class="row container">
                         <div class="col" th:each="book : ${ authorOtherBook }">
                             <div class="card my-2" style="width: 15rem; height:33rem">
-                                <a th:href="@{ /detail(id=${ book.bookId }) }">
+                                <a th:href="@{ /detail(id=${ book.bookId }) }" th:bookId="${book.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
                                 	<img th:src="${ book.bookImage }" class="card-img-top" alt="테스트">
                                 </a>
                                 <div class="card-body">
@@ -270,6 +270,7 @@
             <div class="col-4" th:if="${ #authentication.name } != anonymousUser">
                 <span class="form-control" sec:authentication="name"> </span>
             </div>
+            <input type="hidden" id="un" th:value="${#authentication.name}">
             <div class="row">
                 <div class="col-10 my-2">
                     <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example">
@@ -372,9 +373,9 @@
         </script>
         
         <script>
-        // (홍찬- 조회수) 
-        function postHitCountUp(postId) {
-            axios.get('/postHitCount', { params: { postId: postId } })
+        // (홍찬- 포스트 조회수) 
+        function postHitCountUp(postId, username) {
+            axios.get('/postHitCount', { params: { postId: postId, username: username } })
                 .then(response => {
                     console.log(response);
                     return true;
@@ -384,7 +385,21 @@
                 });
             }
         </script>
-        
+        <!-- 조회수 증가(책 상세보기, 리뷰 상세보기) -->
+    <script>
+    function viewHitUp(bookId, username){
+        console.log(username);
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
+    
+    </script>
         <!-- bootstrap -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
