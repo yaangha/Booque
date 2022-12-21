@@ -162,13 +162,16 @@
 
                                 <!-- Comment form-->
                                      <!-- 프로필 정보 -->
-                                     <div  style="margin-left: 4px;" class="profile">
+                                     <th:block th:if="${ #authentication.name } != anonymousUser " >
+                                     <div style="margin-left: 4px;" class="profile">
                                        <!-- #########링크 수정하기######### -->
                                                 <a href=#><img src="/images/프로필.jfif"
                                                        class="img-fluid rounded-start"
                                                          style="width: 30px; height: 30px;" alt=""></a>
-                                                <input type="text" id="replyWriter" />
+                                                <input type="text" id="replyWriter" th:value="${ #authentication.name }" readonly/>
                                      </div>
+                                     </th:block>
+                                     <input type="hidden" id="rWriter" th:value="${ #authentication.name }" readonly/>
                                 <form>
                                     <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
                                     <div align="right" style="padding-right: 10px;"> <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button></div>
@@ -219,8 +222,6 @@
     </div>
     </div> <!-- container-fluid : END -->
     <hr/>
-
-
     
 <!-- summernote -->
   <script>
@@ -236,7 +237,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
     <script th:src="@{ /js/postReply.js }"></script>
-
+    <script>
+    const loginUser = document.querySelector('#rWriter');
+    </script>
     
   </div><!-- layout:fragment="content" : END -->
 

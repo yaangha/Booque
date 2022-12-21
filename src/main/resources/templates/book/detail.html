@@ -72,14 +72,14 @@
     </style>
     
 </head>
-<body>
+<body class="bg-light">
 
         <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
-        <div class="w-50 container">
+        <div class="w-100 container">
             <div class="row my-5">
                 <!-- 도서 이미지 -->
-                <div class="col">
-                    <img th:src="${ book.bookImage }" style="width: 450px; height: 650px" />
+                <div class="col" style="text-align: right;">
+                    <img th:src="${ book.bookImage }" style="width: 600px; height: 800px" />
                 </div>
 
                 <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
@@ -91,8 +91,8 @@
                 
                 <!-- (지혜) 로그인된 유저 정보도 넘겼을 때 이걸로 바꾸기? -->
 
-                <!-- 
-                <div>
+                
+                <!-- <div>
                 <span th:text="${ nickName }" style="font-weight:bold; color:dodgerblue;"></span>
                 <span>님이 보고 계신 책은...</span>
                 </div> -->
@@ -113,21 +113,26 @@
 
                 <div class="my-2"style="font-weight: bold;">
                     <input type="hidden" name="price" th:value="${ book.prices }"> 
-                    <span style="font-size: large;"  th:text="${ book.prices }"></span>
+                    <span style="font-size: large;"  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></span>
                     <span>원</span>
+                    
                 </div>
                 <div class="my-2"style="font-weight: bold;">
                     <span style="font-size: large;"  th:text="${ book.prices * 0.05 }"></span>
                     <span>포인트</span>
                 </div>
                 <div>
-                    <div>수량</div>
-                    <input name="count" class="w-50" type="number" min="1" />
+                    <input type='button' class="btn btn-outline-secondary"  value='+'/>
+                        <input name="count" value="1">
+                    <button type="button" class="btn btn-outline-secondary" value="-">-</button>
                 </div>
+                
+                             <div class="col-2 my-2">
+              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}"><input type="button" class="btn btn-outline-dark" value="리뷰 작성"></a>        
+            </div>
                 
                 </form>
                 <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
-                    
                 <!-- (하은) 장바구니 페이지 갈지말지 -->
                 <!-- Button trigger modal -->
                 <button type="button" class="w-50 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">장바구니</button>
@@ -225,10 +230,7 @@
         <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
         <div class="row">
             <div id="bookReview" class="h4 col">리뷰</div>
-            <div class="col-2 my-2">
-              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">리뷰작성</a>        
-            </div>
-            
+                      
             <!-- 최신순, 선호도 등 -->
             <div class="dropdown col">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
@@ -265,8 +267,10 @@
 
         <!-- 한줄평 작성하기 -->
         <div class="my-2 p-2 border">
-            <div class="col-4">
-                <input class="form-control " id="commentWriter" type="number" placeholder="유저번호" />
+
+            <div class="col-4" th:if="${ #authentication.name } != anonymousUser">
+                <span class="form-control" sec:authentication="name"> </span>
+
             </div>
             <div class="row">
                 <div class="col-10 my-2">
@@ -363,10 +367,20 @@
             starAvg.innerText = s;
         //}
         
+        </script>
         
-        
-        
-        
+        <script>
+        // (홍찬- 조회수) 
+        function postHitCountUp(postId) {
+            axios.get('/postHitCount', { params: { postId: postId } })
+                .then(response => {
+                    console.log(response);
+                    return true;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
         </script>
         
         <!-- bootstrap -->
@@ -383,4 +397,3 @@
 </body>
 </div>
 </html>
-

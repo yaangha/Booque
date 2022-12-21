@@ -99,12 +99,10 @@
             
             btn.addEventListener('click', e => {
                 const td = btn.closest('tr');
-                console.log(td)
                 const span = td.querySelector('span.count');
                 const pri = td.querySelector('span.prices'); // 변경될 값
                 const fix = td.querySelector('input#fixedPrice').value;
                 const chk = td.querySelector('#ckBox');
-                console.log(chk)
                 
                 let number = span.innerText;
                 
@@ -127,7 +125,6 @@
                     }
                     
                 }
-                console.log('수량은 변하지 않는데 값은 줄어듦')
                 span.innerText = number;
                 pri.innerText = number * parseInt(fix);
                     

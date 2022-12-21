@@ -20,7 +20,6 @@ import lombok.ToString;
 @ToString(exclude = {"book"})
 @Entity(name = "BOOKHITS")
 @SequenceGenerator(name = "BOOKHITS_SEQ_GEN", sequenceName = "BOOKHITS_SEQ", initialValue = 1, allocationSize = 1)
-
 public class BookHits {
     
     @Id

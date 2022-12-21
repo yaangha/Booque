@@ -50,7 +50,7 @@ public class UserService {
         log.info("registerMember(dto = {})", dto);
         
         // 로그인 비밀번호를 암호화한 후 DB에 insert
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        dto.setSignupPassword(passwordEncoder.encode(dto.getSignupPassword()));
         User entity = userRepository.save(dto.toEntity());
         log.info("entity = {}", entity);
         
@@ -71,7 +71,7 @@ public class UserService {
         }
     }
 
-    public String checkPw(String username, String password) {
+    public String signIn(String username, String password) {
         log.info("checkPw userid = {} password = {}", username, password);
         User user = userRepository.findByUsername(username).get();
         log.info("checkPassword user = {}", user);
@@ -86,11 +86,19 @@ public class UserService {
             return "nok";
         }
     }
+    
+    public User signinUser(UserSigninDto dto) {
+        User user = userRepository.findByUsername(dto.getUsername()).get();
+        log.info("find in signinUser user = {}", user);
+        return user;
+    }
+    
+    
 
     private Boolean confirm(String password, String password2) {
         return passwordEncoder.matches(password, password2);
     }
-
+    
     public Optional<User> getUserBySigninId(String username) {
         return userRepository.findByUsername(username);
     }
@@ -101,12 +109,9 @@ public class UserService {
     }
 
     public User read(String username) {
-        
+       
         return userRepository.findByUsername(username).get();
     }
-
-    
-
 
 }
 

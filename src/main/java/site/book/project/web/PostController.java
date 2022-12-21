@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,64 +38,66 @@ public class PostController {
     private final BookService bookService;
     private final UserService userService;
     private final ReplyService replyService;
+   
+//   @GetMapping("/main")
+//    public void main() {
+//        log.info("main()");
+//
+//   }
     
-    @GetMapping("/main")
-    public void main() {
-        log.info("main()");
-
-    }
     
-    
+    @Transactional(readOnly = true)
     @GetMapping("/list")
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
-       
-         
+//        bookService.readPostCountByAllBookId();
+        User user = null; 
+        List<PostListDto> postList = new ArrayList<>();
+        
         if(userSecurityDto == null) {
-            User user = userService.read(postWriter);
+             user = userService.read(postWriter);
             Integer userId = user.getId();
             
-            List<PostListDto> postList = postService.postDtoList(userId);
+           postList = postService.postDtoList(userId);
             
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-                
+               
         } else if (postWriter == null) {
             
             Integer userId = userSecurityDto.getId();
-            User user = userService.read(userId);
+            user = userService.read(userId);
             log.info("id= {}",userId);
         
-            List<PostListDto> postList = postService.postDtoList(userId);
+            postList = postService.postDtoList(userId);
         
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-                
+              
         }  else if(userSecurityDto.getUsername().equals(postWriter)) {
             
             Integer userId = userSecurityDto.getId();
-            User user = userService.read(userId);
+             user = userService.read(userId);
             log.info("id= {}",userId);
         
-            List<PostListDto> postList = postService.postDtoList(userId);
+            postList = postService.postDtoList(userId);
         
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
         
         } else if(!userSecurityDto.getUsername().equals(postWriter)) {
-            User user = userService.read(postWriter);
+            user = userService.read(postWriter);
             Integer userId = user.getId();
             
-            List<PostListDto> postList = postService.postDtoList(userId);
+             postList = postService.postDtoList(userId);
+      } 
+        
+                 
+        
+            model.addAttribute("user", user);      
+            model.addAttribute("list", postList);
             
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-        } 
-      
+            
+                
         return "/post/list";
     }
 
 
+   
     
     @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
@@ -101,12 +105,16 @@ public class PostController {
       
         Post entity = postService.create(dto); 
         
+        // (홍찬) 리뷰순에서 사용할 것 - 글이 등록되기 전에
+        // BookID에 해당하는 포스트 글이 1 증가시켜주기
+        postService.countUpPostByBookId(dto.getBookId());
+        
         attrs.addFlashAttribute("createdPostId", entity.getPostId());
         attrs.addFlashAttribute("userId", dto.getUserId());
-        log.info("createdPostId: entity.gePosttId()= {}", entity.getPostId());
         return "redirect:/post/list";
     }
     
+    @Transactional(readOnly = true)
     @GetMapping({ "/detail", "/modify" })
     public void detail(Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
@@ -115,20 +123,27 @@ public class PostController {
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
-        if (username == null) {
-            User u = userService.read(p.getUser().getId()); 
+        
+        if (username == null) { // 글 작성자와 유저가 다른 경우
+            User u = userService.read(p.getUser().getId());
+            Post entity = postService.read(postId); // 그 글의 조회수를 1올려줌.
+            entity.update(postId, entity.getHit()+1);
+            int hitCount = entity.getHit();
+            model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
-        } else { 
+        } else { // 글 작성자와 유저가 같은경우
             User u = userService.read(username);
+            int hitCount = postService.read(postId).getHit();
+            model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
-        
+            
          model.addAttribute("post", p);
          model.addAttribute("book", b);
         
-         
     }
    
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/delete")
     public String delete(Integer postId, RedirectAttributes attrs) {
         log.info("delete(postId={})",postId);
@@ -141,6 +156,7 @@ public class PostController {
         return "redirect:/post/list";
     }
    
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/update")
     public String update(PostUpdateDto dto) {
         log.info("update(dto={})", dto);
@@ -161,6 +177,5 @@ public class PostController {
         return "/post/list"; // list.html 파일
     }
 
-    
-    
+   
 }

@@ -1,12 +1,14 @@
 package site.book.project.dto;
 
 import lombok.Data;
+import lombok.ToString;
 import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.User;
 
 
 @Data
+@ToString(exclude = "postContent")
 public class PostUpdateDto {
 
     private Integer postId;

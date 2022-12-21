@@ -31,6 +31,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
+    private final BookService bookService;
 
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
@@ -39,12 +40,7 @@ public class PostService {
         
         return postRepository.findByOrderByPostIdDesc();
     }
-    
-    public List<Post> findById(Integer userId) {
-        
-        return postRepository.findByUserId(userId);
-
-    }
+   
  
     
     public List<PostListDto> postDtoList(Integer userId) {
@@ -52,7 +48,7 @@ public class PostService {
         
         List<PostListDto> dtoList = new ArrayList<>();
         
-     PostListDto dto = null;
+        PostListDto dto = null;
         
         for (Post post : list) {
             Post p = post;
@@ -72,12 +68,20 @@ public class PostService {
     }
     
   
-    
+    @Transactional
     public Post create(PostCreateDto dto) {
-        log.info("create(dto = {})",dto); // 읽어옴. bookId를 Book객체로
         Book book = bookRepository.findById(dto.getBookId()).get();
         User user = userRepository.findById(dto.getUserId()).get();
-      
+
+        if( book.getBookScore() == null) {
+        	book.update(25);
+        } else {
+        	Integer score = book.getBookScore() + dto.getMyScore()*10;
+        	book.update(score/2);
+        	
+        }
+        
+        
         Post entity = postRepository.save(dto.toEntity(book,user));
         return entity;
     }
@@ -158,8 +162,8 @@ public class PostService {
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
-	// 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
-	@Transactional
+	// (홍찬) 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
+	@Transactional(readOnly = true)
 	public Integer countPostByBookId(Integer bookId) {
 	    Integer count = 0;
 	    List<Post> list = postRepository.findByBookBookId(bookId);
@@ -167,4 +171,10 @@ public class PostService {
 	    return count;
 	}
 
+	// (홍찬) 리뷰순에서 사용할 것 - 책 ID에 해당하는 포스트 글이 1 증가시켜주기
+	@Transactional
+	public void countUpPostByBookId(Integer bookId) {
+	    Book entity = bookRepository.findById(bookId).get();
+	    entity.updatePostCount(entity.getPostCount()+1);
+	}
 }
