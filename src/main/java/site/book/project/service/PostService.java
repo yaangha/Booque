@@ -40,12 +40,7 @@ public class PostService {
         
         return postRepository.findByOrderByPostIdDesc();
     }
-    
-    public List<Post> findById(Integer userId) {
-        
-        return postRepository.findByUserId(userId);
-
-    }
+   
  
     
     public List<PostListDto> postDtoList(Integer userId) {

@@ -22,13 +22,7 @@
 
     
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
-    
-    
-        <div class="w3-container w3-large" style="margin-top:30px; margin-bottom:50px;">
-            <span style="font-weight:bold; font-size:30px;" class="w3-left" th:text="${ searchList[0].getBookgroup }"></span>
-            <span style="font-weight:bold; font-size:30px;">_</span>
-            <span style="font-weight:bold; font-size:30px;" th:text="${ searchList[0].getCategory }"></span>
-        </div>
+        
     
         <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
         <input type="button" class="btn btn-outline-secondary" value="장바구니">
@@ -47,8 +41,6 @@
             
             
         </div>
-        
-        
         
         <!-- 도서카드(가로버전) START -->
           <table class="w-100 table" style="text-align: center;">
@@ -99,8 +91,22 @@
         </table>
          <!-- 도서카드(가로버전) END -->
 
-
-        <!-- 페이징? -->
+        
+    <!-- 페이징 시작 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" th:if="${searchList.totalPages != 0}">
+                <li class="page-item" th:classappend="${1 == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category(category= ${category}, group= ${ bookgroup}, page = ${searchList.pageable.pageNumber - 1})}">Previous</a>
+                </li>
+                <li class="page-item" th:classappend="${i == searchList.pageable.pageNumber + 1} ? 'disabled'" 
+                    th:each="i : ${#numbers.sequence(startPage, endPage)}"><a class="page-link" th:href="@{/category(category=${category}, group=${bookgroup}, page = ${i - 1})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${searchList.totalPages == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category(category=${category}, group=${bookgroup}, page = ${searchList.pageable.pageNumber + 1})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    <!-- 페이징 끝 -->
 
 
     </div> <!-- container-fluid : END -->
@@ -116,6 +122,7 @@
     <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
+    <script>
     // 장바구니 버튼 
     const btnCarts = document.querySelectorAll('#btnCart')
     

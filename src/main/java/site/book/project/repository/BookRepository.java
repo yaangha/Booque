@@ -20,4 +20,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     
     // (홍찬) 메인홈에서 필요한 전체 리뷰 많은 순 리스트
     List<Book> findTop4ByOrderByPostCountDesc();
+
+    
 }
