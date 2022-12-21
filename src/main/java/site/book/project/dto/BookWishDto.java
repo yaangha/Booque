@@ -22,12 +22,13 @@ public class BookWishDto {
     private int prices;
     private String category;
     private String bookgroup;
+    private Integer bookWishId;
     
     public static BookWishDto fromEntity(Book entity) {
         
         BookWishDto bookWishDto = new BookWishDto(
                 entity.getBookId(), entity.getAuthor(), entity.getBookName(), entity.getBookImage(), 
-                entity.getPrices(), entity.getCategory(), entity.getBookgroup());
+                entity.getPrices(), entity.getCategory(), entity.getBookgroup(),null);
         
         return bookWishDto;
     }
