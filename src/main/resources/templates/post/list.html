@@ -48,18 +48,15 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
+    <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
     <div style="font-weight: bold;">
         <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
         <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
     </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
-    
-    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
+    <input /><span>블로그 소개글 넣기</span>
         
-    <div>전체 방문자수</div>
+    <div>전체 리뷰수</div>
     <div class="h4"><strong>1,004</strong></div>
-    <div>Today: <span>58</span></div>
     
     <br/><br/>
     
