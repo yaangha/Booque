@@ -23,13 +23,13 @@ public class HomeController {
     public String home(Model model) {
         log.info("home()");
         
-        // 전체 책 별점순 1~8위
+        // 전체 책 별점순 1~4위
         List<Book> list = homeService.readAllRankingOrderByBookScore();
 //        for (Book b : list) {
 //            log.info("id={},score={}", b.getBookId(), b.getBookScore());
 //        }
         
-        // 전체 책 리뷰많은순 1~8위
+        // 전체 책 리뷰많은순 1~4위
         List<Book> postList = homeService.readAllRankingOrderByPostReview();
 //        for (Book p : postList) {
 //            log.info("id={},review={}", p.getBookId(), p.getPostCount());
@@ -89,8 +89,8 @@ public class HomeController {
         
         // 전체 포스트(조회수순) 1~5위
         
-        model.addAttribute("top10ScoreList", list);                     // 전체 책 별점순 1~8위
-        model.addAttribute("top10ReviewList", postList);                // 전체 책 리뷰많은순 1~8위
+        model.addAttribute("top4ScoreList", list);                     // 전체 책 별점순 1~8위
+        model.addAttribute("top4ReviewList", postList);                // 전체 책 리뷰많은순 1~8위
         model.addAttribute("economyScoreList", economyScoreList);       // 경제/경영(별점)
         model.addAttribute("humanitiesScoreList", humanitiesScoreList); // 인문(별점)
         model.addAttribute("fictionScoreList", fictionScoreList);       // 소설(별점)

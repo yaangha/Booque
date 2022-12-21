@@ -11,7 +11,7 @@ import site.book.project.domain.Post;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString(exclude = {"content", "createdTime", "title" })
+@ToString(exclude = { "content" })
 public class PostReadDto {
 
     // post에 있는거 부분만 (serialize? 직렬화 가능하게)

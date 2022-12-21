@@ -23,20 +23,23 @@ public class HomeService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final PostRepository postRepository;
-    // 전체 별점 Top 10
+  
+
+    
+    // 전체 별점 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByBookScore() {
-        List<Book> list = null;
-        list = bookRepository.findTop10ByOrderByBookScoreDesc();
+        List<Book> list = new ArrayList<>();
+        list = bookRepository.findTop4ByOrderByBookScoreDesc();
         
         return list;
     }
 
-    // 전체 리뷰 Top 10
+    // 전체 리뷰 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByPostReview() {
         List<Book> list = new ArrayList<>();
-        list = bookRepository.findTop10ByOrderByPostCountDesc();
+        list = bookRepository.findTop4ByOrderByPostCountDesc();
 //        
 //        List<SearchListDto> reviewCount = new ArrayList<>();
 //        for (Post p : list) {
@@ -75,20 +78,20 @@ public class HomeService {
         return list;
     }
 
-    // 카테고리별 별점 Top 10
+    // 카테고리별 별점 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookScore(String category) {
         List<Book> list = new ArrayList<>();
-        list = categoryRepository.findTop8ByCategoryOrderByBookScoreDesc(category);
+        list = categoryRepository.findTop4ByCategoryOrderByBookScoreDesc(category);
         
         return list;
     }
     
-    // 카테고리별 리뷰순 Top 10
+    // 카테고리별 리뷰순 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookReview(String category) {
         List<Book> list = new ArrayList<>();
-        list = categoryRepository.findTop8ByCategoryOrderByPostCountDesc(category);
+        list = categoryRepository.findTop4ByCategoryOrderByPostCountDesc(category);
         
         return list;
     }

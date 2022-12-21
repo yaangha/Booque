@@ -21,7 +21,7 @@
         const replyWriter = document.querySelector('#rWriter').value;
         console.log(replyWriter);
         if(replyWriter == "anonymousUser") {
-            alert('로그인창으로 보내기 미구현');
+            alert('로그인 후 이용 가능한 서비스입니다.');
             return;
         }
         // 댓글 내용

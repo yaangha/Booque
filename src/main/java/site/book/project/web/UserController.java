@@ -37,16 +37,6 @@ public class UserController {
         return "./signup";
     } 
     
-    @PostMapping("/signup")
-    public String signUp(UserRegisterDto dto) {
-        log.info("signUp(dto = {}) POST", dto);
-        
-        userService.registerUser(dto);
-       
-        
-        return "redirect:/"; // 회원가입 성공 후 이동(redirect)
-    }
-    
     @GetMapping("/checkid")
     @ResponseBody 
     public ResponseEntity<String> checkUsername(String username) {
@@ -96,5 +86,16 @@ public class UserController {
     }
     
    
+    
+    
+    @PostMapping("/signup")
+    public String signUp(UserRegisterDto dto) {
+        log.info("signUp(dto = {}) POST", dto);
+        
+        userService.registerUser(dto);
+       
+        
+        return "redirect:/"; // 회원가입 성공 후 이동(redirect)
+    } 
     
 }

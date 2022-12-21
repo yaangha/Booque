@@ -1,8 +1,9 @@
 package site.book.project.web;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,13 +21,13 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
+import site.book.project.dto.PostListDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
-import site.book.project.dto.PostListDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
-import site.book.project.service.UserService;
 import site.book.project.service.ReplyService;
+import site.book.project.service.UserService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,6 +52,8 @@ public class PostController {
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
 //        bookService.readPostCountByAllBookId();
+     
+        
         User user = null; 
         List<PostListDto> postList = new ArrayList<>();
         
@@ -86,12 +89,14 @@ public class PostController {
              postList = postService.postDtoList(userId);
       } 
         
-                 
-        
+        // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
+        LocalDate now = LocalDate.now();
+        String day= now.toString().substring(8);
+
+
+            model.addAttribute("day", day);
             model.addAttribute("user", user);      
             model.addAttribute("list", postList);
-            
-            
                 
         return "/post/list";
     }
@@ -123,6 +128,7 @@ public class PostController {
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
+
         
         if (username == null) { // 글 작성자와 유저가 다른 경우
             User u = userService.read(p.getUser().getId());
@@ -130,6 +136,7 @@ public class PostController {
             entity.update(postId, entity.getHit()+1);
             int hitCount = entity.getHit();
             model.addAttribute("hitCount", hitCount);
+
             model.addAttribute("user", u);
         } else { // 글 작성자와 유저가 같은경우
             User u = userService.read(username);
@@ -140,6 +147,7 @@ public class PostController {
             
          model.addAttribute("post", p);
          model.addAttribute("book", b);
+       
         
     }
    

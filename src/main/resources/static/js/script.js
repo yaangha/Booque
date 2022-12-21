@@ -10,11 +10,8 @@
     let signupNickname = document.getElementById('signupNickname');
     let signupName = document.getElementById('signupName');
     let signupPhone = document.getElementById('signupPhone')
-    let signupaddress = document.getElementById('signupaddress');
-    
     let signinUsername = document.getElementById('signinUsername');
     let signinPassword = document.getElementById('signinPassword');
-    
     console.log('modalConfirm');
     console.log(`data-type : ${tar.getAttribute('data-bs-toggle')}`);
 

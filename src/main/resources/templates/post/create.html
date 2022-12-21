@@ -27,132 +27,118 @@
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
  </head>
 
-    
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+    
+<div class="w-75 container"><!-- 메인 블록 - 삭제해도 될 듯 -->
 
-    <hr/>
-    <div class="container" style="width:100%; padding-right:150px;" > <!-- container-fluid : START -->
-
-
-    <div>
-        <table style="border-color: white;" width= "100%">
-            <tr >
-          
-              <td width="20%" style=" vertical-align: top; border: 1px solid #DCDCDC;"> 
-           
-               <div class="card" align="center" style="margin:20px;"><!-- 프로필  -->
-                 <div>
-                   <a href=""> 
-                     <img th:src="${ user.userImage }" alt="null"  width="200" height="280" class="img-fluid rounded-start">
-                   </a>
-                 </div>
-                 <br/>
-                 
-                 <div style="  padding:12px; text-align: left;">
-                 <table width="100%" >
-                 <tr style="border-bottom: 1px solid #DCDCDC;">
-                 <td style=" font-size: 18px; font-weight: bold;" th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></td>
-                 <td style="font-size: 16px; font-weight: bold;" th:text="${ '('+ user.username +')' }"></td>
-                 </tr>
-                 <tr><td><br/></td></tr>
-                 <tr><td> <p style="padding: 5px;"> 블로그 소개</p> </td></tr>
-              </table></div>
-               </div><!-- 프로필 끝 -->  
-             
-               <div style="font-size: 12px; margin: 5px;" align="center"> 오늘 3  Total 256</div> 
-               <hr/>
-               <hr/>
-               <hr/>
-              <div align="center"><a href="/post/list">글 전체 목록</a></div>
-              
-             
-              </td>
-       
-  
-            <!-- 오른쪽 -->              
-              <td width="80%">
-                <div style="font-size:15px; font-weight:bold; background-color: #f2fcf9; border-top:2px solid black; border-bottom:2px solid black; margin-left:50px; margin-bottom:30px; height: 50px;" align="right"> 
-                <br/> 포스트 작성 페이지&nbsp;&nbsp;
-                </div>
-              
-              <div class="card" style=" border: 1px solid #DCDCDC; padding-top:15px;  margin-left: 50px;"><!-- 전체 card -->
-                <table>
-                <tr>
-                <td>  
-              
-               <div class="card" style="border-color:white; padding: 20px;"><!-- 도서카드(가로버전) START -->
-                 <table width= "100%">
-                  <tr>
-                     <td width= "20%">
-                       <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}"><img th:src="${ book.bookImage }" width="150" height="180" class="img-fluid rounded-start"></a>
-                     </td>
-                     <td width="63%">
-                      <table style="margin-left: 20px;">
-                      
-                      <tr>
-                        <td th:text= "${ book.bookName }" style="font-size: 18px; font-weight: bold;"></td>
-                      </tr>
-                      <tr>
-                        <td th:text="${ book.author }"></td>
-                        <td th:text="${ book.publisher +'&nbsp;&nbsp;|&nbsp;&nbsp;' }"></td>
-                        <td th:text="${ book.publishedDate }"></td>
-                      </tr>
-                     <tr>
-                        <td th:text="${ book.prices +'원' }"style="font-size: 20px; font-weight: bold;"></td>
-                        
-                      </tr>
-                       <tr><td>판매지수</td></tr>
-                      <tr>
-                        <td><span><a href="">회원리뷰</a></span> &nbsp;&nbsp;★★★★☆ (8.0)</td>
-                      </tr>
-                      <tr> 
-                        <td>오늘 주문하면 내일 도착</td>
-                      </tr>
-                     
-                    </table>
-                    </td>
-                    <td width= "17%">
-                   <button style="margin-left: 30px; background-color:#DCDCDC;" class="btn">카트 담기</button>
-                   </td>
-                  </tr>
-                  </table>
-                  </div>
-                <!-- 도서카드(가로버전) END -->
-              
-             
-                  <tr>
-                  <td>
-                     <div class="card" style="border-color:white; margin-top: 10px; padding: 10px;" ><!-- 글 작성 폼 -->
-                   <form method="post" style="border-top: 1px solid #DCDCDC;">
-                     <div style="margin: 12px;">
-                   <input type="hidden" name="userId" th:value="${ user.id }" readonly />
-                     <input type="hidden" name="bookId" th:value="${ book.bookId }" readonly />
-                      <input id="title"  style="width: 70%;"
-                           type="text" name="title" placeholder="제목을 입력하세요!" required autofocus />
-                     <input style="margin-left:30px; width:25%;" type="text" id="postWriter" name="postWriter" th:value="${ #authentication.name }" readonly />
-                     </div>
-                     <div  class="container form-control" style="width:100%; height:370px; border-color: white;">
-                       <textarea class="summernote" id="postContent" style="border-color: white; width:100%; height: 100%;" name="postContent"
-                            placeholder="내용을 입력하세요!"></textarea>
-                     </div>
-                     <div style="margin: 12px;">
-                      <input style="width:80%;"  id="myScore" 
-                           type="number" name="myScore" required placeholder="별점" />
-                           <input type="submit" style="margin-left: 70px; background-color: #DCDCDC; " class="btn" value="작성완료">
-                     </div>
-                  </form>
-                   </div>      
-           </td></tr>
-        </table>
-        </div>
-        
-        
-              </td><!-- 전체 카드 끝 -->
-            </tr>
-        </table>
+<div class="row"><!-- main block start -->
+<div class="col-2"><!-- 프로필 블록 start -->
+    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
+    <div style="font-weight: bold;">
+        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
+        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
     </div>
-    </div> <!-- container-fluid : END -->
-    <hr/>
+    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
+    
+    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
+        
+    <div>전체 방문자수</div>
+    <div class="h4"><strong>1,004</strong></div>
+    <div>Today: <span>58</span></div>
+    
+    <br/><br/>
+    
+    <div class="h5" style="text-align: left;">이런 글은 어떠세요?</div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>짜라투스트라는 도대체..</a><br/>
+            <small style="color:gray;">글 19개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>김영하가 다다다라는..</a><br/>
+            <small style="color:gray;">글 15개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>오늘도 화이팅이란</a><br/>
+            <small style="color:gray;">글 159개</small>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+        <div class="col" style="text-align: left;">
+            <a>트렌드를 따라가려면..</a><br/>
+            <small style="color:gray;">글 9개</small>
+        </div>
+    </div>
+    
+</div><!-- 프로필 블록 end -->
+    
+<div class="col-8"><!-- content block start -->
+
+<div class="my-2 py-4 px-2 border rounded" style="text-align: left;">최근 읽으신 
+    <span>
+    <small class="d-inline-flex px-2 border border-1 rounded text-secondary">
+        <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+    </small>
+    <span class="h4" th:text="${ book.bookName }" style="font-weight: bold;"></span>
+    </span> 리뷰를 남겨주세요!
+</div>
+
+<br/>
+
+<form method="post"><!-- 글 작성 from start -->
+    <div>
+        <input type="hidden" name="userId" th:value="${ user.Id }" />
+        <input type="hidden" name="bookId" th:value="${ book.bookId }" />
+        <div class='row my-2'>
+            <div class="col">
+                <input id="title" class="form-control" type="text" name="title" placeholder="제목을 입력하세요!" style="height:50px; font-size: large;" required autofocus />
+            </div>
+            <div class="col-sm-3">
+                <input class="form-control" id="myScore" type="number" name="myScore" style="height:50px; font-size: large;" required placeholder="별점" />
+            </div>
+        </div>
+        <input type="hidden" id="postWriter" name="postWriter" th:value="${ #authentication.name }" readonly />
+        <textarea class="summernote" id="postContent" name="postContent"></textarea>
+        <input type="submit" class="w-100 btn border rounded bg-primary mb-3" value="작성완료" />
+    </div>
+</form><!-- 글 작성 from end -->
+    
+</div><!-- content block end -->
+
+<div class='col-2'>
+<!-- 도서 정보 블록 -->    
+<div class="card mx-2 my-2" style="width: 30rem;">
+    <img th:src="${ book.bookImage }" class="card-img-top" />
+    <div class="card-body" style="text-align: left;">
+        <div class="my-2">
+            <small class="d-inline-flex px-2 border border-1 rounded text-secondary">
+                <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
+            </small>
+        </div>
+        <h4 class="card-title" th:text="${ book.bookName }" style="font-weight: bold;"></h4>
+        <div th:text="${ book.author }"></div>
+        <div th:text="${ book.publisher }"></div>
+        <div th:text="${ book.publishedDate }"></div>
+        <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>
+        <div>판매지수</div>
+        <div><a>회원리뷰</a> ★★★★★</div>
+        <div>오늘 주문하면 내일 도착</div><br/>
+        <a href="#" class="btn btn-primary">카트 담기</a>
+    </div>
+</div>
+<!-- 도서 정보 블록 end -->
+
+</div>
+</div><!-- main block end -->
+</div><!-- 메인 블록 end -->
 
 <!-- bootstrap -->
         <script
@@ -163,8 +149,8 @@
 <!-- summernote -->
   <script>
  $('.summernote').summernote({
-    width:830,
-      height: 300,
+    // width:830,
+      height: 600,
       lang: "ko-KR"
     }); </script>
     

@@ -128,9 +128,21 @@
                 
                 <hr/>
                 
-                <div class="py-2">총 상품금액</div>
-                <div class="py-2">배송비</div>
-                <div class="py-2">총 결제금액</div>
+                <div class="py-2">
+                    <span style="text-align: left;">총 상품금액</span>
+                    <span class="float-end" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                </div>
+                
+                <div class="py-2">
+                    <span style="text-align: left;">배송비</span>                    
+                    <span class="float-end" th:if="${ total ge 30000 }">무료배송</span>
+                    <span class="float-end" th:unless="${ total ge 30000 }">3,000원</span>
+                </div>
+                <div class="py-2">
+                    <span style="text-align: left;">총 결제금액</span>
+                    <span class="float-end" th:if="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                    <span class="float-end" th:unless="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total + 3000, 0, 'COMMA')}원|"></span>
+                </div>
                 
                 <hr/>
                 

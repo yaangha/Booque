@@ -26,7 +26,20 @@
     rel="stylesheet">
    <script
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    
+ 
+ <style>  
+    @keyframes  blink-effect {
+        50% {
+            opacity: 0;
+         }
+       }
+
+   .blink {
+        animation: blink-effect 1s step-end infinite;
+        animation-timing-function: step-start, step-end;
+     }
+  </style> 
+  
 </head>
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
@@ -118,20 +131,40 @@
             <td class="py-5">
                 <div class="h4">
                     <span th:text="${ post.postId }"></span>
-
+                   
                     <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                    
+                     <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
+                     <div th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
+                      <span>
+                        <img class="blink" src="/images/new.png" width="50" height="50" >
+                      </span>
+                    </div>
+                    
+                     <!-- 예진: 댓글 수 -->
+                     <span>댓글(</span>
+                     <span th:text="${ post.replyCount }"></span>
+                     <span>)</span>
+                     
+                     <!-- 예진: 댓글 수 10개 이상인 글 hot 아이콘 보여주기 -->
+                     <div th:if="${ post.replyCount } > 9 ">
+                      <span>
+                        <img  class="blink" src="/images/promotional.png" width="50" height="40" >
+                      </span>
+                    </div>
+                     <div th:text="${ post.postContent }"></div>
                 </div>
-                <div>오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
-                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
-                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..</div>
+              
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
-                <small>조회수 <span th:text="${hitCount}"></span></small>
+                <!-- 홍찬 -->
+                <small>조회수 <span th:text="${post.hit}"></span></small>
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
+            
         </tr>
     </tbody>
     </table>
@@ -140,7 +173,9 @@
 </div><!-- main block end -->
 
 </div><!-- 메인 블록 end -->
+
 <th:block layout:fragment="script" th:inline="javascript">
+
 <!-- summernote -->
   <script>
  $('.summernote').summernote({
@@ -149,6 +184,7 @@
       lang: "ko-KR"
     }); </script>
     
+
     <!-- 포스트 글 조회수 증가-->
     <script>
     function postHitCountUp(postId){
@@ -163,6 +199,7 @@
     }
     </script>
 </th:block>
+
   </div><!-- layout:fragment="content" : END -->
 
 

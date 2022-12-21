@@ -60,6 +60,10 @@ public class UserService {
     public User read(Integer userId) {
         return userRepository.findById(userId).get();
     }
+    
+    public User read(String username) {
+        return userRepository.findByUsername(username).get();
+    }
 
     public String checkEmail(String email) {
 
@@ -106,11 +110,6 @@ public class UserService {
     public List<User> read() {
        
         return userRepository.findAll();
-    }
-
-    public User read(String username) {
-       
-        return userRepository.findByUsername(username).get();
     }
 
 }

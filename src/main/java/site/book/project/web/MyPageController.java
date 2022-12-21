@@ -16,8 +16,6 @@ public class MyPageController {
     // (하은) 마이페이지 연결
     @GetMapping("/myPage")
     public String myPage(@AuthenticationPrincipal UserSecurityDto userSecurityDto) {
-
-        
         
         return "/book/myPage";
     }
