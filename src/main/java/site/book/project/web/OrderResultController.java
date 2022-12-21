@@ -32,7 +32,14 @@ public class OrderResultController {
     @PostMapping("/orderResult")
     public String orderResult(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer[] cartId, OrderFinalInfoDto dto, Model model) {
         // dto에 저장한 값으로 DB 업데이트
-        orderService.updateInfo(cartId, dto);
+        
+        if (cartId.length == 0) {
+            orderService.updateInfo(dto.getOrderNo(), dto);
+            log.info("하은 orderNo = {}", dto.getOrderNo());
+
+        } else {
+            orderService.updateInfo(cartId, dto);
+        }
         
         // 주문완료시 장바구니 내역은 삭제
         orderService.deleteCart(cartId);

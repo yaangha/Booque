@@ -25,8 +25,10 @@ import site.book.project.dto.SearchListDto;
 import site.book.project.dto.SearchQueryDataDto;
 import site.book.project.dto.SearchReadDto;
 import site.book.project.dto.UserSecurityDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookHitsService;
+import site.book.project.service.BookService;
 import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
 import site.book.project.service.PostService;
@@ -56,7 +58,14 @@ public class SeacrhContoller {
     public String searchCart( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
     	Integer userId = u.getId();
     	
-    	cartService.addCart(userId, bookId);
+    	
+        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, bookId,1);
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(userId, bookId,1);
+            log.info("변경 수량={}", afterCount);
+        }
+    	
     	
     	
     	return "redirect:/cart?id=" + userId;
@@ -65,6 +74,7 @@ public class SeacrhContoller {
     // (은정) search -> order 작업
     @PostMapping("/order")
     public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId, Model model) {
+
         Integer userId = u.getId();
         log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
         Long orderNo = orderService.createFromSearch(userId, bookId);
@@ -79,6 +89,7 @@ public class SeacrhContoller {
         
         return "book/order" ;
     }
+
     
     @GetMapping("")
     public String search() {

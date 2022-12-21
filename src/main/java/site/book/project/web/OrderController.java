@@ -59,6 +59,7 @@ public class OrderController {
               
               // total(총 상품금액)
               total += book.getPrices() * cart.getCartBookCount();
+              
           }
           
           model.addAttribute("order", order);
@@ -76,10 +77,11 @@ public class OrderController {
         
          Integer userId =  userSecurityDto.getId();
          Long orderNo = orderService.createFromDetail(userId, dto);
-         
          List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
                  
          User user = userService.read(order.get(0).getUserId());
+         log.info("하은 포인트 = {}", dto.getPoint());
+         userService.update(dto.getPoint(), user.getId());
          
          Integer total = order.get(0).getCount() * order.get(0).getPrices();
          

@@ -4,7 +4,7 @@
  
   window.addEventListener('DOMContentLoaded', () => {
    readCartDesc();
-
+    
   
     
     
@@ -30,7 +30,7 @@
         +'<table class="w-100 table" style="text-align: center;"> '
         + '<thead class="table-light"> '
          +  '  <tr> '
-         +'<th> <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> </th>'
+         +'<th> <input type="checkbox"  id="chkBoxAll"  style="width: 30px;" checked> </th>'
           +      ' <th colspan="2">도서 정보</th> '
            +   '   <th>수량</th> '
             +  '   <th>배송비</th> '
@@ -54,8 +54,8 @@
             +              '  </small>' 
             +              '  <div class="h5">'+c.title+'</div>' 
             +             '   <div >'+c.author+'</div>' 
-            +              '  <div>'+c.prices 
-            +                '    <span>원</span>' 
+            +              '  <div >'
+            +                '    <span class="onePrice"> '+c.prices+'</span>' 
             +                 '   <small class="px-1 border border-primary rounded text-primary">p</small>' 
             +                  '  <small class="text-primary">'+c.prices*0.05+'</small> ' 
             +               ' </div>' 
@@ -68,12 +68,11 @@
             +        '<span class="prices"  >'+c.prices*c.count +'</span>' + '<span>원</span>'
             +  '<input type="hidden" id="fixedPrice" value="'+c.prices+'"/>' 
             +   ' </div>' 
-            +      '  <input type="button" class="btnPlusMinus"  value="+"/>' 
-            +     '   <span style="width: 50px" class="count" >'+c.count +' </span>' 
-            +       ' <input type="button" class="btnPlusMinus"  value="-"/>'
+            +       ' <input type="button" class="btnPlusMinus btn btn-outline-secondary  my-2"  value="-"/>'
+            +     '   <span style="width: 50px" class="count btn" >'+c.count +' </span>' 
+            +       ' <input type="button" class="btnPlusMinus btn btn-outline-secondary  my-2"  value="+"/>'
             +  '  <div class="selectPrice">' 
             +      '  <div id="price" >' 
-            +        '<span>'+c.prices +'</span>' + '<span>원</span>' 
             +     '   </div>' 
             +   ' </div>' 
             +  '  </td>' 
@@ -92,9 +91,30 @@
             +   ' </form>' ;
             
         divCart.innerHTML = str;
+        totalFun();
+        
+        let oneP = document.querySelectorAll('.onePrice')
+        
+        oneP.forEach(p => {
+            let oP = p.innerText
+            p.innerText = oP.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        })
+        
+        let onePC = document.querySelectorAll('.prices')
+        
+        onePC.forEach(p => {
+            let oP = p.innerText
+            p.innerText = parseInt(oP).toLocaleString('ko-KR');
+        })
+        
+
+        
+
+        
+        
+        
         
         const buttons = document.querySelectorAll('.btnPlusMinus');
-        const total = document.querySelector('#total');
         buttons.forEach(btn => {
             
             btn.addEventListener('click', e => {
@@ -102,40 +122,30 @@
                 const span = td.querySelector('span.count');
                 const pri = td.querySelector('span.prices'); // 변경될 값
                 const fix = td.querySelector('input#fixedPrice').value;
-                const chk = td.querySelector('#ckBox');
                 
                 let number = span.innerText;
                 
                 const type = btn.value;
                 if (type == '+') {
                     number = parseInt(number) + 1;
-                    if (chk.checked) {
-                        total.innerText = parseInt(total.innerText) + parseInt(fix);
-                    }
                 } else {
                     number = parseInt(number) - 1;
+                    
                     if(number == 0){
                        alert('수량은 0이하가 되지 못합니다.')
                        pri.innerText = fix;
                        return;
                    } 
-                   
-                    if (chk.checked) {
-                        total.innerText = parseInt(total.innerText) - parseInt(fix);
-                    }
                     
                 }
                 span.innerText = number;
-                pri.innerText = number * parseInt(fix);
-                    
-                })
+                pri.innerText= (number * parseInt(fix)).toLocaleString()
+                
+                totalFun();
+            })
                 
                 
-                
-                
-                
-                
-            });
+            }); // forEach end
 
     
         const form = document.querySelector('#formCheck')
@@ -150,74 +160,70 @@
          
         });
     
-    // 전체 결제금액은 선택된 곳에서 정가 곱하기 수량
-    const totalP = document.querySelector('#totalPoint');
-    const delivery = document.querySelector('#delivery');
-    const totalPrice = document.querySelector('#totalPrice'); // 배송비 3천원
     
     
-    
+    // check box
     const list = document.querySelectorAll('#ckBox');
-    for(let i=0; i<list.length; i++ ){
+    list.forEach(e => {
+        e.addEventListener('change', function() {
+            totalFun();
+        })
         
-        if(parseInt(total.innerText)<30000){
-        console.log('배송비')
-            delivery.innerText = '3,000 원'
-            totalPrice.innerText = parseInt(total.innerText)+3000;
-        } else {
-            delivery.innerText = '무료배송'
-            totalPrice.innerText = parseInt(total.innerText);
-        }
+    })
+    
+    
+    
+    
+
         
         
-        list[i].addEventListener('change', function(){
-              
-            const tr = list[i].closest('tr')
-            const bookPrice = tr.querySelector('span.prices')
-            
-            if(list[i].checked){  // 체크가 된 상황에서 값이 바뀌면?
-                total.innerText = parseInt(total.innerText) + parseInt(bookPrice.innerText)
-            } else{
-                total.innerText = parseInt(total.innerText) - parseInt(bookPrice.innerText)
+    // 함수를 만들어서 전체 가격을 가져오면 됨.
+    // 금액 값을 읽어서 우선 기록을 해.
+    function totalFun(){
+        // 체크된 금액만 가져와
+        // total 에 넣기 
+        const totalPrice = document.querySelector('#totalPrice');
+        const delivery = document.querySelector('#delivery')
+        const totalPoint = document.querySelector('#totalPoint');
+        const total = document.querySelector('#total')
+        const chkAllList = document.querySelectorAll('#ckBox');
+        let sum = 0;
+        
+        chkAllList.forEach(chk =>{
+        
+            if(chk.checked){
+                const tr = chk.closest('tr');
+                const priS = tr.querySelector('span.prices').innerText; // 변경될 값
+                const priInt = parseInt(priS.replace(/,/g,''))
+                console.log(priS)
+                console.log(priInt)
+                sum += priInt
             }
-           // total.innerText = total.innerText
-            totalP.innerText =total.innerText*0.05;   
-        if(parseInt(total.innerText)<30000){
-            delivery.innerText = '3,000'
-            totalPrice.innerText = parseInt(total.innerText)+3000;
-        } else {
-            delivery.innerText = '무료!!!'
-            totalPrice.innerText = parseInt(total.innerText);
-        }
-            if(list[i].checked){  // 체크가 된 상황에서 값이 바뀌면?
-                total.innerText = parseInt(total.innerText) + parseInt(bookPrice.innerText)
-            } else{
-                total.innerText = parseInt(total.innerText) - parseInt(bookPrice.innerText)
-            }
-           // total.innerText = total.innerText
-            totalP.innerText =total.innerText*0.05;   
-        if(parseInt(total.innerText)<30000){
-            delivery.innerText = '3,000'
-            totalPrice.innerText = parseInt(total.innerText)+3000;
-        } else {
-            delivery.innerText = '무료!!!'
-            totalPrice.innerText = parseInt(total.innerText);
-        }
-           
-            })
-           
             
+        })
+        
+        totalPoint.innerText = sum*0.05;
+        total.innerText = sum.toLocaleString('ko-KR')
+        if(sum>=30000){
+            delivery.innerText='3만원 이상 구매, 무료 배송입니다.'
+            totalPrice.innerText = total.innerText;
+        }else {
+            delivery.innerText = '3,000원'
+            totalPrice.innerText =(sum+3000).toLocaleString();
         }
+        
+    }    
+        
     
     
     
-    // checkbox TODO
     const chkBoxAll = document.querySelector('#chkBoxAll')
     chkBoxAll.addEventListener('change', function(){
         
         const chkBox = document.querySelectorAll('#ckBox');
             chkBox.forEach((check) => {
                 check.checked = chkBoxAll.checked
+                totalFun();
             })
     
     })

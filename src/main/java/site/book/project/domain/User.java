@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import site.book.project.dto.UserModifyDto;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -54,6 +55,12 @@ public class User {
     @Column(length = 1000)
     private String userImage;
     
+    @Column(length = 1000)
+    private String fileName;
+    
+    @Column(length = 1000)
+    private String filePath;
+    
     @Builder.Default
     private Integer point = 0;
     
@@ -72,5 +79,26 @@ public class User {
         return this;
     }
     
+    // (하은) 책 구매시 포인트 추가
+    public User update(Integer point) {
+        this.point = point;
+        
+        return this;
+}
+    
+    public User updateImage(String fileName, String filePath) {
+        this.fileName =fileName;
+        this.filePath = filePath;
+        
+        return this;
+    }
+    
+    public User updateProfile(UserModifyDto user) {
+        this.nickName = user.getNickName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+                
+        return this;
+    }
     
 }

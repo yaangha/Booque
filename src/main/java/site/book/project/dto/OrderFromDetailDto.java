@@ -17,5 +17,6 @@ public class OrderFromDetailDto {
     private Integer id; // bookId
     private Integer price;
     private Integer count;
+    private Integer point;
 
 }

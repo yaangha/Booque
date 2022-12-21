@@ -96,6 +96,22 @@ public class BookDetailController {
 //        
 //        return ResponseEntity.ok(result);
 //    }
+
+    @GetMapping("/post/create")
+    public String create(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer id, Model model) {
+        log.info("책 상세(bookId={})",id);
+    
+          Integer userId = userSecurityDto.getId();
+          log.info("userId= {}",userId);
+
+          User user = userService.read(userId);
+          model.addAttribute("user", user);
+          
+          Book book = bookService.read(id);
+          model.addAttribute("book", book);
+     
+        return "post/create";
+    }
     
    
 	

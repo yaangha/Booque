@@ -115,7 +115,9 @@
                     
                 </div>
                 <div class="my-2"style="font-weight: bold;">
-                    <span style="font-size: large;"  th:text="${ book.prices * 0.05 }"></span>
+                    <span style="font-size: large;" th:text="${ book.prices * 0.05 }"></span>
+                    <!-- <input name="point" th:value="${ book.prices * 0.05 }" type="hidden" /> -->
+                    <input name="point" th:value="${ #numbers.formatDecimal(book.prices * 0.05, 1, 0) }" type="hidden" />
                     <span>포인트</span>
                 </div>
                 <div>
@@ -124,7 +126,7 @@
                     <button type="button" class="btn btn-outline-secondary" value="-">-</button>
                 </div>
                 
-                             <div class="col-2 my-2">
+            <div class="col-2 my-2">
               <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}"><input type="button" class="btn btn-outline-dark" value="리뷰 작성"></a>        
             </div>
                 
@@ -260,19 +262,19 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <!-- 한줄평 AJax -->
                 <div id="bookComment"></div>
-        
+                
                 <!-- 한줄평 작성하기 -->
                 <div class="my-2 p-2 border">
                     <div class="col-4">
-                        <!-- <span class="form-control" sec:authentication="name"> </span> --> <!-- merge 하면서 사라진 것 같음. 주석처리! -->
-                        <input class="form-control " id="commentWriter" type="number" placeholder="유저번호" />
+                        <span class="form-control"  sec:authentication="name"> </span>
                     </div>
                     <div class="row">
                         <div class="col-10 my-2">
                             <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example">
+                        </div>
                         <div class="col-2 my-2">
                             <button type="button" class="btn btn-dark" id="btnComment" style="float: right;">작성</button>
                         </div>

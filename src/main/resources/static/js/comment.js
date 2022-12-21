@@ -89,10 +89,11 @@
             str += '<div class="my-2">' 
                 + '<div class="card my-2">'
                 + '<div class="card-header">'
-                + '<h5>' + r.writer + '</h5>'
+                + '<h6 style="float: right;">' + r.writer + '</h6>'
                 + '</div>'
-                + '<div> 좋아요 <span>  </span>'
-                + '<span class="likes">'
+                + '<div> '
+                + '<span>좋아요 </span>'
+                + '<span  class="likes">'
                 + '<img id="likeEmpty" style="width:15px;" alt="" src=" /images/likeEmpty.png " />'
                 + '<img id="likeFull" style="width:15px; margin-bottom:0px;" alt="" src=" /images/likeFull.png " />'
                 + '</span>'
@@ -100,7 +101,7 @@
                 + '<span id="likesCount">'+r.likes+'</span> </div>'
                 + '<div class="card-body">'
                 + '<p>' + r.commentText + '</p>'
-                + '<p> 작성시간: ' + r.createdTime + '</p>'
+                + '<p style="float: right;" id="commentDate" class="card-subtitle mb-2 text-muted">' + r.createdTime + '</p>'
                 + '</div>';
             // 댓글 작성자 아이디와 로그인 사용자 아이디가 같을 때만 "수정"을 보여줌.
     //        if (r.writer==loginUser) {
@@ -114,6 +115,10 @@
         divComment.innerHTML = str;
         
         
+        const dates = document.querySelectorAll('#commentDate')
+        dates.forEach( d => {
+			d.innerText = d.innerText.substr(0,10);
+		})
         
     }
     
