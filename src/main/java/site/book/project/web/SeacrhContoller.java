@@ -82,10 +82,12 @@ public class SeacrhContoller {
         List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
         
         User user = userService.read(order.get(0).getUserId());
+        Integer total = order.get(0).getCount() * order.get(0).getPrices();
         
         model.addAttribute("order", order);
         model.addAttribute("user", user);
         model.addAttribute("orderNo", orderNo);
+        model.addAttribute("total", total);
         
         return "book/order" ;
     }
