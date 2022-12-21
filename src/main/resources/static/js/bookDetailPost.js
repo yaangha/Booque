@@ -93,7 +93,7 @@
                 + '<div class="card-body">'
                 + '<div class="box">'
                     +'<div style="display: block;" class="postcontent">'+r.content +'</div>'
-                    +'<div style="display: none;" id="contentAll" >'+r.content+'</div>'
+                    +'<div style="display: none;" class="contentAll" >'+r.content+'</div>'
                 + '</div>'
                 + '<p id="postDate" style="float: right;" class="card-subtitle mb-2 text-muted" >' + r.createdTime + '</p>'
                 + '</div>';
@@ -119,7 +119,8 @@
             var content_txt = content.text();
             var content_txt_short = content_txt.substring(0,100)+"   ...";
             var btn_more = $('<a href="javascript:void(0)" class="more"> <span> <br></span> 더보기</a>');
-
+            var conAll = $(this).children('.contentAll');
+            
             
             $(this).append(btn_more);
             
@@ -128,7 +129,8 @@
                 
             }else{
                 $('#contentAll').show();
-                $('.postcontent').hide();                
+                conAll.show();
+                content.hide();                
                 btn_more.hide()
             }
             
@@ -138,14 +140,15 @@
 
             function toggle_content(){
                 if($(this).hasClass('short')){
-                    $('#contentAll').hide();
+                    conAll.hide();
+                    content.show();
                     // 접기 상태
                     $(this).html('     더보기');
                     content.html(content_txt_short)
                     $(this).removeClass('short');
                 }else{
-                    $('#contentAll').show();
-                    $('.postcontent').hide();
+                    conAll.show();
+                    content.hide();
                     // 더보기 상태
                     $(this).html('접기');
                     content.html(content_txt)

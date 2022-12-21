@@ -92,7 +92,7 @@ public class MyPageController {
         
         
         
-        return "redirect:/";
+        return "redirect:/myPage";
     }
     
     
