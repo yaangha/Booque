@@ -137,6 +137,12 @@
             </td>
         </tr>
         <tr>
+            <th class="py-3">적립 포인트</th>
+            <td class="py-3">
+                <span th:text="${ points } + '점'"></span>
+            </td>
+        </tr>
+        <tr>
             <th class="py-3">결제금액</th>
             <td class="py-3">
                 <span th:if="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>

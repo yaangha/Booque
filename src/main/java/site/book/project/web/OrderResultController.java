@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
+import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
 import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.OrderRepository;
+import site.book.project.service.BookService;
+import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
 
@@ -53,9 +57,13 @@ public class OrderResultController {
         Long orderNo = dto.getOrderNo();
         
         Integer total = 0;
+        Integer points = 0;
         
         for (int a = 0; a < orderInfo.size(); a++) {
             total += orderInfo.get(a).getPrices() * orderInfo.get(a).getCount();
+            points += (int) ((Integer) total * 0.05);
+            userService.update(points, user.getId());
+            log.info("하은 적립 포인트 = {}", points);
         }
         
         model.addAttribute("user", user);
@@ -63,6 +71,7 @@ public class OrderResultController {
         model.addAttribute("orderNo", orderNo);
         model.addAttribute("total", total);
         model.addAttribute("order", dto);
+        model.addAttribute("points", points);
         
         if (dto.getPayOption().equals("무통장입금")) {
             return "book/orderCash";

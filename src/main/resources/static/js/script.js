@@ -2,7 +2,7 @@
  * 
  */
  
- // 정혁
+ // 정혁 
  const modalConfirm = (tar) => {
     let signupUsername = document.getElementById('signupUsername');
     let signupPassword = document.getElementById('signupPassword');
@@ -156,17 +156,7 @@
             }
         }
 
-        document.getElementById('signupaddress').addEventListener('change', function () {
-          
-            if(nameok == emailok == nickok == true){
-                document.getElementById('registerConfirmBtn').className.remove('disabled');
-                console.log('true 지렁');
-            }else{
-                console.log('false 지렁');
-            }
-            
-            
-       });
+
        
     });
     
