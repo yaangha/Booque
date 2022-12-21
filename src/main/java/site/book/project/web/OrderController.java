@@ -80,8 +80,8 @@ public class OrderController {
          List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
                  
          User user = userService.read(order.get(0).getUserId());
-         log.info("하은 포인트 = {}", dto.getPoint());
-         userService.update(dto.getPoint(), user.getId());
+         // log.info("하은 포인트 = {}", dto.getPoint());
+         // userService.update(dto.getPoint(), user.getId());
          
          Integer total = order.get(0).getCount() * order.get(0).getPrices();
          

@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
+import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
 import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.OrderRepository;
+import site.book.project.service.BookService;
+import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
 
@@ -27,6 +31,7 @@ public class OrderResultController {
     // (하은) 주문 결과 페이지로 이동하기 위해
     private final OrderService orderService;
     private final UserService userService;
+    private final CartService cartService;
     
     // 무통장입금, 카카오페이 결과 페이지 다르게 보일 수 있게 수정! 하면 위에 코드 삭제
     @PostMapping("/orderResult")
@@ -53,6 +58,15 @@ public class OrderResultController {
         Long orderNo = dto.getOrderNo();
         
         Integer total = 0;
+
+        // 포인트 적립 -> 책 찾아서 가격에 0.05 곱한 값 구하기
+        Double points = 0.0;
+        for (Integer i : cartId) {
+            Cart cart = cartService.read(i);
+            points += cart.getBook().getPrices() * cart.getCartBookCount() * 0.05;
+            // userService.update(points, user.getId());
+        }
+        
         
         for (int a = 0; a < orderInfo.size(); a++) {
             total += orderInfo.get(a).getPrices() * orderInfo.get(a).getCount();
