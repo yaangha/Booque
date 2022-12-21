@@ -1,12 +1,14 @@
 package site.book.project.web;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +21,13 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
+import site.book.project.dto.PostListDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
-import site.book.project.dto.PostListDto;
-import site.book.project.dto.PostReadDto;
 import site.book.project.service.BookService;
 import site.book.project.service.PostService;
-import site.book.project.service.UserService;
 import site.book.project.service.ReplyService;
+import site.book.project.service.UserService;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,79 +40,69 @@ public class PostController {
     private final UserService userService;
     private final ReplyService replyService;
    
-   @GetMapping("/main")
-    public void main() {
-        log.info("main()");
-
-   }
+//   @GetMapping("/main")
+//    public void main() {
+//        log.info("main()");
+//
+//   }
     
     
+    @Transactional(readOnly = true)
     @GetMapping("/list")
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
-       
-         
+//        bookService.readPostCountByAllBookId();
+     
+        
+        User user = null; 
+        List<PostListDto> postList = new ArrayList<>();
+        
         if(userSecurityDto == null) {
-            User user = userService.read(postWriter);
+             user = userService.read(postWriter);
             Integer userId = user.getId();
             
-            List<PostListDto> postList = postService.postDtoList(userId);
+           postList = postService.postDtoList(userId);
             
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-                
+               
         } else if (postWriter == null) {
             
             Integer userId = userSecurityDto.getId();
-            User user = userService.read(userId);
+            user = userService.read(userId);
             log.info("id= {}",userId);
         
-            List<PostListDto> postList = postService.postDtoList(userId);
+            postList = postService.postDtoList(userId);
         
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-                
+              
         }  else if(userSecurityDto.getUsername().equals(postWriter)) {
             
             Integer userId = userSecurityDto.getId();
-            User user = userService.read(userId);
+             user = userService.read(userId);
             log.info("id= {}",userId);
         
-            List<PostListDto> postList = postService.postDtoList(userId);
+            postList = postService.postDtoList(userId);
         
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
         
         } else if(!userSecurityDto.getUsername().equals(postWriter)) {
-            User user = userService.read(postWriter);
+            user = userService.read(postWriter);
             Integer userId = user.getId();
             
-            List<PostListDto> postList = postService.postDtoList(userId);
-            
-                model.addAttribute("user", user);      
-                model.addAttribute("list", postList);
-        } 
-      
+             postList = postService.postDtoList(userId);
+      } 
+        
+        // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
+        LocalDate now = LocalDate.now();
+        String day= now.toString().substring(8);
+
+
+            model.addAttribute("day", day);
+            model.addAttribute("user", user);      
+            model.addAttribute("list", postList);
+                
         return "/post/list";
     }
 
 
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/post/create")
-    public String create(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer id, Model model) {
-        log.info("책 상세(bookId={})",id);
-    
-          Integer userId = userSecurityDto.getId();
-          log.info("userId= {}",userId);
-
-          User user = userService.read(userId);
-          model.addAttribute("user", user);
-          
-          Book book = bookService.read(id);
-          model.addAttribute("book", book);
-     
-        return "post/create";
-    }
+   
     
     @PostMapping("/create")
     public String create(PostCreateDto dto, RedirectAttributes attrs) {
@@ -128,6 +119,7 @@ public class PostController {
         return "redirect:/post/list";
     }
     
+    @Transactional(readOnly = true)
     @GetMapping({ "/detail", "/modify" })
     public void detail(Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
@@ -136,21 +128,27 @@ public class PostController {
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
-        PostReadDto dto = PostReadDto.fromEntity(p);
+
         
-        if (username == null) {
-            User u = userService.read(p.getUser().getId()); 
+        if (username == null) { // 글 작성자와 유저가 다른 경우
+            User u = userService.read(p.getUser().getId());
+            Post entity = postService.read(postId); // 그 글의 조회수를 1올려줌.
+            entity.update(postId, entity.getHit()+1);
+            int hitCount = entity.getHit();
+            model.addAttribute("hitCount", hitCount);
+
             model.addAttribute("user", u);
-        } else { 
+        } else { // 글 작성자와 유저가 같은경우
             User u = userService.read(username);
+            int hitCount = postService.read(postId).getHit();
+            model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
-        
+            
          model.addAttribute("post", p);
          model.addAttribute("book", b);
-         model.addAttribute("dto", dto);
+       
         
-         
     }
    
     @PreAuthorize("hasRole('USER')")
@@ -187,6 +185,5 @@ public class PostController {
         return "/post/list"; // list.html 파일
     }
 
-    
-    
+   
 }

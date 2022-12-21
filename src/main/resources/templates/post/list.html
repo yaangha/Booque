@@ -26,7 +26,20 @@
     rel="stylesheet">
    <script
     src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    
+ 
+ <style>  
+    @keyframes  blink-effect {
+        50% {
+            opacity: 0;
+         }
+       }
+
+   .blink {
+        animation: blink-effect 1s step-end infinite;
+        animation-timing-function: step-start, step-end;
+     }
+  </style> 
+  
 </head>
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
@@ -35,18 +48,15 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
+    <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
     <div style="font-weight: bold;">
         <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
         <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
     </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
-    
-    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
+    <input /><span>블로그 소개글 넣기</span>
         
-    <div>전체 방문자수</div>
+    <div>전체 리뷰수</div>
     <div class="h4"><strong>1,004</strong></div>
-    <div>Today: <span>58</span></div>
     
     <br/><br/>
     
@@ -103,6 +113,81 @@
         </div> <!-- row end -->
     </div><!-- 최근에 본 책 블록 end -->
     
+<!-- test용 -->
+<div>
+           
+    <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p>
+             
+    <div id="hotPostsSlides" class="carousel slide" data-bs-ride="true" style="border:2px solid white; width: 100%; z-index:0;">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hotPostsSlides" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px;  padding-left:30px; padding-right:30px;">
+            <div class="carousel-item active">
+                <div class="w3-quarter">
+                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>너무 좋은 책이에요!!!</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
+                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>최고의 책</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
+                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                </div>
+            </div>
+             <div class="carousel-item">
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" style="height:250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>너무 좋은 책이에요!!!</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
+                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                </div>
+                <div class="w3-quarter">
+                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" style="height: 250px; width:auto;" />
+                </div>
+                <div class="w3-quarter post" style="text-align:left;">
+                    <h3>최고의 책</h3>
+                    <div class="postContent w3-hover-opacity">
+                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
+                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hotPostsSlides" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+            
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <br/>
     
     <!-- 사용자 작성 리뷰 리스트(테이블) -->
@@ -118,19 +203,40 @@
             <td class="py-5">
                 <div class="h4">
                     <span th:text="${ post.postId }"></span>
-                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a></strong>
+                   
+                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                    
+                     <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
+                     <div th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
+                      <span>
+                        <img class="blink" src="/images/new.png" width="50" height="50" >
+                      </span>
+                    </div>
+                    
+                     <!-- 예진: 댓글 수 -->
+                     <span>댓글(</span>
+                     <span th:text="${ post.replyCount }"></span>
+                     <span>)</span>
+                     
+                     <!-- 예진: 댓글 수 10개 이상인 글 hot 아이콘 보여주기 -->
+                     <div th:if="${ post.replyCount } > 9 ">
+                      <span>
+                        <img  class="blink" src="/images/promotional.png" width="50" height="40" >
+                      </span>
+                    </div>
+                     <div th:text="${ post.postContent }"></div>
                 </div>
-                <div>오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
-                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..
-                    오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..오늘 읽은 책을 보고 짜라투스트라가 남긴 이야기에 대해 궁금증이 생겼다..</div>
+              
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
-                <small>조회수 <span>100</span></small>
+                <!-- 홍찬 -->
+                <small>조회수 <span th:text="${post.hit}"></span></small>
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
+            
         </tr>
     </tbody>
     </table>
@@ -140,6 +246,8 @@
 
 </div><!-- 메인 블록 end -->
 
+<th:block layout:fragment="script" th:inline="javascript">
+
 <!-- summernote -->
   <script>
  $('.summernote').summernote({
@@ -148,6 +256,31 @@
       lang: "ko-KR"
     }); </script>
     
+
+    
+    <!-- 포스트 글 조회수 증가-->
+    <script>
+    function postHitCountUp(postId){
+        axios.get('/postHitCount', {params: {postId : postId}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous">
+    </script>
+    
+</th:block>
+
   </div><!-- layout:fragment="content" : END -->
 
 

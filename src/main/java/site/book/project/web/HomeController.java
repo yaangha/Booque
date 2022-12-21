@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
+import site.book.project.domain.Post;
 import site.book.project.service.HomeService;
 
 @Slf4j
@@ -84,7 +85,7 @@ public class HomeController {
 //          }
         
         // 전체 포스트(리뷰) 중 댓글이 많이 달린 순 1~5위
-        
+        List<Post> hotReviewPostList = homeService.readTopFiveHotReviewOrderByPost();
         
         // 전체 포스트(조회수순) 1~5위
         
@@ -100,6 +101,7 @@ public class HomeController {
         model.addAttribute("fictionPostList", fictionPostList);         // 소설(리뷰순)
         model.addAttribute("essayPostList", essayPostList);             // 시/에세이(리뷰순)
         model.addAttribute("selpHelpPostList", selpHelpPostList);       // 자기계발(리뷰순)
+        model.addAttribute("hotReviewPostList", hotReviewPostList);     // 댓글 많이 달린 Top 1~5위 리뷰글
         return "home";
     }
 

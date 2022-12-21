@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
+import site.book.project.domain.Post;
+import site.book.project.dto.HomeHotReviewPostDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.CategoryRepository;
+import site.book.project.repository.PostRepository;
 
 @Slf4j
 @Service
@@ -19,6 +22,9 @@ public class HomeService {
     
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
+    private final PostRepository postRepository;
+  
+
     
     // 전체 별점 Top 4
     @Transactional(readOnly = true)
@@ -89,5 +95,27 @@ public class HomeService {
         
         return list;
     }
+
+    
+    // 전체 포스트(리뷰) 중 댓글이 많이 달린 순 1~5위
+    @Transactional(readOnly = true)
+    public List<Post> readTopFiveHotReviewOrderByPost() {
+        List<Post> list = new ArrayList<>();
+        
+        List<HomeHotReviewPostDto> hotReviewTopFiveList = new ArrayList<>();
+        
+        
+        
+        
+        for (HomeHotReviewPostDto p : hotReviewTopFiveList) {
+            Post elementList = postRepository.findById(p.getPostId()).get();
+            list.add(elementList);
+        }
+        
+        return list;
+    }
+
+    
+    
 
 }

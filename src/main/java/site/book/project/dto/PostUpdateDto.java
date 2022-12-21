@@ -8,7 +8,7 @@ import site.book.project.domain.User;
 
 
 @Data
-@ToString(exclude = "postContent")
+@ToString(exclude = { "postContent" })
 public class PostUpdateDto {
 
     private Integer postId;

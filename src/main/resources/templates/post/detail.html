@@ -32,20 +32,17 @@
 <div class="container" style="width:100%; padding-right:150px;" > <!-- container-fluid : START -->
 <div class="row"><!-- row start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
-    <a href=""> 
-        <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
-    </a>
+    <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
     <div style="font-weight: bold;">
         <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
         <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
     </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
+    <input /><span>블로그 소개글 넣기</span>
+    
     <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}">글 전체 목록</a>
         
-    <div>전체 방문자수</div>
+    <div>전체 리뷰수</div>
     <div class="h4"><strong>1,004</strong></div>
-    <div>Today: <span>58</span></div>
     
     <br/><br/>
     
@@ -79,6 +76,7 @@
         </div>
     </div>
 </div><!-- 프로필 블록 end -->
+
 
 <div class="col-10"><!-- 포스트 콘텐츠 블록 start -->
     <div class="my-2">
@@ -164,20 +162,25 @@
             </div>
             <div class="card-body">
             <!-- Comment form-->
-            <!-- 프로필 정보 -->
-            <div style="margin-left: 4px;" class="profile">
-                <!-- #########링크 수정하기######### -->
-                <a href=#><img src="/images/프로필.jfif" class="img-fluid rounded-start" style="width: 30px; height: 30px;" alt=""></a>
-                <input type="text" id="replyWriter" />
-            </div>
-            <form>
-                <input id="replyContent" type="text" class="form-control" placeholder="로그인하고 댓글을 남겨보세요!" />
-                <!-- <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea> -->
-                <div align="right" style="padding-right: 10px;"> <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button></div>
-            </form>
-            </div>
-        </div>
-    </section>
+                                     <!-- 프로필 정보 -->
+                                     <th:block th:if="${ #authentication.name } != anonymousUser " >
+                                     <div style="margin-left: 4px;" class="profile">
+                                       <!-- #########링크 수정하기######### -->
+                                                <a href=#><img src="/images/프로필.jfif"
+                                                       class="img-fluid rounded-start"
+                                                         style="width: 30px; height: 30px;" alt=""></a>
+                                                <input type="text" id="replyWriter" th:value="${ #authentication.name }" readonly/>
+                                     </div>
+                                     </th:block>
+                                     <input type="hidden" id="rWriter" th:value="${ #authentication.name }" readonly/>
+                                <form>
+                                    <textarea id="replyContent" class="form-control" rows="3" placeholder="로그인하고 댓글을 남겨보세요!"></textarea>
+                                    <div align="right" style="padding-right: 10px;"> <button class="btn btn-outline-secondary" type="button" id="btnReplyRegister">확인</button></div>
+                                </form>
+                    
+                            </div>
+                        </div>
+                    </section>
                     
     <!-- 댓글 수정 & 삭제 모달창-->
     <div class="modal" id="postRepModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
@@ -243,7 +246,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 댓글 관련 자바스크립트 함수/코드들을 작성한 스크립트 파일 -->
     <script th:src="@{ /js/postReply.js }"></script>
-
+    <script>
+    const loginUser = document.querySelector('#rWriter');
+    </script>
     
   </div><!-- layout:fragment="content" : END -->
 

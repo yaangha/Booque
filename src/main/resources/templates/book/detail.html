@@ -153,6 +153,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <button onclick="clip()" type="button" class="w-50 btn btn-dark">공유하기</button>
                 </div>
                 <button id="btnOrderNow" type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
@@ -266,8 +267,8 @@
                 
                 <!-- 한줄평 AJax -->
                 <div id="bookComment"></div>
-                
-                <!-- 한줄평 작성하기 -->
+
+               <!-- 한줄평 작성하기 -->
                 <div class="my-2 p-2 border">
                     <div class="col-4">
                         <span class="form-control"  sec:authentication="name"> </span>
@@ -341,7 +342,6 @@
         // 계속 쇼핑하기
         const btnContinueShopping = document.querySelector('#btnContinueShopping');
         btnContinueShopping.addEventListener('click', function () {
-            alert('해당 책이 장바구니에 추가되었습니다!');
           addCartInfo.action = '/cart/onlyAdd';
           addCartInfo.method = 'post';
           addCartInfo.submit();
@@ -397,6 +397,20 @@
             starAvg.innerText = s;
         //}
         
+        </script>
+        
+        <script>
+        // (홍찬- 조회수) 
+        function postHitCountUp(postId) {
+            axios.get('/postHitCount', { params: { postId: postId } })
+                .then(response => {
+                    console.log(response);
+                    return true;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
         </script>
         
         <!-- bootstrap -->
