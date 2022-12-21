@@ -134,7 +134,7 @@ public class UserService {
 //      System.out.println(freeSharePost.toString());
  //     freeSharePost.setFilePath("/files/" + fileName);
       User user = userRepository.findById(id).get();
-      user.updateImage(fileName, "./files/" + fileName);
+      user.updateImage(fileName, "/files/" + fileName);
       
       
     }

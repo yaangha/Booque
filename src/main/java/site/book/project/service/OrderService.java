@@ -16,6 +16,7 @@ import site.book.project.domain.Order;
 import site.book.project.domain.User;
 import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromDetailDto;
+import site.book.project.dto.OrderNoList;
 import site.book.project.dto.OrderFromCartDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.CartRepository;
@@ -210,6 +211,25 @@ public class OrderService {
     // (하은) 결제창에서 결제 취소 버튼 누르면 order DB 삭제(Long 타입이라 새로 생성)
     public void deleteInOrder(Long orderNo) {
         orderRepository.deleteByOrderNo(orderNo);
+    }
+
+
+
+
+
+    public List<OrderNoList> listOrderNo(Integer id) {
+        List<Order> list = readByUserId(id);
+        OrderNoList noList = null;
+        // 오더넘버가 같은 것들을 어떻게 처리할 수 있지?
+        for(Order o : list) {
+//            noList.builder().
+            
+            
+        }
+        
+        
+        
+        return null;
     }
     
 }

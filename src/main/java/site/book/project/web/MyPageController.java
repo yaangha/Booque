@@ -40,7 +40,7 @@ public class MyPageController {
         
         // 주문내역 확인 리스트로 가져옴. 날짜별로  최근순 
         List<Order> orderList = orderService.readByUserId(user.getId());
-      //  List<OrderNoList> noList = orderService.readByOrderNo(user.getId()i);
+        List<OrderNoList> noList = orderService.listOrderNo(user.getId());
         // 주문 내역별 배송지 확인, bookid리스트, 
         
         model.addAttribute("orderList", orderList);

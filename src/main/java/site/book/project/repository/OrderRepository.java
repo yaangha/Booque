@@ -22,6 +22,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     
     // (은정) userId로 오더 리스트 최근순
     List<Order> findByUserIdOrderByOrderNoDesc(Integer userId);
-
+    
+   // List<Integer> findByUserIdGroupByOrderNo(Integer userId);
 
 }

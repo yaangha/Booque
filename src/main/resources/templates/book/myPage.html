@@ -35,18 +35,14 @@
                          <img th:src="${ user.userImage}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
                     </div>
                     <form name="userimageModify" id="userimageModify" enctype="multipart/form-data"  action="/myPage/file" method="post">
-                         <label for="filePath" class="btn btn-outline-dark ">파일 선택
-                            <img style="width: 15px; height: 15px;" alt="..." th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
-                         </label>
-                         <input type="file" id="filePath" name="filePath" accept="image/jpg, image/png" style="display:none"> 
+                         <input type="file" id="filePath" name="filePath" accept="image/jpg, image/png" > 
                          
-                         <label for="imageModify" class="btn btn-outline-dark ">변경
-                            <img style="width: 15px; height: 15px;" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/738/738853.png }">
-                         </label>
-                         <input type="button" id="imageModify" name="imageModify" accept="image/jpg, image/png" style="display:none" > 
-                         
+                         <input type="button" id="imageModify" name="imageModify" accept="image/jpg, image/png"  > 
+
                     </form>
-                 
+                    <div>
+                         <img th:src="${ user.filePath}"  alt="..."  width="200px" height="280px" class="img-fluid rounded-start">
+                    </div>
                     <form id="profileM">
                              
                              <br/>

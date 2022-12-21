@@ -52,7 +52,7 @@ public class OrderRepositoryTest {
         // (하은) 해당 주문번호 관련 내역 읽어오기
         @Test
         public void testOrderNow() {
-            Assertions.assertNotNull(orderService);
+       //     Assertions.assertNotNull(orderService);
             Assertions.assertNotNull(orderRepository);
    
             
