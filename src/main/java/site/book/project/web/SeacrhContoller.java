@@ -96,9 +96,6 @@ public class SeacrhContoller {
         int startPage = 0;
         int endPage = 0;
         log.info("order={}", order);
-        if (keyword.equals("")) {
-            return "/search";
-        }
         
         // 정렬할 리스트 or 페이지화 할 리스트 
         Page<Book> searchList = searchService.search(type, keyword, order, pageable);

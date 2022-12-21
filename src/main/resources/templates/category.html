@@ -27,14 +27,7 @@
           <a th:href="@{ /search/ss?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
           </strong>
           
-          <!-- 페이징 안됨.. -->
-            <div align="right">
-            <select id="dataPerPage">
-                <option value="10">10개씩보기</option>
-                <option value="15">15개씩보기</option>
-                <option value="20">20개씩보기</option>
-            </select>
-            </div>
+          
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
         
@@ -89,17 +82,22 @@
         </div> <!-- 도서카드(가로버전) END -->
 
 
+        
+    <!-- 페이징 시작 -->
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center" th:if="${totalPage != 0}">
-                <li class="page-item disabled"><a class="page-link">Previous</a>
+            <ul class="pagination justify-content-center" th:if="${searchList.totalPages != 0}">
+                <li class="page-item" th:classappend="${1 == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category(category= ${category}, group= ${ bookgroup}, page = ${searchList.pageable.pageNumber - 1})}">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a>
+                <li class="page-item" th:classappend="${i == searchList.pageable.pageNumber + 1} ? 'disabled'" 
+                    th:each="i : ${#numbers.sequence(startPage, endPage)}"><a class="page-link" th:href="@{/category(category=${category}, group=${bookgroup}, page = ${i - 1})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${searchList.totalPages == searchList.pageable.pageNumber + 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category(category=${category}, group=${bookgroup}, page = ${searchList.pageable.pageNumber + 1})}">Next</a>
                 </li>
             </ul>
         </nav>
+    <!-- 페이징 끝 -->
 
 
     </div> <!-- container-fluid : END -->

@@ -18,8 +18,12 @@
         const postId = document.querySelector('#postId').value;
 
         // 댓글 작성자
-        const replyWriter = document.querySelector('#replyWriter').value;
-
+        const replyWriter = document.querySelector('#rWriter').value;
+        console.log(replyWriter);
+        if(replyWriter == "anonymousUser") {
+            alert('로그인창으로 보내기 미구현');
+            return;
+        }
         // 댓글 내용
         const replyContent = document.querySelector('#replyContent').value;
 
@@ -29,7 +33,8 @@
             replyContent: replyContent,
             replyWriter: replyWriter        
         };
-
+        
+        
         axios.post('/api/reply', data)
                 .then(response => {
                     alert('#  댓글 등록 성공');
@@ -66,12 +71,13 @@
                 + '<p>' + r.replyContent + '</p>'
                 + '<p> 작성시간: ' + r.createdTime + '</p>'
                 + '<p> 수정시간: ' + r.modifiedTime + '</p>'
-                + '</div>'
-
-                + '<div class="card-footer">'
+                + '</div>';
+            if(r.replyWriter == loginUser){
+            str += '<div class="card-footer">'
                 + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
-                + '</div>'
-                + '</div>'
+                + '</div>';
+            }
+            str += '</div>'
                 + '</div>'
                 + '</div>';
         }

@@ -62,7 +62,7 @@ public class SearchService {
                 String orderType = "저자";
                 return list = searchRepository.researchOrderByLowPrice(keyword, orderType, pageable);
             }
-        } else if (order.equals("publishedDate")) {
+        } else if (order.equals("publishedDate")) { // 신상품순 정렬
             if(type.equals("all")) { // 통합 검색
                 return list = searchRepository.researchOrderAllByPublishedDate(keyword, pageable);
             }  else if (type.equals("do")) { // 국내 도서 검색
@@ -75,7 +75,35 @@ public class SearchService {
                 String orderType = "저자";
                 return list = searchRepository.researchOrderByPublishedDate(keyword, orderType, pageable);
             }
-        } 
+        } else if (order.equals("highScore")) { // 별점순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByhighScore(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType, pageable);
+            }
+        } else if (order.equals("accuracy")) { // 정확도순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByAccuracy(keyword, pageable);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType, pageable);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType, pageable);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType, pageable);
+            }
+        }
+        
+        
         return list;
     }
     
@@ -145,7 +173,33 @@ public class SearchService {
             } else if (type.equals("au")) { // 저자 검색
                 return list = searchRepository.authorSearchByKeyword(keyword);
             }
-        } 
+        } else if (order.equals("highScore")) { // 별점순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByhighScore(keyword);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByhighScore(keyword, orderType);
+            }
+        } else if (order.equals("accuracy")) { // 정확도순 정렬
+            if(type.equals("all")) { // 통합 검색
+                return list = searchRepository.researchOrderAllByAccuracy(keyword);
+            }  else if (type.equals("do")) { // 국내 도서 검색
+                String orderType = "국내도서";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType);
+            } else if (type.equals("fo")) { // 외국 도서 검색
+                String orderType = "외국도서";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType);
+            } else if (type.equals("au")) { // 저자 검색
+                String orderType = "저자";
+                return list = searchRepository.researchOrderByAccuracy(keyword, orderType);
+            }
+        }
         
         return list;
     }
