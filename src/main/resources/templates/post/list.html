@@ -104,9 +104,9 @@
     <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
         <div class="row justify-content-start">
             <div class="col" th:each="book : ${ books }">
-                <div class="card my-2" style="width: 20rem; height:auto">
+                <div class="card my-2" style="width: 20rem; height:45rem">
                     <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}">
-                        <img th:src="${ book.bookImage }" class="card-img-top" style="height:30rem" />
+                        <img th:src="${ book.bookImage }" class="card-img-top" style="height:27rem" />
                     </a>
                     <div class="card-body" style="text-align: left;">
                         <div class="card-text">
