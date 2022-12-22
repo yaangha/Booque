@@ -91,7 +91,6 @@ public class HomeController {
             log.info("id={},score={},bookname={}", b.getPostId(), b.getHit(), b.getBookName());
           }
         
-        
         // 전체 포스트(조회수순) 1~5위
         List<HomeTopFiveListDto> bestHitPostList = homeService.readTopFiveBestHitOrderByPost();
         for (HomeTopFiveListDto b : bestHitPostList) {

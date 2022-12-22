@@ -34,14 +34,6 @@
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
           </strong>
           
-          
-            <div align="right">
-            <select id="dataPerPage">
-                <option value="10">10개씩보기</option>
-                <option value="15">15개씩보기</option>
-                <option value="20">20개씩보기</option>
-            </select>
-            </div>
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
         
@@ -76,7 +68,7 @@
                     <form id="formCart" action="/search/cart" >
                         <input type="hidden"  name="bookId" th:value="${ book.bookId}" />
                     </form>
-                      <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
+                      <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
                 </td>
                 <td class="align-middle" style="text-align: left;"> 
                             <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
@@ -213,8 +205,8 @@
     
     <!-- 조회수 증가(책 상세보기, 리뷰 상세보기) -->
     <script>
-    function viewHitUp(bookId){
-        axios.get('/viewCount', {params: {bookId : bookId}})
+    function viewHitUp(bookId, username){
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);
                return true;
@@ -224,16 +216,6 @@
            });
     }
     
-    function postHitCountUp(postId){
-        axios.get('/postHitCount', {params: {postId : postId}})
-           .then(response => {
-               console.log(response);
-               return true;
-           })
-           .catch(err =>{
-               console.log(err);
-           });
-    }
     </script>
     
  <!-- bootstrap -->

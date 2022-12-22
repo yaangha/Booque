@@ -19,8 +19,8 @@
     
     const orderDesc = document.querySelector('#orderDesc');
     orderDesc.addEventListener('click',readPostDesc)
-    
-    
+
+
     function scoreDesc(){
         const bookId = document.querySelector('#id').value;
         
@@ -62,7 +62,7 @@
   // bookCommentReadDto에 있는 정보가 response.data로 전해짐 필드랑 동일하게 써야함
     function updatePostList(data){
         const divPost = document.querySelector('#postOrder');
-        
+        const username = document.querySelector('#un').value;
         let str = '';
         
         for(let r of data){
@@ -82,7 +82,7 @@
                 + '<div class="card my-2">'
                 + '<div class="card-header">'
            +  '<div class="my-2"> '
-           +  `<a href="/post/detail?postId=${r.postId}&bookId=${r.bookId}&username=${r.writer}" onclick="postHitCountUp(${r.postId});">` 
+           +  `<a href="/post/detail?postId=${r.postId}&bookId=${r.bookId}&username=${r.writer}" onclick="postHitCountUp(${r.postId}, ${username});">` 
                 + '<h5>' + r.writer + '</h5>'
            +   '   </a> '
            + '  </div> '

@@ -105,7 +105,7 @@
         <div class="row justify-content-start">
             <div class="col" th:each="book : ${ books }">
                 <div class="card my-2" style="width: 20rem; height:45rem">
-                    <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}">
+                    <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
                         <img th:src="${ book.bookImage }" class="card-img-top" style="height:27rem" />
                     </a>
                     <div class="card-body" style="text-align: left;">
@@ -118,7 +118,7 @@
                             <div class="h4" th:text="${ book.bookName }"></div>
                             <div th:text="${ book.author }"></div>
                             <div th:text="${ book.publisher }"></div>
-                            <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>                            
+                            <div th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></div>
                         </div>
                     </div> <!-- card body end -->
                 </div> <!-- card end -->
@@ -141,7 +141,7 @@
             <td class="py-5">
                 <div class="h4">
                     <span th:text="${ post.postId }"></span>
-                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" th:username="${#authentication.name}" onclick="postHitCountUp(this.getAttribute('postId'), this.getAttribute('username'));"></a></strong>
                     
                      <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
                      <div th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
@@ -163,13 +163,12 @@
                     </div>
                      <div th:text="${ post.postContent }"></div>
                 </div>
-              
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
                 <!-- 홍찬 -->
                 <small>조회수 <span th:text="${post.hit}"></span></small>
             </td>
             <td style="text-align: center;">
-                <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
+                <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}" th:bookId="${post.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
@@ -194,8 +193,22 @@
     
     <!-- 포스트 글 조회수 증가-->
     <script>
-    function postHitCountUp(postId){
-        axios.get('/postHitCount', {params: {postId : postId}})
+    function postHitCountUp(postId, username){
+        axios.get('/postHitCount', {params: {postId : postId, username : username}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
+    </script>
+    
+    <!-- 조회수 증가(책 상세보기) -->
+    <script>
+    function viewHitUp(bookId, username){
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);
                return true;
