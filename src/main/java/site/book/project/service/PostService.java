@@ -44,7 +44,7 @@ public class PostService {
    
     @Transactional(readOnly = true)
     public List<PostListDto> postDtoList(Integer userId) {
-        List<Post> list = postRepository.findByUserId(userId);
+        List<Post> list = postRepository.findByUserIdOrderByCreatedTimeDesc(userId);
          
         List<PostListDto> dtoList = new ArrayList<>();
         

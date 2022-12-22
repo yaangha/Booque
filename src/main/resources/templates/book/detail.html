@@ -79,7 +79,7 @@
             <div class="row my-5">
                 <!-- 도서 이미지 -->
                 <div class="col" style="text-align: right;">
-                    <img th:src="${ book.bookImage }" style="width: 600px; height: 800px" />
+                    <img th:src="${ book.bookImage }" style="width: 30rem;" />
                 </div>
 
                 <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
@@ -196,7 +196,9 @@
                 <div style="text-align: center;">
                     <img loading="lazy" th:src="${ book.bookIntroImage }">
                 </div>
-
+                
+                <br/><br/>
+                
                 <!-- 현재 보여지는 책은 보이면 안됨 + 이미지 비율 수정하기 -->
                 <!-- (하은) 작가의 다른 책 보여주기 -->
                 <span class="h4" th:text="${ book.author }"></span>
@@ -248,6 +250,8 @@
 
                 <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
                 <div id="postOrder"></div>
+                
+                <br/><br/>
 
                 <!--  comment  -->
                 <div class="row">
@@ -282,8 +286,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!--  comment  하트 증가는 못함 /-->
+                
+                <br/><br/>
 
                 <!-- 배송/반품/교환 관련 정보 부분 -->
                 <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>

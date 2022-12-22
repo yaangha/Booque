@@ -38,6 +38,18 @@
         animation: blink-effect 1s step-end infinite;
         animation-timing-function: step-start, step-end;
      }
+     
+    .postContent {
+       width: 6rem;
+       text-overflow: ellipsis;
+       overflow: hidden;
+       word-break: break-word;
+        
+       display: -webkit-box;
+       -webkit-line-clamp: 5;
+       -webkit-box-orient: vertical
+    }
+     
   </style> 
   
 </head>
@@ -68,36 +80,36 @@
     
             
             <br/><br/>
-            
-            <div class="h5" style="text-align: left;">요즘 뜨는 블로그 </div>
+            <div class="fw-bold" style="text-align: left;">요즘 뜨는 포스트 </div>
             <div class="row my-2">
-                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <img  style="width:42px; height:44px" alt="" th:src="@{ https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791192300245.jpg}">
                 <div class="col" style="text-align: left;">
                     <a>짜라투스트라는 도대체..</a><br/>
-                    <small style="color:gray;">글 19개</small>
+                    <small style="color:gray;">댓글 19개</small>
                 </div>
             </div>
             <div class="row my-2">
-                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <img  style="width:40px; height:44px" alt="" th:src="@{https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg}">
                 <div class="col" style="text-align: left;">
                     <a>김영하가 다다다라는..</a><br/>
-                    <small style="color:gray;">글 15개</small>
+                    <small style="color:gray;">댓글 15개</small>
                 </div>
             </div>
             <div class="row my-2">
-                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <img  style="width:40px; height:44px" alt="" th:src="@{ https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788954680004.jpg }">
                 <div class="col" style="text-align: left;">
                     <a>오늘도 화이팅이란</a><br/>
-                    <small style="color:gray;">글 159개</small>
+                    <small style="color:gray;">댓글 159개</small>
                 </div>
             </div>
             <div class="row my-2">
-                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <img  style="width:40px; height:44px" alt="" th:src="@{https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788959897094.jpg}">
                 <div class="col" style="text-align: left;">
                     <a>트렌드를 따라가려면..</a><br/>
-                    <small style="color:gray;">글 9개</small>
+                    <small style="color:gray;">댓글 9개</small>
                 </div>
             </div>
+
             
         </div><!-- 유저사진 밑에 카드 형식으로 넣음 -->
     
@@ -153,71 +165,44 @@
     <table class="table">
     <thead>
         <tr class="border-bottom border-4 border-dark">
-            <td class="col-8">책 리뷰 목록</td>
+            <td class="col-9">책 리뷰 목록</td>
             <td></td>
         </tr>
     </thead>
     <tbody>
         <tr th:each="post : ${ list }">
             <td class="py-5" style="cursor: pointer;" th:onclick="|location.href='@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}'|">
-                <div class="h4">
+                <!-- haeun test -->
+                <div>
                     <span th:text="${ post.postId }"></span>
                     <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" th:username="${#authentication.name}" onclick="postHitCountUp(this.getAttribute('postId'), this.getAttribute('username'));"></a></strong>
-                        <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
-                         <span th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
-                          <span>
-                            <img  src="/images/new.png" width="50" height="50" >
-                          </span>
-                        </span>
+                    <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
+                    <span th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
+                        <span><img class="blink" src="/images/new.png" width="50" height="50" ></span>
+                    </span>
                      
                      <!-- 예진: 댓글 수 10개 이상인 글 hot 아이콘 보여주기 -->
-                         <div th:if="${ post.replyCount } > 9 ">
-                          <span>
-                            <img  class="blink" src="/images/promotional.png" width="50" height="40" >
-                          </span>
-                        </div>
+                    <span th:if="${ post.replyCount } > 9 ">
+                        <span><img class="blink" src="/images/promotional.png" width="50" height="40" ></span>
+                    </span>
+                </div>
                 
-                <ul style=" list-style: none;"><li>
+                 
+                <div class="box">
+                <small class="w-100 postContent" id="postContent" th:text="${ post.postContent }"></small>
+                </div>
                 
-                    
-                    
-                    </li>
-                    <li><br> </li>
-                    
-                    <li>
-                       <div class="box">
-                        <div class="my-10" id="postContent" th:text="${ post.postContent }"></div>
-                    </div>
-                    
-                    </li>
-                    
-                    
-                    <li>
-                                         <!-- 예진: 댓글 수 -->
-                     <div style="float: right;">
-                     <span>댓글(</span>
-                     <span th:text="${ post.replyCount }"></span>
-                     <span>)</span>
-                     </div>
-                    
-                    </li>
-                    
-                    <li>
-                    <div style="float: right;">
-                        <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
+                <div>
+                     
+                     <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
                         <!-- 홍찬 -->
                         <small>조회수 <span th:text="${post.hit}"></span></small>
-                    </div>
-                    
-                    </li>
-                
-                </ul>
-                 
+                        <small>댓글수 <span th:text="${ post.replyCount }"></span></small>                     
                 </div>
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}" th:bookId="${post.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
-                    <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
+                    <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:15rem">
                 </a>
             </td>
        </tr>
@@ -262,16 +247,14 @@
         var content = $(this).children('#postContent');
         console.log(content)
         var content_txt = content.text();
-        var content_txt_short = content_txt.substring(0,300);
-        
-        
+        var content_txt_short = content_txt.substring(0,1000);
         
         content.html(content_txt_short)
             
 
     });
     
-    </script>
+    </script> 
     
     <!-- 조회수 증가(책 상세보기) -->
     <script>
