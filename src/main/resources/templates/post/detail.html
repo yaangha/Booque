@@ -35,6 +35,8 @@
 
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
+<div class="w-75 container">
+
 <div class="row"><!-- row start -->
 
 <div class="col-2"><!-- 프로필 블록 start -->
@@ -53,12 +55,10 @@
                 <input value="블로그 소개글 넣기" />
             </div>
             <span style="color:gray;">전체 리뷰수</span>
-            <span class="h4"><strong style="color:red;">1,004</strong></span>
+            <span class="h4"><strong style="color:red;">리뷰수 합쳐야함</strong></span>
              <br/><br/>
              
-            <div class="border rounded py-2 w-75 bg-light">
-                <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
-            </div>
+            
 
 
 
@@ -90,12 +90,14 @@
             </table>
         </div>
 
-
-    
-
     <br/>
 
     </div><!-- 프로필 블록 end -->
+    
+    <div class="border rounded py-2 w-75 bg-light" style="text-align: center;">
+        <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
+    </div>
+    
 </div><!-- 프로필 col-2 -->
 
 <div class="col-8"><!-- 포스트 콘텐츠 블록 start -->
@@ -273,7 +275,9 @@
 
 </div>
 
+
 </div> <!-- row end -->
+</div>
 
     <script th:src="@{ /js/post.js }"></script>
     

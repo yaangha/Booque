@@ -43,13 +43,13 @@
 </head>
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
-    
+<div class="w-75 container"><!-- 메인 블록 사이즈 조절 -->
 
 <div class="row"><!-- main block start -->
 
 <div class="col-2"><!-- 프로필 블록 start  왼쪽 --> 
     
-    <div class="card mx-2 my-2" style="width: 220px; height:auto;">    
+    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
         <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
            <img th:src="${ user.userImage }" width="220px" height="280" class="img-fluid rounded-start">
         </a>       
@@ -64,7 +64,7 @@
                     <input value="블로그 소개글 넣기" />
                 </div>
                 <span style="color:gray;">전체 리뷰수</span>
-                <span class="h4"><strong style="color:red;">1,004</strong></span>
+                <span class="h4"><strong style="color:red;">리뷰수 합쳐야함</strong></span>
     
             
             <br/><br/>
@@ -104,7 +104,7 @@
     </div><!-- 프로필 블록 end -->
 </div>
     
-<div class="col-8">
+<div class="col-10">
     
     <!-- 최근에 본 책 간단 정보 -->
     
@@ -234,7 +234,7 @@
 
 </div><!-- 메인 블록 end -->
 
-
+</div><!-- 메인 블록 사이즈 조절 -->
 
 
 
