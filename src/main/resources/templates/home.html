@@ -59,7 +59,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 8;
+          -webkit-line-clamp: 6;
           -webkit-box-orient: vertical;
     }
     
@@ -80,6 +80,9 @@
         text-underline-position : under;
     }
     
+    .tapContent>h2 {
+        font-weight:bold;
+    }
     
     
     
@@ -370,7 +373,7 @@
                     th:text="${ hotReviewPostList[0].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[0].getPostId }, bookId = ${ hotReviewPostList[0].getBookId } )}" 
-                    th:text="${ hotReviewPostList[0].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ hotReviewPostList[0].getPostContent }"style="padding-top:50px;"></a>
                 </div>
                 <div class="w3-quarter">
                     <img class="w3-card" th:src="${ hotReviewPostList[1].getBookImage }" style="height: 250px; width:auto;" />
@@ -381,7 +384,7 @@
                     th:text="${ hotReviewPostList[1].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[1].getPostId }, bookId = ${ hotReviewPostList[1].getBookId } )}" 
-                    th:text="${ hotReviewPostList[1].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ hotReviewPostList[1].getPostContent }"style="padding-top:50px;"></a>
                 </div>
             </div>
              <div class="carousel-item">
@@ -394,7 +397,7 @@
                     th:text="${ hotReviewPostList[2].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[2].getPostId }, bookId = ${ hotReviewPostList[2].getBookId } )}" 
-                    th:text="${ hotReviewPostList[2].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ hotReviewPostList[2].getPostContent }"style="padding-top:50px;"></a>
                 </div>
                 <div class="w3-quarter">
                     <img class="w3-card" th:src="${ hotReviewPostList[3].getBookImage }" style="height: 250px; width:auto;" />
@@ -405,7 +408,7 @@
                     th:text="${ hotReviewPostList[3].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[3].getPostId }, bookId = ${ hotReviewPostList[3].getBookId } )}" 
-                    th:text="${ hotReviewPostList[3].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ hotReviewPostList[3].getPostContent }"style="padding-top:50px;"></a>
                 </div>
             </div>
         </div>
@@ -448,7 +451,7 @@
                     th:text="${ bestHitPostList[0].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[0].getPostId }, bookId = ${ bestHitPostList[0].getBookId } )}" 
-                    th:text="${ bestHitPostList[0].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ bestHitPostList[0].getPostContent }"style="padding-top:50px;"></a>
                 </div>
                 <div class="w3-quarter">
                     <img class="w3-card" th:src="${ bestHitPostList[1].getBookImage }" style="height: 250px; width:auto;" />
@@ -459,7 +462,7 @@
                     th:text="${ bestHitPostList[1].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[1].getPostId }, bookId = ${ bestHitPostList[1].getBookId } )}" 
-                    th:text="${ bestHitPostList[1].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ bestHitPostList[1].getPostContent }"style="padding-top:50px;"></a>
                 </div>
             </div>
              <div class="carousel-item">
@@ -472,7 +475,7 @@
                     th:text="${ bestHitPostList[2].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[2].getPostId }, bookId = ${ bestHitPostList[2].getBookId } )}" 
-                    th:text="${ bestHitPostList[2].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ bestHitPostList[2].getPostContent }"style="padding-top:50px;"></a>
                 </div>
                 <div class="w3-quarter">
                     <img class="w3-card" th:src="${ bestHitPostList[3].getBookImage }" style="height: 250px; width:auto;" />
@@ -483,7 +486,7 @@
                     th:text="${ bestHitPostList[3].getTitle }"></a>
                     <a  class="reviewContent w3-hover-opacity"  
                     th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[3].getPostId }, bookId = ${ bestHitPostList[3].getBookId } )}" 
-                    th:text="${ bestHitPostList[3].getPostContent }"style="padding-top:30px;"></a>
+                    th:text="${ bestHitPostList[3].getPostContent }"style="padding-top:50px;"></a>
                 </div>
             </div>
         </div>

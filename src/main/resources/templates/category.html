@@ -13,8 +13,8 @@
         
 <style>
     #cartIcon {
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
     }
     
     .thumbnail {
@@ -32,83 +32,56 @@
     .bookName {
         font-weight:bold;
         font-size:20px;
+        padding-bottom: 20px;
     }
     
 </style>
 </head>
-
-    
-    <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
-        
-    
-        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
-        <input type="button" class="btn btn-outline-secondary" value="장바구니">
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
-        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
-        
-     </div>
      
      <!-- 도서 바둑판버전 -->
-        <table class="thumbnail w3-container" style="margin-top:60px; margin-bottom:60px;">
+        <table class="thumbnail table w3-container" style="width:80%; margin-top:60px; margin-bottom:60px; text-align: center; margin-left:270px;">
+            
+            <tbody>
             <tr >
-                <td th:each="book : ${searchList }" class="w3-quarter" style="padding-left:30px; padding-right:30px; padding-bottom:40px;">
-                    <a>
-                    <img th:src="${ book.bookImage }" style="height:350px; width:auto;" />
-                    <br/><span class="bookName" th:text="${ book.bookName}"></span></a>
-                </td>
-            </tr>
-        </table>
-        
-        <!-- 도서카드(가로버전) START -->
-          <table class="w-100 table" style="text-align: center;">
-            <tbody style="height: 200px;">
-            <tr th:each="book : ${ searchList }" >
-                <td class="align-middle">
-                    <form id="formCheck" >
-                        <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
-                    </form>
-                    <form id="formCart" >
-                        <input type="hidden"  name="bookId" th:value="${ book.bookId}" />
-                    </form>
-                      <a th:href="@{ /detail?id={bookId} (bookId = ${ book.bookId })}" th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));"><img th:src="${ book.bookImage }" style="width: 150px;"></a>
-                </td>
-                <td class="align-middle" style="text-align: left;"> 
-                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                                <span  th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
-                            </small>
-                            <div class="h5" th:text="${ book.bookName }"></div>
-                            <div th:text="${ book.author }"></div>
-                            <div th:text="${ book.publisher }"></div>
-                            <div th:text="${ book.publishedDate }"></div>
-                </td>
-
-
-                <td class="align-middle">
-                            <div  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> </div>
-                                <small class="px-1 border border-primary rounded text-primary">p</small>
-                                <small class="text-primary">[[${ book.prices*0.05 }]]</small> 
+                <td th:each="book : ${searchList }" class="w3-quarter" style="padding-bottom:50px;">
                 
-                </td>
-                <td class="align-middle">
-                            <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                                <span>배송일자</span><br/>
-                            </small>
-                            <div class="h5">오늘구매하면</div>
-                            <span class="h8" id="todayD"> </span>
-                            <div>내일 도착</div>
-                </td>
-                <td class="align-middle">
-
-                    <button type="button" class="btn btn-danger btn-sm my-2" id="btnCart"
-                                style="width: 100px;" th:value="${ book.bookId }">장바구니</button>
-                    <button type="button" class="btn btn-dark btn-sm my-2" id="btnOrder"
-                                 style="width: 100px;">구매하기</button><br/>
+                    <a th:href="@{ /detail(id= ${book.bookId}) }"
+                     th:bookId="${book.bookId}" onclick="viewHitUp(this.getAttribute('bookId'));">
+                    <img th:src="${ book.bookImage }" style="height:350px; width:auto; margin-top:40px; margin-bottom:12px;" /></a>
+                    
+                    <div class="bookName" th:text="${ book.bookName}"></div>
+                    
+                    <div class="w3-half" style="text-align:right; padding-right:15px; border-right: 1px solid lightgrey;">
+                            <span th:text="${ book.author}"></span>
+                            <br/><span th:text="${ book.publisher}"></span>
+                    </div>
+                    
+                    <div class="w3-half">
+                        <div class="w3-half">
+                        <span  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"> </span>
+                        <br/>
+                        <small class="px-1 border border-primary rounded text-primary">p</small>
+                        <small class="text-primary">[[${ book.prices*0.05 }]]</small> 
+                        <br/>
+                        <br/>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="w3-half">
+                            <button type="button" class="btn btn-outline-secondary btn-sm my-2" id="btnCart" style="width: 100px; height:30px; margin-left:50px;">
+                                     <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"  > 장바구니 </button>
+                        </div>
+                        <div class="w3-half">
+                            <button type="button" class="btn btn-dark btn-sm my-2" id="btnOrder"
+                                  style="width: 100px; margin-right:50px;">구매하기</button><br/>
+                        </div>
+                    </div>
                 </td>
             </tr>
-        </tbody>
+            </tbody>
         </table>
-         <!-- 도서카드(가로버전) END -->
+        <!-- 도서 바둑판버전 end -->
 
         
     <!-- 페이징 시작 -->
@@ -127,10 +100,7 @@
         </nav>
     <!-- 페이징 끝 -->
 
-
-    </div> <!-- container-fluid : END -->
     <hr/>
-</div> <!-- layout:fragment="content" : END -->
     
     
     <th:block layout:fragment="script" th:inline="javascript">
@@ -159,19 +129,6 @@
     
     
     <script>
-    let today = new Date();  
-    const weekday = ['일', '월', '화', '수', '목', '금', '토'];
-    let month = today.getMonth() + 1;  // 월
-    let date = today.getDate()+1 // 날짜
-    let day = today.getDay()+1;  // 요일
-    let w = weekday[day];
-    
-    let todayD = document.querySelectorAll('#todayD');
-    todayD.forEach(d => {
-        d.innerText = month+'월'+date+'일'+'('+w+')';
-    })
-    
-    
     // 장바구니 버튼 
     const btnCarts = document.querySelectorAll('#btnCart')
     
