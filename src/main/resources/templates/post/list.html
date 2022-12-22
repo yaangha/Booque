@@ -94,7 +94,7 @@
                     </a>
                     <div class="card-body" style="text-align: left;">
                         <div class="card-text">
-                            <a class="h4" th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }"></a><br/>
+                            <a class="h4" th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" th:username="${#authentication.name}" onclick="postHitCountUp(this.getAttribute('postId'), this.getAttribute('username'));"></a><br/>
                             <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd') }" style="color:gray;"></small>
                         </div>
                     </div> <!-- card body end -->
@@ -165,7 +165,6 @@
     <!-- 조회수 증가(책 상세보기) -->
     <script>
     function viewHitUp(bookId, username){
-        console.log(username);
         axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);

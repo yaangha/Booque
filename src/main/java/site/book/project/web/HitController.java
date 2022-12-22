@@ -47,14 +47,14 @@ public class HitController {
                 bookHitsService.viewCountUp(bookId);
                 viewCookie.setValue(viewCookie.getValue() + "_[" + username + "_" + bookId + "]");
                 viewCookie.setPath("/");
-                viewCookie.setMaxAge(60 * 1);
+                viewCookie.setMaxAge(60 * 30);
                 response.addCookie(viewCookie);
             }
         } else { // view 쿠키가 없을 경우 쿠키를 만들고 조회수 1을 증가시켜주기
             bookHitsService.viewCountUp(bookId);
             Cookie newCookie = new Cookie("bookDetailViewCount","[" + username + "_" + bookId + "]");
             newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 1);
+            newCookie.setMaxAge(60 * 30);
             response.addCookie(newCookie);
         }
 //        for (Cookie cookie : cookies) {
@@ -84,14 +84,14 @@ public class HitController {
                 postHitsService.postHitsUp(postId);
                 hitCookie.setValue(hitCookie.getValue() + "_[" + username + "_" + postId + "]");
                 hitCookie.setPath("/");
-                hitCookie.setMaxAge(60 * 60);
+                hitCookie.setMaxAge(60 * 30);
                 response.addCookie(hitCookie);
             }
         } else {
             postHitsService.postHitsUp(postId);
             Cookie newCookie = new Cookie("postDetailHitCount","[" + username + "_" + postId + "]");
             newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 60);
+            newCookie.setMaxAge(60 * 30);
             response.addCookie(newCookie);
         }
         

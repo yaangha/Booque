@@ -271,6 +271,7 @@
                 <span class="form-control" sec:authentication="name"> </span>
             </div>
             <input type="hidden" id="un" th:value="${#authentication.name}">
+            <input type="hidden" id="anonymousUser" value="anonymousUser">
             <div class="row">
                 <div class="col-10 my-2">
                     <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example">
@@ -374,6 +375,7 @@
         
         <script>
         // (홍찬- 포스트 조회수) 
+        const anonymousUser = document.querySelector('#anonymousUser').value;
         function postHitCountUp(postId, username) {
             axios.get('/postHitCount', { params: { postId: postId, username: username } })
                 .then(response => {
@@ -388,7 +390,6 @@
         <!-- 조회수 증가(책 상세보기, 리뷰 상세보기) -->
     <script>
     function viewHitUp(bookId, username){
-        console.log(username);
         axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);

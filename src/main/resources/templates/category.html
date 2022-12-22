@@ -116,7 +116,6 @@
     <!-- 조회수 증가(책 상세보기) -->
     <script>
     function viewHitUp(bookId, username){
-        console.log(username);
         axios.get('/viewCount', {params: {bookId : bookId, username : username}})
            .then(response => {
                console.log(response);
