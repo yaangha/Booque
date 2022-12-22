@@ -166,7 +166,7 @@
                                                 <a href=#><img src="/images/프로필.jfif"
                                                        class="img-fluid rounded-start"
                                                          style="width: 30px; height: 30px;" alt=""></a>
-                                                <input type="text" id="replyWriter" th:value="${ #authentication.name }" readonly/>
+                                                <input type="hidden" id="replyWriter" th:value="${ #authentication.name }" readonly/><span style="font-weight: bold;" sec:authentication="name" ></span>
                                      </div>
                                      </th:block>
                                      <input type="hidden" id="rWriter" th:value="${ #authentication.name }" readonly/>

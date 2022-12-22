@@ -205,9 +205,9 @@
                    <span th:text="${ post.postId }"></span>
                    
                     <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
-                    
+                   
                      <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
-                     <div th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
+                     <div th:if="${ day } == ${ #temporals.format(post.createdTime, 'dd') }">
                       <span>
                         <img class="blink" src="/images/new.png" width="50" height="50" >
                       </span>
@@ -224,7 +224,7 @@
                         <img  class="blink" src="/images/promotional.png" width="50" height="40" >
                       </span>
                     </div>
-                     <div th:text="${ post.postContent }"></div>
+                   
                 </div>
           
                 <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>

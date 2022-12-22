@@ -65,7 +65,7 @@
                 + '<div class="d-flex mb-4">'
                 + '<div class="flex-shrink-0"><img class="rounded-circle" width="60" height="60" src="' + r.userImage + '" alt="..." /></div>'
                 + '<div class="ms-3">'
-                + '<div class="fw-bold"><a href="/post/list">' + r.replyWriter + '</a></div>'
+                + `<div class="fw-bold"><a href="/post/list?postWriter=${r.replyWriter}">${r.replyWriter}</a></div>`
                 + '</div>'
                 + '<div class="card-body">'
                 + '<p>' + r.replyContent + '</p>'
