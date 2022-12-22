@@ -111,14 +111,13 @@
                 <div class="my-2"style="font-weight: bold;">
                     <input type="hidden" name="price" th:value="${ book.prices }"> 
                     <span style="font-size: large;"  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></span>
-                    <span>원</span>
                     
                 </div>
                 <div class="my-2"style="font-weight: bold;">
-                    <span style="font-size: large;" th:text="${ book.prices * 0.05 }"></span>
+                    <span style="font-size: small;" th:text="${ book.prices * 0.05 }"></span>
                     <!-- <input name="point" th:value="${ book.prices * 0.05 }" type="hidden" /> -->
                     <input name="point" th:value="${ #numbers.formatDecimal(book.prices * 0.05, 1, 0) }" type="hidden" />
-                    <span>포인트</span>
+                    <span style="font-size: small;">포인트</span>
                 </div>
                 <div>
                     <input type='button' id="btnCountM" class="btn btn-secondary"   value='-'/>
