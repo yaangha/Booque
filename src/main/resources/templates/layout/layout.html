@@ -371,16 +371,13 @@
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
                     </svg>
                 </button>
-                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="top:66px; right:66px;">
-                    <span class="w3-bar-item"
-                style="font-size:25px; color:dodgerblue; font-weight:bold; background-color:lightgrey;" 
-                sec:authentication="name"></span>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="top:66px; right:15px;">
                     <a th:href="@{ /myPage }" class="w3-bar-item w3-button" 
-                    style="font-size: 17px;">마이페이지</a>
+                    style="font-size: 17px; text-align:center; padding-top:15px; color:grey; font-weight:bold;">마이페이지</a>
                     <a th:href="@{ /post/list }" class="w3-bar-item w3-button" 
-                    style="font-size: 17px;">내 블로그</a>
+                    style="font-size: 17px; text-align:center; padding-top:15px; color:grey; font-weight:bold;">내 블로그</a>
                     <a th:href="@{ /logout }" class="w3-bar-item w3-button" 
-                    style="font-size: 17px;">로그아웃</a>
+                    style="font-size: 17px; text-align:center; padding-top:15px; color:grey; font-weight:bold;">로그아웃</a>
                 </div>
             </div>
    
@@ -392,14 +389,19 @@
       <i class="fa fa-shopping-cart"></i></a>
       
       <!-- 검색 버튼 -->
-      <span class="w3-bar-item w3-button w3-right" style="color:white; margin-top:18px; margin-right:25px;" onclick="search_open()">
+      <span class="w3-bar-item w3-button w3-right" style="color:white; margin-top:18px; margin-right:25px; margin-left:40px;" onclick="search_open()">
       <i class="fa fa-search"></i></span> 
+      
+      <!-- 유저네임 표시 -->
+      <div class="w3-right" style="margin-top:25px; padding-right:40px; border-right:2px solid grey;">님</div>
+        <div class="w3-right" sec:authentication="name" style="margin-top:25px; margin-right:7px; color:cornflowerblue; font-weight:bold;"></div>
+        
     
     <!-- 검색 창 내려오기 -->
     <nav class="w3-black w3-animate-top w3-xxlarge" 
     style="z-index:4; display:none; margin-top:60px; padding-top:50px; padding-bottom:50px;" id="searchBar">
     <div class="w3-bar-block w3-center">
-    <form th:action="@{ /search/s }" id="searchingForm">
+    <form th:action="@{ /search/s }">
     <!-- 검색 타입 -->
     <select id="type" name="type" class="selectedType">
             <option value="all">통합검색</option>
@@ -411,7 +413,7 @@
         <input type="search" class="searchText" id="keyword" name="keyword" />
         <input type="hidden" id="order" name="order" value="0"/>
       <!-- 검색 버튼 -->
-      <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;" onclick="nothingKeywordCheck();">
+      <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
       <i class="fa fa-search" id="btnSearch"></i></button> 
 
    </form>
@@ -596,21 +598,7 @@
     </th:block>
 
 
-<th:block layout:fragment="script">
-<script>
-function nothingKeywordCheck(){
-	const form = document.querySelector('#searchingForm');
-	const keyword = document.querySelector('#keyword').value;
-	if(keyword==""){
-		alert('검색어를 반드시 입력해주세요!');
-		event.preventDefault();
-		return;
-	}
-}
-</script>
-</th:block>
-
-<!-- 상단/사이드바, 모달 등 모든 페이지에 들어가는 공통 자바스크립트 -->
+    <!-- 상단/사이드바, 모달 등 모든 페이지에 들어가는 공통 자바스크립트 -->
 <script th:src="@{ /js/script.js }"></script>
   
 

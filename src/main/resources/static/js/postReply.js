@@ -84,7 +84,7 @@
         
         for (let r of data){
             str += '<div class="card border-dark mb-3 w-100" style="text-align: left;">'
-                + '<div class="card-header">' + r.replyWriter + '</div>'
+            + `<div class="fw-bold"><a href="/post/list?postWriter=${r.replyWriter}">${r.replyWriter}</a></div>`
                 + '<div class="card-body text-dark">'
                 + '<p class="card-text">' + r.replyContent + '</p>'
                 + '<div><small style="color:gray;"> 작성시간: ' + '<span id="commentDate">' + r.createdTime + '</span>' + '</small></div>'
