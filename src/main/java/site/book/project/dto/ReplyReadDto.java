@@ -18,6 +18,7 @@ public class ReplyReadDto {
     private Integer postId;
     private String replyContent;
     private String replyWriter;
+    private String userImage;
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
     
@@ -25,6 +26,7 @@ public class ReplyReadDto {
         return ReplyReadDto.builder().replyId(entity.getReplyId())
                 .postId(entity.getPost().getPostId())
                 .replyWriter(entity.getReplyWriter())
+                .userImage(entity.getUser().getUserImage())
                 .replyContent(entity.getReplyContent())
                 .createdTime(entity.getCreatedTime())
                 .modifiedTime(entity.getModifiedTime())

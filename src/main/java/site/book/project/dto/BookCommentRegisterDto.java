@@ -17,6 +17,6 @@ public class BookCommentRegisterDto {
   //  private String commentWriter;
     
     // 유저 번호 필요함
-    private Integer writerId;
+//    private Integer writerId;
     
 }

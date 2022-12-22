@@ -28,7 +28,7 @@ public class BookWish {
     private Integer bookWishId; // 안써도 되지만 PK는 필요해서 넣은 것
     
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user; 
+    private User user;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
