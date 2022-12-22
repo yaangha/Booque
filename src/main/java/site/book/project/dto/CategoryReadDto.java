@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class CategoryReadDto {
 
+    
     private Integer bookId;
     private String bookImage;
     private String bookName;

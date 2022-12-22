@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
+import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
 import site.book.project.dto.OrderFinalInfoDto;
 import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.OrderRepository;
+import site.book.project.service.BookService;
+import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
 
@@ -32,7 +36,14 @@ public class OrderResultController {
     @PostMapping("/orderResult")
     public String orderResult(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer[] cartId, OrderFinalInfoDto dto, Model model) {
         // dto에 저장한 값으로 DB 업데이트
-        orderService.updateInfo(cartId, dto);
+        
+        if (cartId.length == 0) {
+            orderService.updateInfo(dto.getOrderNo(), dto);
+            log.info("하은 orderNo = {}", dto.getOrderNo());
+
+        } else {
+            orderService.updateInfo(cartId, dto);
+        }
         
         // 주문완료시 장바구니 내역은 삭제
         orderService.deleteCart(cartId);
@@ -46,9 +57,13 @@ public class OrderResultController {
         Long orderNo = dto.getOrderNo();
         
         Integer total = 0;
+        Integer points = 0;
         
         for (int a = 0; a < orderInfo.size(); a++) {
             total += orderInfo.get(a).getPrices() * orderInfo.get(a).getCount();
+            points += (int) ((Integer) total * 0.05);
+            userService.update(points, user.getId());
+            log.info("하은 적립 포인트 = {}", points);
         }
         
         model.addAttribute("user", user);
@@ -56,6 +71,7 @@ public class OrderResultController {
         model.addAttribute("orderNo", orderNo);
         model.addAttribute("total", total);
         model.addAttribute("order", dto);
+        model.addAttribute("points", points);
         
         if (dto.getPayOption().equals("무통장입금")) {
             return "book/orderCash";

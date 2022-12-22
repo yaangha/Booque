@@ -97,8 +97,8 @@ public class HomeController {
           log.info("id={},score={},bookname={}", b.getPostId(), b.getHit(), b.getBookName());
         }
         
-        model.addAttribute("top10ScoreList", list);                     // 전체 책 별점순 1~8위
-        model.addAttribute("top10ReviewList", postList);                // 전체 책 리뷰많은순 1~8위
+        model.addAttribute("top4ScoreList", list);                     // 전체 책 별점순 1~8위
+        model.addAttribute("top4ReviewList", postList);                // 전체 책 리뷰많은순 1~8위
         model.addAttribute("economyScoreList", economyScoreList);       // 경제/경영(별점)
         model.addAttribute("humanitiesScoreList", humanitiesScoreList); // 인문(별점)
         model.addAttribute("fictionScoreList", fictionScoreList);       // 소설(별점)

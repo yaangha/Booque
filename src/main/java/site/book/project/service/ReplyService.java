@@ -1,5 +1,6 @@
 package site.book.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Post;
 import site.book.project.domain.PostReply;
+import site.book.project.domain.User;
 import site.book.project.dto.ReplyReadDto;
 import site.book.project.dto.ReplyRegisterDto;
 import site.book.project.dto.ReplyUpdateDto;
@@ -25,6 +27,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+   
     
     // 포스트에 해당하는 댓글 리스트 리턴
 
@@ -34,10 +37,20 @@ public class ReplyService {
         log.info("readReplies(postId={})", postId);
         
         List<PostReply> list = replyRepository.readAllReplies(postId);
+        List<ReplyReadDto> replyList = new ArrayList<>();
         
-        return list.stream()
-                .map(ReplyReadDto::fromEntity)
-                .toList();
+        for (PostReply r : list) {
+            User u = userRepository.findByUsername(r.getReplyWriter()).get();
+            ReplyReadDto dto = ReplyReadDto.builder().postId(r.getPost().getPostId())
+                    .replyId(r.getReplyId()).replyWriter(r.getReplyWriter())
+                    .replyContent(r.getReplyContent()).userImage(u.getUserImage())
+                    .createdTime(r.getCreatedTime()).modifiedTime(r.getModifiedTime()).build();
+            
+            replyList.add(dto);
+        }
+        
+        
+        return replyList;
     }
 
     // DB에 댓글 정보 저장
@@ -45,12 +58,9 @@ public class ReplyService {
         log.info("create(dto={})", dto);
         
         Post post = postRepository.findById(dto.getPostId()).get();
+        User user = userRepository.findByUsername(dto.getReplyWriter()).get();
         
-        
-        // 유저 정보에 저장하기 위해서 작성자 정보를 따로 저장
-        // User user = userRepository.findByName(dto.getReplyWriter());
-        
-        PostReply reply = PostReply.builder().post(post)
+        PostReply reply = PostReply.builder().post(post).user(user)
                 .replyContent(dto.getReplyContent()).replyWriter(dto.getReplyWriter())
                 .build();
         

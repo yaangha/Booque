@@ -28,20 +28,21 @@ public class HomeService {
     private final CategoryRepository categoryRepository;
     private final PostRepository postRepository;
     private final ReplyRepository replyRepository;
-    // 전체 별점 Top 10
+    
+    // 전체 별점 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByBookScore() {
         List<Book> list = null;
-        list = bookRepository.findTop10ByOrderByBookScoreDesc();
+        list = bookRepository.findTop4ByOrderByBookScoreDesc();
         
         return list;
     }
 
-    // 전체 리뷰 Top 10
+    // 전체 리뷰 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingOrderByPostReview() {
         List<Book> list = new ArrayList<>();
-        list = bookRepository.findTop10ByOrderByPostCountDesc();
+        list = bookRepository.findTop4ByOrderByPostCountDesc();
 //        
 //        List<SearchListDto> reviewCount = new ArrayList<>();
 //        for (Post p : list) {
@@ -80,20 +81,20 @@ public class HomeService {
         return list;
     }
 
-    // 카테고리별 별점 Top 10
+    // 카테고리별 별점 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookScore(String category) {
         List<Book> list = new ArrayList<>();
-        list = categoryRepository.findTop8ByCategoryOrderByBookScoreDesc(category);
+        list = categoryRepository.findTop4ByCategoryOrderByBookScoreDesc(category);
         
         return list;
     }
     
-    // 카테고리별 리뷰순 Top 10
+    // 카테고리별 리뷰순 Top 4
     @Transactional(readOnly = true)
     public List<Book> readAllRankingCategoryOrderByBookReview(String category) {
         List<Book> list = new ArrayList<>();
-        list = categoryRepository.findTop8ByCategoryOrderByPostCountDesc(category);
+        list = categoryRepository.findTop4ByCategoryOrderByPostCountDesc(category);
         
         return list;
     }
@@ -142,7 +143,7 @@ public class HomeService {
         for (Post p : hotReviewTopFiveList) {
             Book dtoElement = bookRepository.findById(p.getBook().getBookId()).get();
             HomeTopFiveListDto dto = HomeTopFiveListDto.builder().postId(p.getPostId()).postWriter(p.getPostWriter()).title(p.getTitle())
-                    .postContent(p.getPostContent()).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
+                    .postContent(p.getPostContent().replaceAll("<([^>]+)>", "")).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
                     .hit(p.getHit()).bookId(p.getBook().getBookId()).bookImage(dtoElement.getBookImage()).bookName(dtoElement.getBookName()).build();
                     
             finalList.add(dto);
@@ -162,7 +163,7 @@ public class HomeService {
         for (Post p : list) {
             Book dtoElement = bookRepository.findById(p.getBook().getBookId()).get();
             HomeTopFiveListDto dto = HomeTopFiveListDto.builder().postId(p.getPostId()).postWriter(p.getPostWriter()).title(p.getTitle())
-                    .postContent(p.getPostContent()).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
+                    .postContent(p.getPostContent().replaceAll("<([^>]+)>", "")).myScore(p.getMyScore()).createdTime(p.getCreatedTime()).modifiedTime(p.getModifiedTime())
                     .hit(p.getHit()).bookId(p.getBook().getBookId()).bookImage(dtoElement.getBookImage()).bookName(dtoElement.getBookName()).build();
                 
             finalList.add(dto);

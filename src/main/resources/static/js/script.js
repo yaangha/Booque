@@ -2,7 +2,7 @@
  * 
  */
  
- // 정혁
+ // 정혁 
  const modalConfirm = (tar) => {
     let signupUsername = document.getElementById('signupUsername');
     let signupPassword = document.getElementById('signupPassword');
@@ -10,7 +10,9 @@
     let signupNickname = document.getElementById('signupNickname');
     let signupName = document.getElementById('signupName');
     let signupPhone = document.getElementById('signupPhone')
-    let signupaddress = document.getElementById('signupaddress');
+    let signinUsername = document.getElementById('signinUsername');
+    let signinPassword = document.getElementById('signinPassword');
+    
     console.log('modalConfirm');
     console.log(`data-type : ${tar.getAttribute('data-bs-toggle')}`);
 
@@ -21,7 +23,6 @@
     if(signupNickname.value === '' || signupNickname.value === ' ') return signupNickname.focus();
     if(signupName.value === '' || signupName.value === ' ') return signupName.focus();
     if(signupPhone.value === '' || signupPhone.value === ' ') return signupPhone.focus();
-    if(signupaddress.value === '' || signupaddress.value === ' ') return signupaddress.focus();
     
 
 
@@ -31,7 +32,6 @@
     document.getElementById('nickname').value = signupNickname.value;
     document.getElementById('name').value = signupName.value;
     document.getElementById('phone').value = signupPhone.value;
-    document.getElementById('address').value = signupaddress.value;
 
     
     
@@ -41,7 +41,7 @@
     //회원가입정보가 전부 들어갔는지 각각 체크하는 함수
     const checkValue = (tar) =>{
         if(signupUsername.value != '' && signupPassword.value != '' && signupEmail.value != '' &&
-              signupNickname.value != '' && signupName.value != '' && signupPhone.value != '' && signupaddress.value != ''){ //모든 값이 반 값이 아닐때
+              signupNickname.value != '' && signupName.value != '' && signupPhone.value != '' ){ //모든 값이 반 값이 아닐때
             document.getElementById('registerConfirmBtn').setAttribute('data-bs-toggle','modal');
     
         }else{ //빈 값이 하나라도 있을 때
@@ -157,17 +157,7 @@
             }
         }
 
-        document.getElementById('signupaddress').addEventListener('change', function () {
-          
-            if(nameok == emailok == nickok == true){
-                document.getElementById('registerConfirmBtn').className.remove('disabled');
-                console.log('true 지렁');
-            }else{
-                console.log('false 지렁');
-            }
-            
-            
-       });
+
        
     });
     

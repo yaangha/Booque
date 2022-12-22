@@ -36,6 +36,18 @@ public class OrderService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     
+    
+    public List<Order> readByUserId(Integer userId){
+        List<Order> list = orderRepository.findByUserIdOrderByOrderNoDesc(userId);
+        
+        
+        return list;
+    }
+    
+    
+    
+    
+    
     public List<Order> readAll(){
         return orderRepository.findAll();
     }
@@ -167,6 +179,16 @@ public class OrderService {
                 
     }
     
+    // (하은) detail -> orderResult로 넘어갈 때 DB 업데이트 하기 위해
+    public void updateInfo(Long orderNo, OrderFinalInfoDto dto) {
+        // findByOrderNo가 List<Order>로 되어있어서 그냥 사용..
+        List<Order> orderList = orderRepository.findByOrderNo(orderNo);
+        
+        Order order = orderList.get(0).update(dto.getPostcode(), dto.getAddress(), dto.getDetailAddress(), dto.getPayOption(), dto.getMessage());
+        
+        orderRepository.save(order);
+    }
+    
     // (하은) cart -> order 넘어갈 때 페이지에 띄울 데이터 저장
     public List<OrderFromCartDto> readByOrderNo(Long orderNo) {
         List<Order> order =  orderRepository.findByOrderNo(orderNo);
@@ -199,5 +221,21 @@ public class OrderService {
     public void deleteInOrder(Long orderNo) {
         orderRepository.deleteByOrderNo(orderNo);
     }
+
+
+
+
+
+//    public List<OrderNoList> listOrderNo(Integer id) {
+//        List<Order> list = readByUserId(id);
+//        OrderNoList noList = null;
+//        // 오더넘버가 같은 것들을 어떻게 처리할 수 있지?
+//        for(Order o : list) {
+//            noList.builder().
+//            
+//            
+//        }
+//        return null;
+//    }
     
 }

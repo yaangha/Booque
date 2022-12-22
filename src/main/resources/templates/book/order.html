@@ -27,11 +27,11 @@
     
         <!-- 진행 순서 보여주기 -->
         <ul class="h5 list-group list-group-horizontal justify-content-center">
-            <li class="list-group-item border-0 bg-light" style="color:gray;">01 CART</li>
-            <li class="list-group-item border-0 bg-light" style="color:gray;">></li>
-            <li class="list-group-item border-0 bg-light" style="font-weight: bold;">02 ORDER</li>
-            <li class="list-group-item border-0 bg-light" style="color:gray;">></li>
-            <li class="list-group-item border-0 bg-light" style="color:gray;">03 ORDER CONFIRMED</li>
+            <li class="list-group-item border-0" style="color:gray;">01 CART</li>
+            <li class="list-group-item border-0" style="color:gray;">></li>
+            <li class="list-group-item border-0" style="font-weight: bold;">02 ORDER</li>
+            <li class="list-group-item border-0" style="color:gray;">></li>
+            <li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
         </ul>
         
         <br/><br/>
@@ -99,7 +99,7 @@
                             
                 <!-- 주문내역 창 start -->
                 <div class="col m-4 py-4 px-4 border border-dark border-3">
-                <div class="h5 py-2 border-bottom border-dark">책 상품 정보 / 2권</div>
+                <div class="h5 py-2 border-bottom border-dark">책 상품 정보</div>
                 <div class="row my-2" th:each="order : ${ order }"><!-- 책 정보 row -->
                     <div class="col-4 "><!-- 책 이미지 col start -->
                     <input type="hidden" form="orderFinalInfo" name="cartId" th:value="${ order.cartId }" />
@@ -128,9 +128,21 @@
                 
                 <hr/>
                 
-                <div class="py-2">총 상품금액</div>
-                <div class="py-2">배송비</div>
-                <div class="py-2">총 결제금액</div>
+                <div class="py-2">
+                    <span style="text-align: left;">총 상품금액</span>
+                    <span class="float-end" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                </div>
+                
+                <div class="py-2">
+                    <span style="text-align: left;">배송비</span>                    
+                    <span class="float-end" th:if="${ total ge 30000 }">무료배송</span>
+                    <span class="float-end" th:unless="${ total ge 30000 }">3,000원</span>
+                </div>
+                <div class="py-2">
+                    <span style="text-align: left;">총 결제금액</span>
+                    <span class="float-end" th:if="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total, 0, 'COMMA')}원|"></span>
+                    <span class="float-end" th:unless="${ total ge 30000 }" th:text="|${#numbers.formatInteger(total + 3000, 0, 'COMMA')}원|"></span>
+                </div>
                 
                 <hr/>
                 
