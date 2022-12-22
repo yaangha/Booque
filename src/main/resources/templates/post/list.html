@@ -138,36 +138,67 @@
     </thead>
     <tbody>
         <tr th:each="post : ${ list }">
-            <td class="py-5">
+            <td class="py-5" >
                 <div class="h4">
-                    <span th:text="${ post.postId }"></span>
-                   
-                    <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                        <span th:text="${ post.postId }"></span>
+                        <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
+                         <span th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
+                          <span>
+                            <img  src="/images/new.png" width="50" height="50" >
+                          </span>
+                        </span>
+                     
+                     <!-- 예진: 댓글 수 10개 이상인 글 hot 아이콘 보여주기 -->
+                         <div th:if="${ post.replyCount } > 9 ">
+                          <span>
+                            <img  class="blink" src="/images/promotional.png" width="50" height="40" >
+                          </span>
+                        </div>
+                
+                <ul style=" list-style: none;">
+                    <li>
+                    </li>
                     
-                     <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
-                     <div th:if="${ day } == ${ #temporals.format(post.modifiedTime, 'dd') }">
-                      <span>
-                        <img class="blink" src="/images/new.png" width="50" height="50" >
-                      </span>
+                    
+                    <li>
+                    <strong>
+                    <a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
+                    
+                    </li>
+                    <li><br> </li>
+                    
+                    <li>
+                       <div class="box">
+                        <div class="my-10" id="postContent" th:text="${ post.postContent }"></div>
                     </div>
                     
-                     <!-- 예진: 댓글 수 -->
+                    </li>
+                    
+                    
+                    <li>
+                                         <!-- 예진: 댓글 수 -->
+                     <div style="float: right;">
                      <span>댓글(</span>
                      <span th:text="${ post.replyCount }"></span>
                      <span>)</span>
-                     
-                     <!-- 예진: 댓글 수 10개 이상인 글 hot 아이콘 보여주기 -->
-                     <div th:if="${ post.replyCount } > 9 ">
-                      <span>
-                        <img  class="blink" src="/images/promotional.png" width="50" height="40" >
-                      </span>
+                     </div>
+                    
+                    </li>
+                    
+                    <li>
+                    <div style="float: right;">
+                        <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
+                        <!-- 홍찬 -->
+                        <small>조회수 <span th:text="${post.hit}"></span></small>
                     </div>
-                     <div th:text="${ post.postContent }"></div>
+                    
+                    </li>
+                
+                </ul>
+                 
                 </div>
               
-                <small th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" style="color:gray;"></small>
-                <!-- 홍찬 -->
-                <small>조회수 <span th:text="${post.hit}"></span></small>
+
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
@@ -198,6 +229,34 @@
     
     <!-- 포스트 글 조회수 증가-->
     <script>
+
+    
+    
+    $('.box').each(function(){
+    var content = $(this).children('#postContent');
+    console.log(content)
+    var content_txt = content.text();
+    var content_txt_short = content_txt.substring(0,300);
+    
+    
+    
+    content.html(content_txt_short)
+        
+  
+    
+
+
+
+});
+
+    
+    
+    
+    
+    
+    
+    
+    
     function postHitCountUp(postId){
         axios.get('/postHitCount', {params: {postId : postId}})
            .then(response => {
