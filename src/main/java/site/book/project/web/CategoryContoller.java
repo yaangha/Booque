@@ -28,8 +28,8 @@ public class CategoryContoller {
 
     @GetMapping("")
     public String sort(CategoryReadDto dto, Model model, @PageableDefault(size = 5) Pageable pageable) {
-        log.info("sort: group={}, category={}, page={}", dto.getGroup(), dto.getCategory(),dto.getPage());
-        String group = dto.getGroup();
+        log.info("sort: group={}, category={}, page={}", dto.getBookgroup(), dto.getCategory(), dto.getPage());
+        String group = dto.getBookgroup();
         String category = dto.getCategory();
 
         

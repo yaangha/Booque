@@ -12,6 +12,7 @@
     let signupPhone = document.getElementById('signupPhone')
     let signinUsername = document.getElementById('signinUsername');
     let signinPassword = document.getElementById('signinPassword');
+    
     console.log('modalConfirm');
     console.log(`data-type : ${tar.getAttribute('data-bs-toggle')}`);
 

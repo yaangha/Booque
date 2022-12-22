@@ -141,7 +141,6 @@
             <td class="py-5">
                 <div class="h4">
                     <span th:text="${ post.postId }"></span>
-                   
                     <strong><a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}" th:text="${ post.title }" th:postId="${post.postId}" onclick="postHitCountUp(this.getAttribute('postId'));"></a></strong>
                     
                      <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->
@@ -183,7 +182,6 @@
 </div><!-- main block end -->
 
 </div><!-- 메인 블록 end -->
-
 <th:block layout:fragment="script" th:inline="javascript">
 
 <!-- summernote -->
@@ -193,8 +191,6 @@
       height: 300,
       lang: "ko-KR"
     }); </script>
-    
-
     
     <!-- 포스트 글 조회수 증가-->
     <script>
@@ -218,7 +214,6 @@
     </script>
     
 </th:block>
-
   </div><!-- layout:fragment="content" : END -->
 
 

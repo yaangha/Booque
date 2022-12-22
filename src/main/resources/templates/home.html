@@ -40,6 +40,7 @@
     .best>a>img {
         box-shadow: 10px 10px 20px lightgrey;
         height: 400px;
+        margin-bottom:12px;
     }
     
     .best>a>img:hover {
@@ -47,17 +48,36 @@
         transition: .3s;
     }
     
-    .post {
+    .best>a>span {
+        font-size:20px;
+    }
+    
+    .reviewContent {
+    text-decoration:none;
+    color:darkslategrey;
+        font-weight:bold;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 8;
+          -webkit-box-orient: vertical;
+    }
+    
+    .reviewContent:hover {
+        color:darkslategrey;
+    }
+    
+    .reviewTitle {
+    text-decoration:none;
+        color: dodgerBlue;
         font-weight:bold;
     }
     
-    .post>h3 {
-        color: dodgerBlue;
-    }
-    
-    .post>h3:hover {
+    .reviewTitle:hover {
+    color: dodgerBlue;
+        font-weight:bolder;
         text-decoration:underline lightgrey;
-        text-underline-position: under;
+        text-underline-position : under;
     }
     
     
@@ -327,7 +347,7 @@
   
   
   
-  <!-- 인기 리뷰(포스트 댓글 많이 달린 순) -->
+    <!-- 인기 리뷰(포스트 댓글 많이 달린 순) -->
   <div id="hotPosts" class="w3-padding" style="width:75%; margin-bottom:120px; border:2px solid white;">
            
     <span class="underline"></span>
@@ -342,42 +362,50 @@
         <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px;  padding-left:30px; padding-right:30px;">
             <div class="carousel-item active">
                 <div class="w3-quarter">
-                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191043754.jpg" style="height:250px; width:auto;" />
+                     <img class="w3-card"  th:src="${ hotReviewPostList[0].getBookImage }" style="height:250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>너무 좋은 책이에요!!!</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
-                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[0].getPostId }, bookId = ${ hotReviewPostList[0].getBookId } )}" 
+                    th:text="${ hotReviewPostList[0].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[0].getPostId }, bookId = ${ hotReviewPostList[0].getBookId } )}" 
+                    th:text="${ hotReviewPostList[0].getPostContent }"style="padding-top:30px;"></a>
                 </div>
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg" style="height: 250px; width:auto;" />
+                    <img class="w3-card" th:src="${ hotReviewPostList[1].getBookImage }" style="height: 250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>최고의 책</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
-                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[1].getPostId }, bookId = ${ hotReviewPostList[1].getBookId } )}" 
+                    th:text="${ hotReviewPostList[1].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[1].getPostId }, bookId = ${ hotReviewPostList[1].getBookId } )}" 
+                    th:text="${ hotReviewPostList[1].getPostContent }"style="padding-top:30px;"></a>
                 </div>
             </div>
              <div class="carousel-item">
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191114102.jpg" style="height:250px; width:auto;" />
+                     <img class="w3-card"  th:src="${ hotReviewPostList[2].getBookImage }" style="height:250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>너무 좋은 책이에요!!!</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
-                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[2].getPostId }, bookId = ${ hotReviewPostList[2].getBookId } )}" 
+                    th:text="${ hotReviewPostList[2].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[2].getPostId }, bookId = ${ hotReviewPostList[2].getBookId } )}" 
+                    th:text="${ hotReviewPostList[2].getPostContent }"style="padding-top:30px;"></a>
                 </div>
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936438838.jpg" style="height: 250px; width:auto;" />
+                    <img class="w3-card" th:src="${ hotReviewPostList[3].getBookImage }" style="height: 250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>최고의 책</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
-                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[3].getPostId }, bookId = ${ hotReviewPostList[3].getBookId } )}" 
+                    th:text="${ hotReviewPostList[3].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ hotReviewPostList[3].getPostId }, bookId = ${ hotReviewPostList[3].getBookId } )}" 
+                    th:text="${ hotReviewPostList[3].getPostContent }"style="padding-top:30px;"></a>
                 </div>
             </div>
         </div>
@@ -412,43 +440,50 @@
         <div class="carousel-inner w3-border" style="margin-top: 50px;  padding-top:60px; padding-bottom:60px; padding-left:30px; padding-right:30px;">
             <div class="carousel-item active">
                 <div class="w3-quarter">
-                     <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791130637037.jpg" style="height:250px; width:auto;" />
+                     <img class="w3-card"  th:src="${ bestHitPostList[0].getBookImage }" style="height:250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>인생책을 찾았습니다</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">그러게요 왜 일할까요....<br/>아무래도...<br/>먹고 살아야 하니까요.....?<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[0].getPostId }, bookId = ${ bestHitPostList[0].getBookId } )}" 
+                    th:text="${ bestHitPostList[0].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[0].getPostId }, bookId = ${ bestHitPostList[0].getBookId } )}" 
+                    th:text="${ bestHitPostList[0].getPostContent }"style="padding-top:30px;"></a>
                 </div>
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791167070791.jpg" style="height: 250px; width:auto;" />
+                    <img class="w3-card" th:src="${ bestHitPostList[1].getBookImage }" style="height: 250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>오늘은 '인생의 허무를 어떻게 할 것인가'에 대해 알아 보려고 해요~</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:20px;">인생의 허무를 어떻게 할 것인지 궁금한 사람이 많은 것 같아요~~
-                    <br/>저도 그게 참 궁금하답니다ㅠㅠ</p>
-                    <p>그럼 지금까지 '인생의 허무를 어떻게 할 것인가'에 대해 알아 보았어요~
-                    <br/>속시원한 답변이 되셨길 바라요&gt;&lt;♥</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[1].getPostId }, bookId = ${ bestHitPostList[1].getBookId } )}" 
+                    th:text="${ bestHitPostList[1].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[1].getPostId }, bookId = ${ bestHitPostList[1].getBookId } )}" 
+                    th:text="${ bestHitPostList[1].getPostContent }"style="padding-top:30px;"></a>
                 </div>
             </div>
              <div class="carousel-item">
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168340510.jpg" style="height:250px; width:auto;" />
+                     <img class="w3-card"  th:src="${ bestHitPostList[2].getBookImage }" style="height:250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>너무 좋은 책이에요!!!</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....</p>
-                    <p>어쨌든 너무 좋은 책입니다.....<br/>표지가 이쁘거든요.....<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[2].getPostId }, bookId = ${ bestHitPostList[2].getBookId } )}" 
+                    th:text="${ bestHitPostList[2].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[2].getPostId }, bookId = ${ bestHitPostList[2].getBookId } )}" 
+                    th:text="${ bestHitPostList[2].getPostContent }"style="padding-top:30px;"></a>
                 </div>
                 <div class="w3-quarter">
-                    <img class="w3-card" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189327156.jpg" style="height: 250px; width:auto;" />
+                    <img class="w3-card" th:src="${ bestHitPostList[3].getBookImage }" style="height: 250px; width:auto;" />
                 </div>
-                <div class="w3-quarter post" style="text-align:left;">
-                    <h3>최고의 책</h3>
-                    <div class="postContent w3-hover-opacity">
-                    <p style="padding-top:60px;">표지 보고 골랐습니다....<br/>그렇읍니다.........</p>
-                    <p>표지 보고 골랐습니다....<br/>그렇읍니다.........<br/>(미리보기)</p></div>
+                <div class="w3-quarter" style="text-align:left;">
+                    <a class="h3 reviewTitle" 
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[3].getPostId }, bookId = ${ bestHitPostList[3].getBookId } )}" 
+                    th:text="${ bestHitPostList[3].getTitle }"></a>
+                    <a  class="reviewContent w3-hover-opacity"  
+                    th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ bestHitPostList[3].getPostId }, bookId = ${ bestHitPostList[3].getBookId } )}" 
+                    th:text="${ bestHitPostList[3].getPostContent }"style="padding-top:30px;"></a>
                 </div>
             </div>
         </div>
@@ -460,9 +495,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
-                  
-            
+    </div>      
 </div>
   
   
@@ -649,6 +682,11 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous">
     </script>
+    
+    <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
     
     <!-- Home에 사용되는 JavaScript -->
     <script th:src="@{ /js/home.js }"></script>

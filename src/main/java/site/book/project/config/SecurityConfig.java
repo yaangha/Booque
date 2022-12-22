@@ -79,8 +79,10 @@ public class SecurityConfig {
        http.authorizeHttpRequests() // 요청에 따른 권한 설정 시작.
             .antMatchers("/post/create", "/post/modify", "/cart", "/cart/add",  "/myPage", "/book/wishList" ,"/orderFromDetail", "/search/cart", "/search/order") // "/post", "/api/reply" 로 시작하는 모든 경로           .hasRole("USER") // USER 권하능ㄹ 가지고 있는 사용자만 접근 가능
             .hasRole("USER")
+
             .anyRequest() // 그 이외의 모든 요청
             .permitAll(); // 로그인 여부와 상관 없이 허용.
+
         // => 새로운 요청 경로/컨트롤러가 생길 때마다 설정 자바 코드를 변경을 해야 하는 번거로움.
         // => 컨트롤러 메서드를 작성할 때 애너테이션을 사용해서 권한 설정을 할 수 있음.
         // => (1) SecurityConfig 클래스에는 @EnableGlobalMethodSecurity 애너테이션을 사용.

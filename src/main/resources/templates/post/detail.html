@@ -37,7 +37,6 @@
 
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
-
 <div class="w-75 container"> <!-- container-fluid : START -->
 <div class="row"><!-- row start -->
 <div class="col-2"><!-- 프로필 블록 start -->
@@ -94,7 +93,6 @@
         </div>
     </div>
 </div><!-- 프로필 블록 end -->
-
 
 <div class="col-8"><!-- 포스트 콘텐츠 블록 start -->
     <div class="my-2">
@@ -173,23 +171,30 @@
                     </section>
                     
     <!-- 댓글 수정 & 삭제 모달창-->
-    <div class="modal" id="postRepModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal" id="postRepModal" tabindex="-1"
+        aria-labelledby="replyModalLabel" aria-hidden="true">
         <div class="postRepModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">댓글 수정하기</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="modalReplyId" readonly/>
                         <input type="hidden" id="modalReplyWriter" readonly/>
-                        <textarea id="modalReplyContent" class="form-control"></textarea>
+                        <textarea id="modalReplyContent"
+                            class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="modalBtnUpdate" class="btn btn-primary">수정</button>
-                        <button type="button" id="modalBtnDelete" class="btn btn-primary">삭제</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="button" id="modalBtnUpdate"
+                            class="btn btn-primary">수정</button>
+                        <button type="button" id="modalBtnDelete"
+                            class="btn btn-primary">삭제</button>
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">취소</button>
+
                     </div>
                 </div>
             </div>
