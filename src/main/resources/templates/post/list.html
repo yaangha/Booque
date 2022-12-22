@@ -66,7 +66,7 @@
     
     <br/><br/>
     
-    <div class="h5" style="text-align: left;">이런 글은 어떠세요?</div>
+    <div class="h5" style="text-align: left;">요즘 뜨는 블로그 </div>
     <div class="row my-2">
         <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
         <div class="col" style="text-align: left;">
@@ -138,7 +138,8 @@
     </thead>
     <tbody>
         <tr th:each="post : ${ list }">
-            <td class="py-5" >
+            <td class="py-5" style="cursor: pointer;"
+            th:onclick="|location.href='@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ post.postId }, bookId = ${ post.bookId } )}'|">
                 <div class="h4">
                         <span th:text="${ post.postId }"></span>
                         <!-- 예진:  오늘 작성한 글 new 아이콘 보여주기 -->

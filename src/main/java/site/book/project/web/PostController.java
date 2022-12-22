@@ -22,6 +22,7 @@ import site.book.project.domain.Post;
 import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostListDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookService;
@@ -129,10 +130,12 @@ public class PostController {
     
     @Transactional(readOnly = true)
     @GetMapping({ "/detail", "/modify" })
-    public void detail(Integer postId, String username ,Integer bookId, Model model) {
+    public void detail(@AuthenticationPrincipal UserSecurityDto userDto,
+            Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
         
-       
+       List<PostReadDto> recomList = postService.postRecomm(userDto.getUsername(), bookId);
+        
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
@@ -152,7 +155,8 @@ public class PostController {
             model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
-            
+        
+        model.addAttribute("recomList",recomList );
          model.addAttribute("post", p);
          model.addAttribute("book", b);
        

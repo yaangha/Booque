@@ -57,6 +57,7 @@
     </div>
     
     <div class="border rounded py-2 w-75 bg-light">
+    
         <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
     </div>
 
@@ -64,35 +65,31 @@
     
     <br/><br/>
     
-    <div class="h5" style="text-align: left;">다른 분들은 이런 리뷰를 남겼어요!</div>
+    <div class="fw-bold" style="text-align: left;">다른 부끄들은 이런 리뷰를 남겼어요!</div>
+
     <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라는 도대체..</a><br/>
-            <small style="color:gray;">글 19개</small>
-        </div>
+    <table class="table-hover">
+        <tbody>
+            <tr th:each=" postReadDto : ${ recomList }" style=" cursor: pointer;"
+            th:onclick="|location.href='@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ postReadDto.postId }, bookId = ${ postReadDto.bookId } )}'|">
+                <td>
+                    <a th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ postReadDto.postId }, bookId = ${ postReadDto.bookId } )}" >
+                    <img style="width: 30px; height: 30px;" alt="" th:src="${postReadDto.userImage}"></a>
+                    <span th:text="${ postReadDto.writer }"></span>
+                </td>
+                <td>
+                    <span th:text="${ postReadDto.title }"></span>
+                </td>
+                <td>
+                    <span th:text="${ postReadDto.myScore }"></span>
+                </td>
+            
+            </tr>
+        </tbody>
+    </table>
     </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라가 누군데..</a><br/>
-            <small style="color:gray;">글 15개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라.. 당신은..</a><br/>
-            <small style="color:gray;">글 159개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트를 위하여</a><br/>
-            <small style="color:gray;">글 9개</small>
-        </div>
-    </div>
+
+
 </div><!-- 프로필 블록 end -->
 
 
