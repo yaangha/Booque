@@ -136,7 +136,7 @@
         btn.addEventListener('click', e => {
             const tr = btn.closest('tr')
             const form = tr.querySelector('form#formCart')
-            const result = confirm('장바구니?')
+            const result = confirm('장바구니에 담으시겠습니까?')
             
             if(result){
                 form.action = '/search/cart';
@@ -151,7 +151,7 @@
         btn.addEventListener('click', e => {
             const tr = btn.closest('tr')
             const form = tr.querySelector('form#formCart')
-            const result = confirm('바로결제?')
+            const result = confirm('바로 결제하시겠습니까?')
             console.log(form)
             
             if(result){

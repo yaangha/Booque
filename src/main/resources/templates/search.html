@@ -22,27 +22,22 @@
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
-    
         <div>총 검색된 결과 : <span th:text="${searchList.totalElements}"></span></div>
         <!-- 검색 상단바 START -->
-        <div class="selectRearrange" style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
-         <strong>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=hitCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">인기도순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">신상품순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=accuracy (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">정확도순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highScore (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">별점순</a>
-          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
+        <div class="selectRearrange d-inline-flex px-2 my-1 border rounded text-secondary" style="padding: 10px; padding-left: 15px;" align ="left"> 
+         <strong class="my-2">
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=hitCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">인기도순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">신상품순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=accuracy (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">정확도순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">최저가순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">최고가순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highScore (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">별점순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" class="w3-bar-item w3-hover-white w3-round w3-button" style="font-size: 15px; text-align:center; padding-top:5px; color:LightSlateGray; font-weight:bold;">리뷰순</a>
           </strong>
           
-        </div> <!-- 검색 상단바 END -->
+        </div>
         <div><br/></div>
-        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
-        <input type="button" class="btn btn-outline-secondary" value="장바구니">
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
-        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
-        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
+        
 
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
@@ -60,7 +55,8 @@
             <tbody style="height: 200px;" th:if="${ searchList.totalElements == 0}">
                 <tr>
                     <td>
-                        <span>입력하신 내용을 다시 한 번 확인해주세요!</span>
+                        <img class="mb-2" style="text-align:center;" width="1100" height="230" src="/images/nothing.jpg"/><br/>
+                        <span class="h5">입력하신 내용을 다시 한 번 확인해주세요!</span>
                     </td>
                 </tr>
             </tbody>
@@ -173,10 +169,9 @@
     
     btnCarts.forEach(btn => {
         btn.addEventListener('click', e => {
-        	console.log('장ㅇ바구니')
             const tr = btn.closest('tr')
             const form = tr.querySelector('form#formCart')
-            const result = confirm('장바구니?')
+            const result = confirm('장바구니로 이동하시겠습니까?')
             
             if(result){
                 form.action = '/search/cart';
@@ -191,7 +186,7 @@
         btn.addEventListener('click', e => {
             const tr = btn.closest('tr')
             const form = tr.querySelector('form#formCart')
-            const result = confirm('바로결제?')
+            const result = confirm('바로 결제하시겠습니까?')
             
             
             if(result){

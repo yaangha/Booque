@@ -281,7 +281,7 @@
         
         
     function deleteButton(list){
-            const result = confirm('장바구니를 삭제?')
+            const result = confirm('선택한 책을 정말 삭제하시겠습니까?')
             
             if(result){
                 axios
