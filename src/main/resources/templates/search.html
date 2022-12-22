@@ -42,19 +42,9 @@
         <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
         <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
         <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
+        
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
-            <tr th:if="${ #lists.isEmpty(searchList)}">
-                <td width= "20%" style="border: 1px solid blue;"></td>
-                <td width= "63%">
-                <table style="padding-left: 20px;">
-                <tr><td><br/></td></tr>
-                <tr><td>검색 결과가 없습니다.</td></tr>
-                </table>
-                </td>
-                <td width= "17%" style="border: 1px solid blue;"></td>
-            </tr>
-            
             <thead class="table-light">
                 <tr>
                 	<th> </th>
@@ -63,9 +53,18 @@
                     <th >~~~~배송 일정~~~~</th>
                     <th >~~~~배송 일정~~~~</th>
                 </tr>
-            </thead>            
-            <tbody style="height: 200px;">
-            <tr th:each="book : ${ searchList }" >
+            </thead> 
+            
+            <tbody style="height: 200px;" th:if="${ searchList.totalElements == 0}">
+                <tr>
+                    <td>
+                        <span>입력하신 내용을 다시 한 번 확인해주세요!</span>
+                    </td>
+                </tr>
+            </tbody>
+            
+            <tbody style="height: 200px;" th:if="${ searchList.totalElements != 0}">
+            <tr th:each="book : ${ searchList }">
                 <td class="align-middle">
                     <form id="formCheck" >
                         <input type="checkbox"  id="ckBox" style="width: 30px;"  name="bookId" th:value="${ book.bookId}" />
@@ -130,9 +129,8 @@
         </nav>
     <!-- 페이징 끝 -->
 
-    </div> <!-- container-fluid : END -->
     <hr/>
-</div> <!-- layout:fragment="content" : END -->
+</div> <!-- container-fluid : END -->
     
     
     <th:block layout:fragment="script" th:inline="javascript">
@@ -214,5 +212,5 @@
     </th:block>
     
 
-</div>
+</div><!-- layout:fragment="content" : END -->
 </html>
