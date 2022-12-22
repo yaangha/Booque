@@ -28,29 +28,23 @@
          <strong>
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=hitCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">인기도순</a>
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=publishedDate (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">신상품순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=accuracy (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">정확도순</a>
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=lowPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최저가순</a>
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highPrice (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">최고가순</a>
-          <a href="javascript:void(0)">별점순</a>
+          <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=highScore (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">별점순</a>
           <a th:href="@{ /search/s?type={type}&keyword={rekeyword}&order=reviewCount (type = ${ storedType }, rekeyword = ${ storedKeyword }) }" type="submit">리뷰순</a>
           </strong>
           
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
-        
+        <input type="checkbox"  id="chkBoxAll" style="width: 30px;" checked> <label for="chkBoxAll"> 전체 선택</label>
+        <input type="button" class="btn btn-outline-secondary" value="장바구니">
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
+        <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
+        <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
         
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
-            <tr th:if="${ #lists.isEmpty(searchList)}">
-                <td width= "20%" style="border: 1px solid blue;"></td>
-                <td width= "63%">
-                <table style="padding-left: 20px;">
-                <tr><td><br/></td></tr>
-                <tr><td>검색 결과가 없습니다.</td></tr>
-                </table>
-                </td>
-                <td width= "17%" style="border: 1px solid blue;"></td>
-            </tr>
-            
             <thead class="table-light">
                 <tr>
                    <th> </th>
@@ -60,9 +54,18 @@
                    <th> </th>
 
                 </tr>
-            </thead>            
-            <tbody style="height: 200px;">
-            <tr th:each="book : ${ searchList }" >
+            </thead> 
+            
+            <tbody style="height: 200px;" th:if="${ searchList.totalElements == 0}">
+                <tr>
+                    <td>
+                        <span>입력하신 내용을 다시 한 번 확인해주세요!</span>
+                    </td>
+                </tr>
+            </tbody>
+            
+            <tbody style="height: 200px;" th:if="${ searchList.totalElements != 0}">
+            <tr th:each="book : ${ searchList }">
                 <td class="align-middle">
                     
                     <form id="formCart" action="/search/cart" >
@@ -130,12 +133,9 @@
         </nav>
     <!-- 페이징 끝 -->
 
-    </div> <!-- container-fluid : END -->
     <hr/>
-    
-</div> <!-- layout:fragment="content" : END -->
-    
-    <th:block layout:fragment="script" th:inline="javascript">
+</div> <!-- container-fluid : END -->
+<th:block layout:fragment="script" th:inline="javascript">
     
     
     <!-- bootstrap -->
@@ -227,5 +227,5 @@
     
     
 
-</div>
+</div><!-- layout:fragment="content" : END -->
 </html>
