@@ -39,15 +39,10 @@ public class PostService {
         return postRepository.findByOrderByPostIdDesc();
     }
    
- 
-    
+    @Transactional(readOnly = true)
     public List<PostListDto> postDtoList(Integer userId) {
         List<Post> list = postRepository.findByUserId(userId);
-        
-       
-        
-      
-        
+         
         List<PostListDto> dtoList = new ArrayList<>();
         
         PostListDto dto = null;
@@ -72,7 +67,6 @@ public class PostService {
         
              dtoList.add(dto);           
         }
-        
         
         
          return dtoList;

@@ -33,13 +33,21 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
+     <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+       <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
+    </a>
+  
     <div style="font-weight: bold;">
         <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
         <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
     </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
-    
+    <!-- 블로그 한줄 작성할 수 있게 -->
+    <div>
+      <p>
+       블로그 한줄 소개
+      </p>
+      <button>편집</button>
+    </div>
     <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
         
     <div>전체 방문자수</div>

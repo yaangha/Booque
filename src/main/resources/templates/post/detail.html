@@ -27,7 +27,9 @@
 <div class="container" style="width:100%; padding-right:150px;" > <!-- container-fluid : START -->
 <div class="row"><!-- row start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
+    <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+       <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
+    </a>
     <div style="font-weight: bold;">
         <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
         <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
