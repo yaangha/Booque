@@ -22,6 +22,7 @@ import site.book.project.domain.Post;
 import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostListDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookService;
@@ -87,11 +88,19 @@ public class PostController {
        // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
         LocalDate now = LocalDate.now();
         String day= now.toString().substring(8);
-
+        
+        // (하은) post에 있는 bookId로 책 정보 넘기기
+        List<Book> books = new ArrayList<>();
+        
+        for (PostListDto p : postList) {
+            Book book = bookService.read(p.getBookId());
+            books.add(book);
+        }
 
             model.addAttribute("day", day);
             model.addAttribute("user", user);      
             model.addAttribute("list", postList);
+            model.addAttribute("books", books);
                 
         return "/post/list";
     }
@@ -116,10 +125,12 @@ public class PostController {
     
     @Transactional(readOnly = true)
     @GetMapping({ "/detail", "/modify" })
-    public void detail(Integer postId, String username ,Integer bookId, Model model) {
+    public void detail(@AuthenticationPrincipal UserSecurityDto userDto,
+            Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
         
-       
+       List<PostReadDto> recomList = postService.postRecomm(userDto.getUsername(), bookId);
+        
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
@@ -139,7 +150,8 @@ public class PostController {
             model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
-            
+        
+        model.addAttribute("recomList",recomList );
          model.addAttribute("post", p);
          model.addAttribute("book", b);
        

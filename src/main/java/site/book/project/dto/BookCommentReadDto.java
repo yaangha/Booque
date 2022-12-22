@@ -28,6 +28,9 @@ public class BookCommentReadDto {
     private Integer likes;
     private LocalDateTime createdTime; // 댓글 최초 작성 시간
     private LocalDateTime modifiedTime; // 댓글 최종 수정 시간
+    private String bookName;
+    private String bookImage;
+    private String bookAuthor;
     
     // Entity 객체에서 DTO 객체를 생성해서 리턴하는 메서드
     public static BookCommentReadDto fromEntity(BookComment entity) {
@@ -39,6 +42,8 @@ public class BookCommentReadDto {
                 .likes(entity.getLikes())
                 .createdTime(entity.getCreatedTime())
                 .modifiedTime(entity.getModifiedTime())
+                .bookName(entity.getBook().getBookName())
+                .bookImage(entity.getBook().getBookImage())
                 .build();
         
     }

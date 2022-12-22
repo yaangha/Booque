@@ -27,9 +27,9 @@ public class CategoryContoller {
     private final BookHitsService bookHitsService;
 
     @GetMapping("")
-    public String sort(CategoryReadDto dto, Model model, @PageableDefault(size = 5) Pageable pageable) {
-        log.info("sort: group={}, category={}, page={}", dto.getGroup(), dto.getCategory(),dto.getPage());
-        String group = dto.getGroup();
+    public String sort(CategoryReadDto dto, Model model, @PageableDefault(size = 8) Pageable pageable) {
+        log.info("sort: group={}, category={}, page={}", dto.getBookgroup(), dto.getCategory(), dto.getPage());
+        String group = dto.getBookgroup();
         String category = dto.getCategory();
 
         

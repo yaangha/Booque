@@ -47,10 +47,22 @@ public class BookRepositoryTests {
 	@Autowired 
 	private CategoryService categoryService;
 	
+
+	
 	@Test
 	public void test() {
-	    Assertions.assertNotNull(bookService);
-	    
+	    Assertions.assertNotNull(bookCommentRepository);
+	  //  List<BookComment> list = bookCommentRepository.findByUserIdOrderByCreatedTimeDesc(21);
+ 	  //  List<BookComment> list =bookCommentService.readByUserId(21);
+//	    for(BookComment c : list) {
+//	        
+//	        log.info("버자 보자아아ㅏ아ㅏ아아앙 리스트트트ㅡ트 {}", c );
+//	    }
+ 	    List<BookCommentReadDto> listd = bookCommentService.readByUserId(21);
+	    for(BookCommentReadDto c : listd) {
+	        
+	        log.info("버자 보자아아ㅏ아ㅏ아아앙 리스트트트ㅡ트 {}", c );
+	    }
 	    
 	}
 	

@@ -108,11 +108,12 @@ public class SeacrhContoller {
         String order = dto.getOrder();
         int startPage = 0;
         int endPage = 0;
-        log.info("order={}", order);
+        
         
         // 정렬할 리스트 or 페이지화 할 리스트 
         Page<Book> searchList = searchService.search(type, keyword, order, pageable);
         List<Book> noPageSearchList = searchService.search(type, keyword, order);
+        
         
         // 리뷰 수 카운트
         List<SearchListDto> reviewCount = new ArrayList<>(); 

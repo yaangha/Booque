@@ -2,6 +2,8 @@ package site.book.project.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -78,7 +80,28 @@ public class BookCommentService {
         return list.stream().map(BookCommentReadDto:: fromEntity).toList();
     }
     
+//    @Transactional
+//    public List<BookComment> readByUserId(Integer userId) {
+//        
+//        //List<BookComment> list = bookCommentRepository.selectAllComment(bookId);
+//        // 최근순
+//        List<BookComment> list = bookCommentRepository.findByUserIdOrderByCreatedTimeDesc(userId);
+//        
+//        
+//        return list;
+//    }
+    @Transactional
+    public List<BookCommentReadDto> readByUserId(Integer userId) {
+        
+        //List<BookComment> list = bookCommentRepository.selectAllComment(bookId);
+        // 최근순
+        List<BookComment> list = bookCommentRepository.findByUserIdOrderByCreatedTimeDesc(userId);
+        
+        
+        return list.stream().map(BookCommentReadDto:: fromEntity).toList();
+    }
     
+
     
     
     

@@ -25,6 +25,8 @@ public interface BookCommentRepository extends JpaRepository<BookComment, Intege
     // 라이크 높은 순서
     //select * from bookcomment where book_book_id =1 order by likes;
     List<BookComment> findByBookBookIdOrderByLikesDesc(Integer bookId);
+    
+    List<BookComment> findByUserIdOrderByCreatedTimeDesc(Integer userId);
 
     
     

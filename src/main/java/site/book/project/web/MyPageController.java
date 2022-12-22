@@ -13,12 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.BookComment;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
+import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookWishDto;
 import site.book.project.dto.UserModifyDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.repository.UserRepository;
+import site.book.project.service.BookCommentService;
 import site.book.project.service.BookWishService;
 import site.book.project.service.OrderService;
 import site.book.project.service.UserService;
@@ -32,7 +35,7 @@ public class MyPageController {
     private final OrderService orderService;
     private final UserService userService;
     private final BookWishService bookWishService;
-    
+    private final BookCommentService bookCommentService;
     
     // (하은) 마이페이지 연결
     @GetMapping("/myPage")
@@ -42,11 +45,14 @@ public class MyPageController {
         
         // 주문내역 확인 리스트로 가져옴. 날짜별로  최근순 
         List<Order> orderList = orderService.readByUserId(user.getId());
-//        List<OrderNoList> noList = orderService.listOrderNo(user.getId());
-        // 주문 내역별 배송지 확인, bookid리스트, 
         
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(user.getId());
+        List<BookCommentReadDto> commentList = bookCommentService.readByUserId(user.getId());
         
+        
+        
+        
+        model.addAttribute("commentList", commentList);
         model.addAttribute("wishBookInfo", wishBookInfo);
         model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
@@ -60,7 +66,7 @@ public class MyPageController {
     public String modify(@AuthenticationPrincipal UserSecurityDto u,
                       UserModifyDto userModifyDto) {
         // 중복검사는 ajax로 해야함..
-        Integer result = userService.modify(userModifyDto, u);
+         userService.modify(userModifyDto, u);
         
         return "redirect:/myPage";
     }
@@ -69,29 +75,7 @@ public class MyPageController {
     @PostMapping("/myPage/file")
     public String filemodify(@AuthenticationPrincipal UserSecurityDto  userSecurityDto,
                             @RequestParam("filePath") MultipartFile file) throws IllegalStateException, IOException {
-//        log.info("create(dto={})-post방식",dto);
-//        FreeSharePost entity = freeSharePostService.create(dto, file);
-//        attrs.addFlashAttribute("createdId", entity.getId());
-//        
-//        public FreeSharePost create(FreeSharePostCreateDto dto, MultipartFile file) throws Exception {
-//            log.info("create(dto={})",dto);
-//            FreeSharePost freeSharePost=dto.toEntity();
-//            String projectPath=System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";
-//            
-//            log.info(projectPath);
-//            UUID uuid=UUID.randomUUID();
-//            String fileName = uuid+"_"+file.getOriginalFilename();
-//            File saveFile=new File(projectPath, fileName);
-//            file.transferTo(saveFile);
-//            freeSharePost.setFileName(fileName);        //생성한 파일이름을 저장해줌.
-//            System.out.println(fileName);
-//            System.out.println(freeSharePost.toString());
-//            freeSharePost.setFilePath("/files/" + fileName);
-//            
-//            return freeSharePostRepository.save(freeSharePost);
-//        }
-        log.info("사진 바꾸는 컨트롤러~~~~```");
-        log.info("사진, 유저 ~~~~~ {}" , file);
+
         userService.modifyUserImage(userSecurityDto.getId(), file);
         
         
@@ -103,7 +87,6 @@ public class MyPageController {
     // (은정) wish 삭제
     @PostMapping("/myPage/delete")
     public String deleteWish( Integer bookWishId) {
-        log.info("삭제아아ㅏ아아아 {}" , bookWishId);
         
         bookWishService.deleteWish(bookWishId);
         
@@ -111,6 +94,8 @@ public class MyPageController {
         return "redirect:/myPage";
         
     }
+    
+    
     
     
 }

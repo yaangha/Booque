@@ -30,3 +30,5 @@ function openTap(e, tapContent) {
     const btnDefault = document.querySelectorAll('.btnTap')[0];  // 첫번째 탭 열어 놓기
     btnDefault.click();
     
+    
+    
