@@ -87,7 +87,7 @@
                 + '<div class="card-header">' + r.replyWriter + '</div>'
                 + '<div class="card-body text-dark">'
                 + '<p class="card-text">' + r.replyContent + '</p>'
-                + '<div><small style="color:gray;"> 작성시간: ' + r.createdTime + '</small></div>'
+                + '<div><small style="color:gray;"> 작성시간: ' + '<span id="commentDate">' + r.createdTime + '</span>' + '</small></div>'
     //            + '<div><small style="color:gray;"> 수정시간: ' + r.modifiedTime + '</small></div>'
                 + '</div>';
             if(r.replyWriter == loginUser){
@@ -99,6 +99,22 @@
         }
         
         divReplies.innerHTML = str;
+        
+        
+        const dateC = document.querySelectorAll('#commentDate');
+    dateC.forEach(e => {
+       let dateComment = new Date(e.innerText);
+       console.log(dateComment)
+       let dateM = dateComment.getMonth()+1;
+       let dateD = dateComment.getDate()+1;
+       let dateH = dateComment.getHours();
+       let dateMi = dateComment.getMinutes();
+       
+       const dd =dateM+'월'+dateD+'일  '+dateH+'시'+dateMi+'분' 
+       
+        e.innerText = dd;
+           
+    })
         
         // [수정] 버튼에 이벤트 리스너를 등록
         const buttons = document.querySelectorAll('.btnModifies');

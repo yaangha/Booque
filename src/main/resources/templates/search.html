@@ -22,6 +22,7 @@
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
+    
         <div>총 검색된 결과 : <span th:text="${searchList.totalElements}"></span></div>
         <!-- 검색 상단바 START -->
         <div class="selectRearrange" style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
@@ -42,7 +43,7 @@
         <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170576.png}"></button>
         <button type="button"  class="btn btn-outline-secondary"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170627.png}"></button>
         <button type="button"  class="btn btn-light btn-sm"> <img id="cartIcon" alt="" th:src="@{ https://cdn-icons-png.flaticon.com/512/1170/1170678.png}"></button>
-        
+
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
             <thead class="table-light">
@@ -132,7 +133,7 @@
             </ul>
         </nav>
     <!-- 페이징 끝 -->
-
+    
     <hr/>
 </div> <!-- container-fluid : END -->
 <th:block layout:fragment="script" th:inline="javascript">
@@ -225,7 +226,5 @@
     <!-- Ajax를 사용하기 위한 axios 자바스크립트 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
-    
-
 </div><!-- layout:fragment="content" : END -->
 </html>

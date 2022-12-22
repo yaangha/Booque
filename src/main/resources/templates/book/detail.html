@@ -214,9 +214,9 @@
                             <!-- <div class="card my-2" style="width: 12rem; height:26rem">
                                 <a th:href="@{ /detail(id=${ book.bookId }) }">
                                     <img th:src="${ book.bookImage }" class="card-img-top" style="height:18rem" /> -->
-                            <div class="card my-2" style="width: 15rem; height:33rem">
+                            <div class="card my-2" style="width: 15rem; height:32rem">
                                 <a th:href="@{ /detail(id=${ book.bookId }) }" th:bookId="${book.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
-                                	<img th:src="${ book.bookImage }" class="card-img-top" alt="테스트">
+                                	<img th:src="${ book.bookImage }" class="card-img-top" style="height:22rem">
                                 </a>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -289,7 +289,12 @@
                 <div class="col-10 my-2">
                     <input class="form-control" id="commentText" type="text" placeholder="로그인을 하고 한줄평을 남겨보세요!" aria-label="default input example">
                 </div>
-
+                
+                <div class="col-2 my-2">
+                    <button type="button" class="btn btn-dark" id="btnComment" style="float: right;">작성</button>
+                </div>
+            </div>
+        </div>
                 <!--  comment  하트 증가는 못함 /-->
                 
                 <br/><br/>

@@ -119,6 +119,7 @@
 
         $('.box').each(function(){
             var content = $(this).children('.postcontent');
+            console.log(content)
             var content_txt = content.text();
             var content_txt_short = content_txt.substring(0,100)+"   ...";
             var btn_more = $('<a href="javascript:void(0)" class="more"> <span> <br></span> 더보기</a>');

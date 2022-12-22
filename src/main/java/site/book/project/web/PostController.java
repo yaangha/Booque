@@ -22,6 +22,7 @@ import site.book.project.domain.Post;
 import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
 import site.book.project.dto.PostListDto;
+import site.book.project.dto.PostReadDto;
 import site.book.project.dto.PostUpdateDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookService;
@@ -39,13 +40,7 @@ public class PostController {
     private final BookService bookService;
     private final UserService userService;
     private final ReplyService replyService;
-   
-//   @GetMapping("/main")
-//    public void main() {
-//        log.info("main()");
-//
-//   }
-    
+       
     
     @Transactional(readOnly = true)
     @GetMapping("/list")
@@ -89,7 +84,8 @@ public class PostController {
              postList = postService.postDtoList(userId);
       } 
         
-        // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
+       
+       // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
         LocalDate now = LocalDate.now();
         String day= now.toString().substring(8);
         
@@ -129,10 +125,12 @@ public class PostController {
     
     @Transactional(readOnly = true)
     @GetMapping({ "/detail", "/modify" })
-    public void detail(Integer postId, String username ,Integer bookId, Model model) {
+    public void detail(@AuthenticationPrincipal UserSecurityDto userDto,
+            Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
         
-       
+       List<PostReadDto> recomList = postService.postRecomm(userDto.getUsername(), bookId);
+        
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
@@ -152,7 +150,8 @@ public class PostController {
             model.addAttribute("hitCount", hitCount);
             model.addAttribute("user", u);
         }
-            
+        
+        model.addAttribute("recomList",recomList );
          model.addAttribute("post", p);
          model.addAttribute("book", b);
        

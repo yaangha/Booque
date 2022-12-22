@@ -31,17 +31,19 @@
           top: 0;
         }
     </style>
-    
-    
  </head>
 
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
-<div class="w-75 container"> <!-- container-fluid : START -->
 <div class="row"><!-- row start -->
+
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
-        <img th:src="${ user.userImage }" width="200" height="280" class="card-img-top">
+
+    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">
+        <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+           <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
+        </a>
+        
         <div class="card-body" style="text-align: left;">
             <div class="border-bottom mb-2 border-dark">
                 <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
@@ -52,47 +54,49 @@
             </div>
             <span style="color:gray;">전체 리뷰수</span>
             <span class="h4"><strong style="color:red;">1,004</strong></span>
+             <br/><br/>
+             
+            <div class="border rounded py-2 w-75 bg-light">
+                <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
+            </div>
+
+
+
+            <div class="fw-bold" style="text-align: left;">다른
+                부끄들은 이런 리뷰를 남겼어요!</div>
+
+            <table class="table-hover">
+                <tbody>
+                    <tr th:each=" postReadDto : ${ recomList }"
+                        style="cursor: pointer;"
+                        th:onclick="|location.href='@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ postReadDto.postId }, bookId = ${ postReadDto.bookId } )}'|">
+                        <td><a
+                            th:href="@{ /post/detail?postId={postId}&bookId={bookId} (postId = ${ postReadDto.postId }, bookId = ${ postReadDto.bookId } )}">
+                                <img
+                                style="width: 30px; height: 30px;"
+                                alt=""
+                                th:src="${postReadDto.userImage}">
+                        </a> <span th:text="${ postReadDto.writer }"></span>
+                        </td>
+                        <td><span
+                            th:text="${ postReadDto.title }"></span>
+                        </td>
+                        <td><span
+                            th:text="${ postReadDto.myScore }"></span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
+
+
     
-    <div class="border rounded py-2 w-75 bg-light">
-        <a th:href="@{ /post/list?postWriter={postWriter} (postWriter = ${ post.postWriter })}" style="color: black;">▶ 전 체 목 록 보 기</a>
-    </div>
 
     <br/>
-    
-    <br/><br/>
-    
-    <div class="h5" style="text-align: left;">다른 분들은 이런 리뷰를 남겼어요!</div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라는 도대체..</a><br/>
-            <small style="color:gray;">글 19개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라가 누군데..</a><br/>
-            <small style="color:gray;">글 15개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라.. 당신은..</a><br/>
-            <small style="color:gray;">글 159개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트를 위하여</a><br/>
-            <small style="color:gray;">글 9개</small>
-        </div>
-    </div>
-</div><!-- 프로필 블록 end -->
+
+    </div><!-- 프로필 블록 end -->
+</div><!-- 프로필 col-2 -->
 
 <div class="col-8"><!-- 포스트 콘텐츠 블록 start -->
     <div class="my-2">
@@ -267,14 +271,11 @@
 </div>
 <!-- 도서 정보 블록 end -->
 
-</div><!-- row end -->
-</div> <!-- container-fluid : END -->
+</div>
 
-    
-<!-- summernote -->
+</div> <!-- row end -->
+
     <script th:src="@{ /js/post.js }"></script>
-    
-    
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

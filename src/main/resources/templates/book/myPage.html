@@ -111,19 +111,18 @@
                 </thead>
                 <tbody>
                     <tr id="bookTotal"  th:each=" order : ${ orderList }">
-                        <td class="align-middle">
+                        <td class="align-middle" style="text-align: center;">
                             <div class="container">
                             <ul style="list-style: none;">
                                 <li>
-                                    <a th:href="@{ /detail?id={bookId} (bookId = ${ order.book.bookId })}" th:bookId="${order.book.bookId}" ><img th:src="${ order.book.bookImage }" 
+                                    <a th:href="@{ /detail?id={bookId} (bookId = ${ order.book.bookId })}" th:bookId="${order.book.bookId}" ><img class="mb-2" th:src="${ order.book.bookImage }" 
                                     style="width: 100px; height: 130px;" ></a>
-                                </li>
-                                <br>
-                                <li><span id="orderDate" th:text="${ order.orderDate}"></span></li>
+                                </li>  
+                                <li><small><span id="orderDate" th:text="${ order.orderDate}" style="color:gray;"></span></small></li>
                             </ul>
                             </div>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <ul style=" list-style: none;">
                                 <li>
                                     <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
@@ -219,7 +218,7 @@
     
     
     
-    
+    <br/><br/>
     
     
     
@@ -228,12 +227,12 @@
     <div class="col-8 container">
         <div th:if="${ wishBookInfo }">
         <span class="h4" th:text="${ user.nickName }"></span><span>님의 <img  style="width: 25px;" alt="" src="images/likeFull.png"> 목록</span>
-        <div class="w-100 text-bg-light rounded">
+        <div class="w-100 ">
             <div class="row container">
                 <div class="col" th:each="bookWishDto : ${ wishBookInfo }">
-                    <div class="card my-2" style="width: 14rem; height:31rem">
+                    <div class="card my-2" style="width: 14rem; height:32rem">
                         <a th:href="@{ /detail(id=${ bookWishDto.getBookId }) }">
-                            <img th:src="${ bookWishDto.getBookImage }" class="card-img-top" alt="테스트">
+                            <img th:src="${ bookWishDto.getBookImage }" class="card-img-top" style="height:22rem">
                         </a>
                         <div class="card-body">
                             <div class="card-text">
@@ -263,42 +262,35 @@
     
     </div>
     
-    </div>  
-      
-</div> <!-- wish row -->
+    <br/><br/>
     
-    
-
-    
-      <div class="col-8 container">
+     <!-- <div class="col-8 container"> -->
                     <h4>작성된 한줄평~!</h4>
             <table class="table">
                 <thead>
                     <tr class="border-top border-4">
                         <th>책이름(책으로 넘어가기)</th>
                         <th>내용(좋아요)</th>
-                        <th>작성날짜/ 수정날짜</th>
+                        <th>작성날짜 / 수정날짜</th>
                         <th>수정/삭제</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each=" comment : ${ commentList }">
-                        <td>
-                            <span th:text="${ comment.bookName }"></span>
-                        <a th:href="@{ /detail?id={bookId} (bookId = ${ comment.bookId})}" th:bookId="${ comment.bookId}" >
-                            <img style="width: 70px; height: 100px;" alt="" th:src="${ comment.bookImage }">
-                        </a> 
+                        <td class="align-middle">
+                        <a th:href="@{ /detail?id={bookId} (bookId = ${ comment.bookId})}" th:bookId="${ comment.bookId}" ><img class="mx-2" style="width: 70px; height: 100px;" alt="" th:src="${ comment.bookImage }"></a> 
+                        <span class="h6" style="font-weight: bold;" th:text="${ comment.bookName }"></span>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p th:text="${ comment.commentText }"></p>
                             <img style="width: 15px" alt="" src="images/likeFull.png">    <span th:text="${ comment.likes }"></span>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <span id="commentDate" th:text="${ comment.createdTime }" ></span>
                             <br>
                             <span id="commentDate" th:text="${ comment.modifiedTime }" ></span>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <button id="btnDelete" class="btn btn-outline-success">수정</button>
                             <button id="btnDelete" class="btn btn-outline-danger">삭제</button>
                         </td>
@@ -306,7 +298,18 @@
                     </tr>
                 </tbody>
             </table>
-            </div>
+            <!-- </div> -->
+    
+    </div>  
+    
+   
+      
+</div> <!-- wish row -->
+    
+    
+
+    
+      
     
     
     
@@ -332,13 +335,13 @@
     
     const b = document.querySelectorAll('#bookTotal')
     b.forEach(e => {
-    	const total = e.querySelector('#to');
-    	const price = e.querySelector('#bookPrice');  // 26000
-    	const count = e.querySelector('#count').innerText;
-    	console.log(count)
-    //	e.innerText = parseInt(book).toLocaleString('ko-KR');
-    	price.innerText = (price.innerText/count).toLocaleString('ko-KR');
-    	total.innerText = parseInt(total.innerText).toLocaleString('ko-KR');
+        const total = e.querySelector('#to');
+        const price = e.querySelector('#bookPrice');  // 26000
+        const count = e.querySelector('#count').innerText;
+        console.log(count)
+    //  e.innerText = parseInt(book).toLocaleString('ko-KR');
+        price.innerText = (price.innerText/count).toLocaleString('ko-KR');
+        total.innerText = parseInt(total.innerText).toLocaleString('ko-KR');
     })
     
     
@@ -348,21 +351,21 @@
     date.forEach(e => {
         const dd = e.innerText;
         e.innerText = dd.substr(0,10);
-        	
+            
     })
     const dateC = document.querySelectorAll('#commentDate');
     dateC.forEach(e => {
-    	let dateComment = new Date(e.innerText);
-    	console.log(dateComment)
-    	let dateM = dateComment.getMonth()+1;
-    	let dateD = dateComment.getDate()+1;
-    	let dateH = dateComment.getHours();
-    	let dateMi = dateComment.getMinutes();
-    	
-    	const dd =dateM+'월'+dateD+'일  '+dateH+'시'+dateMi+'분' 
-    	
+        let dateComment = new Date(e.innerText);
+        console.log(dateComment)
+        let dateM = dateComment.getMonth()+1;
+        let dateD = dateComment.getDate()+1;
+        let dateH = dateComment.getHours();
+        let dateMi = dateComment.getMinutes();
+        
+        const dd =dateM+'월'+dateD+'일  '+dateH+'시'+dateMi+'분' 
+        
         e.innerText = dd;
-        	
+            
     })
     
     const sc = document.querySelectorAll('#score');
@@ -378,7 +381,7 @@
             
         }
         e.innerText = s;
-    	
+        
     })
     
     
@@ -393,12 +396,12 @@
     btnModifyFile.addEventListener('click', e => {
         const result = confirm('사진 변경?')
         if(result){
-        	formFile.action='/myPage/file';
-        	formFile.method='post';
-        	formFile.submit();
+            formFile.action='/myPage/file';
+            formFile.method='post';
+            formFile.submit();
             
         }
-    	
+        
     })
     
     
@@ -410,15 +413,15 @@
     const btnModify = document.querySelector('#modify')
     
     btnModify.addEventListener('click', e => {
-    	const result = confirm('회원정보 변경?')
+        const result = confirm('회원정보 변경?')
         if(result){
-        	formP.action='/myPage/modify';
-        	formP.method='post';
-        	formP.submit();
-        	
+            formP.action='/myPage/modify';
+            formP.method='post';
+            formP.submit();
+            
         }
-    	
-    	
+        
+        
     })
     
 
