@@ -83,12 +83,19 @@
 //        }
         
         for (let r of data){
-            str += '<div class="card border-dark mb-3 w-100" style="text-align: left;">'
-                + '<div class="card-header">' + r.replyWriter + '</div>'
-                + '<div class="card-body text-dark">'
-                + '<p class="card-text">' + r.replyContent + '</p>'
-                + '<div><small style="color:gray;"> 작성시간: ' + r.createdTime + '</small></div>'
-    //            + '<div><small style="color:gray;"> 수정시간: ' + r.modifiedTime + '</small></div>'
+
+            str += '<div style="margin-left: 50px;" class="card my-2 mt-2>'
+                + '<div class="card-header">'
+                + '<div class="d-flex mb-4">'
+                + '<div class="flex-shrink-0"><img class="rounded-circle" width="60" height="60" src="' + r.userImage + '" alt="..." /></div>'
+                + '<div class="ms-3">'
+                + '<div class="fw-bold"><a href="/post/list">' + r.replyWriter + '</a></div>'
+                + '</div>'
+                + '<div class="card-body">'
+                + '<p>' + r.replyContent + '</p>'
+                + '<span> 작성시간:</span> <span id="postDate"> ' + r.createdTime + '</span> <br>'
+                + '<span> 수정시간:</span> <span id="postDate"> ' + r.modifiedTime + '</span>'
+                + '<p> 수정시간: ' + r.modifiedTime + '</p>'
                 + '</div>';
             if(r.replyWriter == loginUser){
             str += '<div class="card-footer">'
@@ -99,6 +106,27 @@
         }
         
         divReplies.innerHTML = str;
+        
+  
+        
+        
+        const dateC = document.querySelectorAll('#postDate');
+        dateC.forEach(e => {
+           let dateComment = new Date(e.innerText);
+           console.log(dateComment)
+           let dateM = dateComment.getMonth()+1;
+           let dateD = dateComment.getDate()+1;
+           let dateH = dateComment.getHours();
+           let dateMi = dateComment.getMinutes();
+           
+           const dd =dateM+'월'+dateD+'일  '+dateH+'시'+dateMi+'분' 
+           
+            e.innerText = dd;
+               
+        })
+        
+        
+        
         
         // [수정] 버튼에 이벤트 리스너를 등록
         const buttons = document.querySelectorAll('.btnModifies');
@@ -195,4 +223,6 @@
             })
             .catch(err => {console.log(err)});
     }
+  
+            
 });

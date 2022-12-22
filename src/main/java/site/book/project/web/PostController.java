@@ -40,13 +40,7 @@ public class PostController {
     private final BookService bookService;
     private final UserService userService;
     private final ReplyService replyService;
-   
-//   @GetMapping("/main")
-//    public void main() {
-//        log.info("main()");
-//
-//   }
-    
+       
     
     @Transactional(readOnly = true)
     @GetMapping("/list")
@@ -90,7 +84,8 @@ public class PostController {
              postList = postService.postDtoList(userId);
       } 
         
-        // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
+       
+       // 포스트 create 날짜랑 오늘 날짜랑 같으면 new 하려고
         LocalDate now = LocalDate.now();
         String day= now.toString().substring(8);
         

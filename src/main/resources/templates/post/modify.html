@@ -34,6 +34,7 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
+<<<<<<< HEAD
 
     <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
         <img th:src="${ user.userImage }" width="200" height="280" class="card-img-top">
@@ -48,6 +49,14 @@
             <span style="color:gray;">전체 리뷰수</span>
             <span class="h4"><strong style="color:red;">1,004</strong></span>
         </div>
+=======
+    <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+       <img th:src="${ user.userImage }" width="200" height="280" class="img-fluid rounded-start">
+    </a>
+    <div style="font-weight: bold;">
+        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
+        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+>>>>>>> branch 'yejin_1221' of https://github.com/yaangha/Booque.git
     </div>
     
     <div class="border rounded py-2 w-75 bg-light">

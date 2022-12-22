@@ -22,6 +22,7 @@
     <hr/>
     <div class="container" style="width:75%; padding-right:150px;" > <!-- container-fluid : START -->
     
+    
         <div>총 검색된 결과 : <span th:text="${searchList.totalElements}"></span></div>
         <!-- 검색 상단바 START -->
         <div class="selectRearrange" style="padding: 10px; border: 1px solid red; padding-left: 15px;" align ="left"> 
@@ -45,19 +46,9 @@
         </div> <!-- 검색 상단바 END -->
         <div><br/></div>
         
-        
+      
         <!-- 도서 목록 START -->
           <table class="w-100 table" style="text-align: center;">
-            <tr th:if="${ #lists.isEmpty(searchList)}">
-                <td width= "20%" style="border: 1px solid blue;"></td>
-                <td width= "63%">
-                <table style="padding-left: 20px;">
-                <tr><td><br/></td></tr>
-                <tr><td>검색 결과가 없습니다.</td></tr>
-                </table>
-                </td>
-                <td width= "17%" style="border: 1px solid blue;"></td>
-            </tr>
             
             <thead class="table-light">
                 <tr>
@@ -138,10 +129,10 @@
         </nav>
     <!-- 페이징 끝 -->
 
-    </div> <!-- container-fluid : END -->
+   
     <hr/>
     
-</div> <!-- layout:fragment="content" : END -->
+</div> <!-- container-fluid : END -->
     
     <th:block layout:fragment="script" th:inline="javascript">
     
@@ -245,5 +236,5 @@
     
     
 
-</div>
+</div> <!-- layout:fragment="content" : END -->
 </html>

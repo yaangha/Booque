@@ -44,63 +44,75 @@
     
 <!--/* layout/basic-layout.html 파일의 "content" 레이아웃 fragment를 채워 줄 내용 */-->
     
-<div class="w-75 container"><!-- 메인 블록 - 삭제해도 될 듯 -->
 
 <div class="row"><!-- main block start -->
-<div class="col-2"><!-- 프로필 블록 start -->
+
+<div class="col-2"><!-- 프로필 블록 start  왼쪽 --> 
     
-    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
-        <img th:src="${ user.userImage }" width="200" height="280" class="card-img-top">
+    <div class="card mx-2 my-2" style="width: 220px; height:auto;">    
+        <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+           <img th:src="${ user.userImage }" width="220px" height="280" class="img-fluid rounded-start">
+        </a>       
+         
+         
         <div class="card-body" style="text-align: left;">
-            <div class="border-bottom mb-2 border-dark">
-                <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
-                <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+                <div class="border-bottom mb-2 border-dark">
+                    <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
+                    <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+                </div>
+                <div class="mb-4">
+                    <input value="블로그 소개글 넣기" />
+                </div>
+                <span style="color:gray;">전체 리뷰수</span>
+                <span class="h4"><strong style="color:red;">1,004</strong></span>
+    
+            
+            <br/><br/>
+            
+            <div class="h5" style="text-align: left;">요즘 뜨는 블로그 </div>
+            <div class="row my-2">
+                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <div class="col" style="text-align: left;">
+                    <a>짜라투스트라는 도대체..</a><br/>
+                    <small style="color:gray;">글 19개</small>
+                </div>
             </div>
-            <div class="mb-4">
-                <input value="블로그 소개글 넣기" />
+            <div class="row my-2">
+                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <div class="col" style="text-align: left;">
+                    <a>김영하가 다다다라는..</a><br/>
+                    <small style="color:gray;">글 15개</small>
+                </div>
             </div>
-            <span style="color:gray;">전체 리뷰수</span>
-            <span class="h4"><strong style="color:red;">1,004</strong></span>
-        </div>
-    </div>
+            <div class="row my-2">
+                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <div class="col" style="text-align: left;">
+                    <a>오늘도 화이팅이란</a><br/>
+                    <small style="color:gray;">글 159개</small>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
+                <div class="col" style="text-align: left;">
+                    <a>트렌드를 따라가려면..</a><br/>
+                    <small style="color:gray;">글 9개</small>
+                </div>
+            </div>
+            
+        </div><!-- 유저사진 밑에 카드 형식으로 넣음 -->
     
-    <br/><br/>
+    </div><!-- 프로필 블록 end -->
+</div>
     
-    <div class="h5" style="text-align: left;">요즘 뜨는 블로그 </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라는 도대체..</a><br/>
-            <small style="color:gray;">글 19개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>김영하가 다다다라는..</a><br/>
-            <small style="color:gray;">글 15개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>오늘도 화이팅이란</a><br/>
-            <small style="color:gray;">글 159개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>트렌드를 따라가려면..</a><br/>
-            <small style="color:gray;">글 9개</small>
-        </div>
-    </div>
+<div class="col-8">
     
-</div><!-- 프로필 블록 end -->
-    
- <div class="col-10"><!-- content block start -->
     <!-- 최근에 본 책 간단 정보 -->
+    
+     <!-- 예진: 작성한 리뷰가 있을 때만 보여줌. -->
+    <div th:if="${ !#lists.isEmpty(list) }">
     <p><span class="h4" th:text="${ user.nickName }"></span>님은 최근에 이 책들의 리뷰를 작성했어요!!</p> 
+    </div>
+    
     <div class="w-100 rounded"><!-- 최근에 본 책 블록 start -->
         <div class="row justify-content-start">
             <div class="col" th:each="book : ${ books }">
@@ -126,8 +138,17 @@
         </div> <!-- row end -->
     </div><!-- 최근에 본 책 블록 end -->
     
+
+
+      
     <br/>
     
+ <!-- 예진: 작성한 리뷰가 없을 때.  -->   
+ <div th:if="${ #lists.isEmpty(list) }">작성한 글이 없습니다.<span style="font-weight: bold; font-size: 20px;">첫 리뷰를 작성해보세요!!</span></div>
+ 
+ <!-- 예진: 작성한 리뷰가 있을 때. -->
+ <div th:if="${ !#lists.isEmpty(list) }">
+ 
     <!-- 사용자 작성 리뷰 리스트(테이블) -->
     <table class="table">
     <thead>
@@ -157,8 +178,7 @@
                         </div>
                 
                 <ul style=" list-style: none;">
-                    <li>
-                    </li>
+              
                     
                     
                     <li>
@@ -200,31 +220,35 @@
                 </div>
               
 
+          
             </td>
             <td style="text-align: center;">
                 <a style="margin-left: 18px;" th:href="@{ /detail?id={bookId} (bookId = ${ post.bookId })}">
                     <img th:src="${ post.bookImage }" class="img-fluid rounded-start" style="width:120px;">
                 </a>
             </td>
-            
-        </tr>
+       </tr>
+    
     </tbody>
     </table>
+    </div>
     
-</div><!-- content block end -->
+    
+    
+</div><!-- col-8 end -->
+
 </div><!-- main block end -->
 
-</div><!-- 메인 블록 end -->
+</div><!-- 메인 프레그먼트 end -->
+
+
+
+
+
 
 <th:block layout:fragment="script" th:inline="javascript">
 
-<!-- summernote -->
-  <script>
- $('.summernote').summernote({
-    width:830,
-      height: 300,
-      lang: "ko-KR"
-    }); </script>
+
     
 
     
@@ -279,7 +303,6 @@
     
 </th:block>
 
-  </div><!-- layout:fragment="content" : END -->
 
 
 </html>

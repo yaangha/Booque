@@ -1,8 +1,10 @@
 package site.book.project.web;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Post;
+import site.book.project.domain.User;
+import site.book.project.dto.PostListDto;
 import site.book.project.dto.ReplyReadDto;
 import site.book.project.dto.ReplyRegisterDto;
 import site.book.project.dto.ReplyUpdateDto;
+import site.book.project.service.PostService;
 import site.book.project.service.ReplyService;
+import site.book.project.service.UserService;
 
 @Slf4j
 @RestController
@@ -26,14 +33,18 @@ import site.book.project.service.ReplyService;
 public class PostReplyController {
 
     private final ReplyService replyService;
+    private final UserService userService;
+    private final PostService postService;
 
     // 댓글 전체 리스트
     @GetMapping("/all/{postId}")
     public ResponseEntity<List<ReplyReadDto>> readAllReplies(@PathVariable Integer postId){
         log.info("readAllReplies(postId={})", postId);
-
+        
         List<ReplyReadDto> list = replyService.readReplies(postId);
+        
         log.info("# of list = {}", list.size());
+       
 
         return ResponseEntity.ok(list);
     }
@@ -86,5 +97,7 @@ public class PostReplyController {
         log.info("댓글갯수:{}",list.size());
         return ResponseEntity.ok(list.size());
     }
+    
+   
     
 }
