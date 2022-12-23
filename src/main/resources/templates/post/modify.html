@@ -43,7 +43,7 @@
                 <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
             </div>
             <div class="mb-4">
-                <input value="블로그 소개글 넣기" />
+                <input value="소개글을 작성해주세요!" />
             </div>
             <!-- <span style="color:gray;">전체 리뷰수</span>
             <span class="h4"><strong style="color:red;">리뷰수 합쳐야함</strong></span> -->
@@ -129,7 +129,7 @@
    // 삭제 버튼 찾아서 이벤트 리스너 등록
    const btnDelete = document.querySelector('#btnDelete');
    btnDelete.addEventListener('click',function() {
-       const result = confirm('정말 삭제?');
+       const result = confirm('정말 삭제하시겠습니까?');
        if(result) {
            formModify.action = '/post/delete';
            formModify.method= 'post';
@@ -149,7 +149,7 @@
            return;
        }
        
-       const result = confirm('정말 수정?');
+       const result = confirm('정말 수정하시겠습니까?');
        if(result) {
            formModify.action = '/post/update';
            formModify.method= 'post';

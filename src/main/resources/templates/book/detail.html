@@ -240,7 +240,6 @@
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
                         <ul class="dropdown-menu">
                             <li><button class="dropdown-item"  id="orderDesc" >최신 순</button></li>
-                            <li><button class="dropdown-item"  id="orderReply" >댓글 순 아직 안됨.</button></li>
                             <li><button class="dropdown-item"  id="orderScoreDesc" >별점 높은순</button></li>
                             <li><button class="dropdown-item"  id="orderScore" >별점낮은 순</button></li>
                         </ul>
@@ -249,6 +248,7 @@
 
                 <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
                 <div id="postOrder"></div>
+                <input type="hidden" id="un" th:value="${#authentication.name}">
                 
                 <br/><br/>
 

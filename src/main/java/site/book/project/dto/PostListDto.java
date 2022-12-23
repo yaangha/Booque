@@ -27,6 +27,7 @@ public class PostListDto {
     private String bookImage;
     private String postWriter;
     private LocalDateTime modifiedTime;
+    private LocalDateTime createdTime;
     private int hit;
     
     
