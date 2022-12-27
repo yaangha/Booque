@@ -42,7 +42,7 @@ public class PostListDto {
                 .title(p.getTitle())
                 .postWriter(p.getPostWriter())
                 .bookId(p.getBook().getBookId())
-                .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime())
+                .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime()).createdTime(p.getCreatedTime())
                 .postContent(p.getPostContent())
                 .build();
     }

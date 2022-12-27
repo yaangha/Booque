@@ -63,6 +63,7 @@ public class PostService {
             .postContent(p.getPostContent())
             .bookId(p.getBook().getBookId())
             .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime())
+            .createdTime(p.getCreatedTime())
             .replyCount(rpiList.size())
             .hit(p.getHit())
             .build();
