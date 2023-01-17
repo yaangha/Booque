@@ -63,6 +63,35 @@ public class CartController {
         
     }
     
+    // (하은_2) 장바구니로 넘어오는 코드 합치기
+    // 필요 데이터 - userId, bookId
+    @PostMapping("/cart")
+    public String cart(@AuthenticationPrincipal UserSecurityDto userSecurityDto, CartAddDto dto, Model model) {
+        
+        Integer userId = userSecurityDto.getId(); // userId로 cart, wish 정보 찾기
+        User user = userService.read(userId);
+        List<CartDto> cartList = cartService.cartDtoList(userId);
+        Integer total = cartService.total(cartList);
+        
+        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, dto.getId(), dto.getCount());
+        } else { // 사용자 있으면 update
+            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
+            log.info("변경 수량={}", afterCount);
+        }
+        
+        // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기        
+        List<BookWishDto> wishBookInfo = bookWishService.searchWishList(userId);
+        
+        model.addAttribute("wishBookInfo", wishBookInfo);
+        model.addAttribute("user", user);
+        model.addAttribute("cartList", cartList);
+        model.addAttribute("total", total);
+        
+        return "book/cart";
+    }
+    
+    
     // (하은) detail 페이지에서 cart로 넘어갈 때 사용
     @PostMapping("/cart/add")
     public String addCart(CartAddDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
@@ -103,7 +132,7 @@ public class CartController {
             cartService.addCart(userId, bookId,1);
         } else { // 사용자 있으면 update
             Integer afterCount = cartService.updateCount(userId, bookId,1);
-            log.info("변경 수량={}", afterCount);
+            log.info("변경 수량={}", afterCount); 
         }
         
         return "redirect:/post/detail?postId=" + postId +"&bookId"+bookId;

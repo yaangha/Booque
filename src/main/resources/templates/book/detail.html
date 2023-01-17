@@ -360,7 +360,8 @@
         // 장바구니 가기
         const btnGoCart = document.querySelector('#btnGoCart');
         btnGoCart.addEventListener('click', function () {           
-            addCartInfo.action = '/cart/add';
+            // addCartInfo.action = '/cart/add';
+            addCartInfo.action = '/cart';
             addCartInfo.method = 'post';
             addCartInfo.submit();
         })
