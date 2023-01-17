@@ -1,7 +1,12 @@
 package site.book.project.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import site.book.project.dto.UserModifyDto;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,7 +47,6 @@ public class User {
     @Column(nullable = false)
     private String phone;
     
-    @Column(nullable = false)
     private String address;
     
     @Column(unique = true, nullable = false)
@@ -50,10 +55,50 @@ public class User {
     @Column(length = 1000)
     private String userImage;
     
+    @Column(length = 1000)
+    private String fileName;
+    
+    @Column(length = 1000)
+    private String filePath;
+    
     @Builder.Default
     private Integer point = 0;
     
     @Builder.Default
     private String grade = "0"; 
+    
+    private String postIntro;
+    
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<UserRole> roles = new HashSet<>();
+    
+    public User addRole(UserRole role) {
+        roles.add(role);
+        
+        return this;
+    }
+    
+    // (하은) 책 구매시 포인트 추가
+    public User update(Integer point) {
+        this.point = point;
+        
+        return this;
+}
+    
+    public User updateImage(String fileName, String filePath) {
+        this.fileName =fileName;
+        this.filePath = filePath;
+        
+        return this;
+    }
+    
+    public User updateProfile(UserModifyDto user) {
+        this.nickName = user.getNickName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+                
+        return this;
+    }
     
 }

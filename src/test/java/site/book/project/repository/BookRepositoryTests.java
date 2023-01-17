@@ -11,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.BookComment;
+import site.book.project.domain.BookWish;
 import site.book.project.domain.Post;
 import site.book.project.dto.BookCommentReadDto;
 import site.book.project.dto.BookCommentRegisterDto;
 import site.book.project.service.BookCommentService;
 import site.book.project.service.BookService;
+import site.book.project.service.CategoryService;
 import site.book.project.service.PostService;
 
 @Slf4j
@@ -39,6 +41,34 @@ public class BookRepositoryTests {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired 
+	private CategoryService categoryService;
+	
+
+	
+	@Test
+	public void test() {
+	    Assertions.assertNotNull(bookCommentRepository);
+	  //  List<BookComment> list = bookCommentRepository.findByUserIdOrderByCreatedTimeDesc(21);
+ 	  //  List<BookComment> list =bookCommentService.readByUserId(21);
+//	    for(BookComment c : list) {
+//	        
+//	        log.info("버자 보자아아ㅏ아ㅏ아아앙 리스트트트ㅡ트 {}", c );
+//	    }
+ 	    List<BookCommentReadDto> listd = bookCommentService.readByUserId(21);
+	    for(BookCommentReadDto c : listd) {
+	        
+	        log.info("버자 보자아아ㅏ아ㅏ아아앙 리스트트트ㅡ트 {}", c );
+	    }
+	    
+	}
+	
+	
+	
+	
 //	@Test
 //	public void test() {
 //		Assertions.assertNotNull(postRepository);
@@ -59,7 +89,7 @@ public class BookRepositoryTests {
 //		
 //	}
 	
-	@Test
+//	@Test
 	public void testComment() {
 	    // 최신순, 오래된순, 좋아요 순
 //	    Assertions.assertNotNull(bookCommentRepository);
@@ -96,53 +126,12 @@ public class BookRepositoryTests {
 //	    
 //	    log.info("생성된 코멘트 아이디 {}" , commentId);
 	    
-	    @Test
-	    public void testFindAuthor() {
-	        Assertions.assertNotNull(bookRepository);
-	        List<Book> list = bookRepository.findAllByAuthor("김영하");
-	        
-	        for (Book b : list) {
-	            log.info("bookName", b.getBookName());
-	        }
+//	    @Test
+//	    public void testFindAuthor() {
+//	        Assertions.assertNotNull(bookRepository);
+//	        
+//	        bookService.scoreAvg(23);
+//	    
+//	    }
 	    
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

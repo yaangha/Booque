@@ -3,14 +3,17 @@ package site.book.project.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 
 public interface PostRepository extends JpaRepository<Post, Integer>{
 
     List<Post> findByOrderByPostIdDesc();
 
-    
+     List<Post> findByUserIdOrderByCreatedTimeDesc(Integer userId);
+     
     // 포스트 제목:
     // select * from POSTS where lower(TITLE) like lower(?) order by ID desc
     List<Post> findByTitleIgnoreCaseContainingOrderByPostIdDesc(String title);
@@ -27,7 +30,8 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	List<Post> findByBookBookId(Integer bookId);
 	
 	
-	
+//	List<Post> findByBookId(Integer bookId);
+
 	
 	
 	
@@ -41,7 +45,13 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	List<Post> findByBookBookIdOrderByCreatedTimeDesc(Integer bookId);  // 최근순
 	List<Post> findByBookBookIdOrderByMyScore(Integer bookId);   // 별점 낮은 순
 	List<Post> findByBookBookIdOrderByMyScoreDesc(Integer bookId); // 별점 높은 순
+
+	// 조회수 순위로 Top 5 리스트 출력
+    List<Post> findTop5ByOrderByHitDesc();
+
 	
+
+		
 	
 	
 	

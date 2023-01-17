@@ -9,11 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
+import site.book.project.domain.User;
 import site.book.project.dto.PostCreateDto;
-import site.book.project.dto.PostUpdateDto;
+import site.book.project.dto.PostListDto;
 import site.book.project.dto.PostReadDto;
+import site.book.project.dto.PostUpdateDto;
+import site.book.project.dto.ReplyReadDto;
+import site.book.project.repository.BookRepository;
 import site.book.project.repository.PostRepository;
+import site.book.project.repository.UserRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +27,13 @@ import site.book.project.repository.PostRepository;
 public class PostService {
 
     private final PostRepository postRepository;
-
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
+    private final BookService bookService;
+    private final ReplyService replyService;
+    private final UserService userService;
+    
+    
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -29,13 +41,57 @@ public class PostService {
         
         return postRepository.findByOrderByPostIdDesc();
     }
+   
+    @Transactional(readOnly = true)
+    public List<PostListDto> postDtoList(Integer userId) {
+        List<Post> list = postRepository.findByUserIdOrderByCreatedTimeDesc(userId);
+         
+        List<PostListDto> dtoList = new ArrayList<>();
+        
+        PostListDto dto = null;
+        
+        for (Post post : list) {
+            Post p = post;
+            
+            List<ReplyReadDto> rpiList = replyService.readReplies(p.getPostId());
+             
+           dto = PostListDto.builder()
+            .userId(p.getUser().getId())
+            .postId(p.getPostId())
+            .title(p.getTitle())
+            .postWriter(p.getPostWriter())
+            .postContent(p.getPostContent())
+            .bookId(p.getBook().getBookId())
+            .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime())
+            .createdTime(p.getCreatedTime())
+            .replyCount(rpiList.size())
+            .hit(p.getHit())
+            .build();
+            
+        
+             dtoList.add(dto);           
+        }
+        
+        
+         return dtoList;
+    }
     
+  
+    @Transactional
     public Post create(PostCreateDto dto) {
-        log.info("create(dto = {})",dto);
+        Book book = bookRepository.findById(dto.getBookId()).get();
+        User user = userRepository.findById(dto.getUserId()).get();
+
+        if( book.getBookScore() == null) {
+        	book.update(25);
+        } else {
+        	Integer score = book.getBookScore() + dto.getMyScore()*10;
+        	book.update(score/2);
+        	
+        }
         
         
-        
-        Post entity = postRepository.save(dto.toEntity());
+        Post entity = postRepository.save(dto.toEntity(book,user));
         return entity;
     }
 
@@ -68,6 +124,7 @@ public class PostService {
         
     }
 
+    @Transactional(readOnly = true)
     public List<Post> search(String type, String keyword) {
         log.info("search(type= {} keyword={})", type, keyword);
         
@@ -85,10 +142,13 @@ public class PostService {
         
         return list;
     }
- 
-    // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
 
+
+    
+    // choi 1207 책 상세 post 최신순, 별점 높은순, 별점 낮은순 => Ajax로 할 예정
+    
 	public List<Post> findBybookId(Integer bookId) {
+	    
 	    // 오래된 순
 	    return postRepository.findByBookBookId(bookId);
 	}
@@ -111,4 +171,52 @@ public class PostService {
 	    return list.stream().map(PostReadDto:: fromEntity).toList();
 	}
 
+	// (홍찬) 검색 화면에서 BookId로 Post 글이 몇 개 달려있는지 select하기
+	@Transactional(readOnly = true)
+	public Integer countPostByBookId(Integer bookId) {
+	    Integer count = 0;
+	    List<Post> list = postRepository.findByBookBookId(bookId);
+	    count = list.size();
+	    return count;
+	}
+
+	// (홍찬) 리뷰순에서 사용할 것 - 책 ID에 해당하는 포스트 글이 1 증가시켜주기
+	@Transactional
+	public void countUpPostByBookId(Integer bookId) {
+	    Book entity = bookRepository.findById(bookId).get();
+	    entity.updatePostCount(entity.getPostCount()+1);
+	}
+	
+	
+	
+	// (은정)  writer 쓴 유저는 제외 하고 꺼낼예정
+	public List<PostReadDto> postRecomm(String writer, Integer bookId ){
+	    List<PostReadDto> list = findScoreDesc(bookId);
+	    List<PostReadDto> postC =  new ArrayList<>();
+	    
+	    
+	     
+	    for(PostReadDto post : list) {
+	        
+	       if(!post.getWriter().equals(writer)) {
+	           
+	           User user = userService.read(post.getWriter());
+	           
+	           String userImage = user.getUserImage();
+	           post.setUserImage(userImage);
+	           
+	           postC.add(post);
+	           
+	       }
+	        
+	        
+	    }
+	    
+	    
+	    
+	    return postC;
+	}
+	
+	
+	
 }

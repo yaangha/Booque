@@ -5,23 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
+import site.book.project.domain.Book;
 import site.book.project.domain.Post;
 import site.book.project.domain.User;
 
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@ToString(exclude = {"postContent"})
 public class PostCreateDto {
 
+    private Integer bookId;
+    private Integer userId;
     private String title;
     private String postContent;
     private String postWriter; 
     private Integer myScore;
     
-    public Post toEntity() {
+    public Post toEntity(Book book, User user) {
         
-        
-        return Post.builder().title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
+        return Post.builder().user(user).book(book).title(title).postContent(postContent).postWriter(postWriter).myScore(myScore).build();
     }
 }

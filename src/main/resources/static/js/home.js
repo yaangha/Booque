@@ -2,32 +2,33 @@
  * 
  */
  
- // Accordion(사이드바) 메뉴
-function AccFunc1() {
-  var x = document.getElementById("Acc1");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-
-// Click on the "Jeans" link on page load to open the accordion for demo purposes
-document.getElementById("myBtn1").click();
-
-
-
-
-// 사이드바 열고 닫기
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
+ // 홈(메인) 화면 컨텐츠에 쓰일 자바스크립트
  
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
+ 
+ 
+// 카테고리별 BEST 탭 효과
+function openTap(e, tapContent) {
+    const content = document.querySelectorAll('.tapContent');  // 모든 탭 내용 찾기
+    const button = document.querySelectorAll('.btnTap');  // 모든 탭 버튼 찾기  
+    
+    /*
+    content.forEach(c => {
+        c.style.display = "none";
+    });
+    */
+    
+    let i;
+    for (i = 0; i < content.length; i++) {
+        content[i].style.display = "none";    // 탭 내용들 숨기기
+        button[i].className = button[i].className.replace(" w3-black", "");  // 탭 버튼들 강조효과 지우기
+    }
+      
+      document.getElementById(tapContent).style.display = "block";
+      e.currentTarget.className += " w3-black";
+    }
 
-
-// 검색 모달창 open/close function? 담에 넣어 보기
+    const btnDefault = document.querySelectorAll('.btnTap')[0];  // 첫번째 탭 열어 놓기
+    btnDefault.click();
+    
+    
+    
