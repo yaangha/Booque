@@ -48,6 +48,11 @@ public class PostController {
         log.info("list()");
 //        bookService.readPostCountByAllBookId();
      
+        String uu = userSecurityDto.getUsername();
+        Integer uuId = userSecurityDto.getId();
+        log.info("uuuuuuuuuuu= {}",uu);
+        log.info("uuuId= {}",uuId);
+        
         
         User user = null; 
         List<PostListDto> postList = new ArrayList<>();
@@ -131,21 +136,21 @@ public class PostController {
             Integer postId, String username ,Integer bookId, Model model) {
         log.info("detail(postId= {}, bookId={}, postWriter={})", postId, bookId, username);
         
-       List<PostReadDto> recomList = postService.postRecomm(userDto.getUsername(), bookId);
+        List<PostReadDto> recomList = postService.postRecomm(userDto.getUsername(), bookId);  // 1)
         
         Post p = postService.read(postId);
         Book b = bookService.read(bookId);
         
 
         
-        if (username == null) { // 글 작성자와 유저가 다른 경우
+        if (username == null || userDto == null) { // 글 작성자와 유저가 다른 경우
             User u = userService.read(p.getUser().getId());
             Post entity = postService.read(postId); // 그 글의 조회수를 1올려줌.
             entity.update(postId, entity.getHit()+1);
             int hitCount = entity.getHit();
             model.addAttribute("hitCount", hitCount);
-
             model.addAttribute("user", u);
+            
         } else { // 글 작성자와 유저가 같은경우
             User u = userService.read(username);
             int hitCount = postService.read(postId).getHit();
@@ -153,7 +158,7 @@ public class PostController {
             model.addAttribute("user", u);
         }
         
-        model.addAttribute("recomList",recomList );
+         model.addAttribute("recomList",recomList );    // 2)
          model.addAttribute("post", p);
          model.addAttribute("book", b);
        
