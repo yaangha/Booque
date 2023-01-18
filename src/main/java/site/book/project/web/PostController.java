@@ -48,12 +48,6 @@ public class PostController {
         log.info("list()");
 //        bookService.readPostCountByAllBookId();
      
-        String uu = userSecurityDto.getUsername();
-        Integer uuId = userSecurityDto.getId();
-        log.info("uuuuuuuuuuu= {}",uu);
-        log.info("uuuId= {}",uuId);
-        
-        
         User user = null; 
         List<PostListDto> postList = new ArrayList<>();
         
