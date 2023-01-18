@@ -47,13 +47,7 @@ public class PostController {
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
 //        bookService.readPostCountByAllBookId();
-     
-        String uu = userSecurityDto.getUsername();
-        Integer uuId = userSecurityDto.getId();
-        log.info("uuuuuuuuuuu= {}",uu);
-        log.info("uuuId= {}",uuId);
-        
-        
+      
         User user = null; 
         List<PostListDto> postList = new ArrayList<>();
         
