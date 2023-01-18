@@ -31,6 +31,9 @@ public class PostService {
     private final UserRepository userRepository;
     private final BookService bookService;
     private final ReplyService replyService;
+    private final UserService userService;
+    
+    
     // Post 리스트 전체  TODO 유저별 전체리스트 ? 
     @Transactional(readOnly = true)
     public List<Post> read(){
@@ -39,15 +42,10 @@ public class PostService {
         return postRepository.findByOrderByPostIdDesc();
     }
    
- 
-    
+    @Transactional(readOnly = true)
     public List<PostListDto> postDtoList(Integer userId) {
-        List<Post> list = postRepository.findByUserId(userId);
-        
-       
-        
-      
-        
+        List<Post> list = postRepository.findByUserIdOrderByCreatedTimeDesc(userId);
+         
         List<PostListDto> dtoList = new ArrayList<>();
         
         PostListDto dto = null;
@@ -65,6 +63,7 @@ public class PostService {
             .postContent(p.getPostContent())
             .bookId(p.getBook().getBookId())
             .bookImage(p.getBook().getBookImage()).modifiedTime(p.getModifiedTime())
+            .createdTime(p.getCreatedTime())
             .replyCount(rpiList.size())
             .hit(p.getHit())
             .build();
@@ -72,7 +71,6 @@ public class PostService {
         
              dtoList.add(dto);           
         }
-        
         
         
          return dtoList;
@@ -188,4 +186,37 @@ public class PostService {
 	    Book entity = bookRepository.findById(bookId).get();
 	    entity.updatePostCount(entity.getPostCount()+1);
 	}
+	
+	
+	
+	// (은정)  writer 쓴 유저는 제외 하고 꺼낼예정
+	public List<PostReadDto> postRecomm(String writer, Integer bookId ){
+	    List<PostReadDto> list = findScoreDesc(bookId);
+	    List<PostReadDto> postC =  new ArrayList<>();
+	    
+	    
+	     
+	    for(PostReadDto post : list) {
+	        
+	       if(!post.getWriter().equals(writer)) {
+	           
+	           User user = userService.read(post.getWriter());
+	           
+	           String userImage = user.getUserImage();
+	           post.setUserImage(userImage);
+	           
+	           postC.add(post);
+	           
+	       }
+	        
+	        
+	    }
+	    
+	    
+	    
+	    return postC;
+	}
+	
+	
+	
 }

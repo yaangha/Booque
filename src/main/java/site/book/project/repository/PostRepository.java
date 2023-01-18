@@ -12,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 
     List<Post> findByOrderByPostIdDesc();
 
-     List<Post> findByUserId(Integer userId);
+     List<Post> findByUserIdOrderByCreatedTimeDesc(Integer userId);
      
     // 포스트 제목:
     // select * from POSTS where lower(TITLE) like lower(?) order by ID desc

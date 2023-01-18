@@ -393,10 +393,13 @@
       <i class="fa fa-search"></i></span> 
       
       <!-- 유저네임 표시 -->
+      <!-- 로그인 한 상태에서만 보여줌 -->
+      <th:block sec:authorize="isAuthenticated()">
       <div class="w3-right" style="margin-top:25px; padding-right:40px; border-right:2px solid grey;">님</div>
-        <div class="w3-right" sec:authentication="name" style="margin-top:25px; margin-right:7px; color:cornflowerblue; font-weight:bold;"></div>
-        
-    
+      <div class="w3-right" sec:authentication="name" style="margin-top:25px; margin-right:7px; color:cornflowerblue; font-weight:bold;"></div>
+      </th:block>
+      
+      
     <!-- 검색 창 내려오기 -->
     <nav class="w3-black w3-animate-top w3-xxlarge" 
     style="z-index:4; display:none; margin-top:60px; padding-top:50px; padding-bottom:50px;" id="searchBar">
@@ -413,7 +416,7 @@
         <input type="search" class="searchText" id="keyword" name="keyword" />
         <input type="hidden" id="order" name="order" value="0"/>
       <!-- 검색 버튼 -->
-      <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;">
+      <button type="submit" style="border:none; background-color:black; color:white; margin-right:40px; margin-left:20px;"  onclick="nothingKeywordCheck();">
       <i class="fa fa-search" id="btnSearch"></i></button> 
 
    </form>
@@ -595,6 +598,17 @@
             crossorigin="anonymous"></script>
 
     <th:block layout:fragment="script">
+    <script>
+function nothingKeywordCheck(){
+    const form = document.querySelector('#searchingForm');
+    const keyword = document.querySelector('#keyword').value;
+    if(keyword==""){
+        alert('검색어를 반드시 입력해주세요!');
+        event.preventDefault();
+        return;
+    }
+}
+</script>
     </th:block>
 
 

@@ -17,12 +17,6 @@
         
         console.log("clickBtnWish: bookId=" + bookId);
         
-        //if (userId == undefined) {
-            //alret("로그인 후 가능한 서비스입니다.");
-            // 로그인 모달 열기?
-            //return false;
-       // }
-        
         $.ajax ( {
             url: "/book/wishList",
             type: "Get",

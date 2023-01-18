@@ -21,6 +21,4 @@ public class HomeTopFiveListDto {
     private String bookImage;
     private String bookName;
     
-    
-    
 }

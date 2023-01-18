@@ -33,50 +33,28 @@
 
 <div class="row"><!-- main block start -->
 <div class="col-2"><!-- 프로필 블록 start -->
-    <div class="border border-3 my-2" style="width:200px; height:200px;"></div>
-    <div style="font-weight: bold;">
-        <span th:text="${ '&nbsp;&nbsp;'+ user.nickName }"></span>
-        <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
-    </div>
-    <small>저는 책을 좋아하는 박부끄라고 합니다:)</small>
+    <div class="card mx-2 my-2" style="width: 20rem; height:auto;">    
+        <a th:href="@{ /myPage }"> <!-- 프로필 사진 클릭하면 마이페이지로 이동 -->
+           <img th:src="${ user.userImage }" width="220px" height="280" class="img-fluid rounded-start">
+        </a>       
+         
+         
+        <div class="card-body" style="text-align: left;">
+                <div class="border-bottom mb-2 border-dark">
+                    <span class="card-title" th:text="${ '&nbsp;&nbsp;'+ user.nickName }" style="font-weight: bold;"></span>
+                    <span style="font-size: 16px;" th:text="${ '('+ user.username +')' }"></span>
+                </div>
+                <div class="mb-4">
+                    <span th:text="${user.postIntro}" ></span>
+                </div>
+                <!-- <span style="color:gray;">전체 리뷰수</span>
+                <span class="h4"><strong style="color:red;">리뷰수 합쳐야함</strong></span> -->
     
-    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey">글 전체보기</button>
-        
-    <div>전체 방문자수</div>
-    <div class="h4"><strong>1,004</strong></div>
-    <div>Today: <span>58</span></div>
+        </div><!-- 유저사진 밑에 카드 형식으로 넣음 -->
     
-    <br/><br/>
+    </div><!-- 프로필 블록 end -->
     
-    <div class="h5" style="text-align: left;">이런 글은 어떠세요?</div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>짜라투스트라는 도대체..</a><br/>
-            <small style="color:gray;">글 19개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>김영하가 다다다라는..</a><br/>
-            <small style="color:gray;">글 15개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>오늘도 화이팅이란</a><br/>
-            <small style="color:gray;">글 159개</small>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-1 border bg-dark" style="width:40px; height:40px"></div>
-        <div class="col" style="text-align: left;">
-            <a>트렌드를 따라가려면..</a><br/>
-            <small style="color:gray;">글 9개</small>
-        </div>
-    </div>
+    <button onclick="location.href='/post/list'" type="button" class="w3-button w3-grey border rounded">▶ 전 체 목 록 보 기</button>
     
 </div><!-- 프로필 블록 end -->
     

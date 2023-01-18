@@ -1,11 +1,14 @@
 package site.book.project.repository;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import lombok.extern.slf4j.Slf4j;
+import site.book.project.dto.PostReadDto;
 import site.book.project.service.PostService;
 import site.book.project.service.ReplyService;
 import site.book.project.service.UserService;
@@ -17,8 +20,6 @@ public class PostRepositoryTests {
 //   @Autowired
 //   private PostRepository postRepository;
 //   
-//   @Autowired
-//   private PostService postService;
    
    @Autowired
    private UserService userService;
@@ -56,8 +57,11 @@ public class PostRepositoryTests {
    
    @Test
    public void testDelete() {
-//       Assertions.assertNotNull(replyRepository);
-//       Assertions.assertNotNull(replyService);
-       replyService.deletePostIdWithAllReply(17);
+       List<PostReadDto> list =  postService.postRecomm("user", 10);
+       
+       for(PostReadDto p : list) {
+           log.info("ㅈ[비리리ㅣ리릴 {}",list);
+           
+       }
    }
 }

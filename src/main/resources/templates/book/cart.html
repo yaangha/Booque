@@ -27,7 +27,7 @@
     <div class="w-70 container">
 	
 	<!-- 진행 순서 보여주기 -->
-	<ul class="list-group list-group-horizontal">
+	<ul class="h5 list-group list-group-horizontal justify-content-center">
 		<li class="list-group-item border-0" style="font-weight: bold;">01 CART</li>
 		<li class="list-group-item border-0" style="color:gray;">></li>
 		<li class="list-group-item border-0" style="color:gray;">02 ORDER</li>
@@ -35,9 +35,11 @@
 		<li class="list-group-item border-0" style="color:gray;">03 ORDER CONFIRMED</li>
 	</ul>
 	
+    <br/><br/>
+    
     <!-- 약간의 개인정보 넣어두기 (헷갈리지 않게) -->
     <input type="hidden" name="userId" id="userId" th:value="${ user.id }" />
-   
+    <input type="hidden" id="un" th:value="${#authentication.name}">
 	<!-- table AJax로 만듦 -->
     <div id="cList"></div>
     
@@ -79,14 +81,16 @@
 		<button id="btnOrder" type="button" class="col w-50 m-2 btn btn-dark">결제하기</button>
 	</div>
     
-    <div th:if="${ wishBookInfo }">
-	<span class="h4" th:text="${ user.username }"></span><span> 님이 찜한 상품은?</span>
-        <div class="w-100 text-bg-light rounded">
+    <br/>
+    
+    <div style="padding-bottom:100px; padding-top:80px;" th:if="${ wishBookInfo }">
+        <div class="pb-2 border-bottom border-dark"><span class="h4" th:text="${ user.username }"></span><span> 님이 찜한 상품은?</span></div>
+        <div class="w-100 my-3">
             <div class="row container">
                 <div class="col" th:each="bookWishDto : ${ wishBookInfo }">
-                    <div class="card my-2" style="width: 15rem; height:33rem">
+                    <div class="card my-2" style="width: 15rem; height:32rem">
                         <a th:href="@{ /detail(id=${ bookWishDto.getBookId }) }">
-                            <img th:src="${ bookWishDto.getBookImage }" class="card-img-top" alt="테스트">
+                            <img th:src="${ bookWishDto.getBookImage }" class="card-img-top" style="height:22rem" />
                         </a>
                         <div class="card-body">
                             <div class="card-text">
@@ -94,9 +98,9 @@
                                      <span th:text="${ bookWishDto.getBookgroup }"></span><span> / </span><span th:text="${ bookWishDto.getCategory }"></span>
                                      </small>
                                 </div>
-                                <span class="h5" th:text="${ bookWishDto.getBookName }"></span><br/>
+                                <span style="font-weight: bold;" th:text="${ bookWishDto.getBookName }"></span><br/>
                                 <span th:text="${ bookWishDto.getAuthor }"></span><br/>
-                                <span th:text="${ bookWishDto.getPrices }"></span><span>원</span>
+                                <span th:text="|${#numbers.formatInteger(bookWishDto.getPrices, 0, 'COMMA')}원|"></span>
                             </div>
                         </div> <!-- card body end -->
                     </div> <!-- card end -->
@@ -115,7 +119,20 @@
     </script>
     
     <script th:src="@{ /js/cartList.js }"></script>
+    <!-- 조회수 증가(책 상세보기, 리뷰 상세보기) -->
+    <script>
+    function viewHitUp(bookId, username){
+        axios.get('/viewCount', {params: {bookId : bookId, username : username}})
+           .then(response => {
+               console.log(response);
+               return true;
+           })
+           .catch(err =>{
+               console.log(err);
+           });
+    }
     
+    </script>
 </body>
 
 </div>

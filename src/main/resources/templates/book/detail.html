@@ -72,14 +72,14 @@
     </style>
     
 </head>
-<body class="bg-light">
+<body>
 
         <!-- 도서 간단 정보 및 장바구니, 구매하기 버튼 블록 -->
-        <div class="w-100 container">
+        <div class="w-50 container">
             <div class="row my-5">
                 <!-- 도서 이미지 -->
                 <div class="col" style="text-align: right;">
-                    <img th:src="${ book.bookImage }" style="width: 600px; height: 800px" />
+                    <img th:src="${ book.bookImage }" style="width: 30rem;" />
                 </div>
 
                 <!-- 도서 정보(+ 도서 정보 추가하기_있으면) -->
@@ -111,14 +111,13 @@
                 <div class="my-2"style="font-weight: bold;">
                     <input type="hidden" name="price" th:value="${ book.prices }"> 
                     <span style="font-size: large;"  th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></span>
-                    <span>원</span>
                     
                 </div>
                 <div class="my-2"style="font-weight: bold;">
-                    <span style="font-size: large;" th:text="${ book.prices * 0.05 }"></span>
+                    <span style="font-size: small;" th:text="${ book.prices * 0.05 }"></span>
                     <!-- <input name="point" th:value="${ book.prices * 0.05 }" type="hidden" /> -->
                     <input name="point" th:value="${ #numbers.formatDecimal(book.prices * 0.05, 1, 0) }" type="hidden" />
-                    <span>포인트</span>
+                    <span style="font-size: small;">포인트</span>
                 </div>
                 <div>
                     <input type='button' id="btnCountM" class="btn btn-secondary"   value='-'/>
@@ -127,15 +126,15 @@
                  
                 </div>
                 
-            <div class="col-2 my-2">
-              <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}"><input type="button" class="btn btn-outline-dark" value="리뷰 작성"></a>        
-            </div>
-                
+            <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
+                <button th:onclick="|location.href='@{ /post/create?id={bookId} (bookId = ${ book.bookId })}'|" type="button" class="w-50 btn btn-dark">리뷰작성</button>
+                <button onclick="clip()" type="button" class="w-50 btn btn-outline-dark">공유하기</button>
+                </div>
                 </form>
                 <div class="btn-group my-2 w-100" role="group" aria-label="Basic example">
                 <!-- (하은) 장바구니 페이지 갈지말지 -->
                 <!-- Button trigger modal -->
-                <button type="button" class="w-50 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">장바구니</button>
+                <button type="button" class="w-50 btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" >장바구니</button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,13 +152,10 @@
                         </div>
                     </div>
                 </div>
-                
-                <button onclick="clip()" type="button" class="w-50 btn btn-dark">공유하기</button>
+                <button id="btnOrderNow" type="button" class="w-50 btn btn-danger">구매하기</button>
+
                 </div>
-                <button id="btnOrderNow" type="button" class="w-100 btn btn-danger">구매하기</button> <!-- 결제 페이지 이동 -->
-
-
-
+                    
                 <!-- (지혜) 찜(위시리스트) 버튼 -->
                 <!-- A 유저가 B 책을 위시리스트에 담고 빨강하트 된 상태에서, 화면 새로고침하면 다시 빈 하트로 뜨는 것 수정 필요 (로그인과 연결) -->
                 <!-- 작은화면에서 마우스오버(hover)하면 밑의 컨텐츠가 위로 당겨지는 현상 수정 필요 -->
@@ -184,7 +180,7 @@
                     <a class="nav-link" href="#bookReview">리뷰/한줄평</a>
                     </li>
                     <li class="nav-item">
-                    	<a class="nav-link" href="#bookPayInfo">배송/반품/교환</a>
+                        <a class="nav-link" href="#bookPayInfo">배송/반품/교환</a>
                     </li>
                 </ul>
             </nav>
@@ -196,21 +192,27 @@
                 <h4 id="bookInfo" th:text="${ book.bookName }"></h4>
                 <p th:text="${ book.bookIntro }"></p>
 
-                <div>
+                <div style="text-align: center;">
                     <img loading="lazy" th:src="${ book.bookIntroImage }">
                 </div>
-
+                
+                <br/><br/>
+                
                 <!-- 현재 보여지는 책은 보이면 안됨 + 이미지 비율 수정하기 -->
                 <!-- (하은) 작가의 다른 책 보여주기 -->
                 <span class="h4" th:text="${ book.author }"></span>
                 <span> 작가의 다른 책</span>
 
-                <div class="w-100 text-bg-light rounded">
+                <div class="w-100 mb-5 border-bottom rounded">
                     <div class="row container">
                         <div class="col" th:each="book : ${ authorOtherBook }">
-                            <div class="card my-2" style="width: 15rem; height:33rem">
+                            <!-- 충돌난 부분 살려놓음 -->
+                            <!-- <div class="card my-2" style="width: 12rem; height:26rem">
                                 <a th:href="@{ /detail(id=${ book.bookId }) }">
-                                    <img th:src="${ book.bookImage }" class="card-img-top" alt="테스트">
+                                    <img th:src="${ book.bookImage }" class="card-img-top" style="height:18rem" /> -->
+                            <div class="card my-2" style="width: 15rem; height:32rem">
+                                <a th:href="@{ /detail(id=${ book.bookId }) }" th:bookId="${book.bookId}" th:username="${#authentication.name}" onclick="viewHitUp(this.getAttribute('bookId'),this.getAttribute('username'));">
+                                    <img th:src="${ book.bookImage }" class="card-img-top" style="height:22rem">
                                 </a>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -218,9 +220,11 @@
                                              <span th:text="${ book.bookgroup }"></span><span> / </span><span th:text="${ book.category }"></span>
                                              </small>
                                         </div>
-                                        <span class="h5" th:text="${ book.bookName }"></span><br/>
+                                        <small>
+                                        <span style="font-weight: bold;" th:text="${ book.bookName }"></span><br/>
                                         <span th:text="${ book.author }"></span><br/>
-                                        <span th:text="${ book.prices }"></span><span>원</span>
+                                        <span th:text="|${#numbers.formatInteger(book.prices, 0, 'COMMA')}원|"></span>
+                                        </small>
                                     </div>
                                 </div> <!-- card body end -->
                             </div> <!-- card end -->
@@ -230,16 +234,12 @@
 
                 <!-- 리뷰 & 한줄평 부분 / 개인 블로그 페이지로 이동 -->
                 <div class="row">
-                    <div id="bookReview" class="h4 col">리뷰</div>
-                    <div class="col-2 my-2">
-                      <a th:href="@{ /post/create?id={bookId} (bookId = ${ book.bookId })}">리뷰작성</a>        
-                    </div>            
+                    <div id="bookReview" class="h4 col">리뷰</div>   
                     <!-- 최신순, 선호도 등 -->
                     <div class="dropdown col">
                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;">최신순</button>
                         <ul class="dropdown-menu">
                             <li><button class="dropdown-item"  id="orderDesc" >최신 순</button></li>
-                            <li><button class="dropdown-item"  id="orderReply" >댓글 순 아직 안됨.</button></li>
                             <li><button class="dropdown-item"  id="orderScoreDesc" >별점 높은순</button></li>
                             <li><button class="dropdown-item"  id="orderScore" >별점낮은 순</button></li>
                         </ul>
@@ -248,6 +248,9 @@
 
                 <!-- 리뷰(+ 긴글은 일부분만 볼 수 있도록 수정하기 -->
                 <div id="postOrder"></div>
+                <input type="hidden" id="un" th:value="${#authentication.name}">
+                
+                <br/><br/>
 
                 <!--  comment  -->
                 <div class="row">
@@ -282,8 +285,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!--  comment  하트 증가는 못함 /-->
+                
+                <br/><br/>
 
                 <!-- 배송/반품/교환 관련 정보 부분 -->
                 <h4 id="bookPayInfo" class="border-bottom p-2">배송/반품/교환 안내</h4>
@@ -315,29 +318,29 @@
         <script>
         const btnP = document.querySelector('#btnCountP');
         const btnM = document.querySelector('#btnCountM');
-        	
+            
         btnP.addEventListener( 'click',  function() {
-        	
+            
             const count = document.querySelector('#count');
             let countT = count.value
-        	let countP =  parseInt(countT)+1;
-        	countP = countP+' '
-        	count.setAttribute('value',countP);
+            let countP =  parseInt(countT)+1;
+            countP = countP+' '
+            count.setAttribute('value',countP);
 
         })
         
         btnM.addEventListener( 'click',  function() {
-        	
+            
             const count = document.querySelector('#count');
             let countT = count.value
-        	if(countT == 1){
-        		alert('수량은 0이하가 되지 못합니다.')
-        		return;
-        	}
+            if(countT == 1){
+                alert('수량은 0이하가 되지 못합니다.')
+                return;
+            }
             
-        	let countP =  parseInt(countT)-1;
-        	countP = countP+' '
-        	count.setAttribute('value',countP);
+            let countP =  parseInt(countT)-1;
+            countP = countP+' '
+            count.setAttribute('value',countP);
 
         })
         
