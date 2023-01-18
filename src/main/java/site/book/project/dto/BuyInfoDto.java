@@ -11,12 +11,9 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-public class OrderFromDetailDto {
-    // (하은) 디테일 페이지에서 바로 구매할 때 필요한 정보 - order 테이블에 추가될 것
+public class BuyInfoDto {
     
-    private Integer id; // bookId
-    private Integer price;
+    private Integer bookId;
     private Integer count;
-    private Integer point;
 
 }

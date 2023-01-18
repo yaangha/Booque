@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
 import site.book.project.domain.BookHits;
 import site.book.project.domain.User;
-import site.book.project.dto.OrderFromCartDto;
 import site.book.project.dto.SearchListDto;
 import site.book.project.dto.SearchQueryDataDto;
 import site.book.project.dto.SearchReadDto;
@@ -44,54 +43,6 @@ public class SeacrhContoller {
     private final SearchService searchService;
     private final PostService postService;
     private final BookHitsService bookHitsService;
-    private final CartService cartService;
-    private final OrderService orderService;
-    private final UserService userService;
-    
-    /**
-     * 검색 리스트에서 바로 장바구니로
-     * @param u user객체
-     * @param bookId 장바구니에 넣을 책번호
-     * @return 카트로 이동? 아니 현 위치로? 하은 언니 모달창.. 
-     */
-    @PostMapping("/cart")
-    public String searchCart( @AuthenticationPrincipal UserSecurityDto u, Integer bookId) {
-    	Integer userId = u.getId();
-    	
-    	
-        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, bookId,1);
-        } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, bookId,1);
-            log.info("변경 수량={}", afterCount);
-        }
-    	
-    	
-    	
-    	return "redirect:/cart?id=" + userId;
-    }
-    
-    // (은정) search -> order 작업
-    @PostMapping("/order")
-    public String searchOrder( @AuthenticationPrincipal UserSecurityDto u, Integer bookId, Model model) {
-
-        Integer userId = u.getId();
-        log.info("유저 번호랑 책 번호 ~~~~~~~~~~~~~~~{}, {}",userId, bookId);
-        Long orderNo = orderService.createFromSearch(userId, bookId);
-        
-        List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
-        
-        User user = userService.read(order.get(0).getUserId());
-        Integer total = order.get(0).getCount() * order.get(0).getPrices();
-        
-        model.addAttribute("order", order);
-        model.addAttribute("user", user);
-        model.addAttribute("orderNo", orderNo);
-        model.addAttribute("total", total);
-        
-        return "book/order" ;
-    }
-
     
     @GetMapping("")
     public String search() {
@@ -311,4 +262,5 @@ public class SeacrhContoller {
         }
         return result;
     }
+    
 }

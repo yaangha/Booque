@@ -14,9 +14,9 @@ import site.book.project.domain.Book;
 import site.book.project.domain.Cart;
 import site.book.project.domain.Order;
 import site.book.project.domain.User;
+import site.book.project.dto.BookOrderDto;
+import site.book.project.dto.BuyInfoDto;
 import site.book.project.dto.OrderFinalInfoDto;
-import site.book.project.dto.OrderFromDetailDto;
-import site.book.project.dto.OrderFromCartDto;
 import site.book.project.repository.BookRepository;
 import site.book.project.repository.CartRepository;
 import site.book.project.repository.OrderRepository;
@@ -131,16 +131,14 @@ public class OrderService {
     	
     	return orderResult.getOrderNo();
     }
-
-    // (하은) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
-    public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
-        
-        Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS")); // ex) 20221209
-        Long orderNo = Long.parseLong(date + userId);
-        
+    
+    // (하은수정) 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
+    public Long createFromDetail(Integer userId, BuyInfoDto dto) { // bookId & count로 주문정보(order table) 생성
         User user = userRepository.findById(userId).get();
-        Book book = bookRepository.findById(dto.getId()).get();
+        Book book = bookRepository.findById(dto.getBookId()).get(); // Book 정보
+        Integer total = dto.getCount() * book.getPrices(); // 수량 X 가격
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS"));
+        Long orderNo = Long.parseLong(date + userId);
         
         Order order = Order.builder().orderNo(orderNo).user(user).book(book)
                 .orderDate(LocalDateTime.now()).orderBookCount(dto.getCount()).total(total).build();
@@ -149,7 +147,7 @@ public class OrderService {
         
         return orderResult.getOrderNo();
     }
-    
+        
     // (하은) 바로 구매하는 책에 대한 order 테이블 데이터 불러오기
     public Order readbyOrderId(Integer orderId) {
         
@@ -189,14 +187,14 @@ public class OrderService {
         orderRepository.save(order);
     }
     
-    // (하은) cart -> order 넘어갈 때 페이지에 띄울 데이터 저장
-    public List<OrderFromCartDto> readByOrderNo(Long orderNo) {
+    // (하은수정) cart -> order 넘어갈 때 페이지에 띄울 데이터 저장
+    public List<BookOrderDto> readByOrderNo(Long orderNo) {
         List<Order> order =  orderRepository.findByOrderNo(orderNo);
         
-        List<OrderFromCartDto> orderList = new ArrayList<>();
+        List<BookOrderDto> orderList = new ArrayList<>();
         
         for (Order o : order) {
-            OrderFromCartDto dto = OrderFromCartDto.builder().userId(o.getUser().getId()).id(o.getBook().getBookId())
+            BookOrderDto dto = BookOrderDto.builder().bookId(o.getBook().getBookId())
                     .prices(o.getBook().getPrices()).count(o.getOrderBookCount()).bookName(o.getBook().getBookName())
                     .publisher(o.getBook().getPublisher()).bookImage(o.getBook().getBookImage()).author(o.getBook().getAuthor())
                     .category(o.getBook().getCategory()).bookgroup(o.getBook().getBookgroup())
@@ -206,8 +204,8 @@ public class OrderService {
         }
         
         return orderList;
-    }
-    
+    } 
+        
     @Transactional
     // (하은) 결제창에서 결제 완료 후에는 장바구니 내역 삭제하기
     public void deleteCart(Integer[] cartId) {

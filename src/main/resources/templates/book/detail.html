@@ -100,7 +100,8 @@
                 <!-- 찜하기는 나중에 -> 만약 사용시 row로 묶는 태그 적어줘야 함 -->
                 <!--  <div class="col-2 my-2">
                 <img src="#" style="width: 50px" />  -->
-                <input type="hidden" id="id" name="id" th:value="${ book.bookId }"> 
+                <input type="hidden" id="id" name="id" th:value="${ book.bookId }">
+                <input type="hidden" id="id" name="bookId" th:value="${ book.bookId }">  
 
                 <div th:text="${ book.author }"><span style="color: gray;"> 저자</span></div>
                 <div th:text="${ book.publisher }"></div>
@@ -369,7 +370,7 @@
         // 바로 구매하기 버튼 -> 해당 책 데이터만 order 테이블에 추가됨
         const btnOrderNow = document.querySelector('#btnOrderNow');
         btnOrderNow.addEventListener('click', function() {
-            addCartInfo.action = '/orderFromDetail';
+            addCartInfo.action = '/orderOne';
             addCartInfo.method = 'post';
             addCartInfo.submit();
         })

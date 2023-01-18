@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.Book;
-import site.book.project.domain.Cart;
 import site.book.project.domain.User;
-import site.book.project.dto.OrderFromDetailDto;
 import site.book.project.dto.UserSecurityDto;
-import site.book.project.dto.OrderFinalInfoDto;
-import site.book.project.dto.OrderFromCartDto;
+import site.book.project.dto.BookOrderDto;
+import site.book.project.dto.BuyInfoDto;
 import site.book.project.service.BookService;
 import site.book.project.service.CartService;
 import site.book.project.service.OrderService;
@@ -32,65 +30,62 @@ public class OrderController {
     private final CartService cartService;
     private final BookService bookService;
     
-    // (하은) 카트에서 결제하기 버튼 눌렀을 때 사용
+    // (하은수정) 카트에서 결제하기 버튼 눌렀을 때 사용 - order 페이지에서 필요한 데이터 - user 정보, book 정보
     @PostMapping("/order")
-    public String order(Integer[] cartId, Model model) { 
-          Long orderNo = orderService.create(cartId);
-          
-          log.info("하은 cartId = {}", cartId[0]);
-          
-          List<OrderFromCartDto> order = new ArrayList<>();
-          
-          Cart cartFindUser = cartService.read(cartId[0]);
-          User user = userService.read(cartFindUser.getUser().getId());
+    public String order(@AuthenticationPrincipal UserSecurityDto userSecurityDto, Integer[] cartId, Model model) { 
+          Long orderNo = orderService.create(cartId); // 주문번호 생성
+          User user = userService.read(userSecurityDto.getId()); // User 정보 찾기
+          List<BookOrderDto> order = new ArrayList<>(); // order 페이지에 필요한 책 데이터 리스트
           Integer total = 0;
-                    
           for (Integer i : cartId) {
-              Cart cart =  cartService.read(i);
-              User userForId = userService.read(cart.getUser().getId());
-              Book book = bookService.read(cart.getBook().getBookId());
+              Book book = cartService.read(i).getBook();
               
-              OrderFromCartDto dto = OrderFromCartDto.builder().userId(userForId.getId()).id(book.getBookId()).cartId(cart.getCartId())
-                      .prices(book.getPrices()).count(cart.getCartBookCount()).bookName(book.getBookName()).publisher(book.getPublisher())
-                      .bookImage(book.getBookImage()).author(book.getAuthor()).category(book.getCategory()).bookgroup(book.getBookgroup())
+              BookOrderDto bookData = BookOrderDto.builder()
+                      .bookId(book.getBookId()).prices(book.getPrices())
+                      .cartId(i)
+                      .count(cartService.read(i).getCartBookCount())
+                      .bookName(book.getBookName()).publisher(book.getPublisher())
+                      .bookImage(book.getBookImage()).author(book.getAuthor())
+                      .category(book.getCategory()).bookgroup(book.getBookgroup())
                       .build();
               
-              order.add(dto);
+              order.add(bookData);
               
-              // total(총 상품금액)
-              total += book.getPrices() * cart.getCartBookCount();
-              
+              total += book.getPrices() * cartService.read(i).getCartBookCount();
           }
           
-          model.addAttribute("order", order);
           model.addAttribute("user", user);
+          model.addAttribute("order", order);
           model.addAttribute("orderNo", orderNo);
           model.addAttribute("total", total);
           
-           return "book/order";
+          return "book/order";
       }
     
-    
-    // (하은) 디테일창에서 바로 구매하기 버튼 눌러서 한 권만 구매할 때 사용
-    @PostMapping("/orderFromDetail")
-    public String orderNow(@AuthenticationPrincipal UserSecurityDto userSecurityDto, OrderFromDetailDto dto, Model model) {
+    // (하은수정) 디테일창에서 바로 구매하기 버튼 눌러서 한 권만 구매할 때 사용
+    @PostMapping("/orderOne")
+    public String orderNow(@AuthenticationPrincipal UserSecurityDto userSecurityDto, BuyInfoDto dto, Model model) {
+        User user = userService.read(userSecurityDto.getId());
         
-         Integer userId =  userSecurityDto.getId();
-         Long orderNo = orderService.createFromDetail(userId, dto);
-         List<OrderFromCartDto> order = orderService.readByOrderNo(orderNo);
-                 
-         User user = userService.read(order.get(0).getUserId());
-         // log.info("하은 포인트 = {}", dto.getPoint());
-         // userService.update(dto.getPoint(), user.getId());
-         
-         Integer total = order.get(0).getCount() * order.get(0).getPrices();
-         
-         model.addAttribute("order", order);
-         model.addAttribute("user", user);
-         model.addAttribute("orderNo", orderNo);
-         model.addAttribute("total", total);
+        // order 페이지에 필요한 책 데이터 리스트
+        Book book = bookService.read(dto.getBookId());
+        
+        // 책 수량을 선택하지 않고 & 바로 구매할 경우, 책 수량 1로 고정
+        if (dto.getCount() == null) {
+            dto.setCount(1);
+        }
+        
+        BookOrderDto order = BookOrderDto.fromEntity(book, dto);
+        
+        Integer total = dto.getCount() * book.getPrices();
+        Long orderNo = orderService.createFromDetail(user.getId(), dto); // 주문번호 생성
 
-         return "book/order";
+        model.addAttribute("order", order);
+        model.addAttribute("user", user);
+        model.addAttribute("orderNo", orderNo);
+        model.addAttribute("total", total);
+        
+        return "book/order";
     }
     
 }

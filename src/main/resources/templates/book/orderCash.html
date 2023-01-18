@@ -75,24 +75,24 @@
             <td>수량</td>
             <td>진행상태</td>
         </tr>
-        <tr class="align-middle" style="text-align: center" th:each="orderFromCartDto : ${ orderInfo }">
+        <tr class="align-middle" style="text-align: center" th:each="buyInfoDto : ${ orderInfo }">
             <td class="py-3">
-                <a th:href="@{ /detail(id=${ orderFromCartDto.id }) }">
-                    <img th:src="${ orderFromCartDto.bookImage }" th:alt="${ orderFromCartDto.bookName }" style="width:150px;">
+                <a th:href="@{ /detail(id=${ buyInfoDto.bookId }) }">
+                    <img th:src="${ buyInfoDto.bookImage }" th:alt="${ buyInfoDto.bookName }" style="width:150px;">
                 </a>
             </td>
             <td class="py-3" style="text-align: left">
                 <div>
                     <small class="d-inline-flex px-2 my-1 border rounded text-secondary">
-                    <span th:text="${ orderFromCartDto.bookgroup }"></span><span> / </span><span th:text="${ orderFromCartDto.category }"></span>
+                    <span th:text="${ buyInfoDto.bookgroup }"></span><span> / </span><span th:text="${ buyInfoDto.category }"></span>
                     </small>
                 </div>
-                <span class="h5" th:text="${ orderFromCartDto.bookName }"></span><br/>
-                <span th:text="${ orderFromCartDto.author }"></span><br/>
-                <span th:text="|${#numbers.formatInteger(orderFromCartDto.prices, 0, 'COMMA')}원|"></span>
+                <span class="h5" th:text="${ buyInfoDto.bookName }"></span><br/>
+                <span th:text="${ buyInfoDto.author }"></span><br/>
+                <span th:text="|${#numbers.formatInteger(buyInfoDto.prices, 0, 'COMMA')}원|"></span>
             </td>
             <td class="h5 py-3" style="font-weight: bold;">
-                <span th:text="${ orderFromCartDto.count }"></span>
+                <span th:text="${ buyInfoDto.count }"></span>
             </td>
             <td class="h5 py-3" style="font-weight: bold;">입금대기</td>
         </tr>

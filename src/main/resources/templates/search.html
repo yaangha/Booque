@@ -156,8 +156,6 @@
     
     
     // 장바구니 버튼 
-
-    
     const btnCarts = document.querySelectorAll('#btnCart')
     
     btnCarts.forEach(btn => {
@@ -167,7 +165,7 @@
             const result = confirm('장바구니로 이동하시겠습니까?')
             
             if(result){
-                form.action = '/search/cart';
+                form.action = '/cart'; // (하은수정) /search/cart -> /cart
                 form.method = 'post';
                 form.submit();
             }
@@ -183,7 +181,7 @@
             
             
             if(result){
-                form.action = '/search/order';
+                form.action = '/orderOne'; // (하은수정)
                 form.method = 'post';
                 form.submit();
             }

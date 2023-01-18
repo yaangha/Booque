@@ -1,24 +1,18 @@
 package site.book.project.web;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.book.project.domain.User;
 import site.book.project.dto.BookWishDto;
-import site.book.project.dto.CartAddDto;
+import site.book.project.dto.BuyInfoDto;
 import site.book.project.dto.CartDto;
 import site.book.project.dto.UserSecurityDto;
 import site.book.project.service.BookWishService;
@@ -49,8 +43,6 @@ public class CartController {
         
         Integer total = cartService.total(cartList);
         
-        // 생성된 CartDTO를 받고
-        
         // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기        
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(id);
         
@@ -63,24 +55,29 @@ public class CartController {
         
     }
     
-    // (하은_2) 장바구니로 넘어오는 코드 합치기
-    // 필요 데이터 - userId, bookId
+    // (하은수정) 장바구니로 넘어오는 코드 합치기
     @PostMapping("/cart")
-    public String cart(@AuthenticationPrincipal UserSecurityDto userSecurityDto, CartAddDto dto, Model model) {
+    public String cart(@AuthenticationPrincipal UserSecurityDto userSecurityDto, BuyInfoDto dto, Model model) {
         
         Integer userId = userSecurityDto.getId(); // userId로 cart, wish 정보 찾기
         User user = userService.read(userId);
-        List<CartDto> cartList = cartService.cartDtoList(userId);
+        List<CartDto> cartList = cartService.cartDtoList(userId); // 장바구니에 표시할 책 정보
         Integer total = cartService.total(cartList);
         
-        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, dto.getId(), dto.getCount());
+        // 책 수량을 선택하지 않고 장바구니에 추가할 경우, 책 수량 1로 고정
+        if (dto.getCount() == null) {
+            dto.setCount(1);
+        }
+        
+        // 장바구니 데이터 cart table에 생성
+        if (cartService.checkUser(userId, dto.getBookId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, dto.getBookId(), dto.getCount());
         } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
+            Integer afterCount = cartService.updateCount(userId, dto.getBookId(), dto.getCount());
             log.info("변경 수량={}", afterCount);
         }
         
-        // (하은) userId로 조건에 맞는 행 찾기 -> bookId로 book 정보 찾기        
+        // userId로 user 위시리스트 불러오기(책 리스트 + 책 정보)   
         List<BookWishDto> wishBookInfo = bookWishService.searchWishList(userId);
         
         model.addAttribute("wishBookInfo", wishBookInfo);
@@ -91,65 +88,19 @@ public class CartController {
         return "book/cart";
     }
     
-    
-    // (하은) detail 페이지에서 cart로 넘어갈 때 사용
-    @PostMapping("/cart/add")
-    public String addCart(CartAddDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
-        
-        Integer userId = userSecurityDto.getId();
-        
-        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, dto.getId(), dto.getCount());
-        } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
-            log.info("변경 수량={}", afterCount);
-        }
-        
-        return "redirect:/cart?id=" + userId;
-    }
-
     // (하은) 장바구니에 넣고 쇼핑 계속하기 버튼 눌렀을 때 사용
     @PostMapping("/cart/onlyAdd")
-    public String onlyAddCart(CartAddDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
+    public String onlyAddCart(BuyInfoDto dto, @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
         Integer userId = userSecurityDto.getId();
         
-        if (cartService.checkUser(userId, dto.getId()) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, dto.getId(), dto.getCount());
+        if (cartService.checkUser(userId, dto.getBookId()) == 1) { // 사용자 없으면 create
+            cartService.addCart(userId, dto.getBookId(), dto.getCount());
         } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, dto.getId(), dto.getCount());
-            log.info("변경 수량={}", afterCount);
-        } 
-
-        
-        return "redirect:/detail?id=" + dto.getId();
-    }    
-    
-    @PostMapping("/cart/postOnlyAdd")
-    public String onlyAddCart(Integer bookId, Integer postId , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
-        Integer userId = userSecurityDto.getId();
-        
-        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, bookId,1);
-        } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, bookId,1);
-            log.info("변경 수량={}", afterCount); 
-        }
-        
-        return "redirect:/post/detail?postId=" + postId +"&bookId"+bookId;
-    }    
-    
-    @PostMapping("/cart/postAdd")
-    public String addCart(Integer bookId, Integer postId , @AuthenticationPrincipal UserSecurityDto userSecurityDto) {
-        
-        Integer userId = userSecurityDto.getId();
-        
-        if (cartService.checkUser(userId, bookId) == 1) { // 사용자 없으면 create
-            cartService.addCart(userId, bookId,1);
-        } else { // 사용자 있으면 update
-            Integer afterCount = cartService.updateCount(userId, bookId,1);
+            Integer afterCount = cartService.updateCount(userId, dto.getBookId(), dto.getCount());
             log.info("변경 수량={}", afterCount);
         }
         
-        return "redirect:/cart?id=" + userId;
-    }
+        return "redirect:/detail?id=" + dto.getBookId();
+    }    
+        
 }

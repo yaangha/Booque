@@ -103,7 +103,7 @@
                 <div class="row my-2" th:each="order : ${ order }"><!-- 책 정보 row -->
                     <div class="col-4 "><!-- 책 이미지 col start -->
                     <input type="hidden" form="orderFinalInfo" name="cartId" th:value="${ order.cartId }" />
-                    <a th:href="@{ /detail(id=${ order.id }) }">
+                    <a th:href="@{ /detail(id=${ order.bookId }) }">
                         <img th:src="${ order.bookImage }" alt="${ order.bookName }" style="width:170px;" />
                     </a>
                     </div><!-- 책 이미지 col end -->

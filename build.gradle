@@ -29,7 +29,7 @@ dependencies {
     // Spirng Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // Thymeleaf의 Spring Security 확장 기능
-    // implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
