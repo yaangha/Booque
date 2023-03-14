@@ -62,7 +62,7 @@ public List<Book> readAuthor(String author) {
 }
 ```
 
-3. 장바구니 이동 유무
+2. 장바구니 이동 유무
 
 CartController.java 
 
@@ -124,7 +124,7 @@ public Integer updateCount(Integer userId, Integer bookId, Integer count) {
 }
 ```
 
-5. 결제 
+3. 결제 
 
 OrderController.java 일부
 
