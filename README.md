@@ -206,5 +206,23 @@ public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
 
 ## 구성 화면
 ### 메인 페이지
-### 판매글 상세 페이지
+![main](https://user-images.githubusercontent.com/113163657/224996318-6cbbf93f-1d61-44fe-aeb1-1644c154f723.png)
+
+---
+### 책 상세 페이지
+![detail](https://user-images.githubusercontent.com/113163657/224996541-5b9efeac-5a5c-4681-9aff-77a577c45390.png)
+
+![other](https://user-images.githubusercontent.com/113163657/224996624-4ea7557f-f5ec-43ab-a43a-a677b22e3a95.png)
+
+---
+### 장바구니
+![cart](https://user-images.githubusercontent.com/113163657/224996686-c8289a7c-293e-432d-b18a-8aef0c64c0c5.png)
+
+---
 ### 마이페이지
+![order](https://user-images.githubusercontent.com/113163657/224996744-81f9dfd9-d1b9-4627-ad07-62367dffcecb.png)
+
+![orderResult](https://user-images.githubusercontent.com/113163657/224996751-bda5be49-8386-435e-a5ff-7a65c2ad50ea.png)
+
+![orderResult2](https://user-images.githubusercontent.com/113163657/224996755-50855bf6-5d44-4c3f-8351-8a2e44e3d71b.png)
+
