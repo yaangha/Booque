@@ -234,7 +234,7 @@ public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
 
 ![order](https://user-images.githubusercontent.com/113163657/224996744-81f9dfd9-d1b9-4627-ad07-62367dffcecb.png)
 
-+ 주문 완료시 주문번호와 상품 및 배송지 정보를 확인할 수 
++ 주문 완료시 주문번호와 상품 및 배송지 정보를 확인할 수 있음  
 ![orderResult](https://user-images.githubusercontent.com/113163657/224996751-bda5be49-8386-435e-a5ff-7a65c2ad50ea.png)
 
 ![orderResult2](https://user-images.githubusercontent.com/113163657/224996755-50855bf6-5d44-4c3f-8351-8a2e44e3d71b.png)
