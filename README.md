@@ -215,11 +215,11 @@ public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
 ![other](https://user-images.githubusercontent.com/113163657/224996624-4ea7557f-f5ec-43ab-a43a-a677b22e3a95.png)
 
 ---
-### 장바구니
+### 장바구니 
 ![cart](https://user-images.githubusercontent.com/113163657/224996686-c8289a7c-293e-432d-b18a-8aef0c64c0c5.png)
 
 ---
-### 마이페이지
+### 결제 페이지
 ![order](https://user-images.githubusercontent.com/113163657/224996744-81f9dfd9-d1b9-4627-ad07-62367dffcecb.png)
 
 ![orderResult](https://user-images.githubusercontent.com/113163657/224996751-bda5be49-8386-435e-a5ff-7a65c2ad50ea.png)
