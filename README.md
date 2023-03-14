@@ -182,6 +182,27 @@ public String orderNow(@AuthenticationPrincipal UserSecurityDto userSecurityDto,
 }
 ```
 
+OrderService.java 일부
+
+```java
+// 디테일 페이지에서 바로 구매하는 페이지로 넘어할 때 사용
+public Long createFromDetail(Integer userId, OrderFromDetailDto dto) {
+    Integer total = dto.getCount() * dto.getPrice(); // 수량 X 가격
+    String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYYMMddHHmmSS")); // ex) 20221209
+    Long orderNo = Long.parseLong(date + userId);
+
+    User user = userRepository.findById(userId).get();
+    Book book = bookRepository.findById(dto.getId()).get();
+
+    Order order = Order.builder().orderNo(orderNo).user(user).book(book)
+            .orderDate(LocalDateTime.now()).orderBookCount(dto.getCount()).total(total).build();
+
+    Order orderResult = orderRepository.save(order);
+
+    return orderResult.getOrderNo();
+}
+```
+
 
 ## 구성 화면
 ### 메인 페이지
