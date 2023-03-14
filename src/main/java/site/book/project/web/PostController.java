@@ -47,7 +47,7 @@ public class PostController {
     public String list(@AuthenticationPrincipal UserSecurityDto userSecurityDto, String postWriter, Model model) {
         log.info("list()");
 //        bookService.readPostCountByAllBookId();
-      
+
         User user = null; 
         List<PostListDto> postList = new ArrayList<>();
         
